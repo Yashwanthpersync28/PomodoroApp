@@ -1,117 +1,90 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, { useState, useEffect } from "react";
+import { AppContainer } from "./js/AppContainer";
+import { Provider } from 'react-redux';
+import store, { persistor } from './js/redux/store';
+import { Modal, Text, View } from "react-native"
+import { PersistGate } from 'redux-persist/integration/react';
+// import codePush from "react-native-code-push";
+import { flex, styles } from "./js/styles/Styles";
+import { TextComponent } from "./js/components";
+import Splash from "./js/screens/auth/splash/Splash";
+// let codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL };
+const App = () => {
+    // const [progress, setProgress] = useState("")
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+    // useEffect(() => {
+    //     codePush.sync({
+    //         updateDialog: true,
+    //         installMode: codePush.InstallMode.IMMEDIATE
+    //         },
+    //         codePushStatusDidChange,
+    //         codePushDownloadDidProgress
+    //     );
+    // },[])
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+    // //code push
+    // const codePushStatusDidChange = (syncStatus) => {
+    //     switch (syncStatus) {
+    //     case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+    //         console.log("Checking for update.")
+    //         break;
+    //     case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+    //         console.log("Download packaging....")
+    //         break;
+    //     case codePush.SyncStatus.AWAITING_USER_ACTION:
+    //         console.log("Awaiting user action....")
+    //         break;
+    //     case codePush.SyncStatus.INSTALLING_UPDATE:
+    //         console.log("Installing update")
+    //         setProgress(false)
+    //         break;
+    //     case codePush.SyncStatus.UP_TO_DATE:
+    //         console.log("codepush status up to date")
+    //         break;
+    //     case codePush.SyncStatus.UPDATE_IGNORED:
+    //         console.log("update cancel by user")
+    //         setProgress(false)
+    //         break;
+    //     case codePush.SyncStatus.UPDATE_INSTALLED:
+    //         console.log("Update installed and will be applied on restart.")
+    //         setProgress(false)
+    //         break;
+    //     case codePush.SyncStatus.UNKNOWN_ERROR:
+    //         console.log("An unknown error occurred")
+    //         setProgress(false)
+    //         break;
+    //     }
+    // }
+    
+    // codePushDownloadDidProgress = (progress) => {
+    //     console.log("ghjk", progress)
+    //     setProgress(progress)
+    // }
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+    // const showProgressView = () => {
+    //     return (
+    //       <Modal visible={true} transparent  >
+    //         <View style={[flex(1),styles.allCenter, styles.bgdarkOverlayColor]}>
+    //           <View style={{ borderRadius: 8,padding: 16 }}>
+    //             <View style={[styles.row]}>
+    //             <TextComponent title={"Downloading.......   "} style={[styles.black,]} size={20}/>
+    //               <TextComponent title={((Number(progress?.receivedBytes) / Number(progress?.totalBytes)) * 100).toFixed(0)+`%`} style={[styles.black]} size={20}/>
+    //             </View>
+    //           </View>
+    //         </View>
+    //       </Modal>
+    //     )
+    //   }
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+    return(
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <AppContainer/>
+                {/* <Splash/> */}
+                {/* {progress ? showProgressView() : null} */}
+            </PersistGate>
+        </Provider>
+    )
+}
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default  App

@@ -1,0 +1,1 @@
+export { searchFilter } from "./searchHelper";

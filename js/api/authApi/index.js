@@ -1,0 +1,1 @@
+export { userVerifyApi, otpVerifyApi } from "./loginApi";
