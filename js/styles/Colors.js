@@ -11,4 +11,6 @@ export const Colors =  {
     lightWhite:'#efefef',
     lightGray:'#cecece',
     lightBlue:'#7399bd',
+    smokewhite:"#ffffff",
+    smokeOrange:"#fff2f0",
 }

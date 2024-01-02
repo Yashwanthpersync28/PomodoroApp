@@ -50,6 +50,11 @@ export function fontSize(size) {
         return StyleSheet.create({ fontSize: Math.round(PixelRatio.roundToNearestPixel(newSize)) -2 })
     }
 }
+export const fontWeight=(value)=>{
+    return StyleSheet.create({
+        fontWeight:value,
+    })
+  }
 
 // - - - - - CUSTOM SPACING AND BORDER - - - - - - //
 
@@ -130,7 +135,7 @@ export const styles = StyleSheet.create({
     green: { color: Colors.green },
     blue: { color: Colors.blue },
     lightBlue: { color: Colors.lightBlue },
-
+    Orange:{color:Colors.Orange},
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
     bgBlack: { backgroundColor: Colors.black },
@@ -143,7 +148,8 @@ export const styles = StyleSheet.create({
     bglightPink:{ backgroundColor: Colors.lightPink },
     bglightGray:{ backgroundColor: Colors.lightGray },
     bglightBlue:{ backgroundColor: Colors.lightBlue },
-    
+    bgsmokewhite:{backgroundColor:Colors.smokewhite},
+    bgsmokeOrange:{backgroundColor:Colors.smokeOrange},
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderBlack: { borderColor: Colors.black },
