@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import { AppContainer } from "./js/AppContainer";
 import { Provider } from 'react-redux';
 import store, { persistor } from './js/redux/store';
-import { Modal, Text, View } from "react-native"
+import { LogBox, Modal, Text, View } from "react-native"
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 import { PersistGate } from 'redux-persist/integration/react';
 // import codePush from "react-native-code-push";
 import { flex, styles } from "./js/styles/Styles";
 import { TextComponent } from "./js/components";
 import Splash from "./js/screens/auth/splash/Splash";
+import PomodoroScreen from "./js/screens/dashboard/PomodoroScreen";
+import BottomTabNavigation from "./js/navigation/BottomTabNavigation";
+import TimerComponent from "./js/screens/dashboard/Components/TimerComponent";
 // let codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL };
 const App = () => {
     // const [progress, setProgress] = useState("")
@@ -80,8 +85,8 @@ const App = () => {
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <AppContainer/>
-                {/* <Splash/> */}
-                {/* {progress ? showProgressView() : null} */}
+                {/* <BottomTabNavigation /> */}
+                
             </PersistGate>
         </Provider>
     )

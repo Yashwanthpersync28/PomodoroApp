@@ -3,13 +3,14 @@ import LottieView from 'lottie-react-native'
 import React from 'react'
 import { Image, SafeAreaView, Text, View } from 'react-native'
 import { flex, styles } from '../../../styles/Styles'
+import { timer } from '../../../constants/imageConstant'
 
 const Splash = () => {
   return (
     <SafeAreaView>
     <View style={[{height:'100%',justifyContent:'center',alignItems:'center'},styles.bgOrange]}>
       <View style={[flex(1.2),{justifyContent:'flex-end',alignItems:'flex-end'}]}>
-      <Image source={require('../../../assets/Images/Screen.png')} style={{height:150,width:150}}/>
+      <Image source={timer} style={{height:150,width:150}}/>
       </View>
       <Text style={{color:"#ffffff",fontSize:30,fontWeight:'600'}}>Focusify</Text>
       <View style={[flex(1),styles,styles.allCenter]}>
@@ -22,3 +23,8 @@ const Splash = () => {
 }
 
 export default Splash
+
+
+
+
+

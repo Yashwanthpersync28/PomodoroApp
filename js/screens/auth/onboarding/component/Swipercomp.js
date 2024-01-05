@@ -29,7 +29,7 @@ const Swipercomp = () => {
     swiper.current.scrollBy(1);
   };
   const handleit=()=>{
-      navigation.navigate('signup')
+      navigation.navigate('BottomTabNavigation')
   }
   
   return (
@@ -94,7 +94,7 @@ const Swipercomp = () => {
                  <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white} width={3}/>
           
            </>:
-           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} width={1.1}/>
+           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange}style={[styles.white,{width:widthValue(1.1)}]}/>
         }
     </View>
       

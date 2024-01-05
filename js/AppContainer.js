@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Platform } from "react-native"
 import { useSelector } from "react-redux";
-import { AppNavigationContainer } from "./navigation";
+
 import { bgColor, flex, heightValue } from "./styles/Styles";
+import { AppNavigationContainer } from "./navigation/StackNavigation";
 
 export const AppContainer = ({navigation}) => {
     const { darkMode } = useSelector(state => state.system)

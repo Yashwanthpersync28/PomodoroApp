@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { HeadingComponent } from "../../../components/view/HeadingComponent";
 import Feather from 'react-native-vector-icons/Feather'
 import { useNavigation } from "@react-navigation/native";
+import Icon, { Icons } from "../../../components/Icons";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const LoginScreen = ({navigation}) => {
@@ -117,7 +118,8 @@ export const LoginScreen = ({navigation}) => {
   <View style={[styles.row, marginPosition(0), styles.spaceBetweenVertical, flex(0.5)]}>
     <View style={[styles.row, flex(4), styles.centerHorizontal]}>
       <TouchableOpacity onPress={() => setRemember(!remember)}>
-        <Feather name={remember ? 'check-square' : 'square'} style={[fontSize(25), styles.Orange]} />
+      <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
+        {/* <Feather name={} style={[fontSize(25), styles.Orange]} /> */}
       </TouchableOpacity>
       <Text style={[styles.black, marginPosition(0, 0, 0, 10), fontSize(16)]}>Remember Me</Text>
     </View>
