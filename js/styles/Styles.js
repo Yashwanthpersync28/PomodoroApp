@@ -4,7 +4,7 @@ import { Colors } from './Colors';
 
 // - - - - - CUSTOMISED BUTTON - - - - - - //
 export const buttonColor = (darkMode) => {
-    return [darkMode ? styles.bgGreen : styles.bgBlue]
+    return [darkMode ? styles.bgOrange  : styles.bgdarkOrange]
 }
 
 export const bgColor = (darkMode) => {
@@ -136,6 +136,7 @@ export const styles = StyleSheet.create({
     blue: { color: Colors.blue },
     lightBlue: { color: Colors.lightBlue },
     Orange:{color:Colors.Orange},
+    dark:{color:Colors.dark},
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
     bgBlack: { backgroundColor: Colors.black },
@@ -150,6 +151,9 @@ export const styles = StyleSheet.create({
     bglightBlue:{ backgroundColor: Colors.lightBlue },
     bgsmokewhite:{backgroundColor:Colors.smokewhite},
     bgsmokeOrange:{backgroundColor:Colors.smokeOrange},
+    bgdark:{backgroundColor:Colors.dark},
+    bglgWhite:{backgroundColor:Colors.lgWhite},
+    bgdarkOrange:{backgroundColor:Colors.darkOrange},
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderBlack: { borderColor: Colors.black },

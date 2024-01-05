@@ -1,15 +1,13 @@
 import React from 'react'
 import {View,Text} from 'react-native'
-import { fontFamily, fontSize, fontWeight, lineHeight, padding, styles } from '../../../../styles/Styles'
+import { flex, fontSize , lineHeight, marginPosition, padding, styles } from '../../../../styles/Styles'
 
-const Onboardingcomp = () => {
+
+const Onboardingcomp = ({header,details}) => {
   return (
-    <View style={[styles.allCenter,padding(20)]}>
-        <Text style={[fontSize(35),styles.black,{fontWeight: 'bold'},lineHeight(40)]}>Your Ultimate Pomodoro Productivity Assitant</Text>
-       
-       <Text style={[fontSize(25),styles.black,lineHeight(20)]}>Focusify helps you stay on track, manage tasks, and work efficiently. Let's get started with Focusify right now</Text>
-
-      
+    <View style={[padding(20),flex(1),marginPosition(0)]}>
+        <Text style={[fontSize(27),styles.dark,{fontWeight: 'bold'},lineHeight(40),styles.textCenter]}>{header}</Text>
+        <Text style={[fontSize(20),lineHeight(20),styles.textCenter,{color:"#a0a0a0"}]}>{details}</Text>
     </View>
   )
 }

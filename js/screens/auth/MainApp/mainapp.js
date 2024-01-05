@@ -6,7 +6,7 @@ import Swipercomp from '../onboarding/component/Swipercomp';
 
 
 
-export const mainapp = () => {
+export const mainapp = ({navigation}) => {
     const [showSplash,setSplash]=useState(true)
     useEffect(() => {
         setTimeout(() => {

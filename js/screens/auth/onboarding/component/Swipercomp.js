@@ -1,24 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useRef ,useState} from 'react';
 import Swiper from 'react-native-swiper';
 import { View, Text , TouchableOpacity} from 'react-native';
-import { heightValue, marginPosition, styles , screenHeight,flex,fontSize, widthValue, radius, borderColor, borderWidth} from '../../../../styles/Styles';
+import { heightValue, marginPosition, styles , screenHeight,flex,fontSize, widthValue, radius, borderColor, borderWidth, padding} from '../../../../styles/Styles';
 import Onboardingcomp from './Onboardingcomp';
+import { Onboaringdata } from '../../../../constants/Onboardingdata';
+import CustomizedButtons from './CustomizedButtons';
+import { useNavigation } from '@react-navigation/native';
 
 const Swipercomp = () => {
   const swiper = useRef();
-
-  // const handleSwipeIndexChange = (index) => {
-  //   // Your logic here
-  // };
-
+  const navigation=useNavigation()
+  const [index, setIndex] = useState(0);
+  const [getStarted,setgetStarted]=useState(true);
+  
+  
+  
+  let handleSwipeIndexChange=(w)=>{
+    setIndex(w)
+    if(w===2){
+      setgetStarted(false);
+    }
+    else{
+      setgetStarted(true)
+    }
+  }
+  
+  let handlenext = () => {
+    swiper.current.scrollBy(1);
+  };
+  const handleit=()=>{
+      navigation.navigate('signup')
+  }
+  
   return (
-    <View style={[{height:heightValue(2.2)}]}>
-    <View style={[styles.bgsomkewhite,{height:heightValue(2.8)},borderColor('#f7f7f7'),borderWidth(0,0,0,2)]}>
+    <View style={[flex(1)]}>
+    <View style={[styles.bgsmokewhite,flex(1),borderColor('#f7f7f7'),borderWidth(0,0,0,2)]}>
       <Swiper
         ref={swiper}
         loop={false}
         autoplay={false}
-        // onIndexChanged={handleSwipeIndexChange}
+        onIndexChanged={handleSwipeIndexChange}
         buttonWrapperStyle={{
           flex: 1,
           justifyContent: 'center',
@@ -26,7 +47,6 @@ const Swipercomp = () => {
           flexDirection: 'column',
           justifyContent: 'space-around',
           marginRight: '10%',
-          marginTop: '0%',
           marginLeft: '16%',
           marginRight: '-71%',
         }}
@@ -41,6 +61,7 @@ const Swipercomp = () => {
               margin: 3,
               backgroundColor: '#eeeeef',
               bottom: 0,
+              top:20,
               position: 'relative',
             }}
           ></View>
@@ -54,29 +75,29 @@ const Swipercomp = () => {
               margin: 5,
               backgroundColor: '#ff6347',
               bottom: 0,
+              top:20,
+
             }}
           ></View>
         }
       >
-        <Onboardingcomp/>
-        <Onboardingcomp/>
-        <Onboardingcomp/>
+        <Onboardingcomp header={Onboaringdata[0].header} details={Onboaringdata[0].details}/>
+        <Onboardingcomp header={Onboaringdata[1].header} details={Onboaringdata[1].details}/>
+        <Onboardingcomp header={Onboaringdata[2].header} details={Onboaringdata[2].details}/>
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,marginPosition('3%')]}>
-    <TouchableOpacity style={[marginPosition('0%',0,0,'0%')]}>
-      <View style={[radius(30),{height:heightValue(15),width:widthValue(3)},styles.bgsmokeOrange,styles.allCenter]}>
-        <Text style={[styles.Orange,fontSize(20),{fontfamily:500},]}>Skip</Text>
-      </View>
-    </TouchableOpacity>
-    <TouchableOpacity style={[marginPosition('0%',0,0,'15%')]} >
-    <View style={[radius(30),{height:heightValue(15),width:widthValue(3)},styles.bgOrange,styles.allCenter]}>
-        <Text style={[styles.white,fontSize(20),{fontfamily:500},]}>Continue</Text>
-      </View>
-    </TouchableOpacity>
+      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgsmokewhite,{height:heightValue(8)}]}>
+       {getStarted? <> 
+           
+                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} width={3}/>
+                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white} width={3}/>
+          
+           </>:
+           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} width={1.1}/>
+        }
     </View>
-   
+      
     </View>
   )
 };
