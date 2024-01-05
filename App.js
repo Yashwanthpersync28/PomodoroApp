@@ -8,6 +8,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { flex, styles } from "./js/styles/Styles";
 import { TextComponent } from "./js/components";
 import Splash from "./js/screens/auth/splash/Splash";
+import PomodoroScreen from "./js/screens/dashboard/PomodoroScreen";
+import BottomTabNavigation from "./js/navigation/BottomTabNavigation";
+import TimerComponent from "./js/screens/dashboard/Components/TimerComponent";
 // let codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL };
 const App = () => {
     // const [progress, setProgress] = useState("")
@@ -79,9 +82,9 @@ const App = () => {
     return(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <AppContainer/>
-                {/* <Splash/> */}
-                {/* {progress ? showProgressView() : null} */}
+                
+                <BottomTabNavigation />
+                
             </PersistGate>
         </Provider>
     )

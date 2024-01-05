@@ -129,7 +129,10 @@ export const styles = StyleSheet.create({
     black: { color: Colors.black },
     green: { color: Colors.green },
     blue: { color: Colors.blue },
+    Orange: { color: Colors.Orange },
+
     lightBlue: { color: Colors.lightBlue },
+    lightGray: { color: Colors.lightGray },
 
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
@@ -150,6 +153,7 @@ export const styles = StyleSheet.create({
     borderGreen: { borderColor: Colors.green },
     borderBlue: { borderColor: Colors.blue },
     borderLightBlue: { borderColor: Colors.lightBlue },
+    borderLightWhite: { borderColor: Colors.lightWhite },
 
 // - - - - - FLEX PROPERTIES - - - - - // 
     // - - -  Flex Align - - -  // 
@@ -176,6 +180,7 @@ export const styles = StyleSheet.create({
 // - - - - - OTHER CSS - - - - - // 
     overflowHide: { overflow: "hidden" },
     positionAbsolute: {position: 'absolute'},
+    positionRelative: {position: 'relative'},
     // - - - FlatList - - - //
     flatlistContainer: [
         {flexDirection: 'row'},

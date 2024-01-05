@@ -15,8 +15,10 @@ export const StackNavigation = ()=> {
 
     return (
         <Stack.Navigator
+        // initialRouteName='splash'
             screenOptions={{
                 headerShown: false
+
             }}
         >
             {at == "" ?
@@ -28,6 +30,9 @@ export const StackNavigation = ()=> {
                 <Stack.Group>
                     <Stack.Screen name="Dashboard" component={DashboardScreen} />
                 </Stack.Group>
+                // <Stack.Group>
+                //     <Stack.Screen name="HomePage" component={Homepage} />
+                // </Stack.Group>
             }
         </Stack.Navigator>
     );
