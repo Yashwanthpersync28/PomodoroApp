@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View , Text , TouchableOpacity} from "react-native";
+import { View , Text , TouchableOpacity , ScrollView} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { performLoginActions } from "../../../actions/authActions";
 import { webSocketConnection } from "../../../actions/webSocket";
@@ -14,9 +14,12 @@ import { HeadingComponent } from "../../../components/view/HeadingComponent";
 import Feather from 'react-native-vector-icons/Feather'
 import { useNavigation } from "@react-navigation/native";
 import Icon, { Icons } from "../../../components/Icons";
+import LoaderModalComponent from "../../../components/modals/LoaderModalComponent";
+// import { ScrollView } from "react-native-gesture-handler";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const LoginScreen = ({navigation}) => {
+  const [modalVisible,setmodalVisible]=useState(false);
     const [Email,setEmail]=useState('');
   const [Password,setPassword]=useState('');
   const [secureTextEntry,setsecureTextEntry]=useState(true);
@@ -74,28 +77,26 @@ export const LoginScreen = ({navigation}) => {
     const handleforgotPassword=()=>{
       navigation.navigate('forgot')
     }
-    return(
-        // <ScreenViewComponent style={[padding(20)]}>
-        //     <View style={[flex(1), styles.allCenter]}>
-        //         <TextComponent title={"PST Chat"} size={40} textCenter color={Colors.blue} style={[marginPosition(0,0,20)]}/>
-        //         <TextComponent title={"Login to send and recieve messages"} size={16} textCenter />
-        //     </View>
-        //     <View style={[flex(1)]}>                
-        //         <TextInputCompnent value={mobileNum?.toString()} emptyString={"emptyString"} title={"user name"} onChangeText={setMobileNumber} editable={!mobileVerified} placeholder={"Mobile Number"} keyboardType={"numeric"} enableClear={mobileVerified ? true : false} clearPressed={()=> clear() }/>
-        //         {mobileVerified && <TextInputCompnent value={securityCode?.toString()} emptyString={"emptyString"} title={"Password"} onChangeText={setSecurityCode} editable={true} placeholder={"OTP"} keyboardType={"numeric"} style={[marginPosition(20)]}/>}
-        //     </View>
-        //     <View style={[flex(0.5)]}>   
-        //         <ButtonComponent loading={false} onPress={() => submit()}  title={mobileVerified ? "SIGN IN" : "SEND OTP"} />
-        //     </View>
-        // </ScreenViewComponent>
+    const handletoBottomTabNavigation=()=>{
+      setmodalVisible(true)
+      // navigation.navigate('BottomTabNavigation')
+    }
+    const handleLogin=()=>{
+      navigation.navigate('BottomTabNavigation')
+    }
+    return(   
 <SafeAreaView style={[flex(1), padding(20),styles.bgsmokewhite]}>
+  
+
+  
   <View style={[flex(0.6)]}>
-    <BackButtonComponent />
+    <BackButtonComponent onPress={()=>navigation.navigate('signup')}/>
   </View>
+  {/* <ScrollView> */}
   <View style={[flex(1.3)]}>
-    <HeadingComponent name={'Welcome Back 👤'} details={'Let\'s Get Back to Productivity'} />
+    <HeadingComponent name={'Welcome Back 👋'} details={'Let\'s Get Back to Productivity'} />
   </View>
-  <View style={[flex(3.3)]}>
+  <View style={[flex(3.2)]}>
     <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Email</Text>
     <TextInputCompnent
       placeholder={'Email'}
@@ -115,24 +116,30 @@ export const LoginScreen = ({navigation}) => {
       ShowPasswordIcon={true}
     />
   </View>
-  <View style={[styles.row, marginPosition(0), styles.spaceBetweenVertical, flex(0.5)]}>
-    <View style={[styles.row, flex(4), styles.centerHorizontal]}>
+  <View style={[styles.row, marginPosition(0), flex(0.6),styles.centerVertical]}>
+    <View style={[styles.row, flex(4), styles.selfStart]}>
       <TouchableOpacity onPress={() => setRemember(!remember)}>
       <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
         {/* <Feather name={} style={[fontSize(25), styles.Orange]} /> */}
       </TouchableOpacity>
+      <View style={[styles.allCenter]}>
       <Text style={[styles.black, marginPosition(0, 0, 0, 10), fontSize(16)]}>Remember Me</Text>
+      </View>
     </View>
-    <View style={[flex(2), styles.allCenter]}>
+    <View style={[flex(2), styles.centerHorizontal]}>
         <TouchableOpacity onPress={handleforgotPassword}>
         <Text style={[styles.Orange, fontSize(16)]}>Forgot password?</Text>
         </TouchableOpacity>
     </View>
   </View>
   <View style={[marginPosition(0), flex(5), { justifyContent: 'flex-end', alignItems: 'center' }]}>
-    <ButtonComponent title={'Login'} />
+    <ButtonComponent title={'Login'} onPress={handletoBottomTabNavigation}/>
+    {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setmodalVisible(false)} name={'Login...'} handleLogin={handleLogin}/> : null}
   </View>
+  {/* </ScrollView> */}
+  
 </SafeAreaView>
+
 
     )
 }

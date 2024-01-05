@@ -1,5 +1,5 @@
 import React from 'react';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,7 +20,7 @@ export const Icons = {
     Feather,
     FontAwesome,
     FontAwesome5,
-    // AntDesign,
+    AntDesign,
     Entypo,
     SimpleLineIcons,
     Octicons,

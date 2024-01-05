@@ -8,6 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { ActionModalComponent } from "../modals/ActionModalComponent";
+import Icon,{ Icons } from "../Icons";
 
 export const TextInputCompnent = ({ placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , showMaterialIcons , ShowPasswordIcon}) => {
 
@@ -15,9 +16,9 @@ export const TextInputCompnent = ({ placeholder, value, onChangeText, editable, 
     return(
         <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),styles.bglgWhite]}>
             {showMaterialIcons ? 
-            <MaterialCommunityIcons name={'email'} style={[fontSize(20),styles.black]}/>:
+          <Icon name={'email'} type={Icons.MaterialCommunityIcons} style={[fontSize(20), styles.black]}/>:            
+            <Icon type={Icons.SimpleLineIcons} name={'lock'} style={[fontSize(20),styles.black]}/> }
             
-            <SimpleLineIcons name={'lock'} style={[fontSize(20),styles.black]}/> }
             <View style={[styles.row, flex(1.5), value == "" && opacity(0.7), styles.centerHorizontal ]}>
                 <TextInput
                     placeholderTextColor={darkMode ? Colors.white : Colors.black}

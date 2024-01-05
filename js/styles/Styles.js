@@ -140,6 +140,7 @@ export const styles = StyleSheet.create({
     Orange:{color:Colors.Orange},
     dark:{color:Colors.dark},
     lightGray: { color: Colors.lightGray },
+    smokewhite:{color: Colors.smokewhite},
 
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },

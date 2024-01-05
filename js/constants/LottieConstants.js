@@ -1,0 +1,1 @@
+export const loading=require('../assets/Lottieview/loadingtwo.json');

@@ -3,7 +3,7 @@ import {View,Text} from 'react-native'
 import { flex, fontSize , lineHeight, marginPosition, padding, styles } from '../../../../styles/Styles'
 
 
-const Onboardingcomp = ({header,details}) => {
+export const Onboardingcomponent = ({header,details}) => {
   return (
     <View style={[padding(20),flex(1),marginPosition(0)]}>
         <Text style={[fontSize(27),styles.dark,{fontWeight: 'bold'},lineHeight(40),styles.textCenter]}>{header}</Text>
@@ -12,4 +12,4 @@ const Onboardingcomp = ({header,details}) => {
   )
 }
 
-export default Onboardingcomp
+

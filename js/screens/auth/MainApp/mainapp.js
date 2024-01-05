@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {View} from 'react-native'
-import Splash from '../splash/Splash';
+import {Splash} from '../splash/Splash';
 import { Onboarding } from '../onboarding/Onboarding';
-import Swipercomp from '../onboarding/component/Swipercomp';
-
 
 
 export const mainapp = ({navigation}) => {

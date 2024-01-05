@@ -2,12 +2,13 @@ import React, { useRef ,useState} from 'react';
 import Swiper from 'react-native-swiper';
 import { View, Text , TouchableOpacity} from 'react-native';
 import { heightValue, marginPosition, styles , screenHeight,flex,fontSize, widthValue, radius, borderColor, borderWidth, padding} from '../../../../styles/Styles';
-import Onboardingcomp from './Onboardingcomp';
+import { Onboardingcomponent } from './Onboardingcomponent';
 import { Onboaringdata } from '../../../../constants/Onboardingdata';
 import CustomizedButtons from './CustomizedButtons';
 import { useNavigation } from '@react-navigation/native';
+import { ButtonComponent } from '../../../../components';
 
-const Swipercomp = () => {
+export const Swipercomponent = () => {
   const swiper = useRef();
   const navigation=useNavigation()
   const [index, setIndex] = useState(0);
@@ -29,12 +30,12 @@ const Swipercomp = () => {
     swiper.current.scrollBy(1);
   };
   const handleit=()=>{
-      navigation.navigate('BottomTabNavigation')
+      navigation.navigate('signup')
   }
   
   return (
     <View style={[flex(1)]}>
-    <View style={[styles.bgsmokewhite,flex(1),borderColor('#f7f7f7'),borderWidth(0,0,0,2)]}>
+    <View style={[flex(1),borderColor('#f7f7f7'),borderWidth(0,0,0,2)]}>
       <Swiper
         ref={swiper}
         loop={false}
@@ -81,20 +82,19 @@ const Swipercomp = () => {
           ></View>
         }
       >
-        <Onboardingcomp header={Onboaringdata[0].header} details={Onboaringdata[0].details}/>
-        <Onboardingcomp header={Onboaringdata[1].header} details={Onboaringdata[1].details}/>
-        <Onboardingcomp header={Onboaringdata[2].header} details={Onboaringdata[2].details}/>
+        <Onboardingcomponent header={Onboaringdata[0].header} details={Onboaringdata[0].details}/>
+        <Onboardingcomponent header={Onboaringdata[1].header} details={Onboaringdata[1].details}/>
+        <Onboardingcomponent header={Onboaringdata[2].header} details={Onboaringdata[2].details}/>
 
       </Swiper>
       </View>
       <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgsmokewhite,{height:heightValue(8)}]}>
        {getStarted? <> 
-           
-                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} width={3}/>
-                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white} width={3}/>
+                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(3)}]}/>
+                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(3)}]}/>
           
            </>:
-           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange}style={[styles.white,{width:widthValue(1.1)}]}/>
+           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)}]}/>
         }
     </View>
       
@@ -102,4 +102,4 @@ const Swipercomp = () => {
   )
 };
 
-export default Swipercomp;
+

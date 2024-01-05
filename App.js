@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 // import codePush from "react-native-code-push";
 import { flex, styles } from "./js/styles/Styles";
 import { TextComponent } from "./js/components";
-import Splash from "./js/screens/auth/splash/Splash";
+import {Splash} from "./js/screens/auth/splash/Splash";
 import PomodoroScreen from "./js/screens/dashboard/PomodoroScreen";
 import BottomTabNavigation from "./js/navigation/BottomTabNavigation";
 import TimerComponent from "./js/screens/dashboard/Components/TimerComponent";
@@ -84,9 +84,7 @@ const App = () => {
     return(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <AppContainer/>
-                {/* <BottomTabNavigation /> */}
-                
+                <AppContainer/> 
             </PersistGate>
         </Provider>
     )
