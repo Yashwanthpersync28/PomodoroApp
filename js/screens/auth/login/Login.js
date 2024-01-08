@@ -104,6 +104,7 @@ export const LoginScreen = ({navigation}) => {
       onChangeText={(val) => setEmail(val)}
       keyboardType="email-address"
       showMaterialIcons={true}
+      name={'email'}
     />
     <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Password</Text>
     <TextInputCompnent
@@ -114,24 +115,25 @@ export const LoginScreen = ({navigation}) => {
       showText={() => setsecureTextEntry(!secureTextEntry)}
       showMaterialIcons={false}
       ShowPasswordIcon={true}
+      name={'lock-open'}
     />
   </View>
-  <View style={[styles.row, marginPosition(0), flex(0.6),styles.centerVertical]}>
-    <View style={[styles.row, flex(4), styles.selfStart]}>
-      <TouchableOpacity onPress={() => setRemember(!remember)}>
+  <View style={[styles.row, marginPosition(0), flex(0.6), styles.centerVertical]}>
+  <View style={[styles.row, flex(3), styles.selfStart]}>
+    <TouchableOpacity onPress={() => setRemember(!remember)}>
       <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
-        {/* <Feather name={} style={[fontSize(25), styles.Orange]} /> */}
-      </TouchableOpacity>
-      <View style={[styles.allCenter]}>
+    </TouchableOpacity>
+    <View style={[styles.allCenter]}>
       <Text style={[styles.black, marginPosition(0, 0, 0, 10), fontSize(16)]}>Remember Me</Text>
-      </View>
-    </View>
-    <View style={[flex(2), styles.centerHorizontal]}>
-        <TouchableOpacity onPress={handleforgotPassword}>
-        <Text style={[styles.Orange, fontSize(16)]}>Forgot password?</Text>
-        </TouchableOpacity>
     </View>
   </View>
+  <View style={[flex(1.5), styles.centerHorizontal, { alignItems: 'flex-end' }]}>
+    <TouchableOpacity onPress={handleforgotPassword}>
+      <Text style={[styles.Orange, fontSize(16)]}>Forgot password?</Text>
+    </TouchableOpacity>
+  </View>
+</View>
+
   <View style={[marginPosition(0), flex(5), { justifyContent: 'flex-end', alignItems: 'center' }]}>
     <ButtonComponent title={'Login'} onPress={handletoBottomTabNavigation}/>
     {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setmodalVisible(false)} name={'Login...'} handleLogin={handleLogin}/> : null}

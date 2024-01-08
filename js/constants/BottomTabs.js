@@ -1,3 +1,4 @@
+import { Manage } from "../screens/Manage/Manage";
 import Homepage from "../screens/auth/login/Homepage/Homepage";
 import PomodoroScreen from "../screens/dashboard/PomodoroScreen";
 
@@ -12,7 +13,7 @@ export const  BottomTabs = [
     },
     {
         name:'ManageScreen',
-        component:Homepage,
+        component:Manage,
         label:'Manage',
         icon:'grid',
     },

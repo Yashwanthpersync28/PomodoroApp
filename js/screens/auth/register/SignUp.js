@@ -22,7 +22,7 @@ export const SignUp = ({navigation}) => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={[flex(1)]}>
       <View style={[padding(20), styles.bgWhite, flex(1)]}>
         <View style={[styles.centerVertical, flex(0.3)]}>
           <BackButtonComponent onPress={()=>navigation.navigate('onboarding')}/>
@@ -38,6 +38,8 @@ export const SignUp = ({navigation}) => {
             onChangeText={(val) => setEmail(val)}
             keyboardType="email-address"
             showMaterialIcons={true}
+            name={'email'}
+
           />
           <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Password</Text>
           <TextInputCompnent
@@ -48,6 +50,8 @@ export const SignUp = ({navigation}) => {
             showText={() => setsecureTextEntry(!secureTextEntry)}
             showMaterialIcons={false}
             ShowPasswordIcon={true}
+            name={'lock'}
+
           />
         </View>
         <View style={[styles.row, styles.allCenter, padding(20), flex(0.5)]}>

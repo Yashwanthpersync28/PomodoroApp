@@ -14,6 +14,9 @@ export const bgColor = (darkMode) => {
 export const textColor = (darkMode) => {
     return darkMode ? styles.white : styles.black
 }
+export const brdColor = (Mode) => {
+    return Mode ? borderColor(styles.Orange): borderColor(styles.lgWhite)
+}
 
 export const shadow = (value) => {
     return StyleSheet.create({
@@ -135,7 +138,7 @@ export const styles = StyleSheet.create({
     green: { color: Colors.green },
     blue: { color: Colors.blue },
     Orange: { color: Colors.Orange },
-
+    gray: { color: Colors.gray },
     lightBlue: { color: Colors.lightBlue },
     Orange:{color:Colors.Orange},
     dark:{color:Colors.dark},

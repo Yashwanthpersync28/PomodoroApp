@@ -32,6 +32,7 @@ import ModeButtons from './Components/ModeButtons';
 import TimerComponent from './Components/TimerComponent';
 import { ActionModalComponent } from '../../components';
 import TaskComponent from './Components/TaskComponent';
+import Icon,{ Icons } from '../../components/Icons';
 
 const PomodoroScreen = () => {
 
@@ -63,7 +64,7 @@ const PomodoroScreen = () => {
     <SafeAreaView style={[styles.centerHorizontal,styles.bgWhite,flex(1),styles.positionRelative]}>
       <View style={[styles.bgOrange,{height:heightValue(2),width:widthValue(1)},styles.centerHorizontal]}>
       <View >
-        <HomepageHeader />
+        <HomepageHeader  IconFamily={Icons.Feather} name={'bell'} bgcolor={styles.bgOrange} color={styles.white}/>
         <TaskComponent handleTasks={handleTasks}/>
       </View>
       <View style={[{backgroundColor:'white',height:100,width:100,bottom:-60,transform: [{ scaleX:4.5  }, { scaleY: 2 }]},styles.positionAbsolute,radius(40)]}>

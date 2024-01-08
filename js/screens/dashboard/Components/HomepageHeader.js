@@ -25,14 +25,15 @@ import {
   import Feather from 'react-native-vector-icons/Feather';
   import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
   import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import Icon,{ Icons } from '../../../components/Icons';
 
-const HomepageHeader = () => {
+const HomepageHeader = ({IconFamily,name,bgcolor,color}) => {
   return (
     <View
         style={[
           {width: widthValue(1)},
-          paddingPosition(20, 20, 0, 20),
-          styles.bgOrange
+          paddingPosition(20, 40, 0, 0),
+          bgcolor
         ]}>
         <View
           style={[
@@ -45,10 +46,12 @@ const HomepageHeader = () => {
             source={require('../../../assets/Images/Screen.png')}
             style={[{width: widthValue(12), height: widthValue(12)}]}
           />
-          <Text style={[styles.white, fontSize(30), {fontWeight: '600'}]}>
+          <Text style={[ color,fontSize(25), {fontWeight: '600'}]}>
             Focusify
           </Text>
-          <Feather name="bell" style={[styles.white, fontSize(30)]} />
+          <Icon name={name} type={IconFamily} style={[color, fontSize(25)]} />
+          
+          {/* <Feather name="bell" style={[styles.white, fontSize(30)]} /> */}
         </View>
         {/* <View style={[styles.bgWhite, radius(5), marginPosition(30),]}>
           <TouchableWithoutFeedback

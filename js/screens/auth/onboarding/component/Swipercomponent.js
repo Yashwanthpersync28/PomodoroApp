@@ -35,7 +35,7 @@ export const Swipercomponent = () => {
   
   return (
     <View style={[flex(1)]}>
-    <View style={[flex(1),borderColor('#f7f7f7'),borderWidth(0,0,0,2)]}>
+    <View style={[flex(1),borderColor('#f7f7f7'),borderWidth(0,0,0,2),styles.bgsmokewhite]}>
       <Swiper
         ref={swiper}
         loop={false}
@@ -62,7 +62,7 @@ export const Swipercomponent = () => {
               margin: 3,
               backgroundColor: '#eeeeef',
               bottom: 0,
-              top:20,
+              top:10,
               position: 'relative',
             }}
           ></View>
@@ -76,7 +76,7 @@ export const Swipercomponent = () => {
               margin: 5,
               backgroundColor: '#ff6347',
               bottom: 0,
-              top:20,
+              top:10,
 
             }}
           ></View>
@@ -88,7 +88,7 @@ export const Swipercomponent = () => {
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgsmokewhite,{height:heightValue(8)}]}>
+      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgsmokewhite,{height:heightValue(7)}]}>
        {getStarted? <> 
                 <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(3)}]}/>
                  <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(3)}]}/>
