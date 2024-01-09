@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { flex, padding, styles, marginPosition, heightValue, widthValue, radius } from '../../../styles/Styles';
 import { BackButtonComponent, ButtonComponent, TextInputCompnent } from '../../../components';
-import { View, Text , Alert} from 'react-native';
+import { View, Text , Alert,ScrollView} from 'react-native';
 import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { OtpTextInput } from './Components/OtpTextInput';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -67,13 +67,18 @@ export const Forgotpassword = ({navigation}) => {
 
   return (
     <SafeAreaView style={[flex(1), styles.bgWhite, padding(20)]}>
-      <View style={[flex(0.6)]}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        style={[padding(0), styles.bgWhite, flex(1)]}
+      >
+      <View style={[flex(0.3)]}>
         {count === 0 ? <BackButtonComponent onPress={()=>navigation.navigate('login')}/>:null}
         {count === 1 ? <BackButtonComponent onPress={()=>setCount(count-1)}/>:null}
         {count === 2 ? <BackButtonComponent onPress={()=>setCount(count-1)}/>:null}
 
       </View>
-      <View style={[flex(1.5)]}>
+      <View style={[flex(0.3)]}>
         {count === 0 ? (
           <HeadingComponent name={'Forgot Your Password? 🔑'} details={'No worries. We\'ll help you reset it. Please enter the email associated with your Focusify account.'} />
         ) : null}
@@ -85,7 +90,7 @@ export const Forgotpassword = ({navigation}) => {
           <HeadingComponent name={'Secure Your Account? 🔐'} details={'Almost there! Create a new password for your Focusify account to keep it secure. Remember to choose a strong and unique password'} />
         ) : null}
       </View>
-      <View style={[flex(3)]}>
+      <View style={[flex(2)]}>
         {count === 0 ? (
           <>
             <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>Your Registered Email</Text>
@@ -183,12 +188,13 @@ export const Forgotpassword = ({navigation}) => {
         </View>
         </>:null}
       </View>
-      <View style={[marginPosition(0), flex(4), { justifyContent: 'flex-end', alignItems: 'center' }]}>
+      <View style={[marginPosition(0), flex(3), { justifyContent: 'flex-end', alignItems: 'center' }]}>
         {count ===0 ? <ButtonComponent  title={'Send OTP Code'} onPress={handleCount} />:null}
         {count ===1 ? <ButtonComponent title={'Submit OTP'} onPress={Checkotp}/>:null}
         {count ===2 ? <ButtonComponent title={'Save New Password'} onPress={handleCount} />:null}
 
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

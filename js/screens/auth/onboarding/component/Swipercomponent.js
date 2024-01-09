@@ -97,6 +97,7 @@ export const Swipercomponent = () => {
            <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)}]}/>
         }
     </View>
+     
       
     </View>
   )

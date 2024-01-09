@@ -86,17 +86,21 @@ export const LoginScreen = ({navigation}) => {
     }
     return(   
 <SafeAreaView style={[flex(1), padding(20),styles.bgsmokewhite]}>
-  
+<ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        style={[padding(0), styles.bgWhite, flex(1)]}
+      >
 
   
-  <View style={[flex(0.6)]}>
+  <View style={[flex(0.3)]}>
     <BackButtonComponent onPress={()=>navigation.navigate('signup')}/>
   </View>
   {/* <ScrollView> */}
-  <View style={[flex(1.3)]}>
+  <View style={[flex(0.3)]}>
     <HeadingComponent name={'Welcome Back 👋'} details={'Let\'s Get Back to Productivity'} />
   </View>
-  <View style={[flex(3.2)]}>
+  <View style={[flex(0.3)]}>
     <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Email</Text>
     <TextInputCompnent
       placeholder={'Email'}
@@ -118,7 +122,7 @@ export const LoginScreen = ({navigation}) => {
       name={'lock-open'}
     />
   </View>
-  <View style={[styles.row, marginPosition(0), flex(0.6), styles.centerVertical]}>
+  <View style={[styles.row, marginPosition(0), flex(0.3), styles.centerVertical]}>
   <View style={[styles.row, flex(3), styles.selfStart]}>
     <TouchableOpacity onPress={() => setRemember(!remember)}>
       <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
@@ -134,12 +138,12 @@ export const LoginScreen = ({navigation}) => {
   </View>
 </View>
 
-  <View style={[marginPosition(0), flex(5), { justifyContent: 'flex-end', alignItems: 'center' }]}>
+  <View style={[marginPosition(0), flex(5.5), { justifyContent: 'flex-end', alignItems: 'center' }]}>
     <ButtonComponent title={'Login'} onPress={handletoBottomTabNavigation}/>
     {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setmodalVisible(false)} name={'Login...'} handleLogin={handleLogin}/> : null}
   </View>
   {/* </ScrollView> */}
-  
+  </ScrollView>
 </SafeAreaView>
 
 
