@@ -1,55 +1,26 @@
-import {
-    View,
-    Text,
-    Image,
-    SafeAreaView,
-    TouchableWithoutFeedback,
-    TouchableOpacity,
-    Modal,
-  } from 'react-native';
-  import React from 'react';
-  import {
-    flex,
-    styles,
-    widthValue,
-    radius,
-    heightValue,
-    fontSize,
-    paddingPosition,
-    marginPosition,
-    zIndex,
-    shadow,
-    screenWidth,
-    screenHeight,
-    lineHeight,
-  } from '../../../styles/Styles';
-  import Feather from 'react-native-vector-icons/Feather';
-  import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-  import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import React from 'react';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { styles, widthValue, fontSize, marginPosition, borderWidth } from '../../../styles/Styles';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import Icon,{Icons} from '../../../components/Icons';
 
-const ModeButtons = ({OpenModal}) => {
-  return (
-    <View style={[{width:widthValue(1)},styles.row,styles.bgWhite,styles.spaceEvenly,styles.centerHorizontal,paddingPosition(0,0,30,0)]}>
-          <TouchableWithoutFeedback onPress={OpenModal} style={[{height:heightValue(18)},styles.bgdarkOrange]}>
-            <View style={[styles.centerHorizontal]}>
-              <Feather name='alert-circle' style={[fontSize(30)]}/>
-              <Text style={[fontSize(18),marginPosition(10)]}>Strict Mode</Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={OpenModal}>
-            <View style={[styles.centerHorizontal]}>
-              <FontAwesome6 name='hourglass' style={[fontSize(30)]}/>
-              <Text style={[fontSize(18),,marginPosition(10)]}>Timer Mode</Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={OpenModal}>
-            <View style={[styles.centerHorizontal]}>
-              <FontAwesome5 name='itunes-note' style={[fontSize(30)]}/>
-              <Text style={[fontSize(18),marginPosition(10)]}>White Noise</Text>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-  )
-}
+const Button = ({ icon, text, onPress,}) => (
+  <TouchableWithoutFeedback onPress={onPress}>
+    <View style={[styles.centerHorizontal,]}>
+      {icon === 'alert-circle' && <Feather name={icon} style={[fontSize(30)]} />}
+      {icon === 'hourglass' && <FontAwesome6 name={icon} style={[fontSize(30)]} />}
+      {icon === 'itunes-note' && <FontAwesome5 name={icon} style={[fontSize(30)]} />}
+      <Text style={[fontSize(18), marginPosition(10)]}>{text}</Text>
+    </View>
+  </TouchableWithoutFeedback>
+);
 
-export default ModeButtons
+export const ModeButtons = ({setCurrentModal  }) => (
+  <View style={[{ width: widthValue(1) }, styles.row, styles.bgWhite, styles.spaceEvenly, styles.centerHorizontal, marginPosition(0, 0, 30, 0)]}>
+    <Button icon="alert-circle" text="Strict Mode" onPress={()=>setCurrentModal(2)} />
+    <Button icon="hourglass" text="Timer Mode" onPress={()=>setCurrentModal(3)} />
+    <Button icon="itunes-note" text="White Noise" onPress={()=>setCurrentModal(4)} />
+  </View>
+);

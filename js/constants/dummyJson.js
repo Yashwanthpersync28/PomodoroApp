@@ -48,6 +48,4 @@ export const chatListConstant = [
     {name: "test", context: 'Welcome to React Native'},
     {name: "test", context: 'Welcome to React Native'},
     {name: "test", context: 'Welcome to React Native'},
-
-
 ]

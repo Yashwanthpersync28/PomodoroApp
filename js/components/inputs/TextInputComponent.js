@@ -9,6 +9,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { ActionModalComponent } from "../modals/ActionModalComponent";
 import Icon,{ Icons } from "../Icons";
+import { ActionModalComponent } from "../modals/StrictModeModal";
 
 export const TextInputCompnent = ({ placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , showMaterialIcons , ShowPasswordIcon,name}) => {
 

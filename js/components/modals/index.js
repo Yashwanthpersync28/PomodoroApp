@@ -1,2 +1,2 @@
-export { ActionModalComponent } from "./ActionModalComponent";
+export { ActionModalComponent } from "./StrictModeModal";
 export { AlertModalComponent } from "./AlertModalComponent";
