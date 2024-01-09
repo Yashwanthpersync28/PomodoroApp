@@ -1,15 +1,14 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { View,Text } from 'react-native';
 import { widthValue, radius, styles, shadow,fontSize, marginPosition, buttonColor, borderWidth } from '../../../styles/Styles';
-import CircularProgress from 'react-native-circular-progress-indicator';
+import CircularProgress,{ProgressRef} from 'react-native-circular-progress-indicator';
 import { TimerButton } from './TimerButton';
+// import {ProgressRef} from 'react-native-circular-progress-indicator'
+ export const TimerComponent = ({isTimerActive,handleStart,handlepause,currentButton,handleContinue,handleStop,handleSkipBreak,handleBreak,session,time,setTime,InitialTime,barColor,ProgressRef}) => {
+  // const [barColor,setBarColor] = useState('#ff6347')
 
- export const TimerComponent = ({isTimerActive,handleStart,handlepause,currentButton,handleContinue,handleStop,handleSkipBreak,handleBreak,session}) => {
-  // const InitialTime = 25 * 60; 
-  const [InitialTime,setInitialTime] = useState(25*60)
-  const [time,setTime] = useState(InitialTime)
-  const [barColor,setBarColor] = useState('#ff6347')
-  
+  const progressRef = useRef<ProgressRef>(null);
+
   useEffect(() => {
     let timer;
     if (isTimerActive && time > 0 ) {
@@ -26,18 +25,18 @@ import { TimerButton } from './TimerButton';
       return `${minutes} : ${secondsLeft}`
     }
 
-    const calculateProgress = (remainingTime, totalTime) => {
-      if (totalTime === 0) {
+    const calculateProgress = (remainingTime, InitialTime) => {
+      if (InitialTime === 0 ) {
         return 0;
       }
-      const progress = ((totalTime - remainingTime) / totalTime) * 100;
+      const progress = ((InitialTime - remainingTime) / InitialTime) * 100;
       return Math.max(0, progress);
     };
   return (
     <View style={[styles.centerHorizontal]}>
       <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)), styles.bgWhite, shadow(10),styles.allCenter]}>
         <CircularProgress
-          value={calculateProgress(time,InitialTime)} 
+          value={calculateProgress(time)} 
           radius={120}
           initialValue={InitialTime}
           maxValue={InitialTime}
@@ -61,11 +60,11 @@ import { TimerButton } from './TimerButton';
         {currentButton === 0 && 
       <TimerButton onPress={()=>handleStart()} buttonText={'Start to focus'} widthVal={{width:widthValue(2.3)}} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>}
         {currentButton === 1 &&  
-      <TimerButton onPress={()=>{handlepause(),setBarColor('#1c97f0')}} buttonText={'Pause'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]}/>}
+      <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]}/>}
         {currentButton === 2 &&  
         <View style={[styles.row,styles.spaceEvenly,{width:widthValue(1)}]}>
-      <TimerButton onPress={()=>{handleStop(),setTime(InitialTime),setBarColor('#ff6347')}} buttonText={'Stop'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]} borderWidth={[borderWidth(0)]}/>
-      <TimerButton onPress={()=>{handleContinue(),setBarColor('#ff6347')}} buttonText={'Continue'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton onPress={handleStop} buttonText={'Stop'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]} borderWidth={[borderWidth(0)]}/>
+      <TimerButton onPress={handleContinue} buttonText={'Continue'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>}
         {currentButton === 3 &&  
       <TimerButton onPress={handleBreak} buttonText={'Start Break Time'} widthVal={{width:widthValue(2)}} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>}
@@ -75,3 +74,9 @@ import { TimerButton } from './TimerButton';
     </View>
   );
 };
+
+
+
+
+
+

@@ -22,7 +22,7 @@ export const HomepageHeader = ({IconFamily,name,bgcolor,color}) => {
     <View
         style={[
           {width: widthValue(1)},
-          paddingPosition(20, 40, 0, 0),
+          paddingPosition(20, 20, 0, 20),
           bgcolor
         ]}>
         <View

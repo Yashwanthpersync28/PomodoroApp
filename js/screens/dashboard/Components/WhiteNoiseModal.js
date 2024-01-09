@@ -17,27 +17,15 @@ import {
     fontSize,
     paddingPosition,
     marginPosition,
-    zIndex,
-    shadow,
-    screenWidth,
-    screenHeight,
-    lineHeight,
     borderWidth,
     padding,
   } from '../../../styles/Styles';
   import Modal from 'react-native-modal';
-  import { TimerButton } from '../../screens/dashboard/Components/TimerButton';
+import { TimerButton } from './TimerButton';
   // import { modalData } from '../../constants/ModalsData';
   
   export const WhiteNoiseModal = ({closeModal,currentModal }) => {
      
-    const toggleSwitch = (index)=>{
-      setSelectedSwitch((prevStates)=>{
-        const newSelectedSwitch = {...prevStates};
-        newSelectedSwitch[index] = !newSelectedSwitch[index];
-        return newSelectedSwitch
-      })
-    }
   
     return (
       <View style={[{ width: widthValue(1) }, styles.centerHorizontal]}>
@@ -70,11 +58,10 @@ import {
                 fontSize(24),
                 paddingPosition(0, 0, 20, 0),
               ]}>
-              Strict Mode
+              WHite Noise 
             </Text>
             <View>
               <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
-              {/* {modalData.StrictMode.map((options,index) => (
                 <View
                   style={[
                     styles.row,
@@ -82,10 +69,9 @@ import {
                     paddingPosition(15, 0, 20, 0),
                   ]}>
                   <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
-                    {options.name}
+                    {/* {options.name} */}Sound 1
                   </Text>
                 </View>
-              ))} */}
               </View>
             </View>
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
