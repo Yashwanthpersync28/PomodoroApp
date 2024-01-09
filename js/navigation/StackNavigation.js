@@ -9,17 +9,29 @@ import { mainapp } from "../screens/auth/MainApp/mainapp";
 import { createStackNavigator } from "@react-navigation/stack";
 import {SignUp} from "../screens/auth/register/SignUp";
 import { Onboarding } from "../screens/auth/onboarding/Onboarding";
+import { useSelector } from "react-redux";
+import { Splash } from "../screens/auth/splash/Splash";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
 
 export const AppNavigationContainer = () => {
+    const showOnboarding=useSelector((state)=>state.showcomponent.ShowOnboarding);
+
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="BottomTabNavigation"> 
-                <Stack.Screen
+            <Stack.Navigator>
+                
+                {/* <Stack.Screen
                     name={'mainapp'}
                     component={mainapp}
+                    options={{
+                        header: () => null,
+                    }}
+                /> */}
+                 <Stack.Screen
+                    name={'splash'}
+                    component={Splash}
                     options={{
                         header: () => null,
                     }}

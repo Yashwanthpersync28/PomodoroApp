@@ -9,6 +9,7 @@ import { TvScreen } from './component/TvScreen';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 export const Onboarding = ({navigation}) => {
+  console.log('bhbh');
   return (
   <SafeAreaView style={[{height:heightValue(1),width:widthValue(1)}]}>
    

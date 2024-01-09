@@ -48,6 +48,7 @@ export const Forgotpassword = ({navigation}) => {
     setCount(count + 1);
   };
   ////checking otp
+  const [OtpError,setOTPerror]=useState('');
   const otp='1111'
   const Checkotp = () => {
     const enteredOtp = inputone + inputTwo + inputThree + inputfour;
@@ -56,15 +57,37 @@ export const Forgotpassword = ({navigation}) => {
       // Use a callback inside setCount to ensure the state is updated
       setCount((prevCount) => {
         console.log('equal');
+        setOTPerror('')
         return prevCount + 1;
       });
     } else {
+      setOTPerror('Invalid Otp')
       console.log('not equal');
       // setdisabled(true)
     }
   };
- 
 
+  const [EmailError,setEmailError]=useState('');
+ 
+///email validation
+const handleEmailChange = (text) => {
+  setEmail(text);
+  // Validations
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
+};
+/////confirm password
+const [ConfirmError,setConfError]=useState('')
+
+const handleconfirmPassword=(val)=>{
+  setConfirmpass(val)
+  if(val===Password){
+    setConfError('')
+  }
+  else{
+    setConfError('Password does not match')
+  }
+}
   return (
     <SafeAreaView style={[flex(1), styles.bgWhite, padding(20)]}>
       <ScrollView
@@ -97,11 +120,13 @@ export const Forgotpassword = ({navigation}) => {
             <TextInputCompnent
               placeholder={'Email'}
               value={Email}
-              onChangeText={(val) => setEmail(val)}
+              onChangeText={handleEmailChange}
               keyboardType="email-address"
               showMaterialIcons={true}
               name={'email'}
             />
+          {EmailError===''?null:
+            <Text style={[styles.Orange]}>{EmailError}</Text>}
           </>
         ) : null}
         {count === 2 ? (
@@ -121,13 +146,15 @@ export const Forgotpassword = ({navigation}) => {
             <TextInputCompnent
               placeholder={'Confirm Password'}
               value={confirmPass}
-              onChangeText={(val) => setConfirmpass(val)}
+              onChangeText={handleconfirmPassword}
               secureTextEntry={secureTextEntry}
               showText={() => setSecureTextEntry(!secureTextEntry)}
               showMaterialIcons={false}
               ShowPasswordIcon={true}
               name={'lock'}
             />
+             {ConfirmError===''?null:
+          <Text style={[styles.Orange]}>{ConfirmError}</Text>}
           </>
         ) : null}
         {count === 1 ? <>
@@ -185,6 +212,10 @@ export const Forgotpassword = ({navigation}) => {
               
         </View>
                <OtpTimer/>
+               <View style={[styles.allCenter]}>
+               {OtpError===''?null:
+          <Text style={[styles.Orange]}>{OtpError}</Text>}
+          </View>
         </View>
         </>:null}
       </View>

@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, position, radius, styles, widthValue, zIndex } from '../../styles/Styles';
-import HomepageHeader from '../dashboard/Components/HomepageHeader';
+// import HomepageHeader from '../dashboard/Components/HomepageHeader';
 import Icon, { Icons } from '../../components/Icons';
 import { ManageButtons } from './components/ManageButtons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PlusModal } from '../../components/modals/PlusModal';
 import { PriorityModal } from '../../components/modals/PriorityModal';
+import { HomepageHeader } from '../dashboard/Components/HomepageHeader';
 
 export const Manage = ({navigation}) => {
     const [modalVisible,setmodalVisible]=useState(false)
@@ -16,9 +17,9 @@ export const Manage = ({navigation}) => {
     }
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20)]}>
-      {/* <View style={[flex(0.3)]}>
+      <View style={[flex(0.3)]}>
         <HomepageHeader IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.white} color={styles.black} />
-      </View> */}
+      </View>
       
     <View style={[flex(2)]}>
         {modalVisible ?

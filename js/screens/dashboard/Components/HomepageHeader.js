@@ -39,10 +39,10 @@ export const HomepageHeader = ({IconFamily,name,bgcolor,color}) => {
           <Text style={[ color,fontSize(25), {fontWeight: '600'}]}>
             Focusify
           </Text>
-          {/* <Icon name={name} type={IconFamily} style={[color, fontSize(25)]} /> */}
+          <Icon name={name} type={IconFamily} style={[color, fontSize(25)]} />
           
           {/* <Feather name="bell" style={[styles.white, fontSize(30)]} /> */}
-          <Icon name={"bell"} type={Icons.Feather} style={[styles.white,fontSize(30)]} />
+          {/* <Icon name={"bell"} type={Icons.Feather} style={[styles.white,fontSize(30)]} /> */}
         </View>
       </View>
   )
