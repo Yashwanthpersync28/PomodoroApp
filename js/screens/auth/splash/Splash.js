@@ -1,12 +1,34 @@
 // import LottieView from 'lottie-react-native'
 import LottieView from 'lottie-react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, SafeAreaView, Text, View } from 'react-native'
 import { flex, fontSize, heightValue, styles, widthValue } from '../../../styles/Styles'
 import { timer } from '../../../constants/imageConstant'
 import { loading } from '../../../constants/LottieConstants'
+import { useDispatch, useSelector } from 'react-redux'
+import { setOnboarding } from '../../../redux/ShowComponentReducer/ShowOnboardingReducer'
 
-export const Splash = () => {
+export const Splash = ({navigation}) => {
+  const showonboarding = useSelector((state)=>state.showcomponent.ShowOnboarding)
+  const dispatch=useDispatch()
+  // console.log('schvbduekjskbvc ',showonboarding);
+  useEffect(()=>{
+    setTimeout(() => {
+      // setSplash(false);
+      dispatch(setOnboarding(!showonboarding));
+      if(showonboarding){
+        navigation.navigate('login') ;
+        console.log('showcomp',showonboarding);
+      }
+      else{
+        navigation.navigate('onboarding')
+        console.log('showcompppp',showonboarding);
+
+      }
+       
+    }, 1000);
+    
+  },[])
   return (
     <SafeAreaView>
     <View style={[{height:'100%',justifyContent:'center',alignItems:'center'},styles.bgOrange]}>

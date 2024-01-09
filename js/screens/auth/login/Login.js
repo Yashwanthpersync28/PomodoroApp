@@ -79,11 +79,63 @@ export const LoginScreen = ({navigation}) => {
     }
     const handletoBottomTabNavigation=()=>{
       setmodalVisible(true)
-      // navigation.navigate('BottomTabNavigation')
     }
     const handleLogin=()=>{
+      // const data=useSelector((state)=>state.UserDetails.userList.email);
+      // console.log(data);
       navigation.navigate('BottomTabNavigation')
+
     }
+
+    const [EmailError,setEmailError]=useState('');
+    const [PasswordError,setPasswordError]=useState('')
+////email validation
+const handleEmailChange = (text) => {
+  setEmail(text);
+  // Validations
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
+};
+
+////password validation
+const handlePassword = (val) => {
+  setPassword(val);
+
+  const minLength = 6;
+  const hasNumber = /\d/.test(val);
+  const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+  const hasUpperCase = /[A-Z]/.test(val);
+
+  // let error = '';
+
+  if (val.length < minLength) {
+    setPasswordError(`Password must be at least ${minLength} characters. `);
+  }
+
+  else if (!hasNumber) {
+    setPasswordError('Password must contain at least one number. ');
+  }
+
+  else if (!hasSpecialSymbol) {
+    setPasswordError('Password must contain at least one special symbol. ');
+  }
+
+  else if (!hasUpperCase) {
+    setPasswordError('Password must contain at least one uppercase letter. ');
+  }
+  else{
+    setPasswordError('')
+  }
+
+  // setError(error.trim()); // Trim to remove any leading or trailing spaces
+};
+
+
+
+
+
+
+
     return(   
 <SafeAreaView style={[flex(1), padding(20),styles.bgsmokewhite]}>
 <ScrollView
@@ -105,22 +157,26 @@ export const LoginScreen = ({navigation}) => {
     <TextInputCompnent
       placeholder={'Email'}
       value={Email}
-      onChangeText={(val) => setEmail(val)}
+      onChangeText={handleEmailChange}
       keyboardType="email-address"
       showMaterialIcons={true}
       name={'email'}
     />
+    {EmailError===''?null:
+          <Text style={[styles.Orange]}>{EmailError}</Text>}
     <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Password</Text>
     <TextInputCompnent
       placeholder={'Password'}
       value={Password}
-      onChangeText={(val) => setPassword(val)}
+      onChangeText={handlePassword}
       secureTextEntry={secureTextEntry}
       showText={() => setsecureTextEntry(!secureTextEntry)}
       showMaterialIcons={false}
       ShowPasswordIcon={true}
       name={'lock-open'}
     />
+    {PasswordError===''?null:
+          <Text style={[styles.Orange]}>{PasswordError}</Text>}
   </View>
   <View style={[styles.row, marginPosition(0), flex(0.3), styles.centerVertical]}>
   <View style={[styles.row, flex(3), styles.selfStart]}>

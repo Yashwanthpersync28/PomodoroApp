@@ -11,6 +11,9 @@ import {
   radius,
   heightValue,
   borderWidth,
+  padding,
+  paddingPosition,
+  marginPosition,
 } from '../../styles/Styles';
 import {HomepageHeader} from './Components/HomepageHeader';
 import {ModeButtons} from './Components/ModeButtons';
@@ -20,6 +23,7 @@ import { TaskModal } from './Components/TaskModal';
 import { TimerModal } from './Components/TimerModal';
 import { StrictModeModal } from '../../components/modals/StrictModeModal';
 import { WhiteNoiseModal } from './Components/WhiteNoiseModal';
+import { Icons } from '../../components/Icons';
 
 export const PomodoroScreen = () => {
 
@@ -78,10 +82,12 @@ export const PomodoroScreen = () => {
 return (
   <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
     <View style={[styles.bgOrange, { height: heightValue(2), width: widthValue(1) }, styles.centerHorizontal]}>
-      <View >
-        {/* <HomepageHeader  IconFamily={Icons.Feather} name={'bell'} bgcolor={styles.bgOrange} color={styles.white}/> */}
+      <View>
+        <View style={[marginPosition(0,0,0,20)]}>
+        <HomepageHeader  IconFamily={Icons.Feather} name={'bell'} bgcolor={styles.bgOrange} color={styles.white}/>
         {/* <TaskComponent handleTasks={handleTasks}/> */}
-        <HomepageHeader />
+        {/* <HomepageHeader /> */}
+        </View>
         <TaskComponent handleTasks={handleTasks} selectedTask={selectedTask} setSession={setSession} setCurrentModal={setCurrentModal} clearTask={clearTask}/>
       </View>
       <View style={[{ backgroundColor: 'white', height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
