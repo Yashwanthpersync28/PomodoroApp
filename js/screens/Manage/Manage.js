@@ -16,9 +16,9 @@ export const Manage = ({navigation}) => {
     }
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20)]}>
-      <View style={[flex(0.3)]}>
+      {/* <View style={[flex(0.3)]}>
         <HomepageHeader IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.white} color={styles.black} />
-      </View>
+      </View> */}
       
     <View style={[flex(2)]}>
         {modalVisible ?

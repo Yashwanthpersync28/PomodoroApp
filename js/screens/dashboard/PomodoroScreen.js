@@ -96,7 +96,7 @@ return (
     {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession}/>}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal}/>}
     {currentModal === 3 && <TimerModal closeModal={closeModal} currentModal={currentModal}/>}
-    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal}/>}
+    {/* {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal}/>} */}
   </SafeAreaView>
 );
 };

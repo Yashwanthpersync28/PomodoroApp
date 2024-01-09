@@ -192,8 +192,6 @@ import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { TextInputCompnent } from '../../../components/inputs/TextInputComponent';
 import { ButtonComponent } from '../../../components/touchables/Button';
 import { MaterialCommunityIcons, MaterialIcons } from '../../../constants/VectorIconsfamily';
-import ActionModalComponent from '../../../components/modals/StrictModeModal';
-// import { ActionModalComponent } from '../../../components/modals';
 
  const SingUp = () => {
 
@@ -246,7 +244,7 @@ import ActionModalComponent from '../../../components/modals/StrictModeModal';
         <Text style={[styles.Orange,marginPosition(0,0,0,5)]}>Log in</Text>
       </View>
       <ButtonComponent title={'Signup'} onPress={openModal}/>
-      <ActionModalComponent visible={modalVisible} onClose={()=>setModalVisible(false)}/>
+      {/* <ActionModalComponent visible={modalVisible} onClose={()=>setModalVisible(false)}/> */}
     </View>
     </SafeAreaView>
   )

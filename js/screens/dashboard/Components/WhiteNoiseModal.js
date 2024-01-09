@@ -27,7 +27,7 @@ import {
   } from '../../../styles/Styles';
   import Modal from 'react-native-modal';
   import { TimerButton } from '../../screens/dashboard/Components/TimerButton';
-  import { modalData } from '../../constants/ModalsData';
+  // import { modalData } from '../../constants/ModalsData';
   
   export const WhiteNoiseModal = ({closeModal,currentModal }) => {
      
@@ -74,7 +74,7 @@ import {
             </Text>
             <View>
               <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
-              {modalData.StrictMode.map((options,index) => (
+              {/* {modalData.StrictMode.map((options,index) => (
                 <View
                   style={[
                     styles.row,
@@ -85,7 +85,7 @@ import {
                     {options.name}
                   </Text>
                 </View>
-              ))}
+              ))} */}
               </View>
             </View>
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
