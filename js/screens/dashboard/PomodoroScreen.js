@@ -1,10 +1,7 @@
 import {
   View,
-  Text,
-  Image,
   SafeAreaView,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
+  Text,
 } from 'react-native';
 import React, { useState } from 'react';
 import {
@@ -13,75 +10,91 @@ import {
   widthValue,
   radius,
   heightValue,
-  fontSize,
-  paddingPosition,
-  marginPosition,
-  zIndex,
-  shadow,
-  screenWidth,
-  screenHeight,
-  lineHeight,
   borderWidth,
 } from '../../styles/Styles';
-import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import HomepageHeader from './Components/HomepageHeader';
-import TimerButton from './Components/TimerButton';
-import ModeButtons from './Components/ModeButtons';
-import TimerComponent from './Components/TimerComponent';
-import { ActionModalComponent } from '../../components';
-import TaskComponent from './Components/TaskComponent';
+import {HomepageHeader} from './Components/HomepageHeader';
+import {ModeButtons} from './Components/ModeButtons';
+import {TimerComponent} from './Components/TimerComponent';
+import {TaskComponent} from './Components/TaskComponent';
+import { TaskModal } from './Components/TaskModal';
+import { TimerModal } from './Components/TimerModal';
+import { StrictModeModal } from '../../components/modals/StrictModeModal';
+import { WhiteNoiseModal } from './Components/WhiteNoiseModal';
 
-const PomodoroScreen = () => {
+export const PomodoroScreen = () => {
 
-  const [modalVisible,setModalVisible] = useState(false)
+  const [currentModal, setCurrentModal] = useState(0)
+  const [isTimerActive,setIsTimerActive] = useState(false);
+  const [currentButton,setCurrentButton] = useState(0);
+  const [selectedTask,setSelectedTask] = useState('Select Task')
+  const [session,setSession] = useState('No')
+
+  const handleStart = ()=>{
+    if(selectedTask === 'Select Task'){
+      setCurrentModal(1);
+      setCurrentButton(0);
+      setIsTimerActive(false)
+    } else {
+      setIsTimerActive(true)
+      console.log('timer is active now')
+      setCurrentButton(1);
+    }
+  }
+  const handlepause = ()=>{
+    setIsTimerActive(false)
+    setCurrentButton(2)
+  }
+  const handleStop = ()=>{
+    setIsTimerActive(false)
+    setCurrentButton(0)
+  }
+  const handleContinue = ()=>{
+    setIsTimerActive(true)
+    setCurrentButton(1)
+  }
+  const handleBreak = ()=>{
+    setIsTimerActive(true)
+    setCurrentButton(4)
+  }
+  const handleSkipBreak = ()=>{
+    setIsTimerActive(true)
+  }
+
   const handleTasks = () => {
-    console.warn('hi');
+    setCurrentModal(1)
   };
 
-  const OpenModal = ()=>{
-    setModalVisible(true)
-  }
-  const OpenStrictModel = ()=>{
-    setModalVisible(true)
+  const closeModal = () => {
+    setCurrentModal(0)
   }
 
-  const closeModal = ()=>{
-    setModalVisible(true)
+  const clearTask = ()=>{
+    setSelectedTask('Select Task');
+    setSession('No');
+    setIsTimerActive(false)
+    setCurrentButton(0)
   }
-  const closeStrictModel = ()=>{
-    setModalVisible(false)
-  }
-  const OpenTimerModel = ()=>{
-    console.log('open Taimer model')
-  }
-  const OpenWhiteModel = ()=>{
-    console.log('open white model')
-  }
-  return (
-    <SafeAreaView style={[styles.centerHorizontal,styles.bgWhite,flex(1),styles.positionRelative]}>
-      <View style={[styles.bgOrange,{height:heightValue(2),width:widthValue(1)},styles.centerHorizontal]}>
+
+return (
+  <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
+    <View style={[styles.bgOrange, { height: heightValue(2), width: widthValue(1) }, styles.centerHorizontal]}>
       <View >
         <HomepageHeader />
-        <TaskComponent handleTasks={handleTasks}/>
+        <TaskComponent handleTasks={handleTasks} selectedTask={selectedTask} setSession={setSession} setCurrentModal={setCurrentModal} clearTask={clearTask}/>
       </View>
-      <View style={[{backgroundColor:'white',height:100,width:100,bottom:-60,transform: [{ scaleX:4.5  }, { scaleY: 2 }]},styles.positionAbsolute,radius(40)]}>
+      <View style={[{ backgroundColor: 'white', height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
       </View>
-      <View style={[styles.positionAbsolute,{bottom:-100}]}>
-      <TimerComponent />
+      <View style={[styles.positionAbsolute, { bottom: -190 }]}>
+        <TimerComponent isTimerActive={isTimerActive} handleStart={handleStart}  handlepause={handlepause} currentButton={currentButton} handleStop={handleStop}  handleContinue={handleContinue} handleBreak={handleBreak} handleSkipBreak={handleSkipBreak}setIsTimerActive={setIsTimerActive} selectedTask={selectedTask} setCurrentModal={setCurrentModal} session={session}/>
       </View>
-      </View>
-      <View style={[styles.centerHorizontal,styles.positionAbsolute,{bottom:-15}]}>
-        <TimerButton  icon={'play'} text={'Start to Focus'}/>
-        <ModeButtons  OpenModal={OpenModal}/>
-      </View>
-      {/* {modalVisible ?<ActionModalComponent /> : '' } */}
-    </SafeAreaView>
-  );
+    </View>
+    <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
+      <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
+    </View>
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession}/>}
+    {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal}/>}
+    {currentModal === 3 && <TimerModal closeModal={closeModal} currentModal={currentModal}/>}
+    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal}/>}
+  </SafeAreaView>
+);
 };
-
-export default PomodoroScreen;
-
-
-

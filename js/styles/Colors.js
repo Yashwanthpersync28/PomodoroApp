@@ -11,4 +11,15 @@ export const Colors =  {
     lightWhite:'#efefef',
     lightGray:'#cecece',
     lightBlue:'#7399bd',
+    timerBlue:'#1c97f0',
+    smokewhite:"#ffffff",
+    smokeOrange:"#fff2f0",
+    dark:"#222222",
+    lgWhite:"#f7f5f5",
+    toggleGray:'#e0e1e1',
+    tomotoRed:'#ff6347',
+    lightishGray:'#dfdfdf',
+    brown:'#836762',
+    purple:'#cc9ad4',
+
 }

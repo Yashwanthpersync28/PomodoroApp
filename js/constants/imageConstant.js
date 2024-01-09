@@ -1,0 +1,1 @@
+export const timer=  require('../assets/Images/Screen.png')

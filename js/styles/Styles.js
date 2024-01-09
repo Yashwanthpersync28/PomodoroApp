@@ -4,7 +4,7 @@ import { Colors } from './Colors';
 
 // - - - - - CUSTOMISED BUTTON - - - - - - //
 export const buttonColor = (darkMode) => {
-    return [darkMode ? styles.bgGreen : styles.bgBlue]
+    return [darkMode ? styles.bgOrange  : styles.bgdarkOrange]
 }
 
 export const bgColor = (darkMode) => {
@@ -50,6 +50,11 @@ export function fontSize(size) {
         return StyleSheet.create({ fontSize: Math.round(PixelRatio.roundToNearestPixel(newSize)) -2 })
     }
 }
+export const fontWeight=(value)=>{
+    return StyleSheet.create({
+        fontWeight:value,
+    })
+  }
 
 // - - - - - CUSTOM SPACING AND BORDER - - - - - - //
 
@@ -130,9 +135,19 @@ export const styles = StyleSheet.create({
     green: { color: Colors.green },
     blue: { color: Colors.blue },
     Orange: { color: Colors.Orange },
-
+    gray:{color:Colors.gray},
     lightBlue: { color: Colors.lightBlue },
+    dark:{color:Colors.dark},
     lightGray: { color: Colors.lightGray },
+    timerBlue:{color:Colors.timerBlue},
+    toggleGray:{color:Colors.toggleGray},
+    tomotoRed:{color:Colors.tomotoRed},
+    lightWhite:{color:Colors.lgWhite},
+    lightishGray:{color:Colors.lightishGray},
+    brown:{color:Colors.brown},
+    purple:{color:Colors.purple},
+    timerBlue:{color:Colors.timerBlue},
+    
 
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
@@ -142,13 +157,22 @@ export const styles = StyleSheet.create({
     bgLightBlue: { backgroundColor: Colors.lightBlue },
     bgGray: { backgroundColor: Colors.gray },
     bgOrange: { backgroundColor: Colors.Orange },
+    bgOrange: { backgroundColor: Colors.Orange },
     bgdarkOrange: { backgroundColor: Colors.darkOrange },
     bglightPink:{ backgroundColor: Colors.lightPink },
     bglightGray:{ backgroundColor: Colors.lightGray },
     bglightBlue:{ backgroundColor: Colors.lightBlue },
-    
+    bgsmokewhite:{backgroundColor:Colors.smokewhite},
+    bgsmokeOrange:{backgroundColor:Colors.smokeOrange},
+    bgdark:{backgroundColor:Colors.dark},
+    bglgWhite:{backgroundColor:Colors.lgWhite},
+    bgLightWhite:{backgroundColor:Colors.lightWhite},
+    bgdarkOrange:{backgroundColor:Colors.darkOrange},
+    bgtomotoRed:{backgroundColor:Colors.tomotoRed},
+    bgbrown:{backgroundColor:Colors.brown},
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
+    borderOrange: { borderColor: Colors.Orange },
     borderBlack: { borderColor: Colors.black },
     borderGreen: { borderColor: Colors.green },
     borderBlue: { borderColor: Colors.blue },

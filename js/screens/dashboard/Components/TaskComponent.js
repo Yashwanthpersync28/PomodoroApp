@@ -1,29 +1,22 @@
 import {
     View,
     Text,
-    Image,
-    SafeAreaView,
     TouchableWithoutFeedback,
     TouchableOpacity,
   } from 'react-native';
-  import React from 'react';
+  import React, { useState } from 'react';
   import {
-    flex,
     styles,
-    widthValue,
     radius,
-    heightValue,
     fontSize,
     paddingPosition,
     marginPosition,
-    zIndex,
-    shadow,
     screenWidth,
     screenHeight,
-    lineHeight,
   } from '../../../styles/Styles';
-  import Feather from 'react-native-vector-icons/Feather';
-const TaskComponent = ({handleTasks}) => {
+import Icon,{Icons} from '../../../components/Icons';
+import { TaskModal } from './TaskModal';
+ export const TaskComponent = ({handleTasks,selectedTask,setCurrentModal,clearTask}) =>{
   return (
     <View style={[styles.bgWhite, radius(5), marginPosition(30,20,0,20)]}>
           <TouchableWithoutFeedback
@@ -36,12 +29,10 @@ const TaskComponent = ({handleTasks}) => {
                 styles.centerHorizontal,
                 paddingPosition(15, 15, 15, 15),
               ]}>
-              <Text style={[styles.lightGray, fontSize(18)]}>Select task</Text>
-              <Feather name="chevron-down" style={[fontSize(25)]} />
+              <Text style={[selectedTask ==='Select Task' ? styles.lightGray:styles.black,fontSize(18)]}>{selectedTask}</Text>
+          <TouchableOpacity onPress={selectedTask === 'Select Task' ? ()=>setCurrentModal(1):()=>clearTask()}><Icon name={selectedTask ==='Select Task'? "chevron-down":'x'} type={Icons.Feather} style={[styles.black,fontSize(25)]} /></TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
         </View>
   )
 }
-
-export default TaskComponent
