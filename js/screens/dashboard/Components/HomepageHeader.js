@@ -16,13 +16,13 @@ import {
   import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Icon,{ Icons } from '../../../components/Icons';
 import { timer } from '../../../constants/imageConstant';
-export const HomepageHeader = ({IconFamily,name,bgcolor,color}) => {
+export const HomepageHeader = ({IconFamily,name,bgcolor,color,headerName,namestart,IconFamilystart,showicon}) => {
 
   return (
     <View
         style={[
-          {width: widthValue(1)},
-          paddingPosition(20, 20, 0, 20),
+          // {width: widthValue(1.1)},
+          // paddingPosition(20, 40, 0, 0),
           bgcolor
         ]}>
         <View
@@ -32,12 +32,14 @@ export const HomepageHeader = ({IconFamily,name,bgcolor,color}) => {
             styles.centerHorizontal,
             {height:heightValue(20)}
           ]}>
+            {showicon ? 
+          <Icon name={namestart} type={IconFamilystart} style={[color, fontSize(30)]} />:
           <Image
             source={timer}
             style={[{width: widthValue(12), height: widthValue(12)}]}
-          />
+          />}
           <Text style={[ color,fontSize(25), {fontWeight: '600'}]}>
-            Focusify
+            {headerName}
           </Text>
           <Icon name={name} type={IconFamily} style={[color, fontSize(25)]} />
           

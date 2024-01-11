@@ -6,7 +6,7 @@ export const ButtonComponent = ({title, onPress, loading, center, disabled, styl
     const [darkMode, setDarkMode] = useState(false)
 
     return(
-        <TouchableOpacity disabled={disabled} onPress={onPress} style={[{width:widthValue(1.2)},buttonColor(darkMode), padding(10, 10, 20), radius(30), center && styles.selfCenter, styles.allCenter, disabled && opacity(0.5), style]}>
+        <TouchableOpacity disabled={disabled} onPress={onPress} style={[{width:widthValue(1.2)},buttonColor(disabled), padding(10, 10, 20), radius(30), center && styles.selfCenter, styles.allCenter, disabled && opacity(1), style]}>
             {loading ? <View style={[styles.row]}>
                 <Text style={[marginPosition(0,10), styles.white,]}>Loading</Text>
                 <ActivityIndicator/>

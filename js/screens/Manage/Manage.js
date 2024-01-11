@@ -9,6 +9,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PlusModal } from '../../components/modals/PlusModal';
 import { PriorityModal } from '../../components/modals/PriorityModal';
 import { HomepageHeader } from '../dashboard/Components/HomepageHeader';
+import { Add } from './components/Add';
+import { AddProject } from './components/AddProject/AddProject';
+import { AddTask } from './components/AddTask/AddTask';
+import Tags from './components/tags/Tags';
+import { Project } from './components/project/Project';
 
 export const Manage = ({navigation}) => {
     const [modalVisible,setmodalVisible]=useState(false)
@@ -25,6 +30,10 @@ export const Manage = ({navigation}) => {
         {modalVisible ?
         //  <PlusModal visible={modalVisible}/>
         <PriorityModal/>
+        // <AddTask/>
+        // <AddProject/>
+        // <Tags/>
+        // <Project/>
          :null}
     <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
           <TouchableOpacity onPress={handlePlusmodal}>
@@ -51,7 +60,7 @@ export const Manage = ({navigation}) => {
             </View>
          </View>
          <View style={[styles.rowWrap,styles.spaceEvenly]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Pomodoro App vghjhvceuykjbck hvfyjgcbeu bcjjhmsvbd '} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
+           <ManageButtons  color={'#6fbe6d'} heading={'Pomodoro App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons color={'#3ca2f2'} heading={'Fashion App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#fdaf63'} heading={'AI chatting App'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#af4fba'} heading={'Dating App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>

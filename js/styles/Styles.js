@@ -4,7 +4,7 @@ import { Colors } from './Colors';
 
 // - - - - - CUSTOMISED BUTTON - - - - - - //
 export const buttonColor = (darkMode) => {
-    return [darkMode ? styles.bgOrange  : styles.bgdarkOrange]
+    return [darkMode ? styles. bgdarkOrange : styles.bgOrange]
 }
 
 export const bgColor = (darkMode) => {
@@ -179,7 +179,25 @@ export const styles = StyleSheet.create({
     bgLightWhite:{backgroundColor:Colors.lightWhite},
     bgdarkOrange:{backgroundColor:Colors.darkOrange},
     bgtomotoRed:{backgroundColor:Colors.tomotoRed},
-    bgbrown:{backgroundColor:Colors.brown},
+    bgpurple:{backgroundColor:Colors.purple},
+    bgbrown:{backgroundColor:Colors.Brown},
+    bgyellow:{backgroundColor:Colors.yellow},
+    bgSmokeRed:{backgroundColor:Colors.SmokeRed},
+    bgSmokePink:{backgroundColor:Colors.SmokePink},
+    bgSmokePurple:{backgroundColor:Colors.SmokePurple},
+    bgSmokeDarkBlue:{backgroundColor:Colors.SmokeDarkBlue},
+    bgSmokeNavy:{backgroundColor:Colors.SmokeNavy},
+    bgSkyblue:{backgroundColor:Colors.Skyblue},
+    bgSmokeBlue:{backgroundColor:Colors.SmokeBlue},
+    bggold:{backgroundColor:Colors.gold},
+    bglightGreen:{backgroundColor:Colors.lightGreen},
+    bgLeafGreen:{backgroundColor:Colors.LeafGreen},
+    bggreenish:{backgroundColor:Colors.greenish},
+    bgdarkblue:{backgroundColor:Colors.darkblue},
+    bgdarkGreen:{backgroundColor:Colors.darkGreen},
+    bgLightGold:{backgroundColor:Colors.LightGold},
+
+
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderOrange: { borderColor: Colors.Orange },

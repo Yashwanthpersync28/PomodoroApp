@@ -6,89 +6,61 @@ import { webSocketConnection } from "../../../actions/webSocket";
 import { userVerifyApi, otpVerifyApi } from "../../../api/authApi";
 
 // Components
-import { ButtonComponent, TextInputCompnent, TextComponent, ScreenViewComponent, BackButtonComponent } from "../../../components";
-import { Colors } from "../../../styles/Colors";
-import {  bgColor, margin, padding, textColor, styles, radius, marginPosition, flex, buttonColor, fontSize, heightValue, widthValue } from "../../../styles/Styles";
+import { ButtonComponent, TextInputCompnent, BackButtonComponent } from "../../../components";
+import { padding , styles, marginPosition, flex, fontSize} from "../../../styles/Styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeadingComponent } from "../../../components/view/HeadingComponent";
-import Feather from 'react-native-vector-icons/Feather'
-import { useNavigation } from "@react-navigation/native";
 import Icon, { Icons } from "../../../components/Icons";
 import LoaderModalComponent from "../../../components/modals/LoaderModalComponent";
-// import { ScrollView } from "react-native-gesture-handler";
-// import { TouchableOpacity } from "react-native-gesture-handler";
+import { setOnboarding } from "../../../redux/ShowComponentReducer/ShowOnboardingReducer";
+
 
 export const LoginScreen = ({navigation}) => {
+   // - - - States - - - //
   const [modalVisible,setmodalVisible]=useState(false);
-    const [Email,setEmail]=useState('');
+  const [Email,setEmail]=useState('');
   const [Password,setPassword]=useState('');
   const [secureTextEntry,setsecureTextEntry]=useState(true);
   const [remember,setRemember]=useState(false)
+  const [EmailError,setEmailError]=useState('');
+  const [PasswordError,setPasswordError]=useState('')
+  const [disable,setDisable]=useState(true)
     // - - - Selector - - - //
     const dispatch = useDispatch()
     const { userVerify, user } = useSelector(state => state.auth)
-    // - - - States - - - //
-    const [mobileNum, setMobileNumber] = useState()
-    const [securityCode, setSecurityCode] = useState()
-    const [mobileVerified, setMobileVerified] = useState(false)
-
-    const [darkMode, setDarkMode] = useState(false)
-
-    useEffect(() => {
-        if(userVerify.status == "fulfilled"){
-            setMobileVerified(true)
-        }
-        if(userVerify.status == "rejected"){
-            alert(userVerify.data.message)
-        }  
-    },[userVerify.loading])
-
-    useEffect(() => {
-        if(user.status == "fulfilled"){
-            // - - - - - Web Socket Connection - - - - - //
-            // dispatch(webSocketConnection())
-           
-            // setTimeout(async() => {
-            //     navigation.navigate("Dashboard")
-            // }, 1000);
-        }
-        if(user.status == "rejected"){
-            alert(user.data.message)
-        } 
-    },[user.loading])
-
-    // - - - API Calls - - - //
-    const submit = async () => {
-        if(!mobileVerified){
-            dispatch(userVerifyApi({mobileNum: parseInt(mobileNum)}))
-        } else {
-            clear()
-            const resp =  await dispatch(performLoginActions({mobileNum: parseInt(mobileNum), securityCode: parseInt(securityCode)}));
-        }
-    }
-
-    // Clear TextInputs
-    const clear = () => {
-        setMobileNumber("")
-        setSecurityCode("")
-        setMobileVerified(false)
-    }
-    // const navigation=useNavigation()
+    const userDetails=useSelector((state)=>state.UserDetails.userList)
+    console.log('datas',userDetails);
+    //- - -Goto Forgotpassword page - - - //
     const handleforgotPassword=()=>{
       navigation.navigate('forgot')
     }
+
+    //- - -open Loader Modal - - - //
     const handletoBottomTabNavigation=()=>{
       setmodalVisible(true)
     }
+
+    //- - -Login page validation - - - //
     const handleLogin=()=>{
-      // const data=useSelector((state)=>state.UserDetails.userList.email);
-      // console.log(data);
+      const user = userDetails.find(
+        (credentials) =>
+         credentials.email === Email && credentials.password === Password
+      );
+      // return Boolean(user);
+      console.log('hope',user);
+     if(user){
+      dispatch(setOnboarding(true))
       navigation.navigate('BottomTabNavigation')
+      // addproject
+      // addtags  
+      // BottomTabNavigation
+    }
+    else{
+      setPasswordError('invalid Password')
 
     }
 
-    const [EmailError,setEmailError]=useState('');
-    const [PasswordError,setPasswordError]=useState('')
+    }
 ////email validation
 const handleEmailChange = (text) => {
   setEmail(text);
@@ -126,16 +98,17 @@ const handlePassword = (val) => {
   else{
     setPasswordError('')
   }
-
-  // setError(error.trim()); // Trim to remove any leading or trailing spaces
 };
-
-
-
-
-
-
-
+/// - - - handle disable button - - -  //
+useEffect(()=>{
+  if(Email.length>4 && Password.length>6){
+    if(EmailError==="" && PasswordError===""){
+      setDisable(false)
+    }
+    else setDisable(true)
+  }
+  else setDisable(true)
+},[Email,Password])
     return(   
 <SafeAreaView style={[flex(1), padding(20),styles.bgsmokewhite]}>
 <ScrollView
@@ -195,7 +168,7 @@ const handlePassword = (val) => {
 </View>
 
   <View style={[marginPosition(0), flex(5.5), { justifyContent: 'flex-end', alignItems: 'center' }]}>
-    <ButtonComponent title={'Login'} onPress={handletoBottomTabNavigation}/>
+    <ButtonComponent title={'Login'} onPress={handletoBottomTabNavigation} disabled={disable}/>
     {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setmodalVisible(false)} name={'Login...'} handleLogin={handleLogin}/> : null}
   </View>
   {/* </ScrollView> */}
