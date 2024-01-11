@@ -20,15 +20,8 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName="BottomTabNavigation">
                 
-                {/* <Stack.Screen
-                    name={'mainapp'}
-                    component={mainapp}
-                    options={{
-                        header: () => null,
-                    }}
-                /> */}
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}

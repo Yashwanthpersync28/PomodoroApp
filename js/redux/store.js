@@ -19,9 +19,7 @@ const store = configureStore({
     reducer: persistedReducer, middleware: (getDefaultMiddleware) => {
         let middleware = getDefaultMiddleware({
             serializableCheck: false
-
         });
-    
         if (process.env.NODE_ENV == "development") {
             middleware = middleware.concat(logger);
         }

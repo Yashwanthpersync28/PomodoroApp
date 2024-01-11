@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Switch,
+  FlatList,
 } from 'react-native';
 import React, { useState } from 'react';
 import {
@@ -29,16 +30,46 @@ import Modal from 'react-native-modal';
 import { TimerButton } from '../../screens/dashboard/Components/TimerButton';
 import { modalData } from '../../constants/ModalsData';
 
-export const StrictModeModal = ({closeModal,currentModal }) => {
+export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => {
   
-  const [selectedSwitch,setSelectedSwitch] = useState({})
+  const [switchSelected,setSwitchSelected] = useState(modalData.StrictMode.map(()=>false))
 
   const toggleSwitch = (index)=>{
-    setSelectedSwitch((prevStates)=>{
-      const newSelectedSwitch = {...prevStates};
-      newSelectedSwitch[index] = !newSelectedSwitch[index];
-      return newSelectedSwitch
+    setSwitchSelected((prevState)=>{
+      const newSwitch = [...prevState];
+      newSwitch[index] = !newSwitch[index]
+      return newSwitch;
     })
+  }
+
+  const renderItem = ({item,index})=>{
+    return(
+    <View>
+            <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
+              
+            <TouchableOpacity onPress={()=>{toggleSwitch(index),console.log(item.id)}}>
+              <View
+                style={[
+                  styles.row,
+                  styles.spaceBetweenVertical,
+                  paddingPosition(15, 0, 20, 0),
+                ]}>
+                  
+                <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
+                  {item.name}
+                </Text>
+                <Switch
+                  trackColor={{ false:'#e0e1e1' , true: '#ff6347' }}
+                  thumbColor={switchSelected[index] ? 'white' : 'white'}
+                  ios_backgroundColor="black"
+                  onValueChange={()=>toggleSwitch(index)}
+                  value={switchSelected[index]}
+                />
+              </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+    )
   }
 
   return (
@@ -74,32 +105,11 @@ export const StrictModeModal = ({closeModal,currentModal }) => {
             ]}>
             Strict Mode
           </Text>
-          <View>
-            <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
-            {modalData.StrictMode.map((options,index) => (
-              <View
-                style={[
-                  styles.row,
-                  styles.spaceBetweenVertical,
-                  paddingPosition(15, 0, 20, 0),
-                ]}>
-                <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
-                  {options.name}
-                </Text>
-                <Switch
-                  trackColor={{ false:'#e0e1e1' , true: '#ff6347' }}
-                  thumbColor={selectedSwitch[index] ? 'white' : 'white'}
-                  ios_backgroundColor="black"
-                  onValueChange={(index)=>toggleSwitch(index)}
-                  value={selectedSwitch[index]}
-                />
-              </View>
-            ))}
-            </View>
-          </View>
+          <FlatList data={modalData.StrictMode} renderItem={renderItem} keyExtractor={item=>item.id}/>
+          
           <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
       <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Ok'} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Ok'}onPress={updateStrictMode} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
       </Modal>

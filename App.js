@@ -6,7 +6,7 @@ import { LogBox, Modal, Text, View } from "react-native"
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 import { PersistGate } from 'redux-persist/integration/react';
-// import codePush from "react-native-code-push";
+import codePush from "react-native-code-push";
 import { flex, styles } from "./js/styles/Styles";
 import { TextComponent } from "./js/components";
 import {Splash} from "./js/screens/auth/splash/Splash";
@@ -90,4 +90,4 @@ const App = () => {
     )
 }
 
-export default  App
+export default  codePush(App)

@@ -1,23 +1,40 @@
 import { View, Text, FlatList, TouchableWithoutFeedback, TouchableOpacity, } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import Modal from 'react-native-modal';
 import { marginPosition, widthValue,styles, heightValue, padding,radius,fontSize ,paddingPosition, borderWidth} from '../../../styles/Styles';
 import Icon,{Icons} from '../../../components/Icons';
 import { TimerButton } from './TimerButton';
 import { modalData } from '../../../constants/ModalsData';
 
- export const TimerModeModal = ({currentModal,closeModal}) => {
-
-  const [selectedTimeFormat,setSelectedTimeFormat] = useState(null)
+ export const TimerModeModal = ({currentModal,closeModal,handleSelectTimerFormat,selectedItemId,updateTimerMode}) => {
 
   const renderItems =({item})=>{
-    isSelected = selectedTimeFormat = item.id
+  const  isSelected = selectedItemId === item.id
+
+    return (
+      <View>
+        <TouchableOpacity onPress={()=>handleSelectTimerFormat(item)}> 
+    <View style={[padding(0, 20, 5),styles.spaceBetweenVertical,styles.row]}>
+      <View>
+      <View style={[styles.row, styles.centerHorizontal]}>
+        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.start}</Text>
+        <Icon name={"arrow-right"} type={Icons.FontAwesome} style={[styles.black, fontSize(25), marginPosition(0, 5)]} />
+        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.end}</Text>
+      </View>
+      <Text style={[styles.black, fontSize(17), { fontWeight: '300' }, marginPosition(5)]}>{item.desc}</Text>
+      </View>
+      <View>
+        {isSelected && 
+         <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(40), marginPosition(0, 5)]} />
+        }
+        </View>
+    </View>
+    </TouchableOpacity>
+      </View>
+    )
   } 
 
   return (
-
-
-
     <View>
       <Modal 
       animationIn={'slideInUp'}
@@ -41,71 +58,15 @@ import { modalData } from '../../../constants/ModalsData';
           </Text>
           <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
 
-
-
-
-
-
-
-
-
-
-
-
-
             <FlatList
   data={modalData.TimerMode}
-  
-  renderItem={({ item}) => (
-    <TouchableOpacity onPress={selectTimerFormat(item)}> 
-    <View style={[padding(0, 20, 5),styles.spaceBetweenVertical,styles.row]}>
-      <View>
-      <View style={[styles.row, styles.centerHorizontal]}>
-        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.start}</Text>
-        <Icon name={"arrow-right"} type={Icons.FontAwesome} style={[styles.black, fontSize(25), marginPosition(0, 5)]} />
-        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.end}</Text>
-      </View>
-      <Text style={[styles.black, fontSize(17), { fontWeight: '300' }, marginPosition(5)]}>{item.desc}</Text>
-      </View>
-      <View>
-        {selectedTimeFormat ===item ?
-         <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(40), marginPosition(0, 5)]} />
-        :''
-        }
-        </View>
-    </View>
-    </TouchableOpacity>
-  )}
+  renderItem={renderItems}
+  keyExtractor={item=>item.id}
 />
 </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
       <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Ok'} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Ok'}  onPress={updateTimerMode} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
         
@@ -113,6 +74,9 @@ import { modalData } from '../../../constants/ModalsData';
     </View>
   )
 }
+
+
+
 // import React, { useState } from 'react';
 // import { View, Text, FlatList, TouchableOpacity, Modal } from 'react-native';
 // import { marginPosition, widthValue, styles, heightValue, padding, radius, fontSize, paddingPosition, borderWidth } from '../../../styles/Styles';
@@ -188,6 +152,3 @@ import { modalData } from '../../../constants/ModalsData';
 //     </View>
 //   );
 // };
-
-
-

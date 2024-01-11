@@ -1,5 +1,5 @@
 package com.pomodoro;
-
+import com.microsoft.codepush.react.CodePush;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -21,6 +21,10 @@ public class MainApplication extends Application implements ReactApplication {
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
         }
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
+        }
 
         @Override
         protected List<ReactPackage> getPackages() {
@@ -35,6 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+        
+
       };
 
   private final ReactNativeHost mNewArchitectureNativeHost =

@@ -36,10 +36,13 @@ import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/Key
 export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }) => {
 
     return (
-        <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0:0}>
-        <ScrollView contentContainerStyle={[{ width: widthValue(1) }, styles.centerHorizontal]}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding'+ 47 : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -230}>
+        <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        style={[padding(0), styles.bgWhite, flex(1)]}
+      >
             <Modal
                 animationIn={'slideInUp'}
                 animationOut={'slideOutDown'}
