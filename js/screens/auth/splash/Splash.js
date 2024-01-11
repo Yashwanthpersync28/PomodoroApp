@@ -5,19 +5,19 @@ import { Image, SafeAreaView, Text, View } from 'react-native'
 import { flex, fontSize, heightValue, styles, widthValue } from '../../../styles/Styles'
 import { timer } from '../../../constants/imageConstant'
 import { loading } from '../../../constants/LottieConstants'
-import { useDispatch, useSelector } from 'react-redux'
-import { setOnboarding } from '../../../redux/ShowComponentReducer/ShowOnboardingReducer'
+import { useSelector } from 'react-redux'
+
 
 export const Splash = ({navigation}) => {
+
+  //selectors//
   const showonboarding = useSelector((state)=>state.showcomponent.ShowOnboarding)
-  const dispatch=useDispatch()
-  // console.log('schvbduekjskbvc ',showonboarding);
+
+  ///for handling onboarding and signup
   useEffect(()=>{
     setTimeout(() => {
-      // setSplash(false);
-      dispatch(setOnboarding(!showonboarding));
       if(showonboarding){
-        navigation.navigate('login') ;
+        navigation.navigate('signup') ;
         console.log('showcomp',showonboarding);
       }
       else{
@@ -33,19 +33,16 @@ export const Splash = ({navigation}) => {
     <SafeAreaView>
     <View style={[{height:'100%',justifyContent:'center',alignItems:'center'},styles.bgOrange]}>
       <View style={[flex(1.2),{justifyContent:'flex-end',alignItems:'flex-end'}]}>
-      <Image source={timer} style={{height:150,width:150}}/>
+          <Image source={timer} style={{height:150,width:150}}/>
       </View>
       <Text style={[styles.smokewhite,fontSize(30),{fontWeight:'600'}]}>Focusify</Text>
       <View style={[flex(1),styles,styles.allCenter]}>
-      <LottieView source={loading} autoPlay={true} style={[{height:heightValue(12),width:widthValue(4)}]}/> 
+           <LottieView source={loading} autoPlay={true} style={[{height:heightValue(12),width:widthValue(4)}]}/> 
       </View>
-      {/* <LottieView source={require('../../../assets/Lottieview/loadingtwo.json')} autoPlay={true} style={{height:50,width:50}}/> */}
     </View>
     </SafeAreaView>
   )
 }
-
-// export default Splash
 
 
 

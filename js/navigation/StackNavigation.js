@@ -11,6 +11,11 @@ import {SignUp} from "../screens/auth/register/SignUp";
 import { Onboarding } from "../screens/auth/onboarding/Onboarding";
 import { useSelector } from "react-redux";
 import { Splash } from "../screens/auth/splash/Splash";
+import { Manage } from "../screens/Manage/Manage";
+import { Add } from "../screens/Manage/components/Add";
+import { AddProject } from "../screens/Manage/components/AddProject/AddProject";
+import { Addtags } from "../screens/Manage/components/AddTags/Addtags";
+import { Project } from "../screens/Manage/components/project/Project";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -21,14 +26,6 @@ export const AppNavigationContainer = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                
-                {/* <Stack.Screen
-                    name={'mainapp'}
-                    component={mainapp}
-                    options={{
-                        header: () => null,
-                    }}
-                /> */}
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -68,6 +65,27 @@ export const AppNavigationContainer = () => {
                 <Stack.Screen
                     name={'BottomTabNavigation'}
                     component={BottomTabNavigation}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
+                    name={'addproject'}
+                    component={AddProject}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
+                    name={'addtags'}
+                    component={Addtags}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'project'}
+                    component={Project}
                     options={{
                         header: () => null,
                     }}

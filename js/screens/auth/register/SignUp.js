@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { flex, fontSize, heightValue, marginPosition, padding, styles, widthValue } from '../../../styles/Styles';
@@ -8,31 +8,30 @@ import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { TextInputCompnent } from '../../../components/inputs/TextInputComponent';
 import { ButtonComponent } from '../../../components/touchables/Button';
 import LoaderModalComponent from '../../../components/modals/LoaderModalComponent';
-import { useDispatch, useSelector } from 'react-redux';
-import { setOnboarding } from '../../../redux/ShowComponentReducer/ShowOnboardingReducer';
+import { useDispatch } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 
 export const SignUp = ({ navigation }) => {
-  const showOnboarding=useSelector((state)=>state.showcomponent.ShowOnboarding);
-  const detailss=useSelector((state)=>state.UserDetails);
-const dispatch=useDispatch();
+  //selectors
+  const dispatch=useDispatch();
+
+  //states
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [secureTextEntry, setsecureTextEntry] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [EmailError,setEmailError]=useState('');
   const [PasswordError,setPasswordError]=useState('')
+  const [disable,setdisable]=useState(true)
 
+  //to open Loader modal
   const openModal = () => {
     setModalVisible(true);
   };
-
+///Store user data in redux
   const handletoLogin = () => {
     dispatch(addUser({email:Email,password:Password}))
-    dispatch(setOnboarding(!showOnboarding))
-    console.log('showcomp',showOnboarding);
-    navigation.navigate('login');
-    console.log('details',detailss);
+    navigation.navigate('login')
   };
 
 
@@ -73,9 +72,22 @@ const handlePassword = (val) => {
   else{
     setPasswordError('')
   }
-
-  // setError(error.trim()); // Trim to remove any leading or trailing spaces
 };
+
+//to handle disable button
+useEffect(()=>{
+  if(Email.length>5 && Password.length>6){
+  if(EmailError==="" && PasswordError===""){
+    setdisable(false)
+  }
+  else{
+    setdisable(true)
+  }
+}
+else{
+   setdisable(true) 
+}
+},[Email,Password])
 
   return (
     <SafeAreaView style={[flex(1)]}>
@@ -125,7 +137,7 @@ const handlePassword = (val) => {
           </View>
         </View>
         <View style={[styles.allCenter, flex(4), { justifyContent: 'flex-end', alignItems: 'center' }]}>
-          <ButtonComponent title={'Signup'} onPress={openModal} />
+          <ButtonComponent title={'Signup'} onPress={openModal} disabled={disable}/>
           {modalVisible ? (
             <LoaderModalComponent visible={modalVisible} onClose={() => setModalVisible(false)} name={'Signup...'} handleLogin={handletoLogin} />
           ) : null}

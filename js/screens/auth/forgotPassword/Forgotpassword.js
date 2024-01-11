@@ -5,8 +5,9 @@ import { BackButtonComponent, ButtonComponent, TextInputCompnent } from '../../.
 import { View, Text , Alert,ScrollView} from 'react-native';
 import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { OtpTextInput } from './Components/OtpTextInput';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { OtpTimer } from './Components/OtpTimer';
+import { useSelector } from 'react-redux';
+import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 
 export const Forgotpassword = ({navigation}) => {
   //refs
@@ -30,31 +31,22 @@ export const Forgotpassword = ({navigation}) => {
   const [inputTwo,setinputTwo]=useState('');
   const [inputThree,setinputThree]=useState('');
   const [inputfour,setinputfour]=useState('');
+  const [disable,setdisable]=useState(true)
+///selectors
+const userDetails=useSelector((state)=>state.UserDetails.userList)
 
   // handling screens based on count value
   const handleCount = () => {
-    if(count===2){
-      Alert.alert(
-        'Congratulations',
-        'Password changed sucessfully!',
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.navigate('BottomTabNavigation'),
-          },
-        ],
-      );
-    }
-    setCount(count + 1);
-  };
+    setCount(count+1)
+  //{- - - handle email - - - //}
+  // setCount(count + 1)
+  }
   ////checking otp
   const [OtpError,setOTPerror]=useState('');
   const otp='1111'
   const Checkotp = () => {
     const enteredOtp = inputone + inputTwo + inputThree + inputfour;
     if (enteredOtp === otp) {
-      // setdisabled(false)
-      // Use a callback inside setCount to ensure the state is updated
       setCount((prevCount) => {
         console.log('equal');
         setOTPerror('')
@@ -63,7 +55,6 @@ export const Forgotpassword = ({navigation}) => {
     } else {
       setOTPerror('Invalid Otp')
       console.log('not equal');
-      // setdisabled(true)
     }
   };
 
@@ -72,10 +63,22 @@ export const Forgotpassword = ({navigation}) => {
 ///email validation
 const handleEmailChange = (text) => {
   setEmail(text);
-  // Validations
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
 };
+useEffect(() => {
+  const user = userDetails.find(
+    (useremail) => useremail.email.toLowerCase() === Email.toLowerCase()
+  );
+console.log('users',user);
+
+  const result = Boolean(user);
+
+  if (result) {
+    setEmailError('');
+  } else {
+    setEmailError('Invalid email id');
+  }
+}, [Email, userDetails]);
+
 /////confirm password
 const [ConfirmError,setConfError]=useState('')
 
@@ -86,6 +89,24 @@ const handleconfirmPassword=(val)=>{
   }
   else{
     setConfError('Password does not match')
+  }
+}
+//Update password
+const UpdatePassword=()=>{
+
+  let userIndexToUpdate = userDetails.findIndex(user => user.email.toLowerCase() === Email.toLowerCase());
+  console.log('index',userIndexToUpdate);
+  if (userIndexToUpdate !== -1) {
+    userDetails[userIndexToUpdate].password = confirmPass
+    Alert.alert('Password Changed',
+    'Your password has been successfully changed.',[{
+      text: 'OK',
+      onPress: () => navigation.navigate('login') }])
+    console.log('updatedpass',userDetails);
+    addUser(userDetails)
+    console.log('updated',userDetails);
+  } else {
+    console.log(`User with email ${userEmailToUpdate} not found`);
   }
 }
   return (
@@ -131,7 +152,7 @@ const handleconfirmPassword=(val)=>{
         ) : null}
         {count === 2 ? (
           <>
-            <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>Your Registered Email</Text>
+            <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>New Password</Text>
             <TextInputCompnent
               placeholder={'Password'}
               value={Password}
@@ -220,9 +241,9 @@ const handleconfirmPassword=(val)=>{
         </>:null}
       </View>
       <View style={[marginPosition(0), flex(3), { justifyContent: 'flex-end', alignItems: 'center' }]}>
-        {count ===0 ? <ButtonComponent  title={'Send OTP Code'} onPress={handleCount} />:null}
+        {count ===0 ? <ButtonComponent  title={'Send OTP Code'} onPress={handleCount}/>:null}
         {count ===1 ? <ButtonComponent title={'Submit OTP'} onPress={Checkotp}/>:null}
-        {count ===2 ? <ButtonComponent title={'Save New Password'} onPress={handleCount} />:null}
+        {count ===2 ? <ButtonComponent title={'Save New Password'} onPress={UpdatePassword} />:null}
 
       </View>
       </ScrollView>
