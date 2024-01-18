@@ -29,11 +29,11 @@ export const Manage = ({navigation}) => {
     <View style={[flex(2)]}>
         {modalVisible ?
         //  <PlusModal visible={modalVisible}/>
-        <PriorityModal/>
+        // <PriorityModal/>
         // <AddTask/>
         // <AddProject/>
         // <Tags/>
-        // <Project/>
+        <Project/>
          :null}
     <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
           <TouchableOpacity onPress={handlePlusmodal}>

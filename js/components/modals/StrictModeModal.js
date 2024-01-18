@@ -81,6 +81,7 @@ export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => 
         hasBackdrop={true}
         backdropColor='black'
         backdropOpacity={0.5}
+        onBackdropPress={closeModal}
         style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}>
         <View
           style={[

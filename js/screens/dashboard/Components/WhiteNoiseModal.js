@@ -15,6 +15,7 @@ import {
     marginPosition,
     borderWidth,
     padding,
+    flex
   } from '../../../styles/Styles';
   import Modal from 'react-native-modal';
 import { TimerButton } from './TimerButton';
@@ -26,7 +27,7 @@ import Icon, { Icons } from '../../../components/Icons';
      const renderTunes=({item})=>{
       const isSelected = selectedTune === item.id
       return(
-        <TouchableOpacity onPress={()=>{handleNoise(item),playSound()}}>
+        <TouchableOpacity onPress={()=>{handleNoise(item),playSound(item.song)}}>
         <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
               <View>
                 <View
@@ -59,6 +60,7 @@ import Icon, { Icons } from '../../../components/Icons';
         hasBackdrop={true}
         backdropColor='black'
         backdropOpacity={0.5}
+        onBackdropPress={closeModal}
           style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}>
           <View
             style={[
@@ -96,68 +98,3 @@ import Icon, { Icons } from '../../../components/Icons';
     );
   };
   
-
-  // ... (other imports)
-
-// import Sound from 'react-native-sound';
-// import { modalData } from '../../../constants/ModalsData';
-
-// // ... (other components and functions)
-
-// export const WhiteNoiseModal = ({ closeModal, currentModal, selectedTune, handleNoise, updateNoise }) => {
-
-//   // ... (other functions)
-
-//   const playSound = (fileName) => {
-//     var WhiteNoise = new Sound(require(`../../../assets/${fileName}`), Sound.MAIN_BUNDLE, (error) => {
-//       if (error) {
-//         console.log('failed to load the sound', error);
-//         return;
-//       }
-//       // loaded successfully
-//       console.log('duration in seconds: ' + WhiteNoise.getDuration() + 'number of channels: ' + WhiteNoise.getNumberOfChannels());
-
-//       // Play the sound with an onEnd callback
-//       WhiteNoise.play((success) => {
-//         if (success) {
-//           console.log('successfully finished playing');
-//         } else {
-//           console.log('playback failed due to audio decoding errors');
-//         }
-//       });
-//     });
-//   }
-
-//   const renderTunes = ({ item }) => {
-//     const isSelected = selectedTune === item.id;
-//     return (
-//       <TouchableOpacity onPress={() => { handleNoise(item); playSound(item.fileName); }}>
-//         <View style={[borderWidth(0, 1, 0, 1, 0), styles.borderLightWhite, styles.row, styles.spaceBetweenVertical]}>
-//           <View>
-//             <View
-//               style={[
-//                 styles.row,
-//                 styles.spaceBetweenVertical,
-//                 paddingPosition(15, 0, 20, 0),
-//               ]}>
-//               <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
-//                 {item.MusicName}
-//               </Text>
-//             </View>
-//           </View>
-//           <View>
-//             {isSelected &&
-//               <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(40), marginPosition(0, 5)]} />
-//             }
-//           </View>
-//         </View>
-//       </TouchableOpacity>
-//     );
-//   }
-
-//   return (
-//     // ... (rest of the code)
-//     <FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item => item.id} />
-//     // ... (rest of the code)
-//   );
-// };

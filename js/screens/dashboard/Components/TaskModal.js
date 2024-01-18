@@ -50,7 +50,8 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
                 hasBackdrop={true}
                 backdropColor="black"
                 backdropOpacity={0.5}
-                style={[{ margin: 0, width: widthValue(1), height: heightValue(2), }]}>
+                onBackdropPress={closeModal}
+                style={[{ margin: 0, width: widthValue(1), height: heightValue(2),}]}>
                 <View
                     style={[
                         styles.bgWhite,

@@ -1,14 +1,25 @@
-import { View, Text } from 'react-native'
+import { View, Text,Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { HeadingComponent } from '../../components/view/HeadingComponent'
+import { widthValue, radius,flex, styles,paddingPosition,heightValue, shadow, fontSize, marginPosition, borderWidth } from '../../styles/Styles';
+import Icon, { Icons } from '../../components/Icons';
+import { timer } from '../../constants/imageConstant';
+import { useNavigation } from '@react-navigation/native';
+import { NotificationCard } from './NotificationCard';
 
 export const Notification1 = () => {
+
+  const navigation= useNavigation();
+
+  const goback = ()=>{
+    navigation.goBack()
+  }
   return (
     <View
         style={[
           {width: widthValue(1)},
-          paddingPosition(20, 20, 0, 20),
-          bgcolor
+          paddingPosition(20, 25, 30, 25),
+          styles.bgWhite,
+          flex(1),
         ]}>
         <View
           style={[
@@ -17,18 +28,17 @@ export const Notification1 = () => {
             styles.centerHorizontal,
             {height:heightValue(20)}
           ]}>
-          <Image
-            source={timer}
-            style={[{width: widthValue(12), height: widthValue(12)}]}
-          />
-          <Text style={[ color,fontSize(25), {fontWeight: '600'}]}>
+            <TouchableOpacity onPress={goback}>
+          <Icon name={"arrowleft"} type={Icons.AntDesign} style={[styles.black,fontSize(30)]} /></TouchableOpacity>
+          
+          <Text style={[ styles.black,fontSize(25), {fontWeight: '600'}]}>
             Notifications
           </Text>
-          <Icon name={name} type={IconFamily} style={[color, fontSize(25)]} />
-          
-          {/* <Feather name="bell" style={[styles.white, fontSize(30)]} /> */}
-          {/* <Icon name={"bell"} type={Icons.Feather} style={[styles.white,fontSize(30)]} /> */}
+          <Icon name={"settings"} type={Icons.Feather} style={[styles.black,fontSize(30)]} />
         </View>
+        <NotificationCard />
+        <NotificationCard />
+        <NotificationCard />
       </View>
   )
 }
