@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { flex, radius, widthValue , styles, paddingPosition, padding, borderColor, borderWidth, heightValue, fontSize, margin} from '../../../../styles/Styles'
 import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView} from 'react-native'
 import Icon, { Icons } from '../../../../components/Icons'
@@ -6,21 +6,44 @@ import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButt
 import { Header } from '../Header'
 import { Items } from '../Items'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 
 export const Project = ({ visible, onClose }) => {
     const navigation=useNavigation();
-    const [Tagsdata,setTagsData]=useState([]);
+    const userProjectDetails=useSelector((state)=>state.UserDetails.userList)
+    // console.log('datassdfghjk',userProjectDetails);
+    const [projectdata,setprojectData]=useState([]);
     const handleCancel=()=>{
         console.log('fgchvjbkl');
     }
     const handleAdd=()=>{
         console.log('fcgvhjbkn');
+        navigation.navigate('addtask',{projectname:checkedItem})
     }
     ///to handle Add Tags
     const handletoAddProject=()=>{
        navigation.navigate('addproject')
     }
+    useEffect(()=>{
+      const userWithproject = userProjectDetails.find(userdata => userdata.email === 'test3@gmail.com');
+        // console.log('userWithTag',userWithproject);
+        // setprojectData(userWithproject.Project)
+        // console.log('sendDataToItems',projectdata);
+        if (userWithproject) {
+          console.log('sendDataToItems', userWithproject.Project);
+          setprojectData(userWithproject.Project || []);
+        }
+        console.log('sfdg',checkedItem);
+    },[userProjectDetails,checkedItem])
+
+    const [checkedItem, setCheckedItem] = useState('');
+    
+    const handleItemPress = (itemName) => {
+      setCheckedItem((prevCheckedItem) =>
+        prevCheckedItem === itemName ? null : itemName
+      );
+    };
   return (
     <Modal
     animationType="slide"
@@ -34,9 +57,9 @@ export const Project = ({ visible, onClose }) => {
              <Header headername={'Project'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} onPress={handletoAddProject}/>
             </View>
              <View style={[flex(4)]}>
-             <ScrollView >
+             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={[styles.column]}>
-                    <Items/>
+                    <Items DataItems={projectdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress}/>
                 </View>
                 </ScrollView>
              </View>

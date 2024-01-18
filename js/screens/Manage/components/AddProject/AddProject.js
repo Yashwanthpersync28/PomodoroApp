@@ -4,29 +4,51 @@ import { Add } from '../Add';
 import { borderColor, borderWidth, flex, heightValue, styles, widthValue } from '../../../../styles/Styles';
 import { Icons } from '../../../../components/Icons';
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProject } from '../../../../redux/userDataReducer/UserDetailsReducer';
 
-export const AddProject = ({navigation}) => {
+export const AddProject = ({navigation,route}) => {
+  // const {id}=route.params
+  // const [getID,setId]=useState(id)
+  // console.log('id',id);
   //states
   const [project,setproject]=useState('');
   const [selectedColor,setSelectedColor]=useState('')
   const [buttoncolor,setbuttonColor]=useState(styles.bgdarkOrange)
+  ///selectors
+const dispatch=useDispatch();
+
 //handle cancel
 const handleCancel=()=>{
    //move to back project's
    console.log('move to back project');
 }
-const handleAdd=()=>{
-  //move to Add task
+
+const addUserProjectHandler = (email, projectData) => {
+  dispatch(addProject({ email, projectData }));
+  navigation.navigate('project')
+};
+
+const handleAdd = () => {
   console.log('move to Add task');
-}
-useEffect(()=>{
-   if(project.length>1 && selectedColor.length>3){
-    setbuttonColor(styles.bgOrange)
-   }
-   else{
-    setbuttonColor(styles.bgdarkOrange)
-   }
-},[project,selectedColor])
+  console.log('projectname',project);
+  console.log(('color',selectedColor));
+  const projectData = {
+    name: project,
+   color:selectedColor,
+ };
+addUserProjectHandler('test3@gmail.com', projectData);
+
+  };
+
+useEffect(() => {
+  if (project.length > 1 && selectedColor.length > 3) {
+    setbuttonColor(styles.bgOrange);
+  } else {
+    setbuttonColor(styles.bgdarkOrange);
+  }
+}, [project, selectedColor ]);
+
 const handleGoback=()=>{
    navigation.navigate('project')
 }

@@ -16,6 +16,9 @@ import { Add } from "../screens/Manage/components/Add";
 import { AddProject } from "../screens/Manage/components/AddProject/AddProject";
 import { Addtags } from "../screens/Manage/components/AddTags/Addtags";
 import { Project } from "../screens/Manage/components/project/Project";
+import { AddTask } from "../screens/Manage/components/AddTask/AddTask";
+import { PriorityModal } from "../components/modals/PriorityModal";
+import Tags from "../screens/Manage/components/tags/Tags";
 import { TimerComponent } from "../screens/dashboard/Components/TimerComponent";
 import { Notification1 } from "../screens/SettingsScreens/Notification1";
 // import SingUp from "../screens/auth/register/SignUp";
@@ -88,13 +91,6 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'project'}
                     component={Project}
-                    options={{
-                        header: () => null,
-                    }}
-                />
-                 <Stack.Screen
-                    name={'Notification1'}
-                    component={Notification1}
                     options={{
                         header: () => null,
                     }}

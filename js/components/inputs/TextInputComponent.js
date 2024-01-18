@@ -7,17 +7,14 @@ import { IconComponent } from "../view";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Icon,{ Icons } from "../Icons";
+import Icon from "../Icons";
 
-export const TextInputCompnent = ({ placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , showMaterialIcons , ShowPasswordIcon,name}) => {
+export const TextInputCompnent = ({ IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,}) => {
 
     const { darkMode } = useSelector(state => state.system)
     return(
         <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),styles.bglgWhite]}>
-            {showMaterialIcons ? 
-          <Icon name={name} type={Icons.MaterialCommunityIcons} style={[fontSize(20), styles.black]}/>:            
-            <Icon type={Icons.SimpleLineIcons} name={name} style={[fontSize(20),styles.black]}/> }
-            
+            <Icon name={Iconname} type={IconFamily} style={[fontSize(20), styles.black]}/>
             <View style={[styles.row, flex(1.5), value == "" && opacity(0.7), styles.centerHorizontal ]}>
                 <TextInput
                     placeholderTextColor={darkMode ? Colors.white : Colors.black}

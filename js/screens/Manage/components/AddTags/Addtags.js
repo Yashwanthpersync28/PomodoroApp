@@ -4,19 +4,37 @@ import { borderColor, borderWidth, flex,heightValue,styles, widthValue } from '.
 import { Add } from '../Add'
 import { Icons } from '../../../../components/Icons'
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons'
+import { addTags } from '../../../../redux/userDataReducer/UserDetailsReducer'
+import { useDispatch } from 'react-redux'
 
 export const Addtags = ({navigation}) => {
     const [tag,settag]=useState('')
     const [selectedColor,setSelectedColor]=useState('')
     const [buttoncolor,setbuttonColor]=useState(styles.bgdarkOrange)
+    const dispatch=useDispatch()
     //handle cancel
 const handleCancel=()=>{
   //move to back project's
   console.log('move to back project');
 }
+
+
+const addUserTagsHandler = (email, tagsData) => {
+  dispatch(addTags({ email, tagsData }));
+  navigation.navigate('tag')
+};
+
 const handleAdd=()=>{
  //move to Add task
  console.log('move to Add task');
+ console.log('tagname',tag);
+ console.log(('color',selectedColor));
+ const tagsData = {
+  name: tag,
+  color:selectedColor,
+};
+
+addUserTagsHandler('test3@gmail.com', tagsData);
 
 }
 useEffect(()=>{
@@ -28,7 +46,7 @@ useEffect(()=>{
   }
 },[tag,selectedColor])
 const handleGoback=()=>{
-  navigation.navigate('project')
+  navigation.navigate('tag')
 }
 const handleMenu=()=>{
 

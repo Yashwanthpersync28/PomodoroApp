@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform , StatusBar} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { flex, fontSize, heightValue, marginPosition, padding, styles, widthValue } from '../../../styles/Styles';
 import { BackButtonComponent } from '../../../components/touchables/BackButton';
@@ -8,13 +8,15 @@ import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { TextInputCompnent } from '../../../components/inputs/TextInputComponent';
 import { ButtonComponent } from '../../../components/touchables/Button';
 import LoaderModalComponent from '../../../components/modals/LoaderModalComponent';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
+import { Icons } from '../../../components/Icons';
 
 export const SignUp = ({ navigation }) => {
   //selectors
   const dispatch=useDispatch();
-
+  const userDatas=useSelector((state)=>state.UserDetails.userList)
+  console.log('fcgvhbjkn',userDatas.length);
   //states
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
@@ -30,11 +32,21 @@ export const SignUp = ({ navigation }) => {
   };
 ///Store user data in redux
   const handletoLogin = () => {
-    dispatch(addUser({email:Email,password:Password}))
+    // dispatch(addUser({email:Email,password:Password}))
+    const newUser = {
+      email: Email,
+      password: Password,
+      id: userDatas.length,
+      tasks: [],
+      Tags: [],
+      Project: [],
+    };
+  
+    dispatch(addUser(newUser));
     navigation.navigate('login')
   };
 
-
+console.log('dtfygvhub',userDatas);
 ////email validation
 const handleEmailChange = (text) => {
   setEmail(text);
@@ -90,7 +102,9 @@ else{
 },[Email,Password])
 
   return (
+   
     <SafeAreaView style={[flex(1)]}>
+       <StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
@@ -109,8 +123,8 @@ else{
             value={Email}
             onChangeText={handleEmailChange}
             keyboardType="email-address"
-            showMaterialIcons={true}
-            name={'email'}
+            IconFamily ={Icons.MaterialCommunityIcons}
+            Iconname={'email'}
           />
           {EmailError===''?null:
           <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -121,9 +135,9 @@ else{
             onChangeText={handlePassword}
             secureTextEntry={secureTextEntry}
             showText={() => setsecureTextEntry(!secureTextEntry)}
-            showMaterialIcons={false}
+            IconFamily ={Icons.SimpleLineIcons}
+            Iconname={'lock'}
             ShowPasswordIcon={true}
-            name={'lock'}
           />
           {PasswordError===''?null:
           <Text style={[styles.Orange]}>{PasswordError}</Text>}
@@ -144,5 +158,6 @@ else{
         </View>
       </ScrollView>
     </SafeAreaView>
+   
   );
 };
