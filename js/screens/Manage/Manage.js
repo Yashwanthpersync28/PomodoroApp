@@ -14,35 +14,44 @@ import { AddProject } from './components/AddProject/AddProject';
 import { AddTask } from './components/AddTask/AddTask';
 import Tags from './components/tags/Tags';
 import { Project } from './components/project/Project';
+import { TextInputCompnent } from '../../components';
+import { Addtags } from './components/AddTags/Addtags';
+import { DueDateModal } from '../../components/modals/DueDateModal';
 
 export const Manage = ({navigation}) => {
+  //states
     const [modalVisible,setmodalVisible]=useState(false)
+    const [Seachvalue,setSearchvalue]=useState('')
     const handlePlusmodal=()=>{
         setmodalVisible(true)
     }
   return (
-    <SafeAreaView style={[flex(1),padding(0,0,20,0,20)]}>
-      <View style={[flex(0.3)]}>
-        <HomepageHeader IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.white} color={styles.black} />
+    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
+      <View style={[flex(0.2)]}>
+      {/* <Header headername={'Focusify'} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/> */}
+        <HomepageHeader IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.white} color={styles.black} headerName={'Focusify'}/>
       </View>
       
     <View style={[flex(2)]}>
         {modalVisible ?
         //  <PlusModal visible={modalVisible}/>
-        <PriorityModal/>
-        // <AddTask/>
+        // <PriorityModal/>
+        // <Addtags/>
+        // <AddTask visible={modalVisible}/>
+      //  <DueDateModal visible={modalVisible} />
         // <AddProject/>
-        // <Tags/>
+        <Tags/>
         // <Project/>
          :null}
-    <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
+        <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
           <TouchableOpacity onPress={handlePlusmodal}>
             <Icon name={modalVisible ? 'x' : 'plus'} type={Icons.Feather} style={[styles.white, { fontSize: 25 }, padding(0, 0, 10, 0, 10)]} />
           </TouchableOpacity>
         </View>
-      <ScrollView style={[flex(1),{zIndex: 0 }]} showsVerticalScrollIndicator={false}>
-        <View style={[{height:heightValue(14)}]}>
-        <Text style={[styles.white]}>hello</Text>
+      <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
+        <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
+           <TextInputCompnent placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
+        
         </View>
         <View style={[{height:heightValue(2.8)},styles.rowWrap,styles.spaceEvenly]}>
            <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>

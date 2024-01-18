@@ -8,6 +8,7 @@ import { OtpTextInput } from './Components/OtpTextInput';
 import { OtpTimer } from './Components/OtpTimer';
 import { useSelector } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
+import { Icons } from '../../../components/Icons';
 
 export const Forgotpassword = ({navigation}) => {
   //refs
@@ -143,8 +144,8 @@ const UpdatePassword=()=>{
               value={Email}
               onChangeText={handleEmailChange}
               keyboardType="email-address"
-              showMaterialIcons={true}
-              name={'email'}
+              IconFamily ={Icons.MaterialCommunityIcons}
+              Iconname={'email'}
             />
           {EmailError===''?null:
             <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -159,9 +160,9 @@ const UpdatePassword=()=>{
               onChangeText={(val) => setPassword(val)}
               secureTextEntry={secureTextEntry}
               showText={() => setSecureTextEntry(!secureTextEntry)}
-              showMaterialIcons={false}
+              IconFamily ={Icons.SimpleLineIcons}
+              Iconname={secureTextEntry ? 'lock' : 'lock-open'}
               ShowPasswordIcon={true}
-              name={'lock'}
             />
             <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>Confirm Password</Text>
             <TextInputCompnent
@@ -170,9 +171,9 @@ const UpdatePassword=()=>{
               onChangeText={handleconfirmPassword}
               secureTextEntry={secureTextEntry}
               showText={() => setSecureTextEntry(!secureTextEntry)}
-              showMaterialIcons={false}
+              IconFamily ={Icons.SimpleLineIcons}
+              Iconname={secureTextEntry ? 'lock' : 'lock-open'}
               ShowPasswordIcon={true}
-              name={'lock'}
             />
              {ConfirmError===''?null:
           <Text style={[styles.Orange]}>{ConfirmError}</Text>}

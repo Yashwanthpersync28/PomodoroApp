@@ -16,6 +16,9 @@ import { Add } from "../screens/Manage/components/Add";
 import { AddProject } from "../screens/Manage/components/AddProject/AddProject";
 import { Addtags } from "../screens/Manage/components/AddTags/Addtags";
 import { Project } from "../screens/Manage/components/project/Project";
+import { AddTask } from "../screens/Manage/components/AddTask/AddTask";
+import { PriorityModal } from "../components/modals/PriorityModal";
+import Tags from "../screens/Manage/components/tags/Tags";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -86,6 +89,27 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'project'}
                     component={Project}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'tag'}
+                    component={Tags}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
+                    name={'addtask'}
+                    component={AddTask}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
+                    name={'priority'}
+                    component={PriorityModal}
                     options={{
                         header: () => null,
                     }}

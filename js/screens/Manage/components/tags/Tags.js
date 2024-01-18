@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { flex, radius, widthValue , styles, paddingPosition, padding, borderColor, borderWidth, heightValue, fontSize} from '../../../../styles/Styles'
 import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView} from 'react-native'
 import { HomepageHeader } from '../../../dashboard/Components/HomepageHeader'
@@ -7,20 +7,55 @@ import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButt
 import { Header } from '../Header'
 import { Items } from '../Items'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const Tags = ({ visible, onClose }) => {
-    const navigation=useNavigation();
+    const updatedTags=useSelector((state => state.UserDetails.userList))
     const [Tagsdata,setTagsData]=useState([]);
+     console.log('Tagsdataaaaa',updatedTags[0].Tags);
+    const navigation=useNavigation();
+    // const [Tagsdata,setTagsData]=useState([]);
     const handleCancel=()=>{
         console.log('fgchvjbkl');
     }
     const handleAdd=()=>{
-        console.log('fcgvhjbkn');
-    }
+      console.log('fcgvhjbkn');
+      navigation.navigate('addtask',{tagname:checkedItem})
+  }
     ///to handle Add Tags
     const handleTags=()=>{
        navigation.navigate('addtags')
     }
+
+    useEffect(()=>{
+      const userWithTag = updatedTags.find(userdata => userdata.email === 'test3@gmail.com');
+        if (userWithTag) {
+          console.log('sendDataToItems', userWithTag.Tags);
+          setTagsData(userWithTag.Tags || []);
+        }
+        console.log('sfdg',checkedItem);
+    },[updatedTags,checkedItem])
+
+    const [checkedItem, setCheckedItem] = useState([]);
+    const handleItemPress = (itemName) => {
+    //   if (checkedItem.includes(itemName)) {
+    //   // Item is already checked, uncheck it
+    //   setCheckedItem((prevCheckedItems) =>
+    //     prevCheckedItems.filter((item) => item !== itemName)
+    //   );
+    // } else {
+    //   // Item is not checked, check it
+    //   setCheckedItem((prevCheckedItems) => {
+    //     const newCheckedItems = [...prevCheckedItems, itemName];
+    //     console.log('Checked Items:', newCheckedItems);
+    //     return newCheckedItems;
+    //   });
+
+    // }
+    setCheckedItem((prevCheckedItem) =>
+    prevCheckedItem === itemName ? null : itemName
+  );
+    };
   return (
     <Modal
     animationType="slide"
@@ -36,7 +71,7 @@ const Tags = ({ visible, onClose }) => {
              <View style={[flex(4)]}>
              <ScrollView >
                 <View style={[styles.column]}>
-                    <Items/>
+                    <Items DataItems={Tagsdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress}/>
                 </View>
                 </ScrollView>
              </View>

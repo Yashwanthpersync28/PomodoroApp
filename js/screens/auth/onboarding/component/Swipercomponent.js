@@ -90,7 +90,7 @@ export const Swipercomponent = () => {
       </View>
       <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgsmokewhite,{height:heightValue(7)}]}>
        {getStarted? <> 
-                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(3)}]}/>
+                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(3)}]} handlecontinue={handleit}/>
                  <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(3)}]}/>
           
            </>:

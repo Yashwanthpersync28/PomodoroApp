@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View , Text , TouchableOpacity , ScrollView} from "react-native";
+import { View , Text , TouchableOpacity , ScrollView , StatusBar} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { performLoginActions } from "../../../actions/authActions";
-import { webSocketConnection } from "../../../actions/webSocket";
-import { userVerifyApi, otpVerifyApi } from "../../../api/authApi";
+
 
 // Components
 import { ButtonComponent, TextInputCompnent, BackButtonComponent } from "../../../components";
@@ -13,22 +11,32 @@ import { HeadingComponent } from "../../../components/view/HeadingComponent";
 import Icon, { Icons } from "../../../components/Icons";
 import LoaderModalComponent from "../../../components/modals/LoaderModalComponent";
 import { setOnboarding } from "../../../redux/ShowComponentReducer/ShowOnboardingReducer";
+import { setRememberMe } from "../../../redux/rememberReducer/RemembermeReducer";
 
 
 export const LoginScreen = ({navigation}) => {
+  const rememberMeData = useSelector((state) => state.RememberMe);
+  const { email } = rememberMeData;
+  const {password} = rememberMeData
+  const {rememberMe}=rememberMeData
+  console.log("Email from RememberMe:", email);
    // - - - States - - - //
   const [modalVisible,setmodalVisible]=useState(false);
-  const [Email,setEmail]=useState('');
-  const [Password,setPassword]=useState('');
+  const [Email,setEmail]=useState(rememberMe ? email : "");
+  const [Password,setPassword]=useState(rememberMe ? password : "");
   const [secureTextEntry,setsecureTextEntry]=useState(true);
-  const [remember,setRemember]=useState(false)
+  const [remember,setRemember]=useState(rememberMe)
   const [EmailError,setEmailError]=useState('');
   const [PasswordError,setPasswordError]=useState('')
   const [disable,setDisable]=useState(true)
+
     // - - - Selector - - - //
     const dispatch = useDispatch()
     const { userVerify, user } = useSelector(state => state.auth)
     const userDetails=useSelector((state)=>state.UserDetails.userList)
+    // const RememberMe=useSelector((state)=>state.RememberMe.RememberMe);
+    // console.log('fdxgchvbjkn',RememberMe.email);
+
     console.log('datas',userDetails);
     //- - -Goto Forgotpassword page - - - //
     const handleforgotPassword=()=>{
@@ -46,11 +54,31 @@ export const LoginScreen = ({navigation}) => {
         (credentials) =>
          credentials.email === Email && credentials.password === Password
       );
-      // return Boolean(user);
       console.log('hope',user);
+
      if(user){
       dispatch(setOnboarding(true))
       navigation.navigate('BottomTabNavigation')
+      if (remember) {
+        // Dispatch the setRememberMe action with email, password, and rememberMe values
+        dispatch(
+          setRememberMe({
+            email: Email,
+            password: Password,
+            rememberMe: true,
+          })
+        );
+      } else {
+        // Dispatch the setRememberMe action with default values if Remember Me is unchecked
+        dispatch(
+          setRememberMe({
+            email: "",
+            password: "",
+            rememberMe: false,
+          })
+        );
+      }
+      // {id:user.id}
       // addproject
       // addtags  
       // BottomTabNavigation
@@ -59,6 +87,7 @@ export const LoginScreen = ({navigation}) => {
       setPasswordError('invalid Password')
 
     }
+    console.log('xdfghjkl');
 
     }
 ////email validation
@@ -101,6 +130,7 @@ const handlePassword = (val) => {
 };
 /// - - - handle disable button - - -  //
 useEffect(()=>{
+ 
   if(Email.length>4 && Password.length>6){
     if(EmailError==="" && PasswordError===""){
       setDisable(false)
@@ -108,9 +138,13 @@ useEffect(()=>{
     else setDisable(true)
   }
   else setDisable(true)
+  
+  
 },[Email,Password])
+
     return(   
 <SafeAreaView style={[flex(1), padding(20),styles.bgsmokewhite]}>
+<StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
 <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
@@ -121,7 +155,6 @@ useEffect(()=>{
   <View style={[flex(0.3)]}>
     <BackButtonComponent onPress={()=>navigation.navigate('signup')}/>
   </View>
-  {/* <ScrollView> */}
   <View style={[flex(0.3)]}>
     <HeadingComponent name={'Welcome Back 👋'} details={'Let\'s Get Back to Productivity'} />
   </View>
@@ -132,8 +165,8 @@ useEffect(()=>{
       value={Email}
       onChangeText={handleEmailChange}
       keyboardType="email-address"
-      showMaterialIcons={true}
-      name={'email'}
+      IconFamily ={Icons.MaterialCommunityIcons}
+      Iconname={'email'}
     />
     {EmailError===''?null:
           <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -144,9 +177,9 @@ useEffect(()=>{
       onChangeText={handlePassword}
       secureTextEntry={secureTextEntry}
       showText={() => setsecureTextEntry(!secureTextEntry)}
-      showMaterialIcons={false}
+      IconFamily ={Icons.SimpleLineIcons}
+      Iconname={'lock'}
       ShowPasswordIcon={true}
-      name={'lock-open'}
     />
     {PasswordError===''?null:
           <Text style={[styles.Orange]}>{PasswordError}</Text>}
@@ -171,10 +204,11 @@ useEffect(()=>{
     <ButtonComponent title={'Login'} onPress={handletoBottomTabNavigation} disabled={disable}/>
     {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setmodalVisible(false)} name={'Login...'} handleLogin={handleLogin}/> : null}
   </View>
-  {/* </ScrollView> */}
   </ScrollView>
 </SafeAreaView>
 
 
+
     )
 }
+
