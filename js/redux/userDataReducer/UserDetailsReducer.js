@@ -21,24 +21,24 @@ const usersSlice = createSlice({
         user.tasks.push(taskData);
       }
     },
-    addTags: (state, action) => {
-      const { email, tagsData } = action.payload;
-      const user = state.userList.find(user => user.email === email);
+    // addTags: (state, action) => {
+    //   const { email, tagsData } = action.payload;
+    //   const user = state.userList.find(user => user.email === email);
 
-      if (user) {
-        user.Tags.push(tagsData);
-      }
-    },
-    addProject: (state, action) => {
-      const { email, projectData } = action.payload;
-      const user = state.userList.find(user => user.email === email);
+    //   if (user) {
+    //     user.Tags.push(tagsData);
+    //   }
+    // },
+    // addProject: (state, action) => {
+    //   const { email, projectData } = action.payload;
+    //   const user = state.userList.find(user => user.email === email);
 
-      if (user) {
-        user.Project.push(projectData);
-      }
-    },
+    //   if (user) {
+    //     user.Project.push(projectData);
+    //   }
+    // },
   },
 });
 
-export const { addUser , addTask , addTags , addProject} = usersSlice.actions;
+export const { addUser , addTask } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;

@@ -7,7 +7,7 @@ import { Header } from '../../screens/Manage/components/Header';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-export const PriorityModal = ({ visible, onClose }) => {
+export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAddtask}) => {
   const getPriorityData = useSelector((state) => state.UserTaskDetails.userTask);
   const navigation=useNavigation()
   console.log('pdata', getPriorityData);
@@ -38,7 +38,8 @@ export const PriorityModal = ({ visible, onClose }) => {
   const GoToAddtask = () => {
     // navigation.navigate('addtask', { selectedPriority: selectedItem });
     console.log('jhvmn',selectedItem.name);
-    navigation.navigate('addtask',{prioritydata:selectedItem.name})
+    getPriorityDetails(selectedItem)
+    // navigation.navigate('addtask',{prioritydata:selectedItem.name})
 
   };
 
@@ -72,7 +73,7 @@ export const PriorityModal = ({ visible, onClose }) => {
 
           <View style={[flex(1), styles.row, padding(0, 0, 20, 0, 20), styles.allCenter]}>
             <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
-              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
+              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} handlecontinue={()=>handletoAddtask(1)}/>
               <CustomizedButtons name={'OK'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} handlecontinue={GoToAddtask} />
             </View>
           </View>

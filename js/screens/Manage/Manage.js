@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, Dimensions , StatusBar} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, position, radius, styles, widthValue, zIndex } from '../../styles/Styles';
 // import HomepageHeader from '../dashboard/Components/HomepageHeader';
@@ -22,25 +22,69 @@ export const Manage = ({navigation}) => {
   //states
     const [modalVisible,setmodalVisible]=useState(false)
     const [Seachvalue,setSearchvalue]=useState('')
+    const [count,setcount]=useState(0);
+    const [receivedPriorityData,setPriorityData]=useState([])
+    const [receiveTagsData,setreceiveTagsData]=useState([]);
+    const [taskname,setTaskname]=useState('')
+    const [session,setsession]=useState(1)
+    const [receiveProjectData,setReceivedProjectData]=useState([])
+
     const handlePlusmodal=()=>{
         setmodalVisible(true)
+        setcount(1)
     }
+    //Get data from priority
+const getPriorityDetails=(a)=>{
+  setcount(1)
+  console.log('adc',a.name,a.color);
+
+  setPriorityData(a)
+}
+//
+const handleCounter=(num)=>{
+  setcount(num)
+}
+const getTagDetails=(tagname,color)=>{
+  setcount(1)
+  setreceiveTagsData({Tagname:tagname,Color:color})
+  console.log('hjberk');
+}
+///get the user selected project
+const getProjectDetails=(name,color)=>{
+  setcount(1)
+  setReceivedProjectData({Projectname:name,Color:color})
+  console.log('hjberk');
+}
+
+    // useEffect(()=>{
+      
+    // },[count])
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
+    <StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
       <View style={[flex(0.2)]}>
       {/* <Header headername={'Focusify'} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/> */}
         <HomepageHeader IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.white} color={styles.black} headerName={'Focusify'}/>
       </View>
       
     <View style={[flex(2)]}>
-        {modalVisible ?
-        //  <PlusModal visible={modalVisible}/>
-        <PriorityModal/>
-        // <AddTask/>
+        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={() => setmodalVisible(false)} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData}/> :null:null}
+        {modalVisible ? count===2 ? <PriorityModal getPriorityDetails={getPriorityDetails} handletoAddtask={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===3 ? <Tags getTagDetails={getTagDetails} handleCounter={(val)=>setcount(val)}/>:null:null}
+        {modalVisible ? count===4 ? <Project getProjectDetails={getProjectDetails} handleCounter={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===5 ? <AddProject handletoAddtask={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===6 ? <Addtags handletoTags={(val)=>setcount(val)}/> :null:null}
+
+
+        
+        {/* //  <PlusModal visible={modalVisible}/>
+        // <PriorityModal/>
+        <AddTask/>
+        // <Addtags/>
         // <AddProject/>
         // <Tags/>
-        // <Project/>
-         :null}
+        // <Project/> */}
+         
         <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
           <TouchableOpacity onPress={handlePlusmodal}>
             <Icon name={modalVisible ? 'x' : 'plus'} type={Icons.Feather} style={[styles.white, { fontSize: 25 }, padding(0, 0, 10, 0, 10)]} />

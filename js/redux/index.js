@@ -6,6 +6,8 @@ import { showComponent } from './ShowComponentReducer';
 import { Userdetails } from './userDataReducer';
 import { Usertaskdetails } from './UserTaskReducer';
 import { Rememberme } from './rememberReducer';
+import { userProjectlists } from './UserProjectReducer';
+import { userTaglists } from './userTagsReducer';
 
 export const reducer = combineReducers({
     auth: authReducer,
@@ -15,4 +17,6 @@ export const reducer = combineReducers({
     UserDetails:Userdetails,
     UserTaskDetails:Usertaskdetails,
     RememberMe:Rememberme,
+    userProjectlist:userProjectlists,
+    userTaglist:userTaglists,
 })

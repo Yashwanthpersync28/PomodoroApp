@@ -9,40 +9,49 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 
 
-export const Project = ({ visible, onClose }) => {
+export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) => {
     const navigation=useNavigation();
-    const userProjectDetails=useSelector((state)=>state.UserDetails.userList)
+    const userProjectDetails=useSelector((state)=>state.userProjectlist.UserProjects)
     // console.log('datassdfghjk',userProjectDetails);
-    const [projectdata,setprojectData]=useState([]);
+    const [projectdata,setprojectData]=useState(userProjectDetails);
+    const [color,setcolor]=useState('')
+
     const handleCancel=()=>{
+      handleCounter(1)
         console.log('fgchvjbkl');
     }
     const handleAdd=()=>{
         console.log('fcgvhjbkn');
-        navigation.navigate('addtask',{projectname:checkedItem})
+
+
+        getProjectDetails(checkedItem,color)
+        // navigation.navigate('addtask',{projectname:checkedItem})
     }
     ///to handle Add Tags
     const handletoAddProject=()=>{
-       navigation.navigate('addproject')
+      //  navigation.navigate('addproject')
+      handleCounter(5)
     }
-    useEffect(()=>{
-      const userWithproject = userProjectDetails.find(userdata => userdata.email === 'test3@gmail.com');
-        // console.log('userWithTag',userWithproject);
-        // setprojectData(userWithproject.Project)
-        // console.log('sendDataToItems',projectdata);
-        if (userWithproject) {
-          console.log('sendDataToItems', userWithproject.Project);
-          setprojectData(userWithproject.Project || []);
-        }
-        console.log('sfdg',checkedItem);
-    },[userProjectDetails,checkedItem])
+    // useEffect(()=>{
+    //   const userWithproject = userProjectDetails.find(userdata => userdata.email === 'test3@gmail.com');
+    //     // console.log('userWithTag',userWithproject);
+    //     // setprojectData(userWithproject.Project)
+    //     // console.log('sendDataToItems',projectdata);
+    //     if (userWithproject) {
+    //       console.log('sendDataToItems', userWithproject.Project);
+    //       setprojectData(userWithproject.Project || []);
+    //     }
+    //     console.log('sfdg',checkedItem);
+    // },[userProjectDetails,checkedItem])
 
     const [checkedItem, setCheckedItem] = useState('');
     
-    const handleItemPress = (itemName) => {
+    const handleItemPress = (itemName,color) => {
       setCheckedItem((prevCheckedItem) =>
         prevCheckedItem === itemName ? null : itemName
       );
+      setcolor(color)
+
     };
   return (
     <Modal
@@ -59,7 +68,7 @@ export const Project = ({ visible, onClose }) => {
              <View style={[flex(4)]}>
              <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={[styles.column]}>
-                    <Items DataItems={projectdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress}/>
+                    <Items DataItems={projectdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress} iconName={'briefcase'} Iconfamily={Icons.Entypo}/>
                 </View>
                 </ScrollView>
              </View>
