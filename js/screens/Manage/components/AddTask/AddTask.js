@@ -1,5 +1,5 @@
 import React, { useRef, useState , useEffect} from 'react'
-import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView,TouchableOpacity} from 'react-native'
+import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView,TouchableOpacity,StatusBar} from 'react-native'
 import { borderColor, borderWidth, flex, fontSize, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../../../styles/Styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../../styles/Colors';
@@ -12,7 +12,10 @@ import { addTask, addUser } from '../../../../redux/userDataReducer/UserDetailsR
 import { useNavigation, useRoute } from '@react-navigation/native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const AddTask = ({ visible, onClose }) => {
+export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityData , onChangeText , taskname , onPressSession , sessions , receiveTagsData , receiveProjectData}) => {
+  console.log('receivedPriorityData',receivedPriorityData);
+  console.log('receiveTagsData',receiveTagsData);
+  console.log('receiveProjectDataaaa',receiveProjectData);
   const navigation=useNavigation();
   const route = useRoute();
   const receivedData = route.params?.prioritydata;
@@ -22,8 +25,7 @@ export const AddTask = ({ visible, onClose }) => {
   console.log('receivedProjectname',receivedProjectname);
  const TextInputFocus=useRef();
  const { darkMode } = useSelector(state => state.system)
- const [taskname,setTaskname]=useState('')
- const [session,setsession]=useState(1)
+//  const [session,setsession]=useState(1)
 
  ///selectors
  const userDatasSelector=useSelector((state)=>state.UserDetails.userList)
@@ -38,52 +40,79 @@ export const AddTask = ({ visible, onClose }) => {
 }, [visible]);
 ///estimated pomodoros data
 const [data,setdata]=useState([1,2,3,4,5,6,7,8])
-const iconData=['sun','flag','tag','briefcase'];
+const iconData=[{name:'sun',color:'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.Color || 'black'},{name:'briefcase',color:receiveProjectData.Color || 'black'}];
 
 /////Customize Buttons
 const handleAddTaskButtons=(icon)=>{
   if(icon==='flag'){
-    navigation.navigate('priority') 
+    handleCounter(2)
+    // navigation.navigate('priority') 
   }
   if(icon==='tag'){
-    navigation.navigate('tag')
+    // navigation.navigate('tag')
+    handleCounter(3)
+
 
   }
  if(icon==='briefcase'){
-    navigation.navigate('project')
+    // navigation.navigate('project')
+    handleCounter(4)
+
     
   }
   console.log('name',icon);
 }
 
 
-const addUserTaskHandler = (email, taskData) => {
-  dispatch(addTask({ email, taskData }));
+const addUserTaskHandler = (taskData) => {
+  // dispatch(addTask({ email, taskData }));
+  dispatch(addUserTasks(taskData))
 };
 
 
 
 
-
+const [id,setid]=useState(0)
 const SendData = () => {
+  setid(id+1)
   const taskData = {
+    id:id,
     Taskname: taskname,
-    Sessions: session,
-    Priority: receivedData,
-    Tags: receivedTaskname,
-    Project: receivedProjectname,
+    Sessions: sessions,
+    Priority: {name:receivedPriorityData.name,color:receivedPriorityData.color},
+    Tags: receiveTagsData,
+    Project: receiveProjectData,
   };
 
-  addUserTaskHandler('test3@gmail.com', taskData);
+  addUserTaskHandler(taskData);
+  console.log('taskname',taskname);
+  console.log('sessions',sessions);
+  console.log('priority',receivedPriorityData);
+  console.log('tags',receiveTagsData);
+  console.log('project',receiveProjectData);
+
+
 };
+// useEffect(()=>{
+  
+// })
   return (
+    
     <Modal
     animationType="slide"
     transparent={true}
     visible={visible}
     onRequestClose={onClose}
+    // onBackdropPress={onClose}
     >
-    <View style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)',justifyContent:'flex-end',alignItems:'center'}]}>
+   <StatusBar
+  translucent={true}
+  backgroundColor="rgba(0, 0, 0, 0.8)"
+  barStyle="light-content"
+/>
+
+      <TouchableOpacity onPress={onClose} style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)',justifyContent:'flex-end',alignItems:'center'}]}>
+    <View style={[flex(1),{justifyContent:'flex-end',alignItems:'center'}]} >
     <View style={[flex(0.4),{width:widthValue(1)},styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
       {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
@@ -93,7 +122,7 @@ const SendData = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={[{width: widthValue(1)},flex(0.4)]}
         > */}
-      <TextInput onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black]} 
+      <TextInput value={taskname} onChangeText={onChangeText} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black]} 
       placeholderTextColor={darkMode ? Colors.white : Colors.black}
                     />
       {/* </KeyboardAvoidingView> */}
@@ -101,7 +130,7 @@ const SendData = () => {
       <View style={[flex(1.3),paddingPosition(0,20,0,20),borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(10),{width:widthValue(1.1)}]}>
       {/* <View style={[flex(1.2),borderColor('#f7f7f7'),borderWidth(0,1)]}> */}
         <Text style={[styles.black]}>Estimated Pomodoros</Text>
-        <Sessions onPress={(val)=>setsession(val)}/>
+        <Sessions onPress={onPressSession} sessions={sessions}/>
         {/* <View style={[styles.allCenter,flex(1)]}>
          
           <View style={[styles.row,styles.allCenter]}>
@@ -122,8 +151,8 @@ const SendData = () => {
       <View style={[styles.row,flex(1),styles.allCenter,marginPosition(0,0,0,20)]}>
         {
           iconData.map((icon,index)=>
-          <TouchableOpacity key={index} onPress={()=>handleAddTaskButtons(icon)}>
-          <Icon  name={icon} type={Icons.Feather} style={[styles.black,fontSize(30),marginPosition(0,20)]}/> 
+          <TouchableOpacity key={index} onPress={()=>handleAddTaskButtons(icon.name)}>
+          <Icon  name={icon.name} type={Icons.Feather} style={[styles.black,fontSize(30),marginPosition(0,20),{color:icon.color}]}/> 
           </TouchableOpacity> 
           )
         }
@@ -137,6 +166,7 @@ const SendData = () => {
      </View>
     
     </View>
+    </TouchableOpacity>
   </Modal>
   )
 }

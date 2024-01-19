@@ -55,7 +55,7 @@
     import Icon, { Icons } from '../../../components/Icons';
     import { View, Text } from 'react-native';
     
-    export const Items = ({ DataItems , handleItemPress , checkedItem}) => {
+    export const Items = ({ DataItems , handleItemPress , checkedItem , iconName , Iconfamily}) => {
       // const [checkedItem, setCheckedItem] = useState('twf');
     
       // const handleItemPress = (itemName) => {
@@ -74,10 +74,10 @@
             <TouchableOpacity
               key={index}
               style={[{ height: heightValue(12) }, styles.row, borderColor('#f7f7f7'), borderWidth(0, 0, 0, 1)]}
-              onPress={() => handleItemPress(data.name)}
+              onPress={() => handleItemPress(data.name,data.color)}
             >
               <View style={[flex(0.2),styles.allCenter]}>
-                <Icon name={'tag'} type={Icons.Feather} style={[{color:data.color},fontSize(30)]} />
+                <Icon name={iconName} type={Iconfamily} style={[{color:data.color},fontSize(30)]} />
               </View>
               <View style={[flex(1), styles.centerVertical]}>
                 <Text style={[fontSize(22), styles.black]}>{data.name}</Text>

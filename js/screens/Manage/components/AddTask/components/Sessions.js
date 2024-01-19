@@ -3,9 +3,11 @@ import { View , Text , TouchableOpacity} from 'react-native'
 import { flex, marginPosition, radius, styles } from '../../../../../styles/Styles'
 
 
-const Sessions = ({onPress}) => {
+const Sessions = ({ onPress, sessions }) => {
+  console.log('sessions',sessions);
     const [data,setdata]=useState([1,2,3,4,5,6,7,8])
-    const [session,setsession]=useState('')
+    const [session,setsession]=useState(sessions)
+    // console.log('session',session);
     //get the user selected session
     const handleUserSessions=(index)=>{
         const SessionResult=data.find((data=>{

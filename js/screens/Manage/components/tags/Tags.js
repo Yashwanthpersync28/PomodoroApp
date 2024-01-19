@@ -9,35 +9,41 @@ import { Items } from '../Items'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 
-const Tags = ({ visible, onClose }) => {
-    const updatedTags=useSelector((state => state.UserDetails.userList))
-    const [Tagsdata,setTagsData]=useState([]);
-     console.log('Tagsdataaaaa',updatedTags[0].Tags);
+const Tags = ({ visible, onClose ,getTagDetails,handleCounter}) => {
+    const updatedTags=useSelector((state => state.userTaglist.UserTags))
+    const [Tagsdata,setTagsData]=useState(updatedTags);
+    const [color,setcolor]=useState('')
+     console.log('Tagsdataaaaa',updatedTags);
     const navigation=useNavigation();
     // const [Tagsdata,setTagsData]=useState([]);
     const handleCancel=()=>{
-        console.log('fgchvjbkl');
+      handleCounter(1)
     }
     const handleAdd=()=>{
       console.log('fcgvhjbkn');
-      navigation.navigate('addtask',{tagname:checkedItem})
+  getTagDetails(checkedItem,color)
+
+      // navigation.navigate('addtask',{tagname:checkedItem})
   }
     ///to handle Add Tags
     const handleTags=()=>{
-       navigation.navigate('addtags')
+      //  navigation.navigate('addtags')
+      handleCounter(6)
     }
 
-    useEffect(()=>{
-      const userWithTag = updatedTags.find(userdata => userdata.email === 'test3@gmail.com');
-        if (userWithTag) {
-          console.log('sendDataToItems', userWithTag.Tags);
-          setTagsData(userWithTag.Tags || []);
-        }
-        console.log('sfdg',checkedItem);
-    },[updatedTags,checkedItem])
+    // useEffect(()=>{
+    //   const userWithTag = updatedTags.find(userdata => userdata.email === 'test3@gmail.com');
+    //     if (userWithTag) {
+    //       console.log('sendDataToItems', userWithTag.Tags);
+    //       setTagsData(userWithTag.Tags || []);
+    //     }
+    //     console.log('sfdg',checkedItem);
+    // },[updatedTags,checkedItem])
 
     const [checkedItem, setCheckedItem] = useState([]);
-    const handleItemPress = (itemName) => {
+    console.log('checkedItembb ',checkedItem);
+    const handleItemPress = (itemName,color) => {
+      console.log('dcs',color);
     //   if (checkedItem.includes(itemName)) {
     //   // Item is already checked, uncheck it
     //   setCheckedItem((prevCheckedItems) =>
@@ -55,6 +61,8 @@ const Tags = ({ visible, onClose }) => {
     setCheckedItem((prevCheckedItem) =>
     prevCheckedItem === itemName ? null : itemName
   );
+  // getTagDetails(itemName,color)
+  setcolor(color)
     };
   return (
     <Modal
@@ -71,7 +79,7 @@ const Tags = ({ visible, onClose }) => {
              <View style={[flex(4)]}>
              <ScrollView >
                 <View style={[styles.column]}>
-                    <Items DataItems={Tagsdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress}/>
+                    <Items DataItems={Tagsdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress} iconName={'tag'} Iconfamily={Icons.FontAwesome}/>
                 </View>
                 </ScrollView>
              </View>
