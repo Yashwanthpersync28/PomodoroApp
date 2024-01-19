@@ -3,6 +3,7 @@ import { calendar } from "../screens/Calendar/calendar";
 import { Manage } from "../screens/Manage/Manage";
 import { Report } from "../screens/Report/Report";
 import Homepage from "../screens/auth/login/Homepage/Homepage";
+import { Pomodoro2 } from "../screens/dashboard/Components/Pomodoro2";
 import { Timer } from "../screens/dashboard/Components/Timer";
 import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen"
 import { Settings } from "../screens/settings/Settings";
@@ -14,7 +15,6 @@ export const  BottomTabs = [
         component:PomodoroScreen,
         label:'Pomodoro',
         icon:'clock',
-
     },
     {
         name:'ManageScreen',
@@ -23,8 +23,8 @@ export const  BottomTabs = [
         icon:'grid',
     },
     {
-        name:'calendar',
-        component:calendar,
+        name:'Pomodoro2',
+        component:Pomodoro2,
         label:'Calendar',
         icon:'calendar',
     },

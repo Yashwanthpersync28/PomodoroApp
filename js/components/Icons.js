@@ -12,14 +12,14 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 export const Icons = {
     MaterialCommunityIcons,
     MaterialIcons,
     Ionicons,
     Feather,
     FontAwesome,
-    // FontAwesome5,
+    FontAwesome5,
     AntDesign,
     Entypo,
     SimpleLineIcons,

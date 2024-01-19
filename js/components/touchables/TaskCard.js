@@ -21,11 +21,11 @@ import {
 import Icon, { Icons } from '../Icons';
 import { Taskdata } from '../../constants/Taskdata';
 
-export const TaskCard = ({closeModal,setSelectedTask,setSession}) => {
+export const TaskCard = ({closeModal,setSelectedTask,setSession,filteredArray}) => {
 
     return (
 <View>
-        {Taskdata.map((deatails,index)=>(
+        {filteredArray.map((deatails,)=>(
             
             <TouchableWithoutFeedback  key={deatails.title} onPress={()=>{closeModal(),setSelectedTask(deatails.title),setSession(deatails.sessions)}}>
         <View style={[styles.row,marginPosition(10,0,0),{width:widthValue(1.2)}]}>

@@ -1,17 +1,6 @@
-import {
-  View,
-  SafeAreaView,
-  Text,
-} from 'react-native';
+import { View,SafeAreaView, Text,StatusBar} from 'react-native';
 import React, { useState,useRef,useEffect } from 'react';
-import {
-  flex,
-  styles,
-  widthValue,
-  radius,
-  heightValue,
-  marginPosition,
-} from '../../styles/Styles';
+import {flex,styles, widthValue, radius, heightValue, marginPosition,} from '../../styles/Styles';
 import {HomepageHeader} from './Components/HomepageHeader';
 import {ModeButtons} from './Components/ModeButtons';
 import {TimerComponent} from './Components/TimerComponent';
@@ -26,19 +15,28 @@ import Sound from 'react-native-sound';
 import { Header } from './Components/Header';
 
 
-
-
 export const PomodoroScreen = () => {
 
-  const [progress,setProgress] = useState(100)
-  const InitialTime = .5*60;
+
   // const InitialTimeecondMode = 100*60;
-  const [time,setTime] = useState(InitialTime)
-  const [focusTime,setFocusTime] = useState(0)
+  const InitialFocusTime = .5*60;
+  const initialBreakTime = .15 * 60;
+  const [time,setTime] = useState(InitialFocusTime)
+  const [sessionBreak,setSessionBreak] = useState(initialBreakTime)
+  const [progress,setProgress] = useState(100)
   const [isTimerActive,setIsTimerActive] = useState(false);
+  const [isCountingUp, setIsCountingUp] = useState(false);
+  const [barColor,setBarColor] = useState('#ff6347')
+  const [currentTimer, setCurrentTimer] = useState(0); // 0 for focus, 1 for break
+
+
+
+
+
+
+  const [focusTime,setFocusTime] = useState(0)
   const [currentButton,setCurrentButton] = useState(0);
   const [session,setSession] = useState('No')
-  const [barColor,setBarColor] = useState('#ff6347')
   const [timerMode,setTimerMode] = useState(0);
   const [initialValue,setInitialvalue] = useState(0)
   const [currentModal, setCurrentModal] = useState(0)
@@ -49,70 +47,42 @@ export const PomodoroScreen = () => {
   const [selectedTask,setSelectedTask] = useState('Select Task')
   const initialtune = modalData.whiteNoiseMode[0].id
   const [selectedTune,setSelectedTune] = useState(initialtune)
-  const [breakTime,setBreakTime] = useState(1*60);
-  const [currentTimer,setCurrentTimer] = useState(0)
-  const [breakTimer,setBreakTimer] = useState(false)
-  const [isCountingUp, setIsCountingUp] = useState(false);
+
+
 
   useEffect(() => {
     let intervalId;
-    let startTime;
-  
+
     const updateTimer = () => {
       if (isTimerActive) {
-        const currentTime = new Date().getTime();
-        const elapsedTime = Math.floor((currentTime - startTime) / 1000);
-  
-        setTime((prevTime) => {
-          if (currentTimer === 0 && prevTime > 0) {
-           const  newTime = isCountingUp ? prevTime + elapsedTime : prevTime - elapsedTime;
-  
-            if (newTime <= 0) {
-              setIsTimerActive(false);
-              setProgress(0)
-              // setFocusTime(0);
-              setCurrentButton(3);
-              setSession('Break');
-              console.log('timer completed');
-              setTime(.15*60);
-              setProgress(100);
-              // setCurrentTimer(2)
-              return 0;
-            }
-            const newProgress = Math.floor((newTime / InitialTime) * 100);
-            setProgress(newProgress);
-  
-            setFocusTime((prevFocusTime) => {
-              const updatedFocusTime = Math.floor(InitialTime - newTime);
-              console.log('mode1 FOCUSTIME', updatedFocusTime);
-              return updatedFocusTime;
-            });
-            return newTime;
-          } else if (currentTimer === 1 && isCountingUp) {
-            const newTime = prevTime + elapsedTime;
-            setFocusTime(newTime);
-            console.log('mode2 FOCUSTIME', newTime);
-  
-            const newProgress = Math.floor((newTime / (InitialTime - 1)) * 100);
-            setProgress(newProgress);
-  
-            return newTime;
-          }
-          return prevTime;
-        });
+        const newTime = isCountingUp ? time + 1 : time - 1;
+        const breakTime = sessionBreak - 1;
+        if (newTime <= 0) {
+          setIsTimerActive(false);
+          setProgress(0);
+          setCurrentTimer(1);
+          setCurrentButton(3) // Switch to break timer
+          setTime(initialBreakTime);
+          setBarColor('#00e0ff');
+          setIsCountingUp(false);
+          return;
+        }
+
+        const newProgress = Math.floor(((currentTimer === 0 ? newTime / InitialFocusTime :breakTime/ initialBreakTime)) * 100);
+        setProgress(newProgress);
+
+        setBarColor(currentTimer === 0 ? '#ff6347' : '#00e0ff');
+
+        setTime(newTime);
       }
     };
-  
+
     if (isTimerActive) {
-      startTime = new Date().getTime();
       intervalId = setInterval(updateTimer, 1000);
     }
-  
+
     return () => clearInterval(intervalId);
   }, [isTimerActive, time, currentTimer, isCountingUp]);
-  
-
-
 
 
 
@@ -126,42 +96,33 @@ export const PomodoroScreen = () => {
   }
   //TIMER SETUP//
 
-  // const playSound = ()=>{
-
-  //   var WhiteNoise = new Sound('adventure.mp3', Sound.MAIN_BUNDLE, (error) => {
-  //     if (error) {
-  //       console.log('failed to load the sound', error);
-  //       return;
-  //     }
-  //     // loaded successfully
-  //     console.log('duration in seconds: ' + WhiteNoise.getDuration() + 'number of channels: ' + WhiteNoise.getNumberOfChannels());
-  //     setTimeout(() => {
-  //       WhiteNoise.stop(()=>{
-  //         WhiteNoise.release();
-  //         console.log('song stopped')
-  //       });
-  //     }, 10000);
-  //     // Play the sound with an onEnd callback
-  //     WhiteNoise.play((success) => {
-  //       if (success) {
-  //         console.log('successfully finished playing');
-  //       } else {
-  //         console.log('playback failed due to audio decoding errors');
-  //       }
-  //     });
-  //   });
-  // }
-
+  const playSound = (song) => {
+      const sound = new Sound(song, Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+          console.error('Failed to load sound', error);
+        } else {
+          console.log('Sound initialized successfully');
+  
+          // Continue with playback logic
+          sound.play((success) => {
+            if (success) {
+              console.log('Sound played successfully');
+            } else {
+              console.error('Playback failed due to audio decoding errors');
+            }
+          });
+        }
+      });
+  };
+  
   //audio section playSound //
 
   
-
-
   const updateTimerMode = ()=>{
     if(selectedItemId === modalData.TimerMode[0].id){
       console.log('first mode, timer 0');
       setCurrentModal(0)
-      setTime(InitialTime)
+      setTime(InitialFocusTime)
       setTimerMode(0)
       setCurrentTimer(0)
       setProgress(100)
@@ -171,7 +132,7 @@ export const PomodoroScreen = () => {
       setCurrentModal(0);
       setTimerMode(1)
       setTime(0*60)
-      setProgress(0)
+      setProgress(10)
       setCurrentTimer(1)
     }
   }
@@ -209,12 +170,14 @@ export const PomodoroScreen = () => {
   }
 
   const handleBreak = () => {
-    setIsTimerActive(true);
-    setCurrentButton(4)
-    setTime(.15*60)
-    const remainingTime = time - 1 ;
-    setProgress(Math.floor(remainingTime/time)*100);
-  };
+    setCurrentTimer(1)
+    setProgress(100)
+  setIsTimerActive(true);
+  setIsCountingUp(false);
+  setCurrentButton(4);
+  
+};
+
   const formatTime = (seconds)=>{
     const minutes = Math.floor(seconds/60);
     const secondsLeft = seconds % 60;
@@ -222,8 +185,6 @@ export const PomodoroScreen = () => {
   };
 
 
-
-  
   const handlepause = ()=>{
     setIsTimerActive(false)
     console.log('timer is not active now')
@@ -232,26 +193,26 @@ export const PomodoroScreen = () => {
   }
 
   const handleStop = ()=>{
-    if(currentTimer === 1){
-    setProgress(0)
-    setTime(0)
+    // if(currentTimer === 1){
+    // setProgress(0)
+    setTime(InitialFocusTime)
     setBarColor([styles.bgLightWhite])
     setIsTimerActive(false)
     console.log('timer is not active now')
     setCurrentButton(0)
     console.log('timer',currentTimer)
-  }
-   else if
-   (currentTimer === 0)
-   {
-      setProgress(100)
-      setBarColor('#ff6347')
-      setTime(InitialTime)
-      setIsTimerActive(false)
-    console.log('timer is not active now')
-    setCurrentButton(0)
-    console.log('timer',currentTimer)
-    }
+  // }
+  //  else if
+  //  (currentTimer === 0)
+  //  {
+  //     setProgress(100)
+  //     setBarColor('#ff6347')
+  //     setTime(InitialFocusTime)
+  //     setIsTimerActive(false)
+  //   console.log('timer is not active now')
+  //   setCurrentButton(0)
+  //   console.log('timer',currentTimer)
+  //   }
   }
   const handleContinue = ()=>{
     setIsTimerActive(true)
@@ -265,9 +226,6 @@ export const PomodoroScreen = () => {
   //   setProgress(100)
   // }
 
-
-
-    
   //   // if(currentTimer === 0){
   //   //   setCurrentTimer(1)
   //   //   setSession('Short Break')
@@ -281,13 +239,12 @@ export const PomodoroScreen = () => {
   // }
 
 
-
   const handleSkipBreak = ()=>{
     setIsTimerActive(false)
     console.log('timer is not active now')
     setCurrentButton(0)
     setSession('2 of 4')
-    setTime(InitialTime)
+    setTime(InitialFocusTime)
     setBarColor('#ff6347')
   }
 
@@ -301,19 +258,13 @@ export const PomodoroScreen = () => {
 
   const clearTask = ()=>{
     setSelectedTask('Select Task');
-    setTime(InitialTime)
+    setTime(InitialFocusTime)
     setSession('No');
     setIsTimerActive(false)
     console.log('timer is not  active now')
     setCurrentButton(0)
     setBarColor('#ff6347')
-    if(currentTimer===0){
-      setProgress(100)
-    } 
-     else if (currentTimer === 1 ){
-    setProgress(0)
-    setTime(0*60)
-    }
+    setTime(InitialFocusTime)
   }
 
   // start of TimerModemodal functions
@@ -335,31 +286,16 @@ export const PomodoroScreen = () => {
   //  start of WhiteNoise modal functions
 
 
-  const playSound = (songPath) => {
-    if (songPath) {
-      const sound = new Sound(songPath, Sound.MAIN_BUNDLE, (error) => {
-        if (error) {
-          console.error('Failed to load sound', error);
-        } else {
-          console.log('Sound initialized successfully');
-  
-          // Continue with playback logic
-          sound.play((success) => {
-            if (success) {
-              console.log('Sound played successfully');
-            } else {
-              console.error('Playback failed due to audio decoding errors');
-            }
-          });
-        }
-      });
-    }
-  };
   
   const handleNoise = (item) => {
     setSelectedTune(item.id);
+    console.log('selectedTune',selectedTune);
+
+  //   if(Sound){
+  //     Sound.stop();
+  //     Sound.release();
+  //   }
     playSound(item.song);
-    console.log(selectedTune);
   };
   
   // Example: Play the first white noise song from the array
@@ -368,17 +304,6 @@ export const PomodoroScreen = () => {
   
   
   
-
-  // const handleNoise = (item)=>{
-  //   setSelectedTune(item.id)
-  //   if(item.song!== null){
-  //     playSound(item.song),
-  //     console.log(item.song);
-  //   } else {
-  //     console.log('no sound found')
-  //   }   
-  // }
-
   const updateNoise = ()=>{
     setCurrentModal(0);
     console.log(selectedTune)
@@ -386,12 +311,9 @@ export const PomodoroScreen = () => {
 
   //  end of WhiteNoise modal functions
 
- 
-
-
-
 return (
   <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
+    <StatusBar backgroundColor = "#ff6347" barStyle = "dark-content"/>
     <View style={[styles.bgOrange, { height: heightValue(2), width: widthValue(1) }, styles.centerHorizontal]}>
       <View>
         <View style={[marginPosition(0,0,0,20)]}>
@@ -417,7 +339,8 @@ return (
         session={session}
         time={time}
         setTime={setTime}
-        InitialTime={InitialTime}
+        InitialFocusTime={InitialFocusTime}
+        // InitialTime={InitialTime}
         barColor={barColor}
         // handleTimerComplete={handleTimerComplete}
         timerMode={timerMode}
@@ -426,7 +349,8 @@ return (
         formatTime={formatTime}
         progress={progress}
         currentTimer={currentTimer}
-        breakTimer={breakTimer}
+        sessionBreak={sessionBreak}
+        initialBreakTime={initialBreakTime}
         />
       </View>
     </View>
@@ -440,5 +364,8 @@ return (
   </SafeAreaView>
 );
 };
+
+
+
 
 

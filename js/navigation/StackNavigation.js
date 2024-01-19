@@ -21,6 +21,8 @@ import { PriorityModal } from "../components/modals/PriorityModal";
 import Tags from "../screens/Manage/components/tags/Tags";
 import { TimerComponent } from "../screens/dashboard/Components/TimerComponent";
 import { Notification1 } from "../screens/SettingsScreens/Notification1";
+import { Timer } from "../screens/dashboard/Components/Timer";
+import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -30,7 +32,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="splash">
+            <Stack.Navigator initialRouteName="BottomTabNavigation">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -75,6 +77,13 @@ export const AppNavigationContainer = () => {
                     }}
                 />
                 <Stack.Screen
+                    name={'Notification1'}
+                    component={Notification1}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
                     name={'addproject'}
                     component={AddProject}
                     options={{
@@ -95,6 +104,14 @@ export const AppNavigationContainer = () => {
                         header: () => null,
                     }}
                 />
+                 <Stack.Screen
+                    name={'PomodoroScreen'}
+                    component={PomodoroScreen}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+
             </Stack.Navigator>
         </NavigationContainer>
     )

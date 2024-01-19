@@ -8,6 +8,7 @@ import {
     Switch,
     TextInput,
     ScrollView,
+    KeyboardAvoidingView
 } from 'react-native';
 import React, { useState } from 'react';
 import {
@@ -31,18 +32,23 @@ import {
 import Modal from 'react-native-modal';
 import Icon, { Icons } from '../../../components/Icons';
 import {TaskCard} from '../../../components/touchables/TaskCard';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import { searchFilter } from '../../../helpers/searchHelper';
+import { Taskdata } from '../../../constants/Taskdata';
 
 export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }) => {
 
+
+    const [searchText,setSearchText] = useState('')
+    const [filteredArray,setFilteredArray] = useState([])
+    const handleSearch=(text)=>{
+        setSearchText(text)
+        console.log(searchText)
+        const filteredArray = searchFilter(Taskdata,text,'title');
+        setFilteredArray(filteredArray)
+        console.log(filteredArray)
+    }
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding'+ 47 : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -230}>
-        <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        style={[padding(0), styles.bgWhite, flex(1)]}
-      >
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <Modal
                 animationIn={'slideInUp'}
                 animationOut={'slideOutDown'}
@@ -87,19 +93,26 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
 
                         <View style={[styles.row, styles.centerHorizontal, padding(0, 2, 15), radius(8), { backgroundColor: '#fafafa' }, marginPosition(20)]}>
                             <Icon name={"search"} type={Icons.EvilIcons} style={[styles.lightGray, fontSize(35), marginPosition(0, 10)]} />
-                            <TextInput placeholder='Search task' placeholderTextColor={'#cecece'} style={[fontSize(20)]} />
+                            
+                            <TextInput
+                             placeholder='Search task' 
+                             placeholderTextColor={'#cecece'} 
+                             style={[fontSize(20)]} 
+                             value={searchText}
+                             onChangeText={handleSearch} />
                         </View>
                         <View style={[styles.row, styles.centerHorizontal, margin(0, 20)]}>
                             <Text style={[marginPosition(0, 10), styles.gray, { fontWeight: '500' }]}>Today Tasks</Text>
                             <View style={[borderWidth(0, 1), styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
                         </View>
                         <View>
-                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession}/>
+                        
+                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession} filteredArray={filteredArray}/>
+                       
                         </View>
                     </View>
                 </View>
             </Modal>
-        </ScrollView>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
     );
 };
