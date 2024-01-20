@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {View,Text,Modal} from 'react-native';
+import {View,Text,Modal,TouchableOpacity} from 'react-native';
 import { flex , widthValue , radius , paddingPosition , borderColor , borderWidth, styles , padding, fontSize, marginPosition ,} from '../../styles/Styles';
 
 import CustomizedButtons from '../../screens/auth/onboarding/component/CustomizedButtons';
@@ -9,7 +9,7 @@ import { DuedateCalendar } from '../../screens/Manage/components/Calendar/Duedat
 
 
 
-export const DueDateModal = ({visible,onClose}) => {
+export const DueDateModal = ({visible,onClose,OnpressDate,handletoAddtask}) => {
 
     const calendarheaderData=[{'name':'Today','Iconfamily':Icons.Feather,'IconName':'sun','color':styles.bgLeafGreen},
     {'name':'Tomorrow','Iconfamily':Icons.Feather,'IconName':'sunrise','color':styles.bgBlue},
@@ -17,7 +17,7 @@ export const DueDateModal = ({visible,onClose}) => {
     {'name':'Planned','Iconfamily':Icons.MaterialCommunityIcons,'IconName':'calendar-check','color':styles.bgOrange}]
 
     const GoToAddtask=()=>{
-        console.log('dxfcghvjbkl');
+      handletoAddtask(1)
     }
   
 
@@ -27,7 +27,11 @@ export const DueDateModal = ({visible,onClose}) => {
     transparent={true}
     visible={visible}
     onRequestClose={onClose}>
-    <View style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)', justifyContent: 'flex-end', alignItems: 'center' }]}>
+    <View style={[flex(1),styles.column, { backgroundColor: 'rgba(0, 0, 0, 0.6)'}]}>
+    <View style={[flex(0.2)]}>
+      <TouchableOpacity onPress={onClose} style={[flex(1)]}>
+      </TouchableOpacity>
+      </View>
       <View style={[flex(0.8), { width: widthValue(1) }, styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
         <View style={[styles.allCenter, flex(0.5), borderColor('#e3e1e1'), borderWidth(0, 0, 0, 1)]}>
           <Header headername={'Due Date'} bgcolor={styles.white} color={styles.black} />
@@ -46,9 +50,9 @@ export const DueDateModal = ({visible,onClose}) => {
             })}
          
         </View>
-        <View style={[ flex(2.5), styles.row,marginPosition(15,0,15)]}>
-            <View style={[flex(1),borderWidth(1),borderColor('#e3e1e1'),radius(15)]}>
-             <DuedateCalendar/>
+        <View style={[ flex(2.5),marginPosition(15,0,15)]}>
+            <View style={[flex(1),borderWidth(1),borderColor('#e3e1e1'),radius(15),styles.allCenter]}>
+             <DuedateCalendar OnpressDate={OnpressDate}/>
              
              
           </View>

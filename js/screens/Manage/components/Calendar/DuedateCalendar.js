@@ -58,20 +58,21 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import Icon, { Icons } from '../../../../components/Icons';
 import { Colors } from '../../../../styles/Colors';
-import { fontSize, heightValue, styles, widthValue } from '../../../../styles/Styles';
+import { flex, fontSize, heightValue, styles, widthValue } from '../../../../styles/Styles';
 
-export const DuedateCalendar = () => {
+export const DuedateCalendar = ({OnpressDate}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleDateString('default', { month: 'long' }));
   const calendarRef = useRef(null);
 
   const today = new Date();
-  const minDate = new Date(today);
+  const minDate = new Date(today-1);
   minDate.setDate(today.getDate()); // Set minimum date to yesterday
 
   const handleDateChange = (date) => {
     setSelectedDate(date.dateString);
     console.log('Selected Date:', date.dateString);
+    OnpressDate(date.dateString)
   };
 
   const handleMonthChange = (month) => {
@@ -93,43 +94,69 @@ export const DuedateCalendar = () => {
   
   
 
-  const renderHeader = () => {
+  // const renderHeader = () => {
+  //   return (
+  //     <View style={[styles.row, { height: heightValue(15), width: widthValue(1.2) }, styles.bgGray, styles.row]}>
+  //       <TouchableOpacity style={[{ width: widthValue(6) }, styles.bgOrange, styles.allCenter]} onPress={()=>handlePreviousMonth(true)}>
+  //         <Icon name={'chevron-left'} type={Icons.Feather} style={[styles.black, fontSize(30)]} />
+  //       </TouchableOpacity>
+  //       <View style={[{ width: widthValue(1.9) }, styles.bgBlue, styles.allCenter]}>
+  //         <Text style={styles.white}>{currentMonth}</Text>
+  //       </View>
+  //       <View style={[{ width: widthValue(6) }, styles.bgsmokeOrange, styles.allCenter]}>
+  //         <Icon name={'chevron-right'} type={Icons.Feather} style={[styles.black, fontSize(30)]} />
+  //       </View>
+  //     </View>
+  //   );
+  // };
+
+
+  const dayComponent = ({ date, state }) => {
+    const isToday = date.dateString === today.toISOString().split('T')[0];
+    const isSelected = selectedDate === date.dateString;
+    const isRemainingDate = !isToday && !isSelected;
     return (
-      <View style={[styles.row, { height: heightValue(15), width: widthValue(1.2) }, styles.bgGray, styles.row]}>
-        <TouchableOpacity style={[{ width: widthValue(6) }, styles.bgOrange, styles.allCenter]} onPress={()=>handlePreviousMonth(true)}>
-          <Icon name={'chevron-left'} type={Icons.Feather} style={[styles.black, fontSize(30)]} />
-        </TouchableOpacity>
-        <View style={[{ width: widthValue(1.9) }, styles.bgBlue, styles.allCenter]}>
-          <Text style={styles.white}>{currentMonth}</Text>
+      <TouchableOpacity
+        onPress={() => handleDateChange(date)}
+        style={[
+          styles.dayContainer,
+          { backgroundColor: isToday ? '#4bb058' : 'transparent', borderRadius: 20 ,justifyContent:'center',alignItems:'center'},styles.allCenter
+          // isSelected && { borderColor: '#ff6347', borderWidth: 2 },
+        ]}
+      >
+        <View style={[styles.allCenter]}>
+        <Text style={[styles.dayText, isToday && { color: 'white',borderRadius:20,width:20 }, isSelected && { backgroundColor: '#ff6347' , borderRadius:20,width:20,color:'black'},isRemainingDate && { color: 'black' }]}>{date.day}</Text>
         </View>
-        <View style={[{ width: widthValue(6) }, styles.bgsmokeOrange, styles.allCenter]}>
-          <Icon name={'chevron-right'} type={Icons.Feather} style={[styles.black, fontSize(30)]} />
-        </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
+  const minDateString = minDate.toISOString().split('T')[0];
   return (
-    <View>
+    <View style={[flex(1),styles.allCenter]}>
       <Calendar
         ref={calendarRef}
         onDayPress={handleDateChange}
         onMonthChange={handleMonthChange}
         markedDates={{ [selectedDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' } }}
         theme={{
-          selectedDayBackgroundColor: '#ff6347',
-          todayTextColor: '#ffffff',
+          selectedDayBackgroundColor: 'blue',
+          todayTextColor: 'black',
           todayBackgroundColor:'#4bb058',
           calendarBackground: '#ffffff',
           dayTextColor: 'black',
           textDayFontWeight:'bold',
           textDayHeaderFontWeight:'bold',
           agendaDayTextColor: 'red',
-
+          textDayStyle:{color:'black'},
+          dayTextColor: 'blue',
         }}
         minDate={minDate}
-        style={[{ height: heightValue(4) }]}
+        dayComponent={dayComponent}
+        disableDateBefore={minDateString} 
+        // calendarHeight={heightValue(300)}
         // customHeader={renderHeader}
+       
       />
     </View>
   );
