@@ -22,7 +22,7 @@ import { TimerButton } from './TimerButton';
 import { modalData } from '../../../constants/ModalsData';
 import Icon, { Icons } from '../../../components/Icons';
   
-  export const WhiteNoiseModal = ({closeModal,currentModal,selectedTune,handleNoise,updateNoise,playSound }) => {
+  export const WhiteNoiseModal = ({closeModal,currentModal,selectedTune,handleNoise,updateNoise,playSound,stopSound }) => {
 
      const renderTunes=({item})=>{
       const isSelected = selectedTune === item.id
@@ -89,8 +89,8 @@ import Icon, { Icons } from '../../../components/Icons';
 <FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-        <TimerButton buttonText={'Ok'}onPress={updateNoise} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal(),stopSound()}}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Ok'}onPress={()=>{updateNoise(),stopSound()}} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>
         </Modal>

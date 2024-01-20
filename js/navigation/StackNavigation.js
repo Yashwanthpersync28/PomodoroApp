@@ -32,7 +32,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="splash">
+            <Stack.Navigator initialRouteName="BottomTabNavigation">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -114,6 +114,13 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'PomodoroScreen'}
                     component={PomodoroScreen}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'AddTask'}
+                    component={AddTask}
                     options={{
                         header: () => null,
                     }}

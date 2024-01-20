@@ -41,6 +41,9 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
 ///estimated pomodoros data
 const [data,setdata]=useState([1,2,3,4,5,6,7,8])
 const iconData=[{name:'sun',color:'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.Color || 'black'},{name:'briefcase',color:receiveProjectData.Color || 'black'}];
+// const iconData =[ [{name:'sun',color:'black'}]]
+//  const iconData=[{name:'sun',color:'black'},{name:'flag',color: 'black'},{name:'tag',color:'black'},{name:'briefcase',color:'black'}];
+
 
 /////Customize Buttons
 const handleAddTaskButtons=(icon)=>{

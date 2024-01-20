@@ -14,11 +14,11 @@ export const modalData = {
         {id:'1',MusicName:'None',song:''},
         {id:'2',MusicName:'Cafe Ambiance',song:'adventure.mp3'},
         {id:'3',MusicName:'Shadow',       song:'shadow.mp3'},
-        {id:'4',MusicName:'WhiteNoise 1',song:'alert1.mp3'},
-        {id:'5',MusicName:'WhiteNoise 2',song:'alert2.mp3'},
+        {id:'4',MusicName:'Melting Ice',song:'meltingice.mp3'},
+        {id:'5',MusicName:'Wake me Now',song:'alert2.mp3'},
         {id:'6',MusicName:'Jazz Beats',song:'drumbeats.mp3'},
-        {id:'7',MusicName:'White Noise 6',song:'shadow.mp3'},
-        {id:'8',MusicName:'White Noise 7',song:'adventure.mp3'},
-        {id:'9',MusicName:'White Noise 8',song:'shadow.mp3'},
+        {id:'7',MusicName:'Sound of Sea',song:'soundofsea.mp3'},
+        {id:'8',MusicName:'Soft Melody',song:'softmelody.mp3'},
+        {id:'9',MusicName:'Birds Chirps',song:'birds.mp3'},
     ]
  }

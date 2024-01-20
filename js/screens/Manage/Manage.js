@@ -18,11 +18,11 @@ import { TextInputCompnent } from '../../components';
 import { Addtags } from './components/AddTags/Addtags';
 import { DueDateModal } from '../../components/modals/DueDateModal';
 
-export const Manage = ({navigation}) => {
+export const Manage = ({navigation,countvalue,modalVisibleval}) => {
   //states
-    const [modalVisible,setmodalVisible]=useState(false)
+    const [modalVisible,setmodalVisible]=useState(modalVisibleval)
     const [Seachvalue,setSearchvalue]=useState('')
-    const [count,setcount]=useState(0);
+    const [count,setcount]=useState(countvalue);
     const [receivedPriorityData,setPriorityData]=useState([])
     const [receiveTagsData,setreceiveTagsData]=useState([]);
     const [taskname,setTaskname]=useState('')

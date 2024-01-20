@@ -1,143 +1,51 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, Text, TouchableOpacity } from 'react-native';
-// import { AnimatedCircularProgress } from 'react-native-circular-progress';
-
-// export const Pomodoro2 = () => {
-//   const initialFocusTime = .5 * 60; // 5 minutes for focus
-//   const initialBreakTime = 1 * 60; // 2 minutes for break
-
-//   const [isTimerActive, setIsTimerActive] = useState(false);
-//   const [time, setTime] = useState(initialFocusTime);
-//   const [currentTimer, setCurrentTimer] = useState(0); // 0 for focus, 1 for break
-//   const [progress, setProgress] = useState(100);
-//   const [barColor, setBarColor] = useState('#ff6347');
-//   const [isCountingUp, setIsCountingUp] = useState(false);
-
-//   useEffect(() => {
-//     let intervalId;
-
-//     const updateTimer = () => {
-//       if (isTimerActive) {
-//         const newTime = isCountingUp ? time + 1 : time - 1;
-
-//         if (newTime <= 0) {
-//           setIsTimerActive(false);
-//           setProgress(0);
-//           setCurrentTimer(1); // Switch to break timer
-//           setTime(initialBreakTime);
-//           setBarColor('#00e0ff');
-//           setIsCountingUp(false);
-//           return;
-//         }
-
-//         const newProgress = Math.floor((newTime / (currentTimer === 0 ? initialFocusTime : initialBreakTime)) * 100);
-//         setProgress(newProgress);
-
-//         setBarColor(currentTimer === 0 ? '#ff6347' : '#00e0ff');
-
-//         setTime(newTime);
-//       }
-//     };
-
-//     if (isTimerActive) {
-//       intervalId = setInterval(updateTimer, 1000);
-//     }
-
-//     return () => clearInterval(intervalId);
-//   }, [isTimerActive, time, currentTimer, isCountingUp]);
-
-//   const handleStart = () => {
-//     setIsTimerActive(true);
-//     setIsCountingUp(false);
-//   };
-
-//   const handleStop = () => {
-//     setIsTimerActive(false);
-//   };
-
-//   const handleReset = () => {
-//     setIsTimerActive(false);
-//     setCurrentTimer(0); // Reset to focus timer
-//     setTime(initialFocusTime);
-//     setProgress(100);
-//     setBarColor('#ff6347');
-//     setIsCountingUp(false);
-//   };
-
-//   return (
-//     <View>
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       {currentTimer === 0 ? (
-//         <Text>Focus Time</Text>
-//       ) : (
-//         <Text>Break Time</Text>
-//       )}
-//       <AnimatedCircularProgress
-//         size={200}
-//         width={15}
-//         fill={(time / (currentTimer === 0 ? initialFocusTime : initialBreakTime)) * 100}
-//         tintColor={barColor}
-//         backgroundColor="#efefef"
-//         style={{ marginTop: 20 }}
-//         rotation={0}
-//         lineCap='round'
-//       >
-//         {() => <Text style={{ fontSize: 20 }}>{`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}</Text>}
-//       </AnimatedCircularProgress>
-
-//     </View>
-//     <View style={{ marginTop: 20, flexDirection: 'row' }}>
-//     <TouchableOpacity onPress={handleStart} style={{ marginRight: 20 }}>
-//       <Text>Start</Text>
-//     </TouchableOpacity>
-//     <TouchableOpacity onPress={handleStop}>
-//       <Text>Stop</Text>
-//     </TouchableOpacity>
-//   </View>
-//   <TouchableOpacity onPress={handleReset} style={{ marginTop: 20 }}>
-//     <Text>Reset</Text>
-//   </TouchableOpacity>
-//   </View>
-//   );
-// };
-
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWidth } from '../../../styles/Styles';
+import { TimerButton } from './TimerButton';
 
-export const Pomodoro2 = () => {
+
+export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentModal}) => {
   const initialFocusTime = 0.5 * 60; // 5 minutes for focus
-  const initialBreakTime = .15 * 60; // 2 minutes for break
+  const initialBreakTime = 0.15 * 60; // 2 minutes for break
 
+  const [currentButton,setCurrentButton] = useState(0)
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [time, setTime] = useState(initialFocusTime);
   const [currentTimer, setCurrentTimer] = useState(0); // 0 for focus, 1 for break
   const [progress, setProgress] = useState(100);
   const [barColor, setBarColor] = useState('#ff6347');
   const [isCountingUp, setIsCountingUp] = useState(false);
+  const [session,setSession] = useState(1)
 
   useEffect(() => {
     let intervalId;
 
     const updateTimer = () => {
       if (isTimerActive) {
-        const newTime = isCountingUp ? time + 1 : time - 1;
+        const newTime = time - 1;
+        console.log('newTime',newTime)
 
         if (newTime <= 0) {
           setIsTimerActive(false);
           setProgress(0);
-          setCurrentTimer(1); // Switch to break timer
-          setTime(initialBreakTime);
-          setBarColor('#00e0ff');
+
+          // Switch to the other timer type
+          setCurrentTimer(currentTimer === 0 ? 1 : 0);
+          setTime(currentTimer === 0 ? initialBreakTime : initialFocusTime);
+          setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
           setIsCountingUp(false);
+          // setCurrentButton(3)
+          setCurrentButton(currentTimer === 0 ? 3 : 0);
+          setSession( currentTimer===0? session:session +1)
+          console.log(currentButton)
           return;
         }
 
         const newProgress = Math.floor((newTime / (currentTimer === 0 ? initialFocusTime : initialBreakTime)) * 100);
         setProgress(newProgress);
 
-        setBarColor(currentTimer === 0 ? '#ff6347' : '#00e0ff');
+        setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
 
         setTime(newTime);
       }
@@ -151,46 +59,74 @@ export const Pomodoro2 = () => {
   }, [isTimerActive, time, currentTimer, isCountingUp]);
 
   const handleStart = (timerType) => {
+    if(selectedTask === taskSelected){
+      setCurrentModal(1)
+      setIsTimerActive(false)
+      console.log('timer is not  active now')
+    } else {
+      getDate()
     setIsTimerActive(true);
     setIsCountingUp(false);
     setCurrentTimer(timerType); // Set the current timer type
+    setCurrentButton(timerType === 0 ? 1:4)
+    }
   };
 
   const handleStop = () => {
     setIsTimerActive(false);
-  };
-
-  const handleReset = () => {
-    setIsTimerActive(false);
-    setCurrentTimer(0); // Reset to focus timer
+    setCurrentButton(0);
     setTime(initialFocusTime);
-    setProgress(100);
-    setBarColor('#ff6347');
-    setIsCountingUp(false);
+    setBarColor('#ff6347')
   };
 
+
+
+  const handlepause = ()=>{
+    setIsTimerActive(false)
+    console.log('timer is not active now')
+    setCurrentButton(2)
+    setBarColor('#1c97f0')
+  }
+
+  const handleContinue = ()=>{
+    setIsTimerActive(true)
+    console.log('timer is active now')
+    setCurrentButton(1)
+    setBarColor('#ff6347')
+  }
+
+  const handleSkipBreak = ()=>{
+    setIsTimerActive(false)
+    console.log('timer is not active now')
+    setCurrentButton(0)
+    setTime(initialFocusTime)
+    // setSession('2 of 4')
+    setProgress(100)
+    setBarColor('#ff6347')
+  }
   return (
-    <View>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {currentTimer === 0 ? (
-          <Text>Focus Time</Text>
-        ) : (
-          <Text>Break Time</Text>
-        )}
+    <View style={[styles.centerHorizontal]}>
+    <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)), styles.bgWhite, shadow(10), styles.allCenter]}>
         <AnimatedCircularProgress
-          size={200}
-          width={15}
+          size={230}
+          width={20}
           fill={(time / (currentTimer === 0 ? initialFocusTime : initialBreakTime)) * 100}
           tintColor={barColor}
           backgroundColor="#efefef"
-          style={{ marginTop: 20 }}
           rotation={0}
           lineCap='round'
         >
-          {() => <Text style={{ fontSize: 20 }}>{`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}</Text>}
+          {() => (
+            <View style={[styles.allCenter,{marginTop:-25}]}>
+            <Text style={[{fontSize:50,fontWeight:'500'},styles.black]}>
+              {`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}
+            </Text>
+            <Text style={[styles.black]}>{session} Sessions</Text>
+            </View>
+          )}
         </AnimatedCircularProgress>
       </View>
-      <View style={{ marginTop: 20, flexDirection: 'row' }}>
+      {/* <View style={{ marginTop: 20, flexDirection: 'row' }}>
         <TouchableOpacity onPress={() => handleStart(0)} style={{ marginRight: 20 }}>
           <Text>Start Focus</Text>
         </TouchableOpacity>
@@ -200,10 +136,23 @@ export const Pomodoro2 = () => {
         <TouchableOpacity onPress={handleStop}>
           <Text>Stop</Text>
         </TouchableOpacity>
+      </View> */}
+      <View style={[marginPosition(10), { width: widthValue(1) }]}>
+        {currentButton === 0 &&
+          <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+        {currentButton === 1 &&
+          <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]} />}
+        {currentButton === 2 &&
+          <View style={[styles.row, styles.spaceEvenly, { width: widthValue(1) }]}>
+            <TimerButton onPress={handleStop} buttonText={'Stop'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]} borderWidth={[borderWidth(0)]} />
+            <TimerButton onPress={handleContinue} buttonText={'Continue'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]} />
+          </View>}
+        {currentButton === 3 &&
+          <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'} widthVal={{ width: widthValue(2) }} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+        {currentButton === 4 &&
+          <TimerButton onPress={handleSkipBreak} buttonText={'Skip Break'} widthVal={{ width: widthValue(2) }} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
       </View>
-      <TouchableOpacity onPress={handleReset} style={{ marginTop: 20 }}>
-        <Text>Reset</Text>
-      </TouchableOpacity>
+  
     </View>
   );
 };

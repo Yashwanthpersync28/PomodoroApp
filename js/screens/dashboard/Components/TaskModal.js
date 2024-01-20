@@ -11,6 +11,7 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
     flex,
     styles,
@@ -34,21 +35,33 @@ import Icon, { Icons } from '../../../components/Icons';
 import {TaskCard} from '../../../components/touchables/TaskCard';
 import { searchFilter } from '../../../helpers/searchHelper';
 import { Taskdata } from '../../../constants/Taskdata';
+import { useNavigation } from '@react-navigation/native';
+import { AddTask } from '../../Manage/components/AddTask/AddTask';
+import { Manage } from '../../Manage/Manage';
 
 export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }) => {
 
+  const taskDetails = useSelector((state) => state.UserTaskDetails.userTask);
+
+  console.log('taskDetails',taskDetails)
+   
+    // const [currentPage ,setCurrentPage] = useState(0)
+    const addTask = ()=>{
+        setCurrentPage(1)
+    }
 
     const [searchText,setSearchText] = useState('')
-    const [filteredArray,setFilteredArray] = useState([])
+    const [filteredArray,setFilteredArray] = useState(taskDetails)
     const handleSearch=(text)=>{
         setSearchText(text)
         console.log(searchText)
-        const filteredArray = searchFilter(Taskdata,text,'title');
+        const filteredArray = searchFilter(taskDetails,text,'Taskname');
         setFilteredArray(filteredArray)
         console.log(filteredArray)
     }
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            {/* {currentPage === 0  && */}
             <Modal
                 animationIn={'slideInUp'}
                 animationOut={'slideOutDown'}
@@ -84,7 +97,7 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
                                 Select Task
                             </Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={addTask}>
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
                         </TouchableOpacity>
                     </View>
@@ -107,12 +120,13 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
                         </View>
                         <View>
                         
-                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession} filteredArray={filteredArray}/>
+                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession} filteredArray={filteredArray} />
                        
                         </View>
                     </View>
                 </View>
-            </Modal>
+            </Modal> 
+            {/* {currentPage ===1 && <Manage countvalue={1} modalVisibleval={true}/> } */}
             </KeyboardAvoidingView>
     );
 };

@@ -4,19 +4,23 @@ import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWid
 import { TimerButton } from './TimerButton';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-export const TimerComponent = ({InitialFocusTime,progress,currentTimer, isTimerActive, handleStart, handlepause,breakTime,  currentButton, handleContinue, handleStop, handleSkipBreak, handleBreak, session, time,  barColor, handleTimerComplete, initialValue, progressRef, formatTime,secondProgress,breakProgress,initialBreakTime,        sessionBreak
+export const TimerComponent = ({ handleStart, handlepause,currentButton, handleContinue, breakTime, handleStop, handleSkipBreak,time, handleBreak,barColor, currentTimer,progress,focusTime,breakProgress
 }) => {
+
+
+  useEffect(()=>{
+    
+  })
 
   return (
     <View style={[styles.centerHorizontal]}>
       <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)), styles.bgWhite, shadow(10), styles.allCenter]}>
-       
       <View style={[styles.allCenter]}>
       <AnimatedCircularProgress
         size={230}
         width={20}
-        fill={( (currentTimer === 0 ?time / InitialFocusTime :initialBreakTime)) * 100}
-        tintColor={barColor}
+        fill={progress}
+        tintColor={'pink'}
         backgroundColor="#efefef"
         lineCap='round'
         rotation={0}
@@ -24,55 +28,11 @@ export const TimerComponent = ({InitialFocusTime,progress,currentTimer, isTimerA
         {() => 
         <View style={[styles.allCenter]}>
         <Text style={[{fontWeight:'500',marginTop:-30 },fontSize(80),styles.black]}>{`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}</Text>
-        <Text style={[{fontWeight:'400',},fontSize(25),styles.black]}>session</Text>
+        {/* <Text style={[{fontWeight:'400',},fontSize(25),styles.black]}>session</Text> */}
         </View>
         }
       </AnimatedCircularProgress>
-
     </View>
-
-        {/* {currentTimer === 2 && 
-         <AnimatedCircularProgress
-         key={currentButton}
-           size={230}
-           width={20}
-           fill={breakProgress}
-           tintColor={'black'}
-           backgroundColor={'#efefef'}
-           padding={0}
-           rotation={0}
-           lineCap={'round'}
-           duration={1000}
-         >
-           {(fill) => (
-             <View style={[styles.allCenter]}>
-               <Text style={[fontSize(55), styles.black, marginPosition(-30), { fontWeight: '500' }]}>{formatTime(breakTime)}</Text>
-               <Text style={{ color: 'black' }}>Break Session</Text>
-             </View>
-           )}
-         </AnimatedCircularProgress>
-         }
-
-       {currentTimer === 1 &&
-       ( <AnimatedCircularProgress
-        key={currentButton}
-          size={230}
-          width={20}
-          fill={secondProgress}
-          tintColor={barColor}
-          backgroundColor={'#efefef'}
-          padding={0}
-          rotation={0}
-          lineCap={'round'}
-          duration={1000}
-        >
-          {(fill) => (
-            <View style={[styles.allCenter]}>
-              <Text style={[fontSize(55), styles.black, marginPosition(-30), { fontWeight: '500' }]}>{formatTime(time)}</Text>
-              <Text style={{ color: 'black' }}>{session} Session</Text>
-            </View>
-          )}
-        </AnimatedCircularProgress>)} */}
       </View>
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
