@@ -28,6 +28,7 @@ export const Manage = ({navigation}) => {
     const [taskname,setTaskname]=useState('')
     const [session,setsession]=useState(1)
     const [receiveProjectData,setReceivedProjectData]=useState([])
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const handlePlusmodal=()=>{
         setmodalVisible(true)
@@ -56,9 +57,6 @@ const getProjectDetails=(name,color)=>{
   console.log('hjberk');
 }
 
-    // useEffect(()=>{
-      
-    // },[count])
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
     <StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
@@ -68,22 +66,13 @@ const getProjectDetails=(name,color)=>{
       </View>
       
     <View style={[flex(2)]}>
-        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={() => setmodalVisible(false)} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData}/> :null:null}
-        {modalVisible ? count===2 ? <PriorityModal getPriorityDetails={getPriorityDetails} handletoAddtask={(val)=>setcount(val)}/> :null:null}
-        {modalVisible ? count===3 ? <Tags getTagDetails={getTagDetails} handleCounter={(val)=>setcount(val)}/>:null:null}
-        {modalVisible ? count===4 ? <Project getProjectDetails={getProjectDetails} handleCounter={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={() => setmodalVisible(false)} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData} selectedDate={selectedDate}/> :null:null}
+        {modalVisible ? count===2 ? <PriorityModal visible={modalVisible} onClose={() => setmodalVisible(false)} getPriorityDetails={getPriorityDetails} handletoAddtask={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===3 ? <Tags visible={modalVisible} onClose={() => setmodalVisible(false)} getTagDetails={getTagDetails} handleCounter={(val)=>setcount(val)}/>:null:null}
+        {modalVisible ? count===4 ? <Project visible={modalVisible} onClose={() => setmodalVisible(false)} getProjectDetails={getProjectDetails} handleCounter={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===5 ? <AddProject handletoAddtask={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===6 ? <Addtags handletoTags={(val)=>setcount(val)}/> :null:null}
-
-
-        
-        {/* //  <PlusModal visible={modalVisible}/>
-        // <PriorityModal/>
-        <AddTask/>
-        // <Addtags/>
-        // <AddProject/>
-        // <Tags/>
-        // <Project/> */}
+        {modalVisible ? count===7 ? <DueDateModal visible={modalVisible} onClose={() => setmodalVisible(false)} OnpressDate={(val)=>setSelectedDate(val)} handletoAddtask={(val)=>setcount(val)}/>:null:null}
          
         <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
           <TouchableOpacity onPress={handlePlusmodal}>

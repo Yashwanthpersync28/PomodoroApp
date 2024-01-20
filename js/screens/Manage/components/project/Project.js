@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { flex, radius, widthValue , styles, paddingPosition, padding, borderColor, borderWidth, heightValue, fontSize, margin} from '../../../../styles/Styles'
-import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView} from 'react-native'
+import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView,TouchableOpacity} from 'react-native'
 import Icon, { Icons } from '../../../../components/Icons'
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons'
 import { Header } from '../Header'
@@ -60,7 +60,11 @@ export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) =
     visible={visible}
     onRequestClose={onClose}
     >
-    <View style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)',justifyContent:'flex-end',alignItems:'center'}]}>
+    <View style={[flex(1),styles.column, { backgroundColor: 'rgba(0, 0, 0, 0.6)'}]}>
+    <View style={[flex(0.2)]}>
+      <TouchableOpacity onPress={onClose} style={[flex(1)]}>
+      </TouchableOpacity>
+      </View>
           <View style={[flex(0.8),{width:widthValue(1)},styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
             <View style={[flex(0.6),borderColor('#f7f7f7'),borderWidth(0,0,0,1)]}>
              <Header headername={'Project'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} onPress={handletoAddProject}/>
@@ -74,7 +78,7 @@ export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) =
              </View>
              <View style={[flex(1),styles.row,styles.allCenter,styles.spaceBetweenVertical,borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(0,20,0,20)]}>
              <CustomizedButtons handlecontinue={handleCancel} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
-                   <CustomizedButtons  handlecontinue={handleAdd} name={'OK'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} />
+                   <CustomizedButtons disable={checkedItem.length<1}  handlecontinue={handleAdd} name={'OK'} bgcolor={checkedItem.length<1?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} />
                    {/* disable={buttoncolor === styles.bgdarkOrange} */}
              </View>
           </View>

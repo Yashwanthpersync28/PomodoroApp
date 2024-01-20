@@ -15,7 +15,7 @@ import {
   import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
   import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Icon,{ Icons } from '../../../components/Icons';
-import { timer } from '../../../constants/imageConstant';
+// import { timer } from '../../../constants/imageConstant';
 export const HomepageHeader = ({IconFamily,name,bgcolor,color,headerName,namestart,IconFamilystart,showicon}) => {
 
   return (
@@ -35,8 +35,8 @@ export const HomepageHeader = ({IconFamily,name,bgcolor,color,headerName,namesta
             {showicon ? 
           <Icon name={namestart} type={IconFamilystart} style={[color, fontSize(30)]} />:
           <Image
-            source={timer}
-            style={[{width: widthValue(12), height: widthValue(12)}]}
+            source={require('../../../assets/Images/timericon2.png')}
+            style={[{width: widthValue(6), height: widthValue(6)}]}
           />}
           <Text style={[ color,fontSize(25), {fontWeight: '600'}]}>
             {headerName}
@@ -49,3 +49,6 @@ export const HomepageHeader = ({IconFamily,name,bgcolor,color,headerName,namesta
       </View>
   )
 }
+
+
+

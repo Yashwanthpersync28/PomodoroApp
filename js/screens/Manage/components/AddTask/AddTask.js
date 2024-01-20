@@ -12,10 +12,11 @@ import { addTask, addUser } from '../../../../redux/userDataReducer/UserDetailsR
 import { useNavigation, useRoute } from '@react-navigation/native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityData , onChangeText , taskname , onPressSession , sessions , receiveTagsData , receiveProjectData}) => {
-  console.log('receivedPriorityData',receivedPriorityData);
+export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityData , onChangeText , taskname , onPressSession , sessions , receiveTagsData , receiveProjectData,selectedDate}) => {
+  console.log('receivedPriorityDataa',receivedPriorityData);
   console.log('receiveTagsData',receiveTagsData);
   console.log('receiveProjectDataaaa',receiveProjectData);
+  console.log('selectedDateeee',selectedDate);
   const navigation=useNavigation();
   const route = useRoute();
   const receivedData = route.params?.prioritydata;
@@ -25,6 +26,8 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
   console.log('receivedProjectname',receivedProjectname);
  const TextInputFocus=useRef();
  const { darkMode } = useSelector(state => state.system)
+ const [Disablebutton,setDisablebutton]=useState(true)
+ const [id,setid]=useState(0)
 //  const [session,setsession]=useState(1)
 
  ///selectors
@@ -37,13 +40,25 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
     TextInputFocus.current.focus();
     // Keyboard.dismiss();
   }
-}, [visible]);
+  if(taskname.length >=2 && Object.keys(receivedPriorityData).length >0 && Object.keys(receiveTagsData).length >0 && Object.keys(receiveProjectData).length >0 && selectedDate !=null ){
+    setDisablebutton(false)
+    setid(id+1)
+  }
+  else{
+    setDisablebutton(true)
+  }
+  
+  // setDisablebutton(taskname.length <= 2);
+}, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate,]);
 ///estimated pomodoros data
 const [data,setdata]=useState([1,2,3,4,5,6,7,8])
 const iconData=[{name:'sun',color:'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.Color || 'black'},{name:'briefcase',color:receiveProjectData.Color || 'black'}];
 
 /////Customize Buttons
 const handleAddTaskButtons=(icon)=>{
+  if(icon==='sun'){
+    handleCounter(7)
+  }
   if(icon==='flag'){
     handleCounter(2)
     // navigation.navigate('priority') 
@@ -72,30 +87,34 @@ const addUserTaskHandler = (taskData) => {
 
 
 
-const [id,setid]=useState(0)
+
 const SendData = () => {
-  setid(id+1)
+  
   const taskData = {
     id:id,
     Taskname: taskname,
+    Duedate:selectedDate,
     Sessions: sessions,
     Priority: {name:receivedPriorityData.name,color:receivedPriorityData.color},
     Tags: receiveTagsData,
     Project: receiveProjectData,
   };
+  onClose()
 
   addUserTaskHandler(taskData);
   console.log('taskname',taskname);
   console.log('sessions',sessions);
-  console.log('priority',receivedPriorityData);
+  console.log('priority',receivedPriorityData.length);
   console.log('tags',receiveTagsData);
   console.log('project',receiveProjectData);
 
 
 };
-// useEffect(()=>{
-  
-// })
+// useEffect=(()=>{
+//    if(taskname.length>2){
+//        setDisablebutton(false)
+//    }
+// },[])
   return (
     
     <Modal
@@ -111,8 +130,13 @@ const SendData = () => {
   barStyle="light-content"
 />
 
-      <TouchableOpacity onPress={onClose} style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)',justifyContent:'flex-end',alignItems:'center'}]}>
-    <View style={[flex(1),{justifyContent:'flex-end',alignItems:'center'}]} >
+      {/* <TouchableOpacity onPress={onClose} style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)',justifyContent:'flex-end',alignItems:'center'}]}> */}
+      {/* {justifyContent:'flex-end',alignItems:'center',backgroundColor: 'rgba(0, 0, 0, 0.6)'} */}
+    <View style={[flex(1),styles.column,{backgroundColor: 'rgba(0, 0, 0, 0.6)'}]} >
+      <View style={[flex(0.6)]}>
+      <TouchableOpacity onPress={onClose} style={[flex(1)]}>
+      </TouchableOpacity>
+      </View>
     <View style={[flex(0.4),{width:widthValue(1)},styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
       {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
@@ -157,7 +181,9 @@ const SendData = () => {
           )
         }
         <View style={[radius(30),flex(1),{justifyContent:'center',alignItems:'flex-end'}]}>
-       <CustomizedButtons  name={'Add'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} handlecontinue={SendData}/>
+         
+       <CustomizedButtons disable={Disablebutton} name={'Add'} bgcolor={Disablebutton ? styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} handlecontinue={Disablebutton ? null : SendData}/>
+       
        </View>
 
       </View>
@@ -166,7 +192,7 @@ const SendData = () => {
      </View>
     
     </View>
-    </TouchableOpacity>
+    {/* </TouchableOpacity> */}
   </Modal>
   )
 }
