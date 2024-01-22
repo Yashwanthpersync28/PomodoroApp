@@ -19,7 +19,14 @@ export const DueDateModal = ({visible,onClose,OnpressDate,handletoAddtask}) => {
     const GoToAddtask=()=>{
       handletoAddtask(1)
     }
-  
+    const today= new Date();
+  const handleDays=(index)=>{
+    console.log('index',index);
+     if(index===1){
+      console.log('today',today);
+      
+     }
+  }
 
   return (
     <Modal
@@ -40,11 +47,13 @@ export const DueDateModal = ({visible,onClose,OnpressDate,handletoAddtask}) => {
             {calendarheaderData.map((data,index)=>{
                 return(
                     <View style={[styles.column,styles.allCenter]}>
+                      <TouchableOpacity onPress={()=>handleDays(index)}>
                     <View style={[{height:40,width:40},data.color,styles.allCenter,radius(20)]}>
                        <Icon name={data.IconName} type={data.Iconfamily} style={[styles.white,fontSize(20)]}/>
                     </View>
+                   
                     <Text style={[styles.black,fontSize(16),marginPosition(3)]}>{data.name}</Text>
-        
+                    </TouchableOpacity>
                   </View>
                 )
             })}

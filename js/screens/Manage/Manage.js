@@ -17,6 +17,8 @@ import { Project } from './components/project/Project';
 import { TextInputCompnent } from '../../components';
 import { Addtags } from './components/AddTags/Addtags';
 import { DueDateModal } from '../../components/modals/DueDateModal';
+import { useSelector } from 'react-redux';
+
 
 export const Manage = ({navigation,countvalue,modalVisibleval}) => {
   //states
@@ -29,10 +31,12 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const [session,setsession]=useState(1)
     const [receiveProjectData,setReceivedProjectData]=useState([])
     const [selectedDate, setSelectedDate] = useState(null);
-
+    //selectors
+    const Projectslist=useSelector((state)=>state.userProjectlist.UserProjects)
+    console.log('fghvjk',Projectslist);
     const handlePlusmodal=()=>{
         setmodalVisible(true)
-        setcount(1)
+        setcount(0)
     }
     //Get data from priority
 const getPriorityDetails=(a)=>{
@@ -66,6 +70,7 @@ const getProjectDetails=(name,color)=>{
       </View>
       
     <View style={[flex(2)]}>
+        {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={() => setmodalVisible(false)} handleCount={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={() => setmodalVisible(false)} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData} selectedDate={selectedDate}/> :null:null}
         {modalVisible ? count===2 ? <PriorityModal visible={modalVisible} onClose={() => setmodalVisible(false)} getPriorityDetails={getPriorityDetails} handletoAddtask={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===3 ? <Tags visible={modalVisible} onClose={() => setmodalVisible(false)} getTagDetails={getTagDetails} handleCounter={(val)=>setcount(val)}/>:null:null}
@@ -73,12 +78,12 @@ const getProjectDetails=(name,color)=>{
         {modalVisible ? count===5 ? <AddProject handletoAddtask={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===6 ? <Addtags handletoTags={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===7 ? <DueDateModal visible={modalVisible} onClose={() => setmodalVisible(false)} OnpressDate={(val)=>setSelectedDate(val)} handletoAddtask={(val)=>setcount(val)}/>:null:null}
-         
-        <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
+        
+        {/* <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
           <TouchableOpacity onPress={handlePlusmodal}>
             <Icon name={modalVisible ? 'x' : 'plus'} type={Icons.Feather} style={[styles.white, { fontSize: 25 }, padding(0, 0, 10, 0, 10)]} />
           </TouchableOpacity>
-        </View>
+        </View> */}
       <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
@@ -96,23 +101,55 @@ const getProjectDetails=(name,color)=>{
          <View style={[styles.row,marginPosition(0,0,10)]}>
             <Text style={[styles.black,padding(0,0,10,0,0)]}>Projects</Text>
             <View style={[styles.allCenter]}>
-            <View style={[borderColor('gray'),borderWidth(0,0,0,0.7,0),{width:widthValue(1.5)}]}></View>
+            <View style={[borderColor('#f2f0f0'),borderWidth(0,0,0,0.7,0),{width:widthValue(1.5)}]}></View>
             </View>
          </View>
          <View style={[styles.rowWrap,styles.spaceEvenly]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Pomodoro App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons color={'#3ca2f2'} heading={'Fashion App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
+          {Projectslist.map((data,index)=>{
+            return( 
+         <TouchableOpacity key={index}>
+          <View style={[{width:widthValue(2.5)},borderColor(data.color),borderWidth(1),radius(10),marginPosition(5,0,10),styles.column,padding(20),{justifyContent:'center'}]}>
+              <View style={[styles.row]}>
+                <Icon name={'sun'} type={Icons.Feather} style={[{color:data.color}, fontSize(25)]} />
+              <View style={[{width:widthValue(4.2)}]}>
+              <Text style={[{color:data.color},fontSize(17),marginPosition(0,0,0,5)]} numberOfLines={2} ellipsizeMode="tail">{data.name}</Text>
+          </View>
+       </View>
+       
+       <View>
+        <Text style={[{fontWeight:'800'},styles.black,fontSize(17)]}>12h 20m(5s)</Text>
+       </View>
+    </View>
+    </TouchableOpacity>
+     )
+    })}
+           {/* <ManageButtons  color={'#6fbe6d'} heading={'Pomodoro App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/> */}
+           {/* <ManageButtons color={'#3ca2f2'} heading={'Fashion App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#fdaf63'} heading={'AI chatting App'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#af4fba'} heading={'Dating App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#fdaf63'} heading={'Quiz App'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#af4fba'} heading={'PLan app'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
            <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#af4fba'} heading={'Planed'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
+           <ManageButtons  color={'#af4fba'} heading={'Planed'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/> */}
         </View>
         </View>
         
         {/* Additional views can be added as needed */}
       </ScrollView>
+      <View
+          style={[{
+            position: 'absolute',
+            bottom: 15,
+            right: 10,
+            zIndex: 1,
+            height:50,
+            width:50,
+          },styles.allCenter,styles.bgOrange,radius(30)]}
+        >
+          <TouchableOpacity onPress={handlePlusmodal}>
+          <Icon name={'plus'} type={Icons.Entypo} style={[styles.white,fontSize(30)]}/>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

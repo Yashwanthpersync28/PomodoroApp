@@ -1,25 +1,22 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Modal, TouchableOpacity , StyleSheet} from 'react-native';
 
-export const Triangle = (props) => {
-  return <View style={[styles.triangle, props.style]} />;
+
+export const TriangleBottomRadius = () => {
+  return <View style={[styles.triangleCorner]} />;
 };
 
-const styles = StyleSheet.create({
-  triangle: {
+const styles=StyleSheet.create({
+  triangleCorner: {
+    marginTop:-10,
     width: 0,
     height: 0,
     backgroundColor: "transparent",
     borderStyle: "solid",
-    borderLeftWidth: 50,
-    borderRightWidth: 50,
-    borderBottomWidth: 100,
-    borderLeftColor: "transparent",
+    borderRightWidth: 25,
+    borderTopWidth: 25,
     borderRightColor: "transparent",
-    borderBottomColor: "red",
-    borderTopRightRadius:-10,
-    transform: [{ rotate: "-65deg" }]
+    borderTopColor: "#ffffff",
+    transform: [{ rotate: "90deg" }],
   },
 });
-
-export default Triangle;
