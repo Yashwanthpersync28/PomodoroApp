@@ -25,14 +25,16 @@ import {
   lineHeight,
   borderWidth,
   padding,
-} from '../../styles/Styles';
+} from '../../../styles/Styles';
 import Modal from 'react-native-modal';
-import { TimerButton } from '../../screens/dashboard/Components/TimerButton';
-import { modalData } from '../../constants/ModalsData';
+import { TimerButton } from './TimerButton';
+import { modalData } from '../../../constants/ModalsData';
 
 export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => {
   
   const [switchSelected,setSwitchSelected] = useState(modalData.StrictMode.map(()=>false))
+
+
 
   const toggleSwitch = (index)=>{
     setSwitchSelected((prevState)=>{

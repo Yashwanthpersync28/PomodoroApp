@@ -4,6 +4,7 @@ import { Manage } from "../screens/Manage/Manage";
 import { Report } from "../screens/Report/Report";
 import Homepage from "../screens/auth/login/Homepage/Homepage";
 import { CircularProgressBar, PomodoroTimer } from "../screens/dashboard/Components/CircularProgressBar";
+import Permissions from "../screens/dashboard/Components/Permissions";
 import { Pomodoro2 } from "../screens/dashboard/Components/Pomodoro2";
 import { Timer } from "../screens/dashboard/Components/Timer";
 import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen"
@@ -30,8 +31,8 @@ export const  BottomTabs = [
         icon:'calendar',
     },
     {
-        name:'PomodoroTimer',
-        component:PomodoroTimer,
+        name:'Permissions',
+        component:Permissions,
         label:'Report',
         icon:'clock',
     },

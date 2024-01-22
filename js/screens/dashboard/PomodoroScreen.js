@@ -7,17 +7,24 @@ import {TimerComponent} from './Components/TimerComponent';
 import {TaskComponent} from './Components/TaskComponent';
 import { TaskModal } from './Components/TaskModal';
 import { TimerModeModal } from './Components/TimerModeModal';
-import { StrictModeModal } from '../../components/modals/StrictModeModal';
+import { StrictModeModal } from './Components/StrictModeModal';
 import { WhiteNoiseModal } from './Components/WhiteNoiseModal';
 import { Icons } from '../../components/Icons';
 import { modalData } from '../../constants/ModalsData';
 import Sound from 'react-native-sound';
 import { Header } from './Components/Header';
 import { Pomodoro2 } from './Components/Pomodoro2';
+import { useDispatch,useSelector } from 'react-redux';
+import { Button } from 'react-native';
 
 
 export const PomodoroScreen = () => {
-  const InitialFocusTime = .15*60
+
+  const updatedTime = useSelector((state)=>state.user.focusTime.focusTime);
+  console.log('updatedTime',updatedTime)
+  const dispatch = useDispatch();
+
+  const InitialFocusTime = updatedTime;
   const InitialBreakTime = .2*60;
   const [isBreakTimeActive,setIsBreakTimeActive] = useState(false)
   const [currentTimer,setCurrentTimer] = useState(0)
@@ -28,7 +35,7 @@ export const PomodoroScreen = () => {
   const [breakProgress,setBreakProgress] = useState(100);
 
   const [time, setTime] = useState(InitialFocusTime);
-  const [SecondFocusTime,setSecondFocusTime] = useState(0*60);
+  const [SecondFocusTime,setSecondFocusTime] = useState(5*60);
   const [secondFocusProgress,setSecondFocusProgress] = useState(0);
   const [isCountingUp, setIsCountingUp] = useState(false);
   const [barColor,setBarColor] = useState('#ff6347')
@@ -47,6 +54,29 @@ export const PomodoroScreen = () => {
   const initialtune = modalData.whiteNoiseMode[0].id
   const [selectedTune,setSelectedTune] = useState(initialtune)
   const [sound,setSound] = useState(null)
+
+
+  useEffect (()=>{
+    let timer;
+
+    const secondFocusTimer = ()=>{
+    if(isTimerActive){
+     const secondNewTime = time + 1;
+      console.log('newTIme',secondNewTime)
+
+      const secondNewProgress = Math.floor((secondNewTime/SecondFocusTime)*100)
+      console.log('secondNewProgress',secondNewProgress)
+      setSecondFocusProgress(secondNewProgress)
+    
+      setTime(secondNewTime)
+    }
+    }
+    if(isTimerActive){
+      timer = setInterval(secondFocusTimer,1000);
+    }
+    return ()=>clearInterval(timer)
+  },[isTimerActive,time])
+
 
 
   const getDate = ()=>{
@@ -112,7 +142,8 @@ export const PomodoroScreen = () => {
       setCurrentModal(0);
       setTimerMode(1)
       setTime(0*60)
-      setProgress(0)
+      // setseProgress(0)
+      // setSecondFocusProgress(secondFocusProgress)
       setCurrentTimer(2)
     }
   }
@@ -142,7 +173,7 @@ export const PomodoroScreen = () => {
     setIsTimerActive(false)
     console.log('timer is not active now')
     setCurrentButton(2)
-    setBarColor('#1c97f0')
+    setBarColor('blue')
   }
 
   const handleContinue = ()=>{
@@ -172,13 +203,14 @@ export const PomodoroScreen = () => {
 
   const clearTask = ()=>{
     setSelectedTask(taskSelected);
-    setTime(timerMode?InitialFocusTime:0*60)
+    setTime(0*60)
     // setSession('No');
     setIsTimerActive(false)
     console.log('timer is not  active now')
     setCurrentButton(0)
     setBarColor('#ff6347')
-    setTime(InitialFocusTime)
+    setSecondFocusProgress()
+    // setTime(InitialFocusTime)
   }
 
   // start of TimerModemodal functions
@@ -248,6 +280,7 @@ return (
         time={time}
         InitialFocusTime={InitialFocusTime}
         InitialBreakTime={InitialBreakTime}
+        secondFocusProgress={secondFocusProgress}
         />  }
         {timerMode === 0 &&
 <Pomodoro2   selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} setCurrentModal={setCurrentModal} getDate={getDate}/>}

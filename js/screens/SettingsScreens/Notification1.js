@@ -5,13 +5,20 @@ import Icon, { Icons } from '../../components/Icons';
 import { timer } from '../../constants/imageConstant';
 import { useNavigation } from '@react-navigation/native';
 import { NotificationCard } from './NotificationCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFocusTime } from '../../redux/userReducer/focustimeReducer';
 
 export const Notification1 = () => {
 
   const navigation= useNavigation();
 
+  const focusTime = useSelector((state)=>state.focusTime);
+  console.log('focusTimefvg',focusTime);
+  const dispatch = useDispatch();
+
   const goback = ()=>{
     navigation.goBack()
+    dispatch(setFocusTime(2*60));
   }
   return (
     <View

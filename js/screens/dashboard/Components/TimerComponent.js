@@ -4,7 +4,7 @@ import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWid
 import { TimerButton } from './TimerButton';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-export const TimerComponent = ({ handleStart, handlepause,currentButton, handleContinue, breakTime, handleStop, handleSkipBreak,time, handleBreak,barColor, currentTimer,progress,focusTime,breakProgress
+export const TimerComponent = ({ handleStart,secondFocusProgress, handlepause,currentButton, handleContinue, breakTime, handleStop, handleSkipBreak,time, handleBreak,barColor, currentTimer,progress,focusTime,breakProgress
 }) => {
 
 
@@ -19,8 +19,8 @@ export const TimerComponent = ({ handleStart, handlepause,currentButton, handleC
       <AnimatedCircularProgress
         size={230}
         width={20}
-        fill={progress}
-        tintColor={'pink'}
+        fill={secondFocusProgress}
+        tintColor={'#ff6347'}
         backgroundColor="#efefef"
         lineCap='round'
         rotation={0}

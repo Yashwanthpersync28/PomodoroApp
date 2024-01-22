@@ -3,15 +3,21 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWidth } from '../../../styles/Styles';
 import { TimerButton } from './TimerButton';
+import { useSelector } from 'react-redux';
 
 
-export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentModal}) => {
-  const initialFocusTime = 0.5 * 60; // 5 minutes for focus
-  const initialBreakTime = 0.15 * 60; // 2 minutes for break
+export const Pomodoro2 = ({selectedTask,taskSelected,setCurrentModal,getDate}) => {
+
+  const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
+  const BreakTime  = useSelector((state)=>state.user.breakTime.breakTime)
+  const [time, setTime] = useState(FocusTime);
+  console.log(FocusTime,'FocusTime','breakTime',BreakTime)
+  // const initialFocusTime = FocusTime; // 5 minutes for focus
+  // const initialBreakTime = 0.15 * 60; // 2 minutes for break
 
   const [currentButton,setCurrentButton] = useState(0)
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [time, setTime] = useState(initialFocusTime);
+  const [breakTime,setBreakTime] = useState(BreakTime)
   const [currentTimer, setCurrentTimer] = useState(0); // 0 for focus, 1 for break
   const [progress, setProgress] = useState(100);
   const [barColor, setBarColor] = useState('#ff6347');
@@ -32,7 +38,7 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
 
           // Switch to the other timer type
           setCurrentTimer(currentTimer === 0 ? 1 : 0);
-          setTime(currentTimer === 0 ? initialBreakTime : initialFocusTime);
+          setTime(currentTimer === 0 ? BreakTime : FocusTime);
           setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
           setIsCountingUp(false);
           // setCurrentButton(3)
@@ -42,7 +48,7 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
           return;
         }
 
-        const newProgress = Math.floor((newTime / (currentTimer === 0 ? initialFocusTime : initialBreakTime)) * 100);
+        const newProgress = Math.floor((newTime / (currentTimer === 0 ? FocusTime : BreakTime)) * 100);
         setProgress(newProgress);
 
         setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
@@ -68,14 +74,14 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
     setIsTimerActive(true);
     setIsCountingUp(false);
     setCurrentTimer(timerType); // Set the current timer type
-    setCurrentButton(timerType === 0 ? 1:4)
+    setCurrentButton(timerType === 0 ? 1 : 4)
     }
   };
 
   const handleStop = () => {
     setIsTimerActive(false);
     setCurrentButton(0);
-    setTime(initialFocusTime);
+    setTime(FocusTime);
     setBarColor('#ff6347')
   };
 
@@ -99,7 +105,7 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
     setIsTimerActive(false)
     console.log('timer is not active now')
     setCurrentButton(0)
-    setTime(initialFocusTime)
+    setTime(FocusTime)
     // setSession('2 of 4')
     setProgress(100)
     setBarColor('#ff6347')
@@ -110,7 +116,7 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
         <AnimatedCircularProgress
           size={230}
           width={20}
-          fill={(time / (currentTimer === 0 ? initialFocusTime : initialBreakTime)) * 100}
+          fill={(time / (currentTimer === 0 ? FocusTime : BreakTime)) * 100}
           tintColor={barColor}
           backgroundColor="#efefef"
           rotation={0}
@@ -126,17 +132,6 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
           )}
         </AnimatedCircularProgress>
       </View>
-      {/* <View style={{ marginTop: 20, flexDirection: 'row' }}>
-        <TouchableOpacity onPress={() => handleStart(0)} style={{ marginRight: 20 }}>
-          <Text>Start Focus</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleStart(1)} style={{ marginRight: 20 }}>
-          <Text>Start Break</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleStop}>
-          <Text>Stop</Text>
-        </TouchableOpacity>
-      </View> */}
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
           <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
@@ -152,7 +147,6 @@ export const Pomodoro2 = ({setSelectedTask,selectedTask,taskSelected,setCurrentM
         {currentButton === 4 &&
           <TimerButton onPress={handleSkipBreak} buttonText={'Skip Break'} widthVal={{ width: widthValue(2) }} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
       </View>
-  
     </View>
   );
 };

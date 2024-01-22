@@ -9,6 +9,7 @@ import { Rememberme } from './rememberReducer';
 import { userProjectlists } from './UserProjectReducer';
 import { userTaglists } from './userTagsReducer';
 import { focustime } from './TimerReducer/Index';
+import { focusTimeReducer } from './userReducer/focustimeReducer';
 
 export const reducer = combineReducers({
     auth: authReducer,
@@ -20,5 +21,4 @@ export const reducer = combineReducers({
     RememberMe:Rememberme,
     userProjectlist:userProjectlists,
     userTaglist:userTaglists,
-    TimerReducder:focustime,
 })
