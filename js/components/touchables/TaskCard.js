@@ -34,7 +34,7 @@ export const TaskCard = ({closeModal,setSelectedTask,setSession,filteredArray}) 
         {/* {filteredArray.map((deatails,)=>( */}
         {filteredArray.map((deatails)=>(
         
-            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),setSession(deatails.Sessions)}}>
+            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),setSession(deatails.Sessions),console.log(deatails.Sessions)}}>
         <View style={[styles.row,marginPosition(10,0,0),{width:widthValue(1.2)}]}>
             <View style={[{ width: 2, }, styles.bgbrown, radius(0, 0, 0, 5, 5),]}></View>
             <View

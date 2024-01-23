@@ -3,14 +3,45 @@ import { View,Text } from 'react-native';
 import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWidth } from '../../../styles/Styles';
 import { TimerButton } from './TimerButton';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const TimerComponent = ({ handleStart,secondFocusProgress, handlepause,currentButton, handleContinue, breakTime, handleStop, handleSkipBreak,time, handleBreak,barColor, currentTimer,progress,focusTime,breakProgress
+export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,setSecondFocusProgress, isTimerActive, handlepause,currentButton, handleContinue, breakTime, handleStop, handleSkipBreak, handleBreak,barColor,handleSecondStart
 }) => {
 
 
+  const focusTime = useSelector((state)=>state.user.focusTime.focusTime)
+  console.log('focusTime',focusTime)
+  const dispatch = useDispatch();
+  
+
   useEffect(()=>{
+    let timer ;
     
-  })
+    const secondTimer = ()=>{
+      if(isTimerActive){
+        setSecondTime((prevTime)=>{
+        const newTime = prevTime + 1;
+        console.log('newTime',newTime)
+        
+        const newProgress = Math.floor((newTime/focusTime)*100)
+        setSecondFocusProgress(newProgress)
+
+        // if(secondFocusProgress >= 100){
+        // setSecondFocusProgress(0)}
+        //  else{
+        //   setSecondFocusProgress(newProgress)
+        // }
+        return newTime;
+      })
+      }
+    }
+
+    if(isTimerActive){
+      timer = setInterval(secondTimer,1000)
+    }
+    return ()=>clearInterval(timer)
+  },[isTimerActive,secondTime])
+
 
   return (
     <View style={[styles.centerHorizontal]}>
@@ -20,14 +51,15 @@ export const TimerComponent = ({ handleStart,secondFocusProgress, handlepause,cu
         size={230}
         width={20}
         fill={secondFocusProgress}
-        tintColor={'#ff6347'}
+        tintColor={barColor}
         backgroundColor="#efefef"
         lineCap='round'
         rotation={0}
+        // onAnimationComplete={()=>handleAnimation()}
       >
         {() => 
         <View style={[styles.allCenter]}>
-        <Text style={[{fontWeight:'500',marginTop:-30 },fontSize(80),styles.black]}>{`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}</Text>
+        <Text style={[{fontWeight:'500',marginTop:-30,fontSize:55 },styles.black]}>{`${Math.floor(secondTime / 60)}:${(secondTime % 60).toString().padStart(2, '0')}`}</Text>
         {/* <Text style={[{fontWeight:'400',},fontSize(25),styles.black]}>session</Text> */}
         </View>
         }
@@ -36,7 +68,7 @@ export const TimerComponent = ({ handleStart,secondFocusProgress, handlepause,cu
       </View>
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
-          <TimerButton onPress={handleStart} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={handleSecondStart} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
           <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]} />}
         {currentButton === 2 &&

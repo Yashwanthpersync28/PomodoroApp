@@ -101,12 +101,10 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
                         </TouchableOpacity>
                     </View>
-
                     <View style={[borderWidth(0, 1, 0, 1, 0), styles.borderLightWhite,]}>
 
                         <View style={[styles.row, styles.centerHorizontal, padding(0, 2, 15), radius(8), { backgroundColor: '#fafafa' }, marginPosition(20)]}>
-                            <Icon name={"search"} type={Icons.EvilIcons} style={[styles.lightGray, fontSize(35), marginPosition(0, 10)]} />
-                            
+                            <Icon name={"search"} type={Icons.EvilIcons} style={[styles.lightGray, fontSize(35), marginPosition(0, 10)]} />  
                             <TextInput
                              placeholder='Search task' 
                              placeholderTextColor={'#cecece'} 
