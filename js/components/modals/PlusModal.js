@@ -7,7 +7,7 @@ import Icon, { Icons } from '../Icons';
 
 import { ModalButtons } from '../../screens/Manage/components/ModalButtons';
 
-export const PlusModal = ({ visible, onClose , handleCount}) => {
+export const PlusModal = ({ visible, onClose , handleCount }) => {
   const handletags = () => {
     console.log('hbjcn');
     handleCount(3)

@@ -6,9 +6,9 @@ import { Colors } from '../../../../styles/Colors';
 import { Platform } from 'react-native';
 import Icon, { Icons } from '../../../../components/Icons';
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons';
-import { addUserTasks } from '../../../../redux/UserTaskReducer/UserTaskDetails';
+import { addUserTasks } from '../../../../redux/userReducer/UserTaskDetails';
 import Sessions from './components/Sessions';
-import { addTask, addUser } from '../../../../redux/userDataReducer/UserDetailsReducer';
+// import { addTask, addUser } from '../../../../redux/userDataReducer/UserDetailsReducer';
 import { useNavigation, useRoute } from '@react-navigation/native';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -31,7 +31,7 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
 //  const [session,setsession]=useState(1)
 
  ///selectors
- const userDatasSelector=useSelector((state)=>state.UserDetails.userList)
+ const userDatasSelector=useSelector((state)=>state.user.userTasks.userTask)
  console.log('userDatasSelector',userDatasSelector);
  const [userDatas, setUserDatas] = useState(userDatasSelector)
  const dispatch=useDispatch()
@@ -52,7 +52,7 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
 }, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate,]);
 ///estimated pomodoros data
 const [data,setdata]=useState([1,2,3,4,5,6,7,8])
-const iconData=[{name:'sun',color:'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.Color || 'black'},{name:'briefcase',color:receiveProjectData.Color || 'black'}];
+const iconData=[{name:'sun',color:'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
 // const iconData =[ [{name:'sun',color:'black'}]]
 //  const iconData=[{name:'sun',color:'black'},{name:'flag',color: 'black'},{name:'tag',color:'black'},{name:'briefcase',color:'black'}];
 

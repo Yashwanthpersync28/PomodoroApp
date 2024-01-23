@@ -6,12 +6,12 @@ const UserTag = createSlice({
     UserTags: [],
   },
   reducers: {
-    addTags(state, action) {
+    addTag(state, action) {
       state.UserTags.push(action.payload);
     },
    
   },
 });
 
-export const { addTags } = UserTag.actions;
+export const { addTag } = UserTag.actions;
 export const userTaglist = UserTag.reducer;

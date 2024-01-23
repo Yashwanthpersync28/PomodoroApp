@@ -20,8 +20,8 @@ import { Button } from 'react-native';
 
 export const PomodoroScreen = () => {
 
-  const updatedTime = useSelector((state)=>state.user.focusTime.focusTime);
-  console.log('updatedTime',updatedTime)
+  // const updatedTime = useSelector((state)=>state.user.focusTime.focusTime);
+  // console.log('updatedTime',updatedTime)
   const dispatch = useDispatch();
 
   const InitialFocusTime = updatedTime;

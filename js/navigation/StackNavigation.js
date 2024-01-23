@@ -23,6 +23,7 @@ import { TimerComponent } from "../screens/dashboard/Components/TimerComponent";
 import { Notification1 } from "../screens/SettingsScreens/Notification1";
 import { Timer } from "../screens/dashboard/Components/Timer";
 import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen";
+import { ManageProjectandTags } from "../screens/Manage/components/ManageProjectandTags/ManageProjectandTags";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -32,7 +33,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="BottomTabNavigation">
+            <Stack.Navigator initialRouteName="manage">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -121,6 +122,20 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'AddTask'}
                     component={AddTask}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'manage'}
+                    component={Manage}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'manageProjectandTags'}
+                    component={ManageProjectandTags}
                     options={{
                         header: () => null,
                     }}

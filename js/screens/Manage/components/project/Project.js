@@ -11,8 +11,7 @@ import { useSelector } from 'react-redux'
 
 export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) => {
     const navigation=useNavigation();
-    const userProjectDetails=useSelector((state)=>state.userProjectlist.UserProjects)
-    // console.log('datassdfghjk',userProjectDetails);
+    const userProjectDetails=useSelector((state)=>state.user.userProjectList.UserProjects)
     const [projectdata,setprojectData]=useState(userProjectDetails);
     const [color,setcolor]=useState('')
 
@@ -22,27 +21,13 @@ export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) =
     }
     const handleAdd=()=>{
         console.log('fcgvhjbkn');
-
-
         getProjectDetails(checkedItem,color)
-        // navigation.navigate('addtask',{projectname:checkedItem})
     }
     ///to handle Add Tags
     const handletoAddProject=()=>{
       //  navigation.navigate('addproject')
       handleCounter(5)
     }
-    // useEffect(()=>{
-    //   const userWithproject = userProjectDetails.find(userdata => userdata.email === 'test3@gmail.com');
-    //     // console.log('userWithTag',userWithproject);
-    //     // setprojectData(userWithproject.Project)
-    //     // console.log('sendDataToItems',projectdata);
-    //     if (userWithproject) {
-    //       console.log('sendDataToItems', userWithproject.Project);
-    //       setprojectData(userWithproject.Project || []);
-    //     }
-    //     console.log('sfdg',checkedItem);
-    // },[userProjectDetails,checkedItem])
 
     const [checkedItem, setCheckedItem] = useState('');
     
@@ -67,19 +52,18 @@ export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) =
       </View>
           <View style={[flex(0.8),{width:widthValue(1)},styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
             <View style={[flex(0.6),borderColor('#f7f7f7'),borderWidth(0,0,0,1)]}>
-             <Header headername={'Project'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} onPress={handletoAddProject}/>
+             <Header headername={'Project'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} onPress={handletoAddProject} showLeftIocn={true}/>
             </View>
              <View style={[flex(4)]}>
              <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={[styles.column]}>
-                    <Items DataItems={projectdata || []} checkedItem={checkedItem} handleItemPress={handleItemPress} iconName={'briefcase'} Iconfamily={Icons.Entypo}/>
+                    <Items DataItems={projectdata || []} SingleCheckitems={true} checkedItem={checkedItem} handleItemPress={handleItemPress} iconName={'briefcase'} Iconfamily={Icons.Entypo}/>
                 </View>
                 </ScrollView>
              </View>
              <View style={[flex(1),styles.row,styles.allCenter,styles.spaceBetweenVertical,borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(0,20,0,20)]}>
              <CustomizedButtons handlecontinue={handleCancel} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
                    <CustomizedButtons disable={checkedItem.length<1}  handlecontinue={handleAdd} name={'OK'} bgcolor={checkedItem.length<1?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} />
-                   {/* disable={buttoncolor === styles.bgdarkOrange} */}
              </View>
           </View>
     </View>

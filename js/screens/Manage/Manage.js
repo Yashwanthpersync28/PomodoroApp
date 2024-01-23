@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Dimensions , StatusBar} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView,StatusBar} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, position, radius, styles, widthValue, zIndex } from '../../styles/Styles';
-// import HomepageHeader from '../dashboard/Components/HomepageHeader';
+import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, radius, styles, widthValue,  } from '../../styles/Styles';
 import Icon, { Icons } from '../../components/Icons';
 import { ManageButtons } from './components/ManageButtons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PlusModal } from '../../components/modals/PlusModal';
 import { PriorityModal } from '../../components/modals/PriorityModal';
-import { HomepageHeader } from '../dashboard/Components/HomepageHeader';
-import { Add } from './components/Add';
 import { AddProject } from './components/AddProject/AddProject';
 import { AddTask } from './components/AddTask/AddTask';
 import Tags from './components/tags/Tags';
@@ -18,6 +15,7 @@ import { TextInputCompnent } from '../../components';
 import { Addtags } from './components/AddTags/Addtags';
 import { DueDateModal } from '../../components/modals/DueDateModal';
 import { useSelector } from 'react-redux';
+import { Header } from './components/Header';
 
 
 export const Manage = ({navigation,countvalue,modalVisibleval}) => {
@@ -31,10 +29,13 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const [session,setsession]=useState(1)
     const [receiveProjectData,setReceivedProjectData]=useState([])
     const [selectedDate, setSelectedDate] = useState(null);
+    const [ShowPlus,setShowPlus]=useState(true)
+    const [ShowManagebutton,setShowManagebutton]=useState(false)
     //selectors
-    const Projectslist=useSelector((state)=>state.userProjectlist.UserProjects)
+    const Projectslist=useSelector((state)=>state.user.userProjectList.UserProjects)
     console.log('fghvjk',Projectslist);
     const handlePlusmodal=()=>{
+      setShowPlus(false)
         setmodalVisible(true)
         setcount(0)
     }
@@ -49,9 +50,9 @@ const getPriorityDetails=(a)=>{
 const handleCounter=(num)=>{
   setcount(num)
 }
-const getTagDetails=(tagname,color)=>{
+const getTagDetails=(tagDetails)=>{
   setcount(1)
-  setreceiveTagsData({Tagname:tagname,Color:color})
+  setreceiveTagsData(tagDetails)
   console.log('hjberk');
 }
 ///get the user selected project
@@ -60,30 +61,27 @@ const getProjectDetails=(name,color)=>{
   setReceivedProjectData({Projectname:name,Color:color})
   console.log('hjberk');
 }
+const onClose=()=>{
+  setmodalVisible(false)
+  setShowPlus(true)
+}
 
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
     <StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
       <View style={[flex(0.2)]}>
-      {/* <Header headername={'Focusify'} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/> */}
-        <HomepageHeader IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.white} color={styles.black} headerName={'Focusify'}/>
+           <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
       </View>
       
-    <View style={[flex(2)]}>
-        {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={() => setmodalVisible(false)} handleCount={(val)=>setcount(val)}/> :null:null}
-        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={() => setmodalVisible(false)} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData} selectedDate={selectedDate}/> :null:null}
-        {modalVisible ? count===2 ? <PriorityModal visible={modalVisible} onClose={() => setmodalVisible(false)} getPriorityDetails={getPriorityDetails} handletoAddtask={(val)=>setcount(val)}/> :null:null}
-        {modalVisible ? count===3 ? <Tags visible={modalVisible} onClose={() => setmodalVisible(false)} getTagDetails={getTagDetails} handleCounter={(val)=>setcount(val)}/>:null:null}
-        {modalVisible ? count===4 ? <Project visible={modalVisible} onClose={() => setmodalVisible(false)} getProjectDetails={getProjectDetails} handleCounter={(val)=>setcount(val)}/> :null:null}
+      <View style={[flex(2)]}>
+        {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={onClose} handleCount={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={onClose} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData} selectedDate={selectedDate}/> :null:null}
+        {modalVisible ? count===2 ? <PriorityModal visible={modalVisible} onClose={onClose} getPriorityDetails={getPriorityDetails} handletoAddtask={(val)=>setcount(val)}/> :null:null}
+        {modalVisible ? count===3 ? <Tags visible={modalVisible} onClose={onClose} getTagDetails={getTagDetails} handleCounter={(val)=>setcount(val)}/>:null:null}
+        {modalVisible ? count===4 ? <Project visible={modalVisible} onClose={onClose} getProjectDetails={getProjectDetails} handleCounter={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===5 ? <AddProject handletoAddtask={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===6 ? <Addtags handletoTags={(val)=>setcount(val)}/> :null:null}
-        {modalVisible ? count===7 ? <DueDateModal visible={modalVisible} onClose={() => setmodalVisible(false)} OnpressDate={(val)=>setSelectedDate(val)} handletoAddtask={(val)=>setcount(val)}/>:null:null}
-        
-        {/* <View style={[{ height: 45, width: 45, position: 'absolute', top: 0, right: 20, zIndex: 1, ...styles.allCenter, ...styles.bgOrange ,top:450,right:0},radius(50)]}>
-          <TouchableOpacity onPress={handlePlusmodal}>
-            <Icon name={modalVisible ? 'x' : 'plus'} type={Icons.Feather} style={[styles.white, { fontSize: 25 }, padding(0, 0, 10, 0, 10)]} />
-          </TouchableOpacity>
-        </View> */}
+        {modalVisible ? count===7 ? <DueDateModal visible={modalVisible} onClose={onClose} OnpressDate={(val)=>setSelectedDate(val)} handletoAddtask={(val)=>setcount(val)}/>:null:null}
       <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
@@ -123,33 +121,27 @@ const getProjectDetails=(name,color)=>{
     </TouchableOpacity>
      )
     })}
-           {/* <ManageButtons  color={'#6fbe6d'} heading={'Pomodoro App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/> */}
-           {/* <ManageButtons color={'#3ca2f2'} heading={'Fashion App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#fdaf63'} heading={'AI chatting App'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#af4fba'} heading={'Dating App'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#fdaf63'} heading={'Quiz App'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#af4fba'} heading={'PLan app'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#af4fba'} heading={'Planed'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/> */}
+
         </View>
         </View>
-        
-        {/* Additional views can be added as needed */}
       </ScrollView>
-      <View
-          style={[{
-            position: 'absolute',
-            bottom: 15,
-            right: 10,
-            zIndex: 1,
-            height:50,
-            width:50,
-          },styles.allCenter,styles.bgOrange,radius(30)]}
-        >
+      {ShowPlus?
+         <View style={[{bottom: 15,right: 10, zIndex: 1, height:50, width:50,},styles.positionAbsolute,styles.allCenter,styles.bgOrange,radius(30)]}>
           <TouchableOpacity onPress={handlePlusmodal}>
-          <Icon name={'plus'} type={Icons.Entypo} style={[styles.white,fontSize(30)]}/>
+               <Icon name={'plus'} type={Icons.Entypo} style={[styles.white,fontSize(30)]}/>
           </TouchableOpacity>
+        </View>:null}
+        {ShowManagebutton ? 
+        
+        <View style={[{bottom: 0,right: 0,top:-20, zIndex: 1, height:heightValue(15), width:widthValue(2),},styles.positionAbsolute,styles.allCenter,styles.bgWhite,radius(10)]}>
+        <TouchableOpacity onPress={()=>navigation.navigate('manageProjectandTags')} style={[styles.row,styles.allCenter]}>
+         <Icon name={'briefcase'} type={Icons.Feather} style={[styles.black,fontSize(25),marginPosition(0,10)]}/>
+         <Text style={[styles.black,fontSize(16)]}>Manage Project & Tags</Text>
+         </TouchableOpacity>
         </View>
+       
+        :null}
+
       </View>
     </SafeAreaView>
   );
