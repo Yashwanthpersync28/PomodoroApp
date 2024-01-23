@@ -39,10 +39,9 @@ import { useNavigation } from '@react-navigation/native';
 import { AddTask } from '../../Manage/components/AddTask/AddTask';
 import { Manage } from '../../Manage/Manage';
 
-export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }) => {
+export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
 
-  const taskDetails = useSelector((state) => state.UserTaskDetails.userTask);
-
+  const taskDetails = useSelector((state) => state.user.userTasks.userTask);
   console.log('taskDetails',taskDetails)
    
     // const [currentPage ,setCurrentPage] = useState(0)
@@ -51,12 +50,14 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
     }
 
     const [searchText,setSearchText] = useState('')
-    const [filteredArray,setFilteredArray] = useState(taskDetails)
+    const [filteredTasks,setFilteredTasks] = useState(taskDetails)
+    console.log('filteredTasks',filteredTasks)
     const handleSearch=(text)=>{
         setSearchText(text)
         console.log(searchText)
         const filteredArray = searchFilter(taskDetails,text,'Taskname');
-        setFilteredArray(filteredArray)
+        console.log('filteredArray',filteredArray)
+        setFilteredTasks(filteredArray)
         console.log(filteredArray)
     }
     return (
@@ -110,7 +111,9 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
                              placeholderTextColor={'#cecece'} 
                              style={[fontSize(20)]} 
                              value={searchText}
-                             onChangeText={handleSearch} />
+                             onChangeText={handleSearch}
+                             
+                             />
                         </View>
                         <View style={[styles.row, styles.centerHorizontal, margin(0, 20)]}>
                             <Text style={[marginPosition(0, 10), styles.gray, { fontWeight: '500' }]}>Today Tasks</Text>
@@ -118,7 +121,7 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask,setSession }
                         </View>
                         <View>
                         
-                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession} filteredArray={filteredArray} />
+                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} filteredTasks={filteredTasks} />
                        
                         </View>
                     </View>

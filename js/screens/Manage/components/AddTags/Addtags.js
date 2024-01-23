@@ -5,7 +5,8 @@ import { Add } from '../Add'
 import { Icons } from '../../../../components/Icons'
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons'
 import { useDispatch } from 'react-redux'
-import { addTags } from '../../../../redux/userTagsReducer/userTaglistReducer'
+import { addTag } from '../../../../redux/userReducer/userTaglistReducer'
+// import { addTags } from '../../../../redux/userTagsReducer/userTaglistReducer'
 
 export const Addtags = ({visible,onClose,navigation,handletoTags}) => {
   //states
@@ -18,7 +19,7 @@ export const Addtags = ({visible,onClose,navigation,handletoTags}) => {
 //send data to taglist
 const addUserTagsHandler = (tagsData) => {
   // dispatch(addTags({ email, tagsData }));
-  dispatch(addTags(tagsData))
+  dispatch(addTag(tagsData))
   // navigation.navigate('tag')
   handletoTags(3)
 };

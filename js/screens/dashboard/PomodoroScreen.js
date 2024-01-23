@@ -18,9 +18,9 @@ import { useDispatch,useSelector } from 'react-redux';
 import { Button } from 'react-native';
 export const PomodoroScreen = () => {
 
-  // const updatedTime = useSelector((state)=>state.user.focusTime);
-  // console.log('updatedTime',updatedTime)
- 
+  const sessionNumber = useSelector((state)=>state.user.taskSessions.taskSession);
+  console.log('sessionNumber',sessionNumber)
+
   const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
   const BreakTime  = useSelector((state)=>state.user.breakTime.breakTime)
   const [currentTimer,setCurrentTimer] = useState(0)
@@ -28,7 +28,8 @@ export const PomodoroScreen = () => {
   const [time, setTime] = useState(FocusTime);
 
   const [progress, setProgress] = useState(100);
-  const [session,setSession] = useState(1)
+  const [session,setSession] = useState(0)
+  const [maxSession,setMaxSession] = useState(sessionNumber)
 
   const [secondFocusProgress,setSecondFocusProgress] = useState(0);
   const [isCountingUp, setIsCountingUp] = useState(false);
@@ -314,6 +315,8 @@ return (
   setIsTimerActive={setIsTimerActive}
   setCurrentButton={setCurrentButton}
   handleSkipBreak={handleSkipBreak}
+  maxSession={maxSession}
+  playSound={playSound}
   />
         }
   
@@ -322,7 +325,7 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} />}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
     {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal}  handleSelectTimerFormat={handleSelectTimerFormat} selectedItemId={selectedItemId} updateTimerMode={updateTimerMode}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}

@@ -6,12 +6,9 @@ import { TimerButton } from './TimerButton';
 import { useSelector,useDispatch } from 'react-redux';
 import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
 
-export const Pomodoro2 = ({handleSkipBreak,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,}) => {
+export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,maxSession}) => {
 
-  
-  const Tasks = useSelector((state)=>state.UserTaskDetails.userTask)
-  // const sessions = Tasks.filter(Tasks =>{ return Tasks. })
-console.log('Tasks',Tasks)
+
   useEffect(() => {
     let intervalId;
   
@@ -24,7 +21,7 @@ console.log('Tasks',Tasks)
           if (newTime <= 0) {
             setIsTimerActive(false);
             setProgress(0);
-  
+            playSound();
             // Switch to the other timer type
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
             setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
@@ -69,7 +66,7 @@ console.log('Tasks',Tasks)
             <Text style={[{fontSize:50,fontWeight:'500'},styles.black]}>
               {`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}
             </Text>
-            <Text style={[styles.black]}>{session} Sessions</Text>
+            <Text style={[styles.black]}>{session} of {maxSession} Sessions</Text>
             </View>
           )}
         </AnimatedCircularProgress>

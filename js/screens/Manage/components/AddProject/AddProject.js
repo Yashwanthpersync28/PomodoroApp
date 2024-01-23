@@ -5,7 +5,8 @@ import { borderColor, borderWidth, flex, heightValue, styles, widthValue } from 
 import { Icons } from '../../../../components/Icons';
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons';
 import { useDispatch } from 'react-redux';
-import { addProject } from '../../../../redux/UserProjectReducer/UserProjectListReducer';
+import { addproject } from '../../../../redux/userReducer/UserProjectListReducer';
+
 
 
 export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
@@ -19,7 +20,7 @@ export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
   const dispatch=useDispatch();
   //send data to Project
  const addUserProjectHandler = (projectData) => {
-  dispatch(addProject(projectData ));
+  dispatch(addproject(projectData ));
   // navigation.navigate('project')
   handletoAddtask(4)
 };
