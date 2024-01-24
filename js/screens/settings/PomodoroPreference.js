@@ -6,7 +6,8 @@ import { Icons } from '../../components/Icons'
 
 export const PomodoroPreference = () => {
   return (
-    <View style={[styles.bgWhite]}>
+    <View style={[styles.bgWhite,styles.row]}>
+      <Text>ughijok</Text>
       <Header IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'}/>
     </View>
   )

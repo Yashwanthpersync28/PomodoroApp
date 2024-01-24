@@ -88,7 +88,7 @@ export const fontWeight=(value)=>{
     export const zIndex = (value) => {
         return StyleSheet.create({ zindex: value })
     }
-
+   
     // - - - - - BORDER WIDTH - - - - - - //
     export const borderWidth = (borderWidth, borderTopWidth, borderLeftWidth, borderBottomWidth, borderRightWidth) => {
         return StyleSheet.create({ borderWidth, borderTopWidth, borderLeftWidth, borderBottomWidth, borderRightWidth })

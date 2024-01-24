@@ -6,9 +6,9 @@ import {PomodoroPreference} from './PomodoroPreference'
 
 export const Settings = () => {
   return (
-    <View style={[flex(1),styles.bgWhite,padding(0,30,50),styles.centerHorizontal]}>
-      <Text style={[styles.black,fontSize(30)]}>Pomodoro Settings Section</Text>
-      <View style={[marginPosition(30)]}>
+    <View style={[flex(1),styles.bgWhite,padding(0,30,50)]}>
+      
+      <View style={[marginPosition(30),flex(1),styles.bgGray]}>
       {/* <ChangeFocusTIme /> */}
       <PomodoroPreference />
       </View>
