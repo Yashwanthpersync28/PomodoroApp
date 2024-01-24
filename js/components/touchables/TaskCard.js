@@ -9,7 +9,7 @@ import {
     TextInput,
 } from 'react-native';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     styles,
     widthValue,
@@ -21,20 +21,20 @@ import {
 } from '../../styles/Styles';
 import Icon, { Icons } from '../Icons';
 import { Taskdata } from '../../constants/Taskdata';
+import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
 
-export const TaskCard = ({closeModal,setSelectedTask,setSession,filteredArray}) => {
+export const TaskCard = ({closeModal,setSelectedTask,filteredTasks}) => {
 
-    const taskDetails = useSelector((state) => state.UserTaskDetails.userTask);
+    const taskSessions = useSelector((state)=>state.user.taskSessions.session)
+console.log('taskSessions',taskSessions)
 
-  console.log('taskDetails',taskDetails)
-//   console.log(taskDetails.Project.Color)
-
+    const dispatch = useDispatch();
     return (
 <View>
-        {/* {filteredArray.map((deatails,)=>( */}
-        {filteredArray.map((deatails)=>(
+      
+        {filteredTasks.map((deatails)=>(
         
-            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),setSession(deatails.Sessions)}}>
+            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),dispatch(setTaskSession(deatails.Sessions))}}>
         <View style={[styles.row,marginPosition(10,0,0),{width:widthValue(1.2)}]}>
             <View style={[{ width: 2, }, styles.bgbrown, radius(0, 0, 0, 5, 5),]}></View>
             <View
@@ -85,8 +85,8 @@ export const TaskCard = ({closeModal,setSelectedTask,setSession,filteredArray}) 
             </View>
         </View>
         </TouchableWithoutFeedback>
-        ))}
-        {/* ))} */}
+
+))}
         </View>
     )
 }

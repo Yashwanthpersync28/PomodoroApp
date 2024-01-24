@@ -3,113 +3,52 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWidth } from '../../../styles/Styles';
 import { TimerButton } from './TimerButton';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
 
+export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,maxSession}) => {
 
-export const Pomodoro2 = ({selectedTask,taskSelected,setCurrentModal,getDate}) => {
-
-  const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
-  const BreakTime  = useSelector((state)=>state.user.breakTime.breakTime)
-  const [time, setTime] = useState(FocusTime);
-  console.log(FocusTime,'FocusTime','breakTime',BreakTime)
-  // const initialFocusTime = FocusTime; // 5 minutes for focus
-  // const initialBreakTime = 0.15 * 60; // 2 minutes for break
-
-  const [currentButton,setCurrentButton] = useState(0)
-  const [isTimerActive, setIsTimerActive] = useState(false);
-  const [breakTime,setBreakTime] = useState(BreakTime)
-  const [currentTimer, setCurrentTimer] = useState(0); // 0 for focus, 1 for break
-  const [progress, setProgress] = useState(100);
-  const [barColor, setBarColor] = useState('#ff6347');
-  const [isCountingUp, setIsCountingUp] = useState(false);
-  const [session,setSession] = useState(1)
 
   useEffect(() => {
     let intervalId;
-
+  
     const updateTimer = () => {
       if (isTimerActive) {
-        const newTime = time - 1;
-        console.log('newTime',newTime)
-
-        if (newTime <= 0) {
-          setIsTimerActive(false);
-          setProgress(0);
-
-          // Switch to the other timer type
-          setCurrentTimer(currentTimer === 0 ? 1 : 0);
-          setTime(currentTimer === 0 ? BreakTime : FocusTime);
-          setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
-          setIsCountingUp(false);
-          // setCurrentButton(3)
-          setCurrentButton(currentTimer === 0 ? 3 : 0);
-          setSession( currentTimer===0? session:session +1)
-          console.log(currentButton)
-          return;
-        }
-
-        const newProgress = Math.floor((newTime / (currentTimer === 0 ? FocusTime : BreakTime)) * 100);
-        setProgress(newProgress);
-
-        setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
-
-        setTime(newTime);
+        setTime((prevTime) => {
+          const newTime = prevTime - 1;
+          console.log('newTime', newTime);
+  
+          if (newTime <= 0) {
+            setIsTimerActive(false);
+            setProgress(0);
+            playSound();
+            // Switch to the other timer type
+            setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
+            setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
+            setCurrentButton((prevButton) => (prevButton === 0 ? 3 : 0));
+            setSession((prevSession) => (prevSession  === 0 ? prevSession + 1 : prevSession));
+  
+            return currentTimer === 0 ? BreakTime : FocusTime;
+          }
+  
+          const newProgress = Math.floor((newTime / (currentTimer === 0 ? FocusTime : BreakTime)) * 100);
+          setProgress(newProgress);
+  
+          setBarColor((currentTimer) => (currentTimer === 0 ? '#ff6347' : '#ff6347'));
+  
+          return newTime;
+        });
       }
     };
-
+  
     if (isTimerActive) {
       intervalId = setInterval(updateTimer, 1000);
     }
-
+  
     return () => clearInterval(intervalId);
-  }, [isTimerActive, time, currentTimer, isCountingUp]);
+  }, [isTimerActive, currentTimer, FocusTime, BreakTime]);
+  
 
-  const handleStart = (timerType) => {
-    if(selectedTask === taskSelected){
-      setCurrentModal(1)
-      setIsTimerActive(false)
-      console.log('timer is not  active now')
-    } else {
-      getDate()
-    setIsTimerActive(true);
-    setIsCountingUp(false);
-    setCurrentTimer(timerType); // Set the current timer type
-    setCurrentButton(timerType === 0 ? 1 : 4)
-    }
-  };
-
-  const handleStop = () => {
-    setIsTimerActive(false);
-    setCurrentButton(0);
-    setTime(FocusTime);
-    setBarColor('#ff6347')
-  };
-
-
-
-  const handlepause = ()=>{
-    setIsTimerActive(false)
-    console.log('timer is not active now')
-    setCurrentButton(2)
-    setBarColor('#1c97f0')
-  }
-
-  const handleContinue = ()=>{
-    setIsTimerActive(true)
-    console.log('timer is active now')
-    setCurrentButton(1)
-    setBarColor('#ff6347')
-  }
-
-  const handleSkipBreak = ()=>{
-    setIsTimerActive(false)
-    console.log('timer is not active now')
-    setCurrentButton(0)
-    setTime(FocusTime)
-    // setSession('2 of 4')
-    setProgress(100)
-    setBarColor('#ff6347')
-  }
   return (
     <View style={[styles.centerHorizontal]}>
     <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)), styles.bgWhite, shadow(10), styles.allCenter]}>
@@ -127,7 +66,7 @@ export const Pomodoro2 = ({selectedTask,taskSelected,setCurrentModal,getDate}) =
             <Text style={[{fontSize:50,fontWeight:'500'},styles.black]}>
               {`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}
             </Text>
-            <Text style={[styles.black]}>{session} Sessions</Text>
+            <Text style={[styles.black]}>{session} of {maxSession} Sessions</Text>
             </View>
           )}
         </AnimatedCircularProgress>
@@ -150,3 +89,5 @@ export const Pomodoro2 = ({selectedTask,taskSelected,setCurrentModal,getDate}) =
     </View>
   );
 };
+
+

@@ -16,35 +16,30 @@ import { Header } from './Components/Header';
 import { Pomodoro2 } from './Components/Pomodoro2';
 import { useDispatch,useSelector } from 'react-redux';
 import { Button } from 'react-native';
-
-
 export const PomodoroScreen = () => {
 
-  // const updatedTime = useSelector((state)=>state.user.focusTime.focusTime);
-  // console.log('updatedTime',updatedTime)
-  const dispatch = useDispatch();
+  const sessionNumber = useSelector((state)=>state.user.taskSessions.taskSession);
+  console.log('sessionNumber',sessionNumber)
 
-  const InitialFocusTime = updatedTime;
-  const InitialBreakTime = .2*60;
-  const [isBreakTimeActive,setIsBreakTimeActive] = useState(false)
+  const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
+  const BreakTime  = useSelector((state)=>state.user.breakTime.breakTime)
   const [currentTimer,setCurrentTimer] = useState(0)
   const [isTimerActive,setIsTimerActive] = useState(false);
-  const [focusTime,setFocusTime] = useState(InitialFocusTime);
-  const [progress,setProgress] = useState(100);
-  const [breakTime,setBreakTime] = useState(InitialBreakTime);
-  const [breakProgress,setBreakProgress] = useState(100);
+  const [time, setTime] = useState(FocusTime);
 
-  const [time, setTime] = useState(InitialFocusTime);
-  const [SecondFocusTime,setSecondFocusTime] = useState(5*60);
+  const [progress, setProgress] = useState(100);
+  const [session,setSession] = useState(0)
+  const [maxSession,setMaxSession] = useState(sessionNumber)
+
   const [secondFocusProgress,setSecondFocusProgress] = useState(0);
   const [isCountingUp, setIsCountingUp] = useState(false);
   const [barColor,setBarColor] = useState('#ff6347')
 
+  const [breakTime,setBreakTime] = useState(BreakTime)
 
   const [currentButton,setCurrentButton] = useState(0);
-  const [session,setSession] = useState('No')
   const [timerMode,setTimerMode] = useState(0);
-  const [initialValue,setInitialvalue] = useState(0)
+
   const [currentModal, setCurrentModal] = useState(0)
   const InitialSelectedState = modalData.TimerMode[0].id
   const [selectedItemId,setSelectedItemId] = useState(InitialSelectedState)
@@ -55,28 +50,7 @@ export const PomodoroScreen = () => {
   const [selectedTune,setSelectedTune] = useState(initialtune)
   const [sound,setSound] = useState(null)
 
-
-  useEffect (()=>{
-    let timer;
-
-    const secondFocusTimer = ()=>{
-    if(isTimerActive){
-     const secondNewTime = time + 1;
-      console.log('newTIme',secondNewTime)
-
-      const secondNewProgress = Math.floor((secondNewTime/SecondFocusTime)*100)
-      console.log('secondNewProgress',secondNewProgress)
-      setSecondFocusProgress(secondNewProgress)
-    
-      setTime(secondNewTime)
-    }
-    }
-    if(isTimerActive){
-      timer = setInterval(secondFocusTimer,1000);
-    }
-    return ()=>clearInterval(timer)
-  },[isTimerActive,time])
-
+  const [secondTime,setSecondTime] = useState(0*60);
 
 
   const getDate = ()=>{
@@ -132,7 +106,6 @@ export const PomodoroScreen = () => {
     if(selectedItemId === modalData.TimerMode[0].id){
       console.log('first mode, timer 0');
       setCurrentModal(0)
-      setTime(InitialFocusTime)
       setTimerMode(0)
       setCurrentTimer(0)
       setProgress(100)
@@ -141,39 +114,38 @@ export const PomodoroScreen = () => {
       console.log('second mode, timer 1');
       setCurrentModal(0);
       setTimerMode(1)
-      setTime(0*60)
-      // setseProgress(0)
-      // setSecondFocusProgress(secondFocusProgress)
       setCurrentTimer(2)
-    }
-  }
-  const handleStart = ()=>{
-    if(selectedTask === taskSelected){
-      setCurrentModal(1);
-      // setCurrentButton(0);
-      setIsTimerActive(false)
-      console.log('timer is not  active now')
-      setIsCountingUp(false)
-    } else {
-      setIsTimerActive(true)
-      console.log('timer is active now')
-      setCurrentButton(1);
-      getDate() 
+      setSecondTime(0*60)
+      // setSecondFocusProgress(0)
     }
   }
 
+  const handleStart = (timerType) => {
+    if(selectedTask === taskSelected){
+      setCurrentModal(1)
+      setIsTimerActive(false)
+      console.log('timer is not  active now')
+    } else {
+      getDate()
+    setIsTimerActive(true);
+    setCurrentTimer(timerType); // Set the current timer type
+    setCurrentButton(timerType === 0 ? 1 : 4)
+    }
+  };
+
   const handleStop = () => {
-    setIsTimerActive(false);
-    setCurrentButton(0);
-    setTime(0*60);
-    setBarColor('#ff6347')
+    {timerMode === 0 ? 
+      (setIsTimerActive(false), setCurrentButton(0),  setTime(FocusTime), setBarColor('#ff6347') )
+       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
+      }
   };
 
   const handlepause = ()=>{
-    setIsTimerActive(false)
-    console.log('timer is not active now')
-    setCurrentButton(2)
-    setBarColor('blue')
+    {timerMode === 0 ? 
+    (setIsTimerActive(false),
+    console.log('timer is not active now'),
+    setCurrentButton(2),
+    setBarColor('#1c97f0')) : (setIsTimerActive(false),setCurrentButton(2),setBarColor('#1c97f0'))}
   }
 
   const handleContinue = ()=>{
@@ -183,15 +155,39 @@ export const PomodoroScreen = () => {
     setBarColor('#ff6347')
   }
 
-
   const handleSkipBreak = ()=>{
     setIsTimerActive(false)
     console.log('timer is not active now')
     setCurrentButton(0)
-    setSession('2 of 4')
-    setTime(InitialFocusTime)
+    setTime(FocusTime)
+    // setSession('2 of 4')
+    setProgress(100)
     setBarColor('#ff6347')
   }
+
+
+
+  const handleSecondStart = ()=>{
+    if(selectedTask === taskSelected){
+      setCurrentModal(1);
+      // setCurrentButton(0);
+      setIsTimerActive(false)
+      console.log('timer is not  active now')
+      setIsCountingUp(false)
+    } else {
+      setIsTimerActive(true)
+      setBarColor('#ff6347')
+      console.log('timer is active now')
+      setCurrentButton(1);
+      getDate()
+    }
+  }
+
+  const handleAnimation = ()=>{
+    if(secondFocusProgress === 100){
+    setSecondFocusProgress(0)
+    }
+  } 
 
   const handleTasks = () => {
     setCurrentModal(1)
@@ -202,14 +198,26 @@ export const PomodoroScreen = () => {
   }
 
   const clearTask = ()=>{
-    setSelectedTask(taskSelected);
-    setTime(0*60)
-    // setSession('No');
+
+    if(timerMode === 0){    
+      setSelectedTask(taskSelected);
+      setTime(FocusTime)
     setIsTimerActive(false)
     console.log('timer is not  active now')
     setCurrentButton(0)
-    setBarColor('#ff6347')
-    setSecondFocusProgress()
+    setProgress(100)
+    }
+    else if(timerMode === 1){
+      // setBarColor('#ff6347')
+      setSelectedTask(taskSelected);
+
+    setSecondFocusProgress(0)
+    setSecondTime(0*60)
+    setIsTimerActive(false)
+    setCurrentButton(0)
+    }
+    // setSession('No');
+    
     // setTime(InitialFocusTime)
   }
 
@@ -274,22 +282,50 @@ return (
         currentButton={currentButton} 
         handleStop={handleStop}  
         handleContinue={handleContinue} 
-        barColor={barColor}
-        progress={progress}
         currentTimer={currentTimer}
-        time={time}
-        InitialFocusTime={InitialFocusTime}
-        InitialBreakTime={InitialBreakTime}
+        isTimerActive={isTimerActive}
+        setIsTimerActive={setIsTimerActive}
+        handleSecondStart={handleSecondStart}
+        setSecondFocusProgress={setSecondFocusProgress}
         secondFocusProgress={secondFocusProgress}
+        setSecondTime={setSecondTime}
+        secondTime={secondTime}
+        barColor={barColor}
+        handleAnimation={handleAnimation}
         />  }
         {timerMode === 0 &&
-<Pomodoro2   selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} setCurrentModal={setCurrentModal} getDate={getDate}/>}
+<Pomodoro2  
+  time={time} 
+  setTime={setTime}
+  barColor={barColor} 
+  FocusTime={FocusTime} 
+  isTimerActive={isTimerActive} 
+  currentTimer={currentTimer} 
+  setCurrentTimer={setCurrentTimer}
+  BreakTime={BreakTime} 
+  currentButton={currentButton} 
+  session={session} 
+  handleStart={handleStart} 
+  handleContinue={handleContinue} 
+  handlepause={handlepause} 
+  handleStop={handleStop}
+  setProgress={setProgress}
+  setSession={setSession}
+  setBarColor={setBarColor}
+  setIsTimerActive={setIsTimerActive}
+  setCurrentButton={setCurrentButton}
+  handleSkipBreak={handleSkipBreak}
+  maxSession={maxSession}
+  playSound={playSound}
+  />
+        }
+  
       </View>
     </View>
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} setSession={setSession}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} />}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
     {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal}  handleSelectTimerFormat={handleSelectTimerFormat} selectedItemId={selectedItemId} updateTimerMode={updateTimerMode}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}

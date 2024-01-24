@@ -9,7 +9,6 @@ const UsersTasks = createSlice({
     addUserTasks(state, action) {
       state.userTask.push(action.payload);
     },
-   
   },
 });
 
