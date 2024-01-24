@@ -16,13 +16,18 @@ import { Header } from './Components/Header';
 import { Pomodoro2 } from './Components/Pomodoro2';
 import { useDispatch,useSelector } from 'react-redux';
 import { Button } from 'react-native';
+import { setCurrentModal } from '../../redux/userReducer/modalReducer';
 export const PomodoroScreen = () => {
 
   const sessionNumber = useSelector((state)=>state.user.taskSessions.taskSession);
   console.log('sessionNumber',sessionNumber)
 
+  const dispatch= useDispatch();
+
   const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
   const BreakTime  = useSelector((state)=>state.user.breakTime.breakTime)
+  const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
+  console.log(currentModal,'currentModal')
   const [currentTimer,setCurrentTimer] = useState(0)
   const [isTimerActive,setIsTimerActive] = useState(false);
   const [time, setTime] = useState(FocusTime);
@@ -39,10 +44,8 @@ export const PomodoroScreen = () => {
 
   const [currentButton,setCurrentButton] = useState(0);
   const [timerMode,setTimerMode] = useState(0);
-
-  const [currentModal, setCurrentModal] = useState(0)
-  const InitialSelectedState = modalData.TimerMode[0].id
-  const [selectedItemId,setSelectedItemId] = useState(InitialSelectedState)
+  const InitialTimerMode = modalData.TimerMode[0].id 
+  const [selectedMode,setSelectedMode] = useState(InitialTimerMode)
 
   const taskSelected = 'Select Task';
   const [selectedTask,setSelectedTask] = useState(taskSelected)
@@ -102,27 +105,34 @@ export const PomodoroScreen = () => {
   //audio section playSound //
 
   
+  const handleTimerMode = (item)=>{
+    setSelectedMode(item.id)
+  }
+
   const updateTimerMode = ()=>{
-    if(selectedItemId === modalData.TimerMode[0].id){
+    if(selectedMode === modalData.TimerMode[0].id){
       console.log('first mode, timer 0');
-      setCurrentModal(0)
+  dispatch(setCurrentModal(0))
       setTimerMode(0)
       setCurrentTimer(0)
       setProgress(100)
       setBarColor('#ff6347')
-    } else if (selectedItemId === modalData.TimerMode[1].id) {
+    }
+    else if (selectedMode === modalData.TimerMode[1].id) {
       console.log('second mode, timer 1');
-      setCurrentModal(0);
+  dispatch(setCurrentModal(0))
       setTimerMode(1)
       setCurrentTimer(2)
       setSecondTime(0*60)
-      // setSecondFocusProgress(0)
     }
   }
 
+
   const handleStart = (timerType) => {
     if(selectedTask === taskSelected){
-      setCurrentModal(1)
+      // setCurrentModal(1)
+  dispatch(setCurrentModal(1))
+
       setIsTimerActive(false)
       console.log('timer is not  active now')
     } else {
@@ -169,7 +179,9 @@ export const PomodoroScreen = () => {
 
   const handleSecondStart = ()=>{
     if(selectedTask === taskSelected){
-      setCurrentModal(1);
+      // setCurrentModal(1);
+  dispatch(setCurrentModal(1))
+
       // setCurrentButton(0);
       setIsTimerActive(false)
       console.log('timer is not  active now')
@@ -190,11 +202,13 @@ export const PomodoroScreen = () => {
   } 
 
   const handleTasks = () => {
-    setCurrentModal(1)
+    // setCurrentModal(1)
+  dispatch(setCurrentModal(1))
+
   };
 
   const closeModal = () => {
-    setCurrentModal(0)
+  dispatch(setCurrentModal(0))
   }
 
   const clearTask = ()=>{
@@ -221,17 +235,11 @@ export const PomodoroScreen = () => {
     // setTime(InitialFocusTime)
   }
 
-  // start of TimerModemodal functions
-  const handleSelectTimerFormat=(item)=>{
-    setSelectedItemId(item.id)
-  }
-
-  //  end of TimerModemodal functions
-
   //  start of StrictModemodal functions
 
   const updateStrictMode = ()=>{
-    setCurrentModal(0);
+    // setCurrentModal(0);
+  dispatch(setCurrentModal(0))
     console.log('strict mode is enabled')
   }
 
@@ -255,7 +263,9 @@ export const PomodoroScreen = () => {
   
   
   const updateNoise = ()=>{
-    setCurrentModal(0);
+    // setCurrentModal(0);
+  dispatch(setCurrentModal(0))
+
     console.log(selectedTune)
   }
 
@@ -327,7 +337,7 @@ return (
     </View>
     {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} />}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
-    {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal}  handleSelectTimerFormat={handleSelectTimerFormat} selectedItemId={selectedItemId} updateTimerMode={updateTimerMode}/>}
+  {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
   </SafeAreaView>
 );

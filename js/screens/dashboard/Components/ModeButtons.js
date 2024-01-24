@@ -5,6 +5,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Icon,{Icons} from '../../../components/Icons';
+import { useDispatch } from 'react-redux';
+import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
+
 
 const Button = ({ icon, text, onPress,}) => (
   <TouchableWithoutFeedback onPress={onPress}>
@@ -17,10 +20,14 @@ const Button = ({ icon, text, onPress,}) => (
   </TouchableWithoutFeedback>
 );
 
-export const ModeButtons = ({setCurrentModal  }) => (
+export const ModeButtons = () => {
+
+  const dispatch = useDispatch();
+  return(
   <View style={[{ width: widthValue(1) }, styles.row, styles.bgWhite, styles.spaceEvenly, styles.centerHorizontal, marginPosition(0, 0, 30, 0)]}>
-    <Button icon="alert-circle" text="Strict Mode" onPress={()=>setCurrentModal(2)} />
-    <Button icon="hourglass" text="Timer Mode" onPress={()=>setCurrentModal(3)} />
-    <Button icon="itunes-note" text="White Noise" onPress={()=>setCurrentModal(4)} />
+    <Button icon="alert-circle" text="Strict Mode" onPress={()=>dispatch(setCurrentModal(2))} />
+    <Button icon="hourglass" text="Timer Mode" onPress={()=>dispatch(setCurrentModal(3))} />
+    <Button icon="itunes-note" text="White Noise" onPress={()=>dispatch(setCurrentModal(4))} />
   </View>
-);
+  )
+};

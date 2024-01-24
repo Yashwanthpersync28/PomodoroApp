@@ -13,7 +13,7 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
   console.log('focusTime',focusTime)
   const dispatch = useDispatch();
   
-
+  
   useEffect(()=>{
     let timer ;
     
@@ -25,12 +25,6 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
         
         const newProgress = Math.floor((newTime/focusTime)*100)
         setSecondFocusProgress(newProgress)
-
-        // if(secondFocusProgress >= 100){
-        // setSecondFocusProgress(0)}
-        //  else{
-        //   setSecondFocusProgress(newProgress)
-        // }
         return newTime;
       })
       }

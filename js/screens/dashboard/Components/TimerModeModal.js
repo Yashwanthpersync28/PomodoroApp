@@ -5,19 +5,32 @@ import { marginPosition, widthValue,styles, heightValue, padding,radius,fontSize
 import Icon,{Icons} from '../../../components/Icons';
 import { TimerButton } from './TimerButton';
 import { modalData } from '../../../constants/ModalsData';
+import { useSelector } from 'react-redux';
 
- export const TimerModeModal = ({currentModal,closeModal,handleSelectTimerFormat,selectedItemId,updateTimerMode}) => {
+ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTimerMode,selectedMode,handleTimerMode}) => {
 
-  const renderItems =({item})=>{
-  const isSelected = selectedItemId === item.id
+  const focusTime = useSelector((state)=>state.user.focusTime.focusTime)
+  const renderItems =({item,index})=>{
+  const isSelected = selectedMode === item.id
+
+  
+
+  const formatTime = (seconds)=>{
+    const  minutes = Math.floor(seconds/60);
+    const secondsLeft = seconds%60;
+    const formattedTime = `${String(minutes).padStart(2,'0')}:${String(secondsLeft).padStart(2,'0')}`
+    return formattedTime;
+  }
 
     return (
       <View>
-        <TouchableOpacity onPress={()=>handleSelectTimerFormat(item)}> 
+        <TouchableOpacity onPress={()=>{handleTimerMode(item)}}> 
     <View style={[padding(0, 20, 5),styles.spaceBetweenVertical,styles.row]}>
       <View>
       <View style={[styles.row, styles.centerHorizontal]}>
-        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.start}</Text>
+        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>
+          
+          {index === 0 ?formatTime(focusTime): '00:00'}</Text>
         <Icon name={"arrow-right"} type={Icons.FontAwesome} style={[styles.black, fontSize(25), marginPosition(0, 5)]} />
         <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.end}</Text>
       </View>

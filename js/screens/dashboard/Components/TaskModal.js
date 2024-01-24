@@ -39,15 +39,18 @@ import { useNavigation } from '@react-navigation/native';
 import { AddTask } from '../../Manage/components/AddTask/AddTask';
 import { Manage } from '../../Manage/Manage';
 
+
 export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
 
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
   console.log('taskDetails',taskDetails)
-   
+   const navigation = useNavigation();
     // const [currentPage ,setCurrentPage] = useState(0)
     const addTask = ()=>{
-        setCurrentPage(1)
+        navigation.navigate('manage')
     }
+
+
 
     const [searchText,setSearchText] = useState('')
     const [filteredTasks,setFilteredTasks] = useState(taskDetails)

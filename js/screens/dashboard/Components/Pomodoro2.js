@@ -21,7 +21,7 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
           if (newTime <= 0) {
             setIsTimerActive(false);
             setProgress(0);
-            playSound();
+            // playSound(song);
             // Switch to the other timer type
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
             setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
@@ -40,7 +40,6 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
         });
       }
     };
-  
     if (isTimerActive) {
       intervalId = setInterval(updateTimer, 1000);
     }
@@ -89,5 +88,3 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
     </View>
   );
 };
-
-
