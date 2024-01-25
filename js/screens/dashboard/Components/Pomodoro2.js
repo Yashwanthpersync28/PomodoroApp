@@ -6,47 +6,67 @@ import { TimerButton } from './TimerButton';
 import { useSelector,useDispatch } from 'react-redux';
 import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
 
-export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,maxSession}) => {
+export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession}) => {
 
+
+  const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
+  // const FocusTime = useSelector((state)=>state.user.focusTime.focusTime);
+
+  const maxSession = sessionNumber;
+  // const [displayTime,setDisplayTime] = useState(focusTime)
+  // const [displaSession,setDisplaSession] = useState('No Sessions')
+
+  useEffect(()=>{
+    setDisplayTime(FocusTime);
+    setTotalSessionTime(FocusTime)
+  },[FocusTime])
 
   useEffect(() => {
     let intervalId;
   
     const updateTimer = () => {
       if (isTimerActive) {
-        setTime((prevTime) => {
+        setDisplayTime((prevTime) => {
           const newTime = prevTime - 1;
-          console.log('newTime', newTime);
-  
+          console.log('completedTime', FocusTime - newTime)
+    
+          const newTotalSessionTime = currentTimer === 0 ? BreakTime : FocusTime;
+    
           if (newTime <= 0) {
             setIsTimerActive(false);
             setProgress(0);
-            // playSound(song);
-            // Switch to the other timer type
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
             setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
-            setCurrentButton((prevButton) => (prevButton === 0 ? 3 : 0));
-            setSession((prevSession) => (prevSession  === 0 ? prevSession + 1 : prevSession));
-  
-            return currentTimer === 0 ? BreakTime : FocusTime;
+            
+
+            setSession(session + (currentTimer === 1 ? 1 : 0 ))
+
+            if(session === maxSession){
+              completedPomodoro()
+            }
+            console.log(session,'session')
+            setCurrentButton(currentTimer === 0 ? 3 : 0);
+            setTotalSessionTime(newTotalSessionTime);
+            
+            return newTotalSessionTime;
           }
-  
-          const newProgress = Math.floor((newTime / (currentTimer === 0 ? FocusTime : BreakTime)) * 100);
+    
+          const newProgress = Math.max(0, Math.floor(((newTotalSessionTime - newTime) / newTotalSessionTime) * 100));
           setProgress(newProgress);
-  
-          setBarColor((currentTimer) => (currentTimer === 0 ? '#ff6347' : '#ff6347'));
-  
+          setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
+          setTime((prevTime) => prevTime - 1);
           return newTime;
         });
       }
     };
+    
+    
     if (isTimerActive) {
       intervalId = setInterval(updateTimer, 1000);
     }
   
     return () => clearInterval(intervalId);
   }, [isTimerActive, currentTimer, FocusTime, BreakTime]);
-  
 
   return (
     <View style={[styles.centerHorizontal]}>
@@ -54,7 +74,7 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
         <AnimatedCircularProgress
           size={230}
           width={20}
-          fill={(time / (currentTimer === 0 ? FocusTime : BreakTime)) * 100}
+          fill={(displayTime/totalSessionTime)*100}
           tintColor={barColor}
           backgroundColor="#efefef"
           rotation={0}
@@ -63,9 +83,9 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
           {() => (
             <View style={[styles.allCenter,{marginTop:-25}]}>
             <Text style={[{fontSize:50,fontWeight:'500'},styles.black]}>
-              {`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}
+              {`${Math.floor(displayTime / 60)}:${(displayTime % 60).toString().padStart(2, '0')}`}
             </Text>
-            <Text style={[styles.black]}>{session} of {maxSession} Sessions</Text>
+            <Text style={[styles.black]}>{displaySession}</Text>
             </View>
           )}
         </AnimatedCircularProgress>

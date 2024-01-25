@@ -10,6 +10,7 @@ import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import { FocusModal } from './Components/FocusModal'
 import { BreakModal } from './Components/BreakModal'
 import { LongBreakModal } from './Components/LongBreakModal'
+import { WhiteNoiseModal } from '../dashboard/Components/WhiteNoiseModal'
 
 
 
@@ -17,6 +18,7 @@ export const PomodoroPreference = () => {
 
     const focusTime = useSelector((state)=>state.user.focusTime.focusTime,)
     const breakTime = useSelector((state)=>state.user.breakTime.breakTime,)
+    const LongBreak = useSelector((state)=>state.user.longBreak.longBreak,)
   console.log('time',focusTime)
 
   const formatTime = (seconds)=>{
@@ -42,11 +44,11 @@ export const PomodoroPreference = () => {
 
       <ScrollView  showsVerticalScrollIndicator={false} style={[flex(2)]}>
         <PreferenceComponent showDetail={false}  PreferanceName={'Strict Mode'} onPress={()=>dispatch(setCurrentModal(2))}/>
-        <PreferenceComponent showDetail={true} detail1={formatTime(focusTime)} detail2={'00:00'} name={'arrowright'} Icontype={Icons.AntDesign} PreferanceName={'Timer Mode'} currentModal={currentModal} onPress={()=>dispatch(setCurrentModal(3))}/>
-        <PreferenceComponent showDetail={true} detail2={'None'} PreferanceName={'WhiteNoise'} />
+        <PreferenceComponent showDetail={true} detail1={formatTime(focusTime)} detail2={'00:00'} name={'arrowright'} Icontype={Icons.AntDesign} PreferanceName={'Timer Mode'} currentModal={currentModal} />
+        <PreferenceComponent showDetail={true} detail2={'None'} PreferanceName={'WhiteNoise'} onPress={()=>dispatch(setCurrentModal(4))}/>
         <PreferenceComponent showDetail={true} detail2={`${(Math.floor(focusTime / 60))} Minutes`} PreferanceName={'Pomodoro Length'} onPress={()=>dispatch(setCurrentModal(5))}/>
         <PreferenceComponent showDetail={true} detail2={`${(Math.floor(breakTime / 60))} Minutes`} PreferanceName={'Short Break Length'} onPress={()=>dispatch(setCurrentModal(6))}/>
-        <PreferenceComponent showDetail={true} detail2={`${(Math.floor(breakTime / 60))} Minutes`}PreferanceName={'Long Break Length'} onPress={()=>dispatch(setCurrentModal(7))}/>
+        <PreferenceComponent showDetail={true} detail2={`${(Math.floor(LongBreak / 60))} Minutes`}PreferanceName={'Long Break Length'} onPress={()=>dispatch(setCurrentModal(7))}/>
         <PreferenceComponent showDetail={true} detail2={' 4 Pomodoro'} PreferanceName={'LongBreak After'}/>
         <PreferenceComponent showDetail={false} showToggle={true} PreferanceName={'Disable Break'}/>
         <PreferenceComponent showDetail={false}  showToggle={true} PreferanceName={'AutoStart Break'}/>
@@ -55,14 +57,11 @@ export const PomodoroPreference = () => {
         <PreferenceComponent showDetail={true} PreferanceName={'Reminder Vibrate'} detail2={'Enable'}/>
         <PreferenceComponent showDetail={true} PreferanceName={'Completion Sound'} detail2={'Jingle'}/>
         </ScrollView>  
-{currentModal === 3 &&  <TimerModeModal currentModal={currentModal}/>}
+{/* {currentModal === 3 &&  <TimerModeModal currentModal={currentModal}/>} */}
 {currentModal === 5 &&  <FocusModal currentModal={currentModal}/>}
 {currentModal === 6 &&  <BreakModal currentModal={currentModal} />}
 {currentModal === 7 &&  <LongBreakModal currentModal={currentModal}/>}
-
-
-
-
+{/* {currentModal === 4 &&  <WhiteNoiseModal currentModal={currentModal}/>} */}
     </View>
   )
 }

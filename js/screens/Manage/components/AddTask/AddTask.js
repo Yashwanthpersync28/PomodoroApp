@@ -88,9 +88,6 @@ const addUserTaskHandler = (taskData) => {
 };
 
 
-
-
-
 const SendData = () => {
   
   const taskData = {

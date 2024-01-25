@@ -7,11 +7,13 @@ import { usersTasksReducer } from '../userReducer/UserTaskDetails';
 import { taskSessionsReducer } from './taskSessionsReducer';
 import { modalReducer } from '../userReducer/modalReducer';
 import { longBreakReducer } from './longBreakReducer';
+import { TimerModeReducer } from './TimerModeReducer';
 
 
 export const userReducer = combineReducers({
     focusTime:focusTimeReducer,
     breakTime:breakTimeReducer,
+    TimerMode:TimerModeReducer,
     userTaglist:userTaglist,
     userProjectList:userProjectlist,
     userTasks:usersTasksReducer,

@@ -6,14 +6,12 @@ import Icon,{Icons} from '../../../components/Icons';
 import { TimerButton } from './TimerButton';
 import { modalData } from '../../../constants/ModalsData';
 import { useSelector } from 'react-redux';
+import { selectedTimerDetailsArray } from '../../../redux/userReducer/TimerModeReducer';
 
- export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTimerMode,selectedMode,handleTimerMode}) => {
+export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTimerMode,selectedMode,handleTimerMode,timerModeArray}) => {
 
-  const focusTime = useSelector((state)=>state.user.focusTime.focusTime)
-  const renderItems =({item,index})=>{
-  const isSelected = selectedMode === item.id
 
-  
+
 
   const formatTime = (seconds)=>{
     const  minutes = Math.floor(seconds/60);
@@ -22,6 +20,9 @@ import { useSelector } from 'react-redux';
     return formattedTime;
   }
 
+  const renderItems =({item})=>{
+  const isSelected = selectedMode === item.id
+
     return (
       <View>
         <TouchableOpacity onPress={()=>{handleTimerMode(item)}}> 
@@ -29,12 +30,15 @@ import { useSelector } from 'react-redux';
       <View>
       <View style={[styles.row, styles.centerHorizontal]}>
         <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>
-          
-          {index === 0 ?formatTime(focusTime): '00:00'}</Text>
+        {formatTime(item.start)}
+        </Text>
         <Icon name={"arrow-right"} type={Icons.FontAwesome} style={[styles.black, fontSize(25), marginPosition(0, 5)]} />
-        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>{item.end}</Text>
+        <Text style={[styles.black, fontSize(30), { fontWeight: '500' }, marginPosition(0, 5)]}>
+          {item.end}
+        </Text>
       </View>
-      <Text style={[styles.black, fontSize(17), { fontWeight: '300' }, marginPosition(5)]}>{item.desc}</Text>
+      <Text style={[styles.black, fontSize(17), { fontWeight: '300' }, marginPosition(5)]}>
+        {item.desc}</Text>
       </View>
       <View>
         {isSelected && 
@@ -73,7 +77,7 @@ import { useSelector } from 'react-redux';
           <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
 
             <FlatList
-  data={modalData.TimerMode}
+  data={timerModeArray}
   renderItem={renderItems}
   keyExtractor={item=>item.id}
 />

@@ -26,6 +26,7 @@ import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen";
 import { ManageProjectandTags } from "../screens/Manage/components/ManageProjectandTags/ManageProjectandTags";
 import { Archived } from "../screens/Manage/components/ManageProjectandTags/components/Archived";
 import { Task } from "../screens/Manage/components/Task/Task";
+import { TrophyScreen } from "../screens/dashboard/TrophyScreen";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -35,7 +36,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="BottomTabNavigation">
+            <Stack.Navigator initialRouteName="splash">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -156,6 +157,14 @@ export const AppNavigationContainer = () => {
                         header: () => null,
                     }}
                 />
+                <Stack.Screen
+                    name={'TrophyScreen'}
+                    component={TrophyScreen}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+
 
             </Stack.Navigator>
         </NavigationContainer>

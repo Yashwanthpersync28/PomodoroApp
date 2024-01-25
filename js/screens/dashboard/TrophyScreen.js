@@ -5,7 +5,7 @@ import { heightValue, widthValue ,styles, fontSize,marginPosition,flex} from '..
 import { HeadingComponent } from '../../components/view/HeadingComponent'
 import { TimerButton } from './Components/TimerButton'
 
- export const TrophyScreen = () => {
+ export const TrophyScreen = ({backHome}) => {
   return (
     <SafeAreaView style={[styles.bgWhite,flex(1),styles.spaceBetweenVertical]}>
       <View style={[styles.centerHorizontal]}>
@@ -16,9 +16,8 @@ import { TimerButton } from './Components/TimerButton'
       <Text style={[fontSize(24),{color:'#a5a5a6' },,styles.textCenter]}>"Create a Wireframe Design"</Text>
       </View>
       </View>
-        
       <View style={[styles.row,styles.spaceAroundVertical,marginPosition(0,0,10,0)]}>
-      <TimerButton buttonText={'Back to Home'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Back to Home'} onPress={backHome} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
       <TimerButton buttonText={'View Report'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
     </SafeAreaView>

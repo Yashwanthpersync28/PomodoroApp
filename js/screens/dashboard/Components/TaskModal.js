@@ -40,15 +40,15 @@ import { AddTask } from '../../Manage/components/AddTask/AddTask';
 import { Manage } from '../../Manage/Manage';
 
 
-export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
+export const TaskModal = ({ closeModal,currentModal,setSelectedTask ,taskSelected,showSessions}) => {
 
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
   console.log('taskDetails',taskDetails)
    const navigation = useNavigation();
     // const [currentPage ,setCurrentPage] = useState(0)
-    const addTask = ()=>{
-        navigation.navigate('manage')
-    }
+    // const addTask = ()=>{
+    //     navigation.navigate('manage')
+    // }
 
 
 
@@ -101,9 +101,9 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
                                 Select Task
                             </Text>
                         </View>
-                        <TouchableOpacity onPress={addTask}>
+                        {/* <TouchableOpacity >
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                     <View style={[borderWidth(0, 1, 0, 1, 0), styles.borderLightWhite,]}>
 
@@ -124,7 +124,7 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
                         </View>
                         <View>
                         
-                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} filteredTasks={filteredTasks} />
+                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} filteredTasks={filteredTasks} showSessions={showSessions}/>
                        
                         </View>
                     </View>
