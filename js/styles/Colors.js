@@ -37,6 +37,6 @@ export const Colors =  {
     greenish:'#8bc255',
     darkblue:'#607d8a',
     darkGreen:'#029689',
-    LightGold:'#ffc032'
-
+    LightGold:'#ffc032',
+    borderGray:'#f2f0f0',
 }

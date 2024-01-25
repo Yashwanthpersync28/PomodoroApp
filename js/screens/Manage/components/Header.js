@@ -1,9 +1,9 @@
 import React from 'react'
-import { flex, fontSize, styles, widthValue } from '../../../styles/Styles'
+import { flex, fontSize, marginPosition, styles, widthValue } from '../../../styles/Styles'
 import {View,Text,TouchableOpacity,Image} from 'react-native'
-import Icon from '../../../components/Icons'
+import Icon, { Icons } from '../../../components/Icons'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
-export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNameLeft,IconfamilyLeft,goBack,showLeftIocn}) => {
+export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNameLeft,IconfamilyLeft,goBack,showLeftIocn,color,showSearch,handleSearch}) => {
   return (
    <View style={[styles.row,flex(1)]}>
     <View style={[flex(0.2),styles.centerVertical]}>
@@ -17,10 +17,16 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
      </TouchableOpacity>
     </View>
     <View style={[flex(1),styles.allCenter]}>
-        <Text style={[fontSize(25),styles.black,{fontWeight:"700"}]}>{headername}</Text>
+        <Text style={[fontSize(25),color,{fontWeight:"700"}]}>{headername}</Text>
     </View>
-    <View style={[flex(0.2),{justifyContent:'center',alignItems:'flex-end'}]}>
-        <TouchableOpacity onPress={onPress}>
+    <View style={[flex(0.2),{justifyContent:'flex-end',alignItems:'center'},styles.row]}>
+       <TouchableOpacity onPress={handleSearch}>
+       {showSearch &&
+         <Icon name={'search1'} type={Icons.AntDesign} style={[styles.black,fontSize(30),marginPosition(0,10)]} /> 
+         }
+       </TouchableOpacity>
+        <TouchableOpacity onPress={onPress} style={[styles.row,{justifyContent:'center',alignItems:'flex-end'}]}>
+       
      <Icon name={IconNameRight} type={IconfamilyRight} style={[styles.black,fontSize(30)]} />
      </TouchableOpacity>
     </View>

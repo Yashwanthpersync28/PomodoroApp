@@ -26,6 +26,7 @@ import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen";
 import { ManageProjectandTags } from "../screens/Manage/components/ManageProjectandTags/ManageProjectandTags";
 import { Archived } from "../screens/Manage/components/ManageProjectandTags/components/Archived";
 import { Task } from "../screens/Manage/components/Task/Task";
+import Completedtask from "../screens/Manage/components/Completed/Completedtask";
 import { TrophyScreen } from "../screens/dashboard/TrophyScreen";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
@@ -153,6 +154,13 @@ export const AppNavigationContainer = () => {
                 <Stack.Screen
                     name={'task'}
                     component={Task}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
+                    name={'completedtask'}
+                    component={Completedtask}
                     options={{
                         header: () => null,
                     }}

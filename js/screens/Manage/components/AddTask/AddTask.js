@@ -27,11 +27,12 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
  const TextInputFocus=useRef();
  const { darkMode } = useSelector(state => state.system)
  const [Disablebutton,setDisablebutton]=useState(true)
- const [id,setid]=useState(0)
+
 //  const [session,setsession]=useState(1)
 
  ///selectors
  const userDatasSelector=useSelector((state)=>state.user.userTasks.userTask)
+ const [id,setid]=useState(userDatasSelector.length+1)
  console.log('userDatasSelector',userDatasSelector);
  const [userDatas, setUserDatas] = useState(userDatasSelector)
  const dispatch=useDispatch()
@@ -42,7 +43,7 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
   }
   if(taskname.length >=2 && Object.keys(receivedPriorityData).length >0 && Object.keys(receiveTagsData).length >0 && Object.keys(receiveProjectData).length >0 && selectedDate !=null ){
     setDisablebutton(false)
-    setid(id+1)
+   
   }
   else{
     setDisablebutton(true)
@@ -98,6 +99,10 @@ const SendData = () => {
     Priority: {name:receivedPriorityData.name,color:receivedPriorityData.color},
     Tags: receiveTagsData,
     Project: receiveProjectData,
+    completed:false,
+    Archieve:false,
+    trash:false,
+    
   };
   onClose()
 

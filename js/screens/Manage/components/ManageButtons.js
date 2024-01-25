@@ -4,9 +4,9 @@ import { heightValue, widthValue , borderColor , borderWidth , radius , marginPo
 import Icon, { Icons } from '../../../components/Icons'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export const ManageButtons = ({height,IconFamily,heading,iconname,hours,color,showhours}) => {
+export const ManageButtons = ({height,IconFamily,heading,iconname,hours,color,showhours,handlebuttons}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handlebuttons}>
     <View style={[{width:widthValue(2.5)},borderColor(color),borderWidth(1),radius(10),marginPosition(5,0,10),styles.column,padding(15),{justifyContent:'center'}]}>
        <View style={[styles.row]}>
        <Icon name={iconname} type={IconFamily} style={[{color:color}, fontSize(25),padding(0,0,10,0,10)]} />

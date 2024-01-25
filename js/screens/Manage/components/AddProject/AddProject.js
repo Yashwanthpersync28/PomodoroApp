@@ -4,7 +4,7 @@ import { Add } from '../Add';
 import { borderColor, borderWidth, flex, heightValue, styles, widthValue } from '../../../../styles/Styles';
 import { Icons } from '../../../../components/Icons';
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addproject } from '../../../../redux/userReducer/UserProjectListReducer';
 
 
@@ -15,9 +15,12 @@ export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
   const [project,setproject]=useState('');
   const [selectedColor,setSelectedColor]=useState('')
   const [buttoncolor,setbuttonColor]=useState(styles.bgdarkOrange)
-  const [id,setid]=useState(1)
   ///selectors
   const dispatch=useDispatch();
+  const userProjectDetails=useSelector((state)=>state.user.userProjectList.UserProjects)
+  console.log('length',userProjectDetails.length);
+  const [id,setid]=useState(userProjectDetails.length+1)
+
   //send data to Project
  const addUserProjectHandler = (projectData) => {
   dispatch(addproject(projectData ));
@@ -26,7 +29,7 @@ export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
 };
 
 const handleAdd = () => {
-  setid((prevId => prevId + 1))
+  // setid((prevId => prevId + 1))
   console.log('move to Add task');
   console.log('projectname',project);
   console.log(('color',selectedColor));

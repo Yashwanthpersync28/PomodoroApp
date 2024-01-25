@@ -4,7 +4,7 @@ import { borderColor, borderWidth, flex,heightValue,styles, widthValue } from '.
 import { Add } from '../Add'
 import { Icons } from '../../../../components/Icons'
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../../../redux/userReducer/userTaglistReducer'
 // import { addTags } from '../../../../redux/userTagsReducer/userTaglistReducer'
 
@@ -13,9 +13,11 @@ export const Addtags = ({visible,onClose,navigation,handletoTags}) => {
     const [tag,settag]=useState('')
     const [selectedColor,setSelectedColor]=useState('')
     const [buttoncolor,setbuttonColor]=useState(styles.bgdarkOrange)
-    const [id,setid]=useState(1)
+  
 ///selectors
     const dispatch=useDispatch()
+    const Tags=useSelector((state => state.user.userTaglist.UserTags))
+    const [id,setid]=useState(Tags.length+1)
 //send data to taglist
 const addUserTagsHandler = (tagsData) => {
   // dispatch(addTags({ email, tagsData }));
@@ -25,7 +27,6 @@ const addUserTagsHandler = (tagsData) => {
 };
 
 const handleAdd=()=>{
-  setid(prevId => prevId + 1);
  //move to Add task
  console.log('move to Add task');
  console.log('tagname',tag);

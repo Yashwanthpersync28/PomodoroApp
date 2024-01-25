@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) => {
     const navigation=useNavigation();
     const userProjectDetails=useSelector((state)=>state.user.userProjectList.UserProjects)
+    console.log('userProjectDetails',userProjectDetails.length);
     const [projectdata,setprojectData]=useState(userProjectDetails);
     const [color,setcolor]=useState('')
 
