@@ -9,7 +9,7 @@ const TaskCardDetails = ({name,ShowplayIcon,data}) => {
     <>
     {data.map((dataitem,index)=>{
         return(
-     <View style={[styles.bgWhite,radius(5),borderColor('blue'),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
+     <View style={[styles.bgWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
         <View style={[flex(0.2),styles.selfStart]}>
             <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(20)]}/>
         </View>
