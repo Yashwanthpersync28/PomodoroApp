@@ -1,30 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {View,Text,ScrollView,TextInput,StatusBar} from 'react-native'
 import SafeAreaView from 'react-native-safe-area-view'
 import { Header } from '../Header'
 import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, marginPosition, padding, paddingPosition, radius, styles, textColor, widthValue } from '../../../../styles/Styles'
 import Icon, { Icons } from '../../../../components/Icons'
 import { TextInputCompnent } from '../../../../components'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { DeleteTaskModal } from '../../../../components/modals/DeleteTaskModal'
+import { TaskDeletedModal } from '../../../../components/modals/TaskDeletedModal'
+import { Colors } from '../../../../styles/Colors'
 
 
 
 export const Task = ({navigation}) => {
+  //states
+  const [showOptions,setShowoptions]=useState(false)
+  const [subtask,setSubtask]=useState('')
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [isTaskdeletedModalVisible,setTaskdeletedModalVisible]=useState(false)
+
     const taskdata=[{startIcon:'check',name:'Pomodoro',details:'4',endIcon:'check',endIconcolor:'green'},
     {startIcon:'calendar',name:'Due Date',details:'Today',endIcon:'calendar',endIconcolor:'green'},
     {startIcon:'flag',name:'Priority',details:'Medium',endIcon:'flag',endIconcolor:'green'},
     {startIcon:'breifcase',name:'Project',details:'Pomodoro App',endIcon:'breifcase',endIconcolor:'green'},
     {startIcon:'bell',name:'Remainder',details:'Today',endIcon:'bell',endIconcolor:'green'},
     {startIcon:'repeat',name:'Repeat',details:'none',endIcon:'repeat',endIconcolor:'green'}]
+
+    const optionsdata=[{'name':'Pin','iconfamily':Icons.Entypo,'iconname':'pin'},{'name':'Share','iconfamily':Icons.AntDesign,'iconname':'sharealt'},
+    {'name':'Dublicate','iconfamily':Icons.MaterialIcons,'iconname':'file-copy'},{'name':'Comment','iconfamily':Icons.Fontisto,'iconname':'commenting'},
+    {'name':'Location','iconfamily':Icons.EvilIcons,'iconname':'location'},{'name':'Delete','iconfamily':Icons.MaterialCommunityIcons,'iconname':'delete-outline'}]
+
+    //handle options
+    const handleOptions=(val)=>{
+      console.log('val',val);
+        if(val==='Delete'){
+          setShowoptions(!showOptions)
+          setDeleteModalVisible(true);
+        }
+    }
   return (
    <SafeAreaView style={[styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
-    <StatusBar backgroundColor = "#f7f5f5" barStyle = "dark-content"/>
+    <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
 
     <View style={[{height:heightValue(14)}]}>
     <Header
           headername={'Task'}
           IconfamilyRight={Icons.Entypo}
           IconNameRight={'dots-three-vertical'}
-          onPress={() => navigation.goBack()}
+          onPress={() => setShowoptions(!showOptions)}
           bgcolor={styles.white}
           color={styles.black}
           goBack={() => navigation.goBack()}
@@ -33,14 +56,27 @@ export const Task = ({navigation}) => {
           IconfamilyLeft={Icons.AntDesign}
         />
     </View>
-    <View style={{ position: 'absolute', top: 40, right: 20, zIndex: 1, height: heightValue(15),}}>
-     <View style={[{width:widthValue(2.5)},styles.bgOrange,padding(10)]}>
-         <View style={[styles.row,borderColor('gray'),borderWidth(0,0,0,1),paddingPosition(0,0,10)]}>
-          <Icon name={'play'} type={Icons.AntDesign} style={[styles.black,fontSize(20)]}/>
-          <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>Create a design</Text>
-         </View>
-     </View>
-    </View>
+    {/* render deletemodal */}
+    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)}/>}
+    {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() => setTaskdeletedModalVisible(false)}/>}
+    {/* option's */}
+    {showOptions ? 
+    <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}>
+     {/* <View style={[{width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}> */}
+       {optionsdata.map((options,index)=>{
+        return(
+          <TouchableOpacity onPress={()=>handleOptions(options.name)}>
+            <View key={index} style={[styles.row,options.name==='Delete'?null:borderColor('#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(5,0,5)]}>
+            <Icon name={options.iconname} type={options.iconfamily} style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(20),styles.textAlignVertical]}/>
+            <Text style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{options.name}</Text>
+           </View>
+           </TouchableOpacity>
+           )
+       })}
+         
+     {/* </View> */}
+    </View>:null}
+    {/*  */}
     <ScrollView showsVerticalScrollIndicator={false}>
 
     <View style={[styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor('blue'),borderWidth(0,0,2),styles.centerHorizontal]}>
@@ -55,7 +91,7 @@ export const Task = ({navigation}) => {
      </View>
    </View>
 {/* task detail cards */}
-    <View style={[styles.bgWhite,{height:heightValue(2.4)},styles.column,padding(10),radius(10),styles.allCenter]}>
+    <View style={[{height:heightValue(2.4),backgroundColor:'#fbfbfb'},styles.column,padding(10),radius(10),styles.allCenter]}>
         {taskdata.map((item,index)=>{
             return(
         <View style={[styles.row,{height:heightValue(16)},styles.centerHorizontal,borderColor('#f2f0f0'),borderWidth(0,0,0,1)]}>
@@ -71,13 +107,14 @@ export const Task = ({navigation}) => {
         })}
    </View>
    {/* add sub task */}
-   <View style={[styles.bgWhite]}>
+   <View style={[marginPosition(10),radius(10)]}>
    <TextInputCompnent
       placeholder={'Add subtask'}
-    //   value={Email}
-    //   onChangeText={()=>}
+      value={subtask}
+      onChangeText={(val)=>setSubtask(val)}
       IconFamily ={Icons.Feather}
       Iconname={'plus'}
+      bgColor={styles.bgWhite}
     />
     </View>
     <View style={[marginPosition(10)]}>

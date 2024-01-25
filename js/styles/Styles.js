@@ -156,6 +156,7 @@ export const styles = StyleSheet.create({
     brown:{color:Colors.brown},
     purple:{color:Colors.purple},
     timerBlue:{color:Colors.timerBlue},
+    borderGray:{color:Colors.borderGray},
     
 
 // - - - - - BACKGROUND COLORS - - - - - //
@@ -196,7 +197,7 @@ export const styles = StyleSheet.create({
     bgdarkblue:{backgroundColor:Colors.darkblue},
     bgdarkGreen:{backgroundColor:Colors.darkGreen},
     bgLightGold:{backgroundColor:Colors.LightGold},
-
+    bgborderGray:{backgroundColor:Colors.borderGray},
 
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
