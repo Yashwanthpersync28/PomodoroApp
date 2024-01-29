@@ -25,8 +25,8 @@ export const  BottomTabs = [
         icon:'grid',
     },
     {
-        name:'Pomodoro2',
-        component:Pomodoro2,
+        name:'calendar',
+        component:calendar,
         label:'Calendar',
         icon:'calendar',
     },

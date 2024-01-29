@@ -19,7 +19,7 @@ const BottomTabNavigation = () => {
        {
         {
             headerShown:false,
-            tabBarInactiveTintColor:'gray',
+            tabBarInactiveTintColor:'black',
             tabBarActiveTintColor:'#ff6347',
             tabBarStyle:{
                 backgroundColor:'white',
@@ -28,7 +28,7 @@ const BottomTabNavigation = () => {
                 elevation:0,
                 paddingBottom:15,
                 paddingHorizontal:30,
-                height:heightValue(10)
+                height:heightValue(10),
             },
             tabBarLabelStyle:{
                 fontSize:12,
@@ -45,8 +45,7 @@ const BottomTabNavigation = () => {
             options={{
                 tabBarLabel:menu.label,
                     tabBarIcon:({color,focused})=>(
-                        <Feather  name={menu.icon} style={[fontSize(22)]} color={focused? 'ff6347':'gray'}/>
-                        // <Icon name={menu.icon} type={Icons.Feather} style={[styles.white,fontSize(25)]} />
+                        <Feather  name={menu.icon} style={[fontSize(22)]} color={focused? '#ff6347':'black'}/>
                     )
                 }
             }/>

@@ -8,6 +8,10 @@ import { taskSessionsReducer } from './taskSessionsReducer';
 import { modalReducer } from '../userReducer/modalReducer';
 import { longBreakReducer } from './longBreakReducer';
 import { TimerModeReducer } from './TimerModeReducer';
+import { localSessionReducer } from './localSessionReducer';
+import { breakReducer } from './breakReducer';
+import { autoBreakReducer } from './autoBreakReducer';
+import { autoFocusStartReducer } from './autoFocusStartReducer';
 
 
 export const userReducer = combineReducers({
@@ -20,4 +24,8 @@ export const userReducer = combineReducers({
     taskSessions:taskSessionsReducer,
     currentModal:modalReducer,
     longBreak:longBreakReducer,
+    localSession:localSessionReducer,
+    breakSwitch: breakReducer,
+    autoBreak:autoBreakReducer,
+    autoFocus:autoFocusStartReducer,
 })

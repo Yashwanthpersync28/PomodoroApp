@@ -10,10 +10,8 @@ export const ManageItemslist = ({ data, showProjects }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemPress = (item) => {
- 
     setSelectedItem(selectedItem === item ? null : item);
   };
-
   return (
     <View style={[flex(1)]}>
       {data.map((item) => (
@@ -29,7 +27,6 @@ export const ManageItemslist = ({ data, showProjects }) => {
               <View style={[flex(0.2), styles.allCenter]}>
                 <Icon name={'dots-three-vertical'} type={Icons.Entypo} style={[fontSize(20), styles.black]} />
               </View>
-              
             </View>
             {/* options */}
             {selectedItem && selectedItem.id === item.id && (

@@ -22,6 +22,7 @@ import {
 import Icon, { Icons } from '../Icons';
 import { Taskdata } from '../../constants/Taskdata';
 import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
+import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
 
 export const TaskCard = ({closeModal,setSelectedTask,filteredTasks,showSessions}) => {
 
@@ -34,7 +35,7 @@ console.log('taskSessions',taskSessions)
       
         {filteredTasks.map((deatails)=>(
         
-            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),showSessions(),dispatch(setTaskSession(deatails.Sessions))}}>
+            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),showSessions(),dispatch(setLocalSession(1)),dispatch(setTaskSession(deatails.Sessions)),console.log(deatails.completed)}}>
         <View style={[styles.row,marginPosition(10,0,0),{width:widthValue(1.2)}]}>
             <View style={[{ width: 2, }, styles.bgbrown, radius(0, 0, 0, 5, 5),]}></View>
             <View

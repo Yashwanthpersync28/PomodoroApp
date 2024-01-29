@@ -10,9 +10,6 @@ import { selectedTimerDetailsArray } from '../../../redux/userReducer/TimerModeR
 
 export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTimerMode,selectedMode,handleTimerMode,timerModeArray}) => {
 
-
-
-
   const formatTime = (seconds)=>{
     const  minutes = Math.floor(seconds/60);
     const secondsLeft = seconds%60;

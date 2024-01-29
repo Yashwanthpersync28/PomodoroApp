@@ -19,12 +19,13 @@ import { Button } from 'react-native';
 import { setCurrentModal } from '../../redux/userReducer/modalReducer';
 import { useNavigation } from '@react-navigation/native';
 import { TrophyScreen } from './TrophyScreen';
+import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
 export const PomodoroScreen = () => {
-
 
   const dispatch = useDispatch();
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
-  console.log('sessionNumber',sessionNumber)
+  const localSession = useSelector((state)=>state.user.localSession.localSession);
+  console.log('sessionNumber',sessionNumber,'localSession',localSession)
 
   const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
   // const FocusTime = useSelector((state)=>state.user.TimerMode.timerDeatilsArray[0].focusTime)
@@ -37,15 +38,33 @@ export const PomodoroScreen = () => {
   const [time, setTime] = useState(FocusTime);
 
   const [timerModeArray, setTimerModeArray] = useState([
-    { id: '1', start: FocusTime, end: '00:00', desc: 'Countdown from 25 Minutes until time turns out' },
+    { id: '1', start: FocusTime, end: '00:00', desc: `Countdown from ${Math.floor(FocusTime / 60)}:${(FocusTime % 60).toString().padStart(2, '0')} Minutes until time turns out` },
     { id: '2', start: 0, end: '∞', desc: 'Start Counting from 0 until stopped manually' },
   ]);
+
+  useEffect(()=>{
+    updateTimerArray(FocusTime);
+    console.log('LocalSession',localSession)
+    if(selectedTask !== taskSelected){ 
+    showSessions(localSession);}
+  },[FocusTime,sessionNumber,localSession])
+
+  const updateTimerArray = (newFocusTime)=>{
+    const updatedTimerArray = timerModeArray.map((item)=>{
+      if(item.id === '1'){
+        return {...item,start:newFocusTime,desc:`Countdown from ${Math.floor(newFocusTime / 60)}:${(newFocusTime % 60).toString().padStart(2, '0')} Minutes until time turns out`};
+      }
+      return item;
+    })
+    setTimerModeArray(updatedTimerArray)
+
+  }
+  console.log('FocusTime',FocusTime)
   const [progress, setProgress] = useState(100);
-  const [session,setSession] = useState(0)
-  const [maxSession,setMaxSession] = useState(4)
+  // const [localSession,setLocalSession] = useState(1)
+  const [maxSession,setMaxSession] = useState(sessionNumber)
   const [displayTime,setDisplayTime] = useState(FocusTime)
   const [totalSessionTime,setTotalSessionTime] = useState(FocusTime)
-
 
   const [secondFocusProgress,setSecondFocusProgress] = useState(0);
   const [isCountingUp, setIsCountingUp] = useState(false);
@@ -77,9 +96,8 @@ export const PomodoroScreen = () => {
   const completedPomodoro = ()=>{
     // setTaskCompleted(true)
     navigation.navigate('TrophyScreen')
+    console.log('completed True')
   } 
-
-
 
   const getDate = ()=>{
     const date = new Date();
@@ -130,18 +148,41 @@ export const PomodoroScreen = () => {
   //audio section playSound //
 
   
+  const completionSong = new Sound('adventure.mp3',Sound.MAIN_BUNDLE, (error)=>{
+    if(error){
+      console.error("play can't play")
+    } else {
+      console.log('No error')
+    }
+  }) 
 
+const completionSound = ()=>{
+   completionSong.play((success)=>{
+    if(success){
+      console.log('song playing ')
+
+      setTimeout(()=>{
+        console.log('shall i stop thew sound')
+      },3000)
+     } else {
+      console.lopg('sound error')
+     }
+  }
+   )
+}
 
 
   const handleStart = (timerType) => {
     if(selectedTask === taskSelected){
         // dispatch(setTimerMode(20))
-  dispatch(setCurrentModal(1))
+    dispatch(setCurrentModal(1))
       setIsTimerActive(false)
+      // dispatch(setTaskSession(sessionNumber));
       console.log('timer is not  active now')
     } else {
       getDate()
-      setSession(1)
+      // dispacthsetLocalSession(localSession)
+      // setSession(1)
     setIsTimerActive(true);
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
@@ -152,7 +193,7 @@ export const PomodoroScreen = () => {
 
   const handleStop = () => {
     {timerMode === 0 ? 
-      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347') )
+      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'))
        :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
       }
   };
@@ -183,7 +224,6 @@ export const PomodoroScreen = () => {
   }
 
 
-
   const handleSecondStart = ()=>{
     if(selectedTask === taskSelected){
       // setCurrentModal(1);
@@ -199,8 +239,6 @@ export const PomodoroScreen = () => {
       console.log('timer is active now')
       setCurrentButton(1);
       getDate()
-
-      
     }
   }
 
@@ -230,6 +268,7 @@ export const PomodoroScreen = () => {
     setCurrentButton(0)
     setProgress(100)
     setDisplaySession('No Sessions')
+    dispatch(setTaskSession(sessionNumber))
     }
     else if(timerMode === 1){
       // setBarColor('#ff6347')
@@ -265,7 +304,7 @@ export const PomodoroScreen = () => {
 
     playSound(item.song);
   };
-  
+
   // Example: Play the first white noise song from the array
   // const selectedWhiteNoise = whiteNoiseSongs[0];
   // handleNoise(selectedWhiteNoise);
@@ -291,8 +330,6 @@ export const PomodoroScreen = () => {
       setSecondTime(0*60)
     }
   }
-  
-  
   const updateNoise = ()=>{
     // setCurrentModal(0);
   dispatch(setCurrentModal(0))
@@ -304,7 +341,7 @@ export const PomodoroScreen = () => {
 
 
   const showSessions = ()=>{
-    setDisplaySession(`${session} of ${sessionNumber}`)
+    setDisplaySession(`${localSession} of ${sessionNumber} Sessions`)
   }
 const backHome = ()=>{
   navigation.goBack();
@@ -355,13 +392,11 @@ return (
   setCurrentTimer={setCurrentTimer}
   BreakTime={BreakTime} 
   currentButton={currentButton} 
-  session={session} 
   handleStart={handleStart} 
   handleContinue={handleContinue} 
   handlepause={handlepause} 
   handleStop={handleStop}
   setProgress={setProgress}
-  setSession={setSession}
   setBarColor={setBarColor}
   setIsTimerActive={setIsTimerActive}
   setCurrentButton={setCurrentButton}
@@ -372,6 +407,7 @@ return (
   totalSessionTime={totalSessionTime}
   displaySession={displaySession}
   completedPomodoro={completedPomodoro}
+  completionSound={completionSound}
 
   />
         }

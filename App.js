@@ -35,6 +35,7 @@ const App = () => {
     //         break;
     //     case codePush.SyncStatus.DOWNLOADING_PACKAGE:
     //         console.log("Download packaging....")
+    //         showProgressView();
     //         break;
     //     case codePush.SyncStatus.AWAITING_USER_ACTION:
     //         console.log("Awaiting user action....")

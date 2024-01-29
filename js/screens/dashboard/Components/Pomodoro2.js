@@ -5,11 +5,16 @@ import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWid
 import { TimerButton } from './TimerButton';
 import { useSelector,useDispatch } from 'react-redux';
 import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
+import { setLocalSession } from '../../../redux/userReducer/localSessionReducer';
 
-export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession}) => {
+export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,completionSound}) => {
 
+  const dispatch = useDispatch();
 
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
+  const localSession = useSelector((state)=>state.user.localSession.localSession);
+  const taskDetails = useSelector((state)=>state.user.userTasks.userTask.completed);
+  console.log('taskDetails',taskDetails)
   // const FocusTime = useSelector((state)=>state.user.focusTime.focusTime);
 
   const maxSession = sessionNumber;
@@ -19,6 +24,7 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
   useEffect(()=>{
     setDisplayTime(FocusTime);
     setTotalSessionTime(FocusTime)
+  // dispatch(setLocalSession(localSession))
   },[FocusTime])
 
   useEffect(() => {
@@ -35,22 +41,24 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
           if (newTime <= 0) {
             setIsTimerActive(false);
             setProgress(0);
+            // playSound();
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
             setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
             
-
-            setSession(session + (currentTimer === 1 ? 1 : 0 ))
-
-            if(session === maxSession){
+            if(currentTimer === 0){
+              completionSound()
+            }
+            if(currentTimer === 1 ){
+              dispatch(setLocalSession(localSession + 1))
+            }
+            if(localSession === maxSession){
               completedPomodoro()
             }
-            console.log(session,'session')
+            console.log(localSession,'Updatedsession')
             setCurrentButton(currentTimer === 0 ? 3 : 0);
             setTotalSessionTime(newTotalSessionTime);
-            
             return newTotalSessionTime;
           }
-    
           const newProgress = Math.max(0, Math.floor(((newTotalSessionTime - newTime) / newTotalSessionTime) * 100));
           setProgress(newProgress);
           setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
@@ -59,14 +67,12 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
         });
       }
     };
-    
-    
     if (isTimerActive) {
       intervalId = setInterval(updateTimer, 1000);
     }
   
     return () => clearInterval(intervalId);
-  }, [isTimerActive, currentTimer, FocusTime, BreakTime]);
+  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession]);
 
   return (
     <View style={[styles.centerHorizontal]}>

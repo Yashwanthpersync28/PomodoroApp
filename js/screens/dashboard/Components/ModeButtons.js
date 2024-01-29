@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { styles, widthValue, fontSize, marginPosition, borderWidth } from '../../../styles/Styles';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -9,15 +9,14 @@ import { useDispatch } from 'react-redux';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
-const Button = ({ icon, text, onPress,}) => (
-  <TouchableWithoutFeedback onPress={onPress}>
-    <View style={[styles.centerHorizontal,]}>
-      {icon === 'alert-circle' && <Feather name={icon} style={[fontSize(30)]} />}
-      {icon === 'hourglass' && <FontAwesome6 name={icon} style={[fontSize(30)]} />}
-      {icon === 'itunes-note' && <FontAwesome5 name={icon} style={[fontSize(30)]} />}
-      <Text style={[fontSize(18), marginPosition(10)]}>{text}</Text>
+const Button = ({ icon, text, onPress,iconType}) => (
+
+  <TouchableOpacity onPress={onPress}>
+    <View style={[styles.centerHorizontal]}>
+    <Icon name={icon} type={iconType}  style={[fontSize(30),styles.black]}  />
+    <Text style={[fontSize(18), marginPosition(10),styles.black]}>{text}</Text> 
     </View>
-  </TouchableWithoutFeedback>
+  </TouchableOpacity>
 );
 
 export const ModeButtons = () => {
@@ -25,9 +24,9 @@ export const ModeButtons = () => {
   const dispatch = useDispatch();
   return(
   <View style={[{ width: widthValue(1) }, styles.row, styles.bgWhite, styles.spaceEvenly, styles.centerHorizontal, marginPosition(0, 0, 30, 0)]}>
-    <Button icon="alert-circle" text="Strict Mode" onPress={()=>dispatch(setCurrentModal(2))} />
-    <Button icon="hourglass" text="Timer Mode" onPress={()=>dispatch(setCurrentModal(3))} />
-    <Button icon="itunes-note" text="White Noise" onPress={()=>dispatch(setCurrentModal(4))} />
+    <Button icon="alert-circle" text="Strict Mode" iconType={Icons.Feather} onPress={()=>dispatch(setCurrentModal(2))} />
+    <Button icon="hourglass-outline" text="Timer Mode" iconType={Icons.Ionicons} onPress={()=>dispatch(setCurrentModal(3))} />
+    <Button icon="itunes-note" text="White Noise" iconType={Icons.FontAwesome5} onPress={()=>dispatch(setCurrentModal(4))} />
   </View>
   )
 };
