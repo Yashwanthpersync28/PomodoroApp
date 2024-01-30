@@ -31,6 +31,10 @@ export const PomodoroScreen = () => {
   // const FocusTime = useSelector((state)=>state.user.TimerMode.timerDeatilsArray[0].focusTime)
   console.log('FocusTime',FocusTime)
   const BreakTime  = useSelector((state)=>state.user.breakTime.breakTime)
+  const autoStartBreak = useSelector((state)=>state.user.autoBreak.autoBreak)
+  console.log('autoBreak',autoStartBreak)
+  const autoStartFocus = useSelector((state)=>state.user.autoFocus.focusStart)
+  console.log('focusStart',autoStartFocus)
   const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
   console.log(currentModal,'currentModal')
   const [currentTimer,setCurrentTimer] = useState(0)
@@ -77,7 +81,7 @@ export const PomodoroScreen = () => {
   const InitialTimerMode = timerModeArray[0].id;
   const [selectedMode,setSelectedMode] = useState(InitialTimerMode)
 
-  const initialtune = modalData.whiteNoiseMode[0].id
+  const initialtune = modalData.whiteNoiseMode[0].MusicName;
   const [selectedTune,setSelectedTune] = useState(initialtune)
 
   const taskSelected = 'Select Task';
@@ -179,7 +183,7 @@ const completionSound = ()=>{
       setIsTimerActive(false)
       // dispatch(setTaskSession(sessionNumber));
       console.log('timer is not  active now')
-    } else {
+    } else  if(selectedTask !== taskSelected){
       getDate()
       // dispacthsetLocalSession(localSession)
       // setSession(1)
@@ -188,8 +192,6 @@ const completionSound = ()=>{
     setCurrentButton(timerType === 0 ? 1 : 4)
     }
   };
-
-  
 
   const handleStop = () => {
     {timerMode === 0 ? 
@@ -299,7 +301,7 @@ const completionSound = ()=>{
   
   
   const handleNoise = (item) => {
-    setSelectedTune(item.id);
+    setSelectedTune(item.MusicName);
     console.log('selectedTune',selectedTune);
 
     playSound(item.song);
@@ -339,12 +341,17 @@ const completionSound = ()=>{
 
   //  end of WhiteNoise modal functions
 
-
   const showSessions = ()=>{
     setDisplaySession(`${localSession} of ${sessionNumber} Sessions`)
   }
-const backHome = ()=>{
-  navigation.goBack();
+
+
+const updateTask = ()=>{
+  closeModal();
+  showSessions();
+  if(autoStartFocus ===true){
+    handleStart(0)
+  }
 }
 
 return (
@@ -360,7 +367,6 @@ return (
       <View style={[{ backgroundColor: 'white', height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
       </View>
       <View style={[styles.positionAbsolute, { bottom: -190 }]}>
-
         {timerMode ===1 &&
          <TimerComponent 
         handleStart={handleStart}  
@@ -417,7 +423,7 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} showSessions={showSessions}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}/>}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}

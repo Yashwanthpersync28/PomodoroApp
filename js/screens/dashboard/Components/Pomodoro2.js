@@ -15,6 +15,12 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,isTimerActive,t
   const localSession = useSelector((state)=>state.user.localSession.localSession);
   const taskDetails = useSelector((state)=>state.user.userTasks.userTask.completed);
   console.log('taskDetails',taskDetails)
+  const disableBreak = useSelector((state)=>state.user.breakSwitch.disableBreak)
+  console.log('disableBreak',disableBreak)
+  const autoStartBreak = useSelector((state)=>state.user.autoBreak.autoBreak)
+  console.log('autoBreak',autoStartBreak)
+  const autoStartFocus = useSelector((state)=>state.user.autoFocus.focusStart)
+  console.log('focusStart',autoStartFocus)
   // const FocusTime = useSelector((state)=>state.user.focusTime.focusTime);
 
   const maxSession = sessionNumber;
@@ -36,7 +42,7 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,isTimerActive,t
           const newTime = prevTime - 1;
           console.log('completedTime', FocusTime - newTime)
     
-          const newTotalSessionTime = currentTimer === 0 ? BreakTime : FocusTime;
+          const newTotalSessionTime = currentTimer === 0 && !disableBreak ? BreakTime : FocusTime;
     
           if (newTime <= 0) {
             setIsTimerActive(false);
@@ -55,8 +61,40 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,isTimerActive,t
               completedPomodoro()
             }
             console.log(localSession,'Updatedsession')
-            setCurrentButton(currentTimer === 0 ? 3 : 0);
-            setTotalSessionTime(newTotalSessionTime);
+            setCurrentButton( 
+              (currentTimer === 0  && !disableBreak? 3 : 0));
+
+
+            if(disableBreak === true && currentTimer === 0){
+              setDisplayTime(FocusTime)
+              setTotalSessionTime(FocusTime)
+              dispatch(setLocalSession(localSession+ 1))
+            } 
+            else if(disableBreak === false) {
+              if(currentTimer === 0){
+              setDisplayTime(BreakTime)
+              setTotalSessionTime(BreakTime);
+              } else if(currentTimer ===1 ){
+              setTotalSessionTime(FocusTime);
+
+              }
+          }
+          if(autoStartBreak === true && disableBreak === false && currentTimer === 0){
+            setTimeout(()=>{
+              handleStart(1)
+            },1000)
+          }
+
+          if(autoStartFocus === true && currentTimer ===1){
+            setTimeout(()=>{
+              handleStart(0)
+            },1000)
+          }
+          if(autoStartFocus === true && currentTimer === 1 && disableBreak === true ){
+            setTimeout(()=>{
+              handleStart(0)
+            },1000)
+          }
             return newTotalSessionTime;
           }
           const newProgress = Math.max(0, Math.floor(((newTotalSessionTime - newTime) / newTotalSessionTime) * 100));

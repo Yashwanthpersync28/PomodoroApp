@@ -40,7 +40,7 @@ import { AddTask } from '../../Manage/components/AddTask/AddTask';
 import { Manage } from '../../Manage/Manage';
 
 
-export const TaskModal = ({ closeModal,currentModal,setSelectedTask ,taskSelected,showSessions}) => {
+export const TaskModal = ({ closeModal,currentModal,setSelectedTask ,taskSelected,updateTask}) => {
 
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
   console.log('taskDetails',taskDetails)
@@ -124,7 +124,7 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask ,taskSelecte
                         </View>
                         <View>
                         
-                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} filteredTasks={filteredTasks} showSessions={showSessions}/>
+                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} filteredTasks={filteredTasks} updateTask={updateTask}/>
                        
                         </View>
                     </View>

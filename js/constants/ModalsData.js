@@ -21,6 +21,21 @@ export const modalData = {
         {id:'8',MusicName:'Soft Melody',song:'softmelody.mp3'},
         {id:'9',MusicName:'Birds Chirps',song:'birds.mp3'},
     ],
+
+CompletionSounds : [
+    {id:'1',MusicName:'Carol of Bells',tune:'carolofbells.mp3'},
+    {id:'2',MusicName:'Despecito',tune:'despecito.mp3'},
+    {id:'3',MusicName:'Shape of You',tune:'shapeofyou.mp3'},
+],
+
+    reminderRintones:[
+        {id:'1',MusicName:'None',song:''},
+        {id:'2',MusicName:'Adventure',song:'adventure.mp3'},
+        {id:'3',MusicName:'Jazz Beats',song:'drumbeats.mp3'},
+        {id:'4',MusicName:'Wake me Now',song:'alert2.mp3'},
+        {id:'5',MusicName:'Melting Ice',song:'meltingice.mp3'},
+        {id:'6',MusicName:'Shadow',       song:'shadow.mp3'},
+    ],
     focusTime:[
         {id:'1', focusTime: 30},
         {id:'2', focusTime: 600},

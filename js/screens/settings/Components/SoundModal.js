@@ -18,16 +18,16 @@ import {
     flex
   } from '../../../styles/Styles';
   import Modal from 'react-native-modal';
-import { TimerButton } from './TimerButton';
-import { modalData } from '../../../constants/ModalsData';
-import Icon, { Icons } from '../../../components/Icons';
+import { TimerButton } from '../../dashboard/Components/TimerButton';
+import Icon,{ Icons } from '../../../components/Icons';
+import { Title } from 'react-native-paper';
   
-  export const WhiteNoiseModal = ({closeModal,currentModal,selectedTune,handleNoise,updateNoise,stopSound }) => {
+  export const SoundModal = ({closeModal,currentModal,handleCompletionSound,updateNoise,selectedSong,stopSound,CompletionSounds,title,data,isVisible,onPress,onPress2,onPress3}) => {
 
      const renderTunes=({item})=>{
-      const isSelected = selectedTune === item.MusicName
+      const isSelected = selectedSong === item.MusicName
       return(
-        <TouchableOpacity onPress={()=>handleNoise(item)}>
+        <TouchableOpacity onPress={()=>onPress(item)}>
         <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
               <View>
                 <View
@@ -56,7 +56,7 @@ import Icon, { Icons } from '../../../components/Icons';
         <Modal
         animationIn={'slideInUp'}
         animationOut={'slideOutDown'}
-        isVisible={currentModal ===4}
+        isVisible={isVisible}
         hasBackdrop={true}
         backdropColor='black'
         backdropOpacity={0.5}
@@ -67,8 +67,7 @@ import Icon, { Icons } from '../../../components/Icons';
               styles.bgWhite,
               {
                 position: 'absolute',
-                bottom: 0,
-                
+                bottom: 0,  
                 width: widthValue(1),
               },
               padding(20),
@@ -83,14 +82,14 @@ import Icon, { Icons } from '../../../components/Icons';
                 fontSize(24),
                 paddingPosition(0, 0, 20, 0),
               ]}>
-              White Noise 
+              {title}
             </Text>
 
-<FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/>
+<FlatList data={data} renderItem={({item})=>renderTunes({item})} keyExtractor={item=>item.id} onPress={(item) => onPress(item)}/>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal(),stopSound()}}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-        <TimerButton buttonText={'Ok'}onPress={()=>{updateNoise(),stopSound()}} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+        <TimerButton buttonText={'Cancel'} onPress={onPress2}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Ok'}onPress={onPress3} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>
         </Modal>

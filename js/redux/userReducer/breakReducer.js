@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const breakReducerSlice = createSlice({
     name:'breakReducer',
     initialState:{
-        isBreakEnabled: true,
+        disableBreak: false,
     },
     reducers:{
-        setIsBreakEnabled(state,action){
-            state.isBreakEnabled = action.payload
+        setDisableBreak(state,action){
+            state.disableBreak = action.payload
         }
     }
 })
 
-export const {setIsBreakEnabled} = breakReducerSlice.actions
+export const {setDisableBreak} = breakReducerSlice.actions
 export const breakReducer = breakReducerSlice.reducer

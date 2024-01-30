@@ -12,7 +12,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
 
- export const FocusModal = ({currentModal}) => {
+ export const FocusModal = ({currentModal,closeModal}) => {
 
     const dispatch = useDispatch();
      const InitialSelectedTime = modalData.focusTime[3].id
