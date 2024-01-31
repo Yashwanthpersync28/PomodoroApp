@@ -1,5 +1,5 @@
 import React from 'react'
-import { flex, fontSize, marginPosition, styles, widthValue } from '../../../styles/Styles'
+import { flex, fontSize, margin, marginPosition, styles, widthValue } from '../../../styles/Styles'
 import {View,Text,TouchableOpacity,Image} from 'react-native'
 import Icon, { Icons } from '../../../components/Icons'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
