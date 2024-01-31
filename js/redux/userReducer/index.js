@@ -7,6 +7,7 @@ import { usersTasksReducer } from '../userReducer/UserTaskDetails';
 import { taskSessionsReducer } from './taskSessionsReducer';
 import { modalReducer } from '../userReducer/modalReducer';
 import { longBreakReducer } from './longBreakReducer';
+import { usersTrashLists } from './TrashReducer';
 
 
 export const userReducer = combineReducers({
@@ -18,4 +19,5 @@ export const userReducer = combineReducers({
     taskSessions:taskSessionsReducer,
     currentModal:modalReducer,
     longBreak:longBreakReducer,
+    usersTrashLists:usersTrashLists,
 })

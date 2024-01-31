@@ -27,6 +27,7 @@ import { ManageProjectandTags } from "../screens/Manage/components/ManageProject
 import { Archived } from "../screens/Manage/components/ManageProjectandTags/components/Archived";
 import { Task } from "../screens/Manage/components/Task/Task";
 import Completedtask from "../screens/Manage/components/Completed/Completedtask";
+import { Tasklist } from "../screens/Manage/components/TasklistBasedonDays/Tasklist";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -164,7 +165,13 @@ export const AppNavigationContainer = () => {
                         header: () => null,
                     }}
                 />
-
+                <Stack.Screen
+                    name={'tasklists'}
+                    component={Tasklist}
+                    options={{
+                        header: () => null,
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     )

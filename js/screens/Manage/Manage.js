@@ -28,7 +28,7 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const [taskname,setTaskname]=useState('')
     const [session,setsession]=useState(1)
     const [receiveProjectData,setReceivedProjectData]=useState([])
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDate, setSelectedDate] = useState([]);
     const [ShowPlus,setShowPlus]=useState(true)
     const [ShowManagebutton,setShowManagebutton]=useState(false)
     //selectors
@@ -82,17 +82,17 @@ const onClose=()=>{
         {modalVisible ? count===4 ? <Project visible={modalVisible} onClose={onClose} getProjectDetails={getProjectDetails} handleCounter={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===5 ? <AddProject handletoAddtask={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===6 ? <Addtags handletoTags={(val)=>setcount(val)}/> :null:null}
-        {modalVisible ? count===7 ? <DueDateModal visible={modalVisible} onClose={onClose} OnpressDate={(val)=>setSelectedDate(val)} handletoAddtask={(val)=>setcount(val)}/>:null:null}
+        {modalVisible ? count===7 ? <DueDateModal visible={modalVisible} onClose={onClose} OnpressDate={(val,color,IconName,IconFamily,day)=>setSelectedDate({DateSelected:val,Color:color,iconname:IconName,iconFamily:IconFamily,Day:day})} handletoAddtask={(val)=>setcount(val)}/>:null:null}
       <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent bgColor={styles.bglgWhite} placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
         
         </View>
         <View style={[{height:heightValue(2.8)},styles.rowWrap,styles.spaceEvenly]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true}/>
-           <ManageButtons  color={'#af4fba'} heading={'Planed'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true}/>
+           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:Taskdatas})}/>
+           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:Taskdatas})}/>
+           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:Taskdatas})}/>
+           <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:Taskdatas})}/>
            <ManageButtons  color={'lightgreen'} heading={'Completed'} IconFamily={Icons.AntDesign} iconname={'checkcircleo'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Completed',data:Taskdatas})}/>
            <ManageButtons  color={'red'} heading={'Trash'} IconFamily={Icons.Octicons} iconname={'trash'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Trash',data:Taskdatas})}/>
         </View>

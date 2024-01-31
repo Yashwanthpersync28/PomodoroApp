@@ -3,14 +3,11 @@ import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView,TouchableOpaci
 import { borderColor, borderWidth, flex, fontSize, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../../../styles/Styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../../styles/Colors';
-import { Platform } from 'react-native';
 import Icon, { Icons } from '../../../../components/Icons';
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons';
 import { addUserTasks } from '../../../../redux/userReducer/UserTaskDetails';
 import Sessions from './components/Sessions';
-// import { addTask, addUser } from '../../../../redux/userDataReducer/UserDetailsReducer';
 import { useNavigation, useRoute } from '@react-navigation/native';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityData , onChangeText , taskname , onPressSession , sessions , receiveTagsData , receiveProjectData,selectedDate}) => {
   console.log('receivedPriorityDataa',receivedPriorityData);
@@ -27,6 +24,9 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
  const TextInputFocus=useRef();
  const { darkMode } = useSelector(state => state.system)
  const [Disablebutton,setDisablebutton]=useState(true)
+ const today = new Date();
+ const currentDate = today.toISOString().split('T')[0];
+ 
 
 //  const [session,setsession]=useState(1)
 
@@ -51,33 +51,27 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
   
   // setDisablebutton(taskname.length <= 2);
 }, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate,]);
-///estimated pomodoros data
-const [data,setdata]=useState([1,2,3,4,5,6,7,8])
-const iconData=[{name:'sun',color:'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
-// const iconData =[ [{name:'sun',color:'black'}]]
-//  const iconData=[{name:'sun',color:'black'},{name:'flag',color: 'black'},{name:'tag',color:'black'},{name:'briefcase',color:'black'}];
+
+const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || Colors.LeafGreen},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
+
 
 
 /////Customize Buttons
 const handleAddTaskButtons=(icon)=>{
-  if(icon==='sun'){
+  
+  if(icon===iconData[0].name){
     handleCounter(7)
   }
   if(icon==='flag'){
     handleCounter(2)
-    // navigation.navigate('priority') 
   }
   if(icon==='tag'){
-    // navigation.navigate('tag')
     handleCounter(3)
 
 
   }
  if(icon==='briefcase'){
-    // navigation.navigate('project')
     handleCounter(4)
-
-    
   }
   console.log('name',icon);
 }
@@ -97,7 +91,7 @@ const SendData = () => {
   const taskData = {
     id:id,
     Taskname: taskname,
-    Duedate:selectedDate,
+    Duedate:selectedDate.DateSelected,
     Sessions: sessions,
     Priority: {name:receivedPriorityData.name,color:receivedPriorityData.color},
     Tags: receiveTagsData,
@@ -105,6 +99,8 @@ const SendData = () => {
     completed:false,
     Archieve:false,
     trash:false,
+    AddDate:currentDate,
+    Day:selectedDate.Day
     
   };
   onClose()
@@ -118,11 +114,7 @@ const SendData = () => {
 
 
 };
-// useEffect=(()=>{
-//    if(taskname.length>2){
-//        setDisablebutton(false)
-//    }
-// },[])
+
   return (
     
     <Modal
@@ -137,23 +129,13 @@ const SendData = () => {
   backgroundColor="rgba(0, 0, 0, 0.8)"
   barStyle="light-content"
 />
-
-      {/* <TouchableOpacity onPress={onClose} style={[flex(1), { backgroundColor: 'rgba(0, 0, 0, 0.6)',justifyContent:'flex-end',alignItems:'center'}]}> */}
-      {/* {justifyContent:'flex-end',alignItems:'center',backgroundColor: 'rgba(0, 0, 0, 0.6)'} */}
     <View style={[flex(1),styles.column,{backgroundColor: 'rgba(0, 0, 0, 0.6)'}]} >
       <View style={[flex(0.6)]}>
       <TouchableOpacity onPress={onClose} style={[flex(1)]}>
       </TouchableOpacity>
       </View>
     <View style={[flex(0.4),{width:widthValue(1)},styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
-      {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        style={[padding(0), flex(1)]}> */}
       <View style={[flex(1),paddingPosition(0,20,0,20),styles.selfStart]}>
-    {/* <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={[{width: widthValue(1)},flex(0.4)]}
-        > */}
       <TextInput value={taskname} onChangeText={onChangeText} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black]} 
       placeholderTextColor={darkMode ? Colors.white : Colors.black}
                     />
@@ -163,28 +145,13 @@ const SendData = () => {
       {/* <View style={[flex(1.2),borderColor('#f7f7f7'),borderWidth(0,1)]}> */}
         <Text style={[styles.black]}>Estimated Pomodoros</Text>
         <Sessions onPress={onPressSession} sessions={sessions}/>
-        {/* <View style={[styles.allCenter,flex(1)]}>
-         
-          <View style={[styles.row,styles.allCenter]}>
-            {data.map((num,index)=>{
-              return(
-             <View key={index} style={[{height:28,width:28},radius(50),styles.bgOrange,styles.allCenter,marginPosition(0,10)]}>
-                   <Text style={[styles.white]}>{num}</Text>
-             </View>
-              )
-            })}
-          </View>
-          
-        
-        </View> */}
-      {/* </View> */}
       </View>
       <View style={[flex(1.3),{width:widthValue(1.1)},styles.row,borderColor('#f7f7f7'),borderWidth(0,1)]}>
       <View style={[styles.row,flex(1),styles.allCenter,marginPosition(0,0,0,20)]}>
         {
           iconData.map((icon,index)=>
           <TouchableOpacity key={index} onPress={()=>handleAddTaskButtons(icon.name)}>
-          <Icon  name={icon.name} type={Icons.Feather} style={[styles.black,fontSize(30),marginPosition(0,20),{color:icon.color}]}/> 
+          <Icon  name={icon.name} type={index==0 ? icon.name==='sun'||icon.name==='sunrise'? Icons.Feather:Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black,fontSize(30),marginPosition(0,20),{color:icon.color}]}/> 
           </TouchableOpacity> 
           )
         }
@@ -196,11 +163,9 @@ const SendData = () => {
 
       </View>
       </View>
-      {/* </ScrollView> */}
+      
      </View>
-    
     </View>
-    {/* </TouchableOpacity> */}
   </Modal>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {View,Text,ScrollView,TextInput,StatusBar} from 'react-native'
 import SafeAreaView from 'react-native-safe-area-view'
 import { Header } from '../Header'
@@ -9,22 +9,31 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { DeleteTaskModal } from '../../../../components/modals/DeleteTaskModal'
 import { TaskDeletedModal } from '../../../../components/modals/TaskDeletedModal'
 import { Colors } from '../../../../styles/Colors'
+import { useSelector } from 'react-redux'
 
 
 
-export const Task = ({navigation}) => {
+export const Task = ({navigation,route}) => {
+  const {id}=route.params
+  console.log('id',id);
   //states
   const [showOptions,setShowoptions]=useState(false)
   const [subtask,setSubtask]=useState('')
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [isTaskdeletedModalVisible,setTaskdeletedModalVisible]=useState(false)
+  const [CurrentTask,setCurrentTask]=useState(null)
+//selectors
+const Taskdetails=useSelector((state)=>state.user.userTasks.userTask)
 
-    const taskdata=[{startIcon:'check',name:'Pomodoro',details:'4',endIcon:'check',endIconcolor:'green'},
-    {startIcon:'calendar',name:'Due Date',details:'Today',endIcon:'calendar',endIconcolor:'green'},
-    {startIcon:'flag',name:'Priority',details:'Medium',endIcon:'flag',endIconcolor:'green'},
-    {startIcon:'breifcase',name:'Project',details:'Pomodoro App',endIcon:'breifcase',endIconcolor:'green'},
-    {startIcon:'bell',name:'Remainder',details:'Today',endIcon:'bell',endIconcolor:'green'},
-    {startIcon:'repeat',name:'Repeat',details:'none',endIcon:'repeat',endIconcolor:'green'}]
+const taskdata = [
+  { startIcon: 'timer', name: 'Pomodoro', details: CurrentTask?.Sessions || 0, endIcon: 'timer', endIconcolor: Colors.Orange },
+  { startIcon: 'calendar', name: 'Due Date', details: CurrentTask?.Day || 'today', endIcon: 'calendar', endIconcolor: 'green' },
+  { startIcon: 'flag', name: 'Priority', details: CurrentTask?.Priority?.name || 'low', endIcon: 'flag', endIconcolor: CurrentTask?.Priority?.color || 'grey' },
+  { startIcon: 'briefcase', name: 'Project', details: CurrentTask?.Project?.Projectname || 'pomo', endIcon: 'briefcase', endIconcolor: CurrentTask?.Project?.Color || 'grey' },
+  { startIcon: 'bell', name: 'Remainder', details: 'Today', endIcon: 'bell', endIconcolor: 'green' },
+  { startIcon: 'repeat', name: 'Repeat', details: 'none', endIcon: 'repeat', endIconcolor: 'green' }
+];
+
 
     const optionsdata=[{'name':'Pin','iconfamily':Icons.Entypo,'iconname':'pin'},{'name':'Share','iconfamily':Icons.AntDesign,'iconname':'sharealt'},
     {'name':'Dublicate','iconfamily':Icons.MaterialIcons,'iconname':'file-copy'},{'name':'Comment','iconfamily':Icons.Fontisto,'iconname':'commenting'},
@@ -38,6 +47,11 @@ export const Task = ({navigation}) => {
           setDeleteModalVisible(true);
         }
     }
+    useEffect(() => {
+      const foundTask = Taskdetails.find((task) => task.id === id);
+      setCurrentTask(foundTask);
+      console.log('foundTask',foundTask);
+    }, [id, Taskdetails]);
   return (
    <SafeAreaView style={[styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
@@ -57,7 +71,7 @@ export const Task = ({navigation}) => {
         />
     </View>
     {/* render deletemodal */}
-    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)}/>}
+    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)} DeleteTaskData={CurrentTask}/>}
     {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() => setTaskdeletedModalVisible(false)}/>}
     {/* option's */}
     {showOptions ? 
@@ -79,12 +93,12 @@ export const Task = ({navigation}) => {
     {/*  */}
     <ScrollView showsVerticalScrollIndicator={false}>
 
-    <View style={[styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor('blue'),borderWidth(0,0,2),styles.centerHorizontal]}>
+    <View style={[styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor(CurrentTask?.Project.Color||'orange'),borderWidth(0,0,2),styles.centerHorizontal]}>
       <View style={[flex(0.2),marginPosition(0,0,0,10)]}>
           <Icon name={'play'} type={Icons.AntDesign} style={[styles.Orange,fontSize(20)]}/>
       </View>
       <View style={[flex(2)]}>
-          <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>Create a design</Text>
+          <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>{CurrentTask?.Taskname||'wait'}</Text>
      </View>
      <View style={[flex(0.2)]}>
           <Icon name={'play'} type={Icons.AntDesign} style={[styles.Orange,fontSize(20)]}/>
@@ -95,12 +109,12 @@ export const Task = ({navigation}) => {
         {taskdata.map((item,index)=>{
             return(
         <View style={[styles.row,{height:heightValue(16)},styles.centerHorizontal,borderColor('#f2f0f0'),borderWidth(0,0,0,1)]}>
-        <Icon name={item.startIcon} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
+        <Icon name={item.startIcon} type={item.startIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
         <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>{item.name}</Text>
         <View style={[flex(1),styles.flexEnd,marginPosition(0,10)]}>
         <Text style={[styles.black,fontWeight('bold')]}>{item.details}</Text>
         </View>
-        <Icon name={item.endIcon} type={Icons.Feather} style={[{color:item.endIconcolor},fontSize(20)]}/>
+        <Icon name={item.endIcon} type={item.endIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[{color:item.endIconcolor},fontSize(20)]}/>
 
         </View> 
             )
@@ -120,34 +134,15 @@ export const Task = ({navigation}) => {
     <View style={[marginPosition(10)]}>
         <Text style={[styles.black,fontWeight('800')]}>Tags</Text>
         <View style={[styles.rowWrap,marginPosition(10)]}>
-              <View style={[padding(6),styles.row,styles.allCenter,borderColor('green'),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                <Text style={[styles.black]}>work</Text>
-                <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-              </View>
-              <View style={[padding(6),styles.row,styles.allCenter,borderColor('green'),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                <Text style={[styles.black]}>work</Text>
-                <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-              </View>
-              <View style={[padding(6),styles.row,styles.allCenter,borderColor('green'),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                <Text style={[styles.black]}>workhgfhdhb</Text>
-                <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-              </View>
-              <View style={[padding(6),styles.row,styles.allCenter,borderColor('green'),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                <Text style={[styles.black]}>work</Text>
-                <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-              </View>
-              <View style={[padding(6),styles.row,styles.allCenter,borderColor('green'),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                <Text style={[styles.black]}>work</Text>
-                <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-              </View>
-              <View style={[padding(6),styles.row,styles.allCenter,borderColor('green'),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                <Text style={[styles.black]}>work</Text>
-                <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-              </View>
-              <View style={[padding(8),styles.allCenter,borderColor('gray'),borderWidth(1),radius(15),marginPosition(0,10,10)]}>
-                <Icon name={'plus'} type={Icons.Feather} style={[styles.black,fontSize(20)]}/>
-              </View>
-              
+          {CurrentTask?.Tags.map((task,index)=>{
+                return(
+                  <View style={[padding(6),styles.row,styles.allCenter,borderColor(task.color),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
+                  <Text style={[{color:task.color}]}>{task.name}</Text>
+                  <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
+                </View> 
+                )
+          })||null}
+                
         </View>
     </View>
     {/* add note */}

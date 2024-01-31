@@ -3,14 +3,17 @@ import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { borderColor, borderWidth, flex, fontSize, fontWeight, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../styles/Styles';
 import { Header } from '../../screens/Manage/components/Header';
 import CustomizedButtons from '../../screens/auth/onboarding/component/CustomizedButtons';
+import { addTrashtasks } from '../../redux/userReducer/TrashReducer';
+import { useDispatch } from 'react-redux';
 
 
-export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted}) => {
-
+export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted,DeleteTaskData}) => {
+const dispatch=useDispatch()
 
 const handledelete=()=>{
     handletoTaskDeleted()
     onClose()
+    dispatch(addTrashtasks(DeleteTaskData))
 }
 
   return (

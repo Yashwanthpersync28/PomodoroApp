@@ -7,12 +7,15 @@ import { Icons } from '../../../../components/Icons'
 import { Colors } from '../../../../styles/Colors'
 import { Dayheadings } from '../Completed/components/Dayheadings'
 import { Header } from '../Header'
+import { useSelector } from 'react-redux'
 
 
 
 
 const Trash = () => {
     const [showSearchHeader,setSearchHeader]=useState(false)
+    const Trashdatas=useSelector((state=>state.user.usersTrashLists))
+    console.log('Trashdatas',Trashdatas);
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
