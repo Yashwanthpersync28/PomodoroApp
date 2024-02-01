@@ -14,7 +14,6 @@ const BottomTabNavigation = () => {
   return (
    
     <Tab.Navigator 
-    initialRouteName='Calendar'
     screenOptions=
        {
         {
