@@ -22,19 +22,18 @@ import {
 import Icon, { Icons } from '../Icons';
 import { Taskdata } from '../../constants/Taskdata';
 import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
+import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
 
-export const TaskCard = ({closeModal,setSelectedTask,filteredTasks}) => {
+export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id}) => {
 
+    console.log('priorityname',priorityname)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
 console.log('taskSessions',taskSessions)
 
     const dispatch = useDispatch();
     return (
 <View>
-      
-        {filteredTasks.map((deatails)=>(
-        
-            <TouchableWithoutFeedback  key={deatails.Taskname} onPress={()=>{closeModal(),setSelectedTask(deatails.Taskname),dispatch(setTaskSession(deatails.Sessions))}}>
+            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions))}}>
         <View style={[styles.row,marginPosition(10,0,0),{width:widthValue(1.2)}]}>
             <View style={[{ width: 2, }, styles.bgbrown, radius(0, 0, 0, 5, 5),]}></View>
             <View
@@ -55,25 +54,25 @@ console.log('taskSessions',taskSessions)
                         <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} />
                         <View>
                             <Text style={[styles.black, fontSize(23),{ fontWeight: '500' }]}>
-                                {deatails.Taskname}
+                                {title}
                             </Text>
                             <View style={[styles.row, marginPosition(5)]}>
-                                <Text style={[styles.brown, marginPosition(0, 5)]}>{deatails.Priority.name}</Text>
-                                <Text style={[styles.timerBlue, marginPosition(0, 5)]}>{deatails.Tags.Tagname}</Text>
-                                <Text style={[styles.purple, marginPosition(0, 5)]}>{deatails.Project.Projectname}</Text>
+                                <Text style={[styles.brown, marginPosition(0, 5)]}>{priorityname}</Text>
+                                <Text style={[styles.timerBlue, marginPosition(0, 5)]}>{tagname}</Text>
+                                <Text style={[styles.purple, marginPosition(0, 5)]} >{projectname}</Text>
                             </View>
                             <View style={[styles.row, marginPosition(8), styles.centerHorizontal]}>
                                 <View style={[styles.row, styles.centerHorizontal]}>
                                     <Icon name={"timer-outline"} type={Icons.MaterialCommunityIcons} style={[styles.tomotoRed, fontSize(22), marginPosition(0, 8)]} />
-                                    <Text style={[fontSize(16)]}>{deatails.Sessions}</Text>
+                                    <Text style={[fontSize(16)]}>{Sessions}</Text>
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal]}>
                                     <Icon name={"sun"} type={Icons.Feather} style={[fontSize(22),marginPosition(0, 8, 0, 10) ,styles.green]} />
-                                    <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 12, 0, 10),{color:deatails.Tags.Color}]} />
+                                    <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 12, 0, 10),{color:tagColor}]} />
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal]}>
-                                    <Icon name={"bag-personal"} type={Icons.MaterialCommunityIcons} style={[{color:deatails.Project.Color}, fontSize(22), marginPosition(0, 8)]} />
-                                    <Text style={[fontSize(16)]}>{deatails.Project.Projectname}</Text>
+                                    <Icon name={"bag-personal"} type={Icons.MaterialCommunityIcons} style={[{color:projectColor}, fontSize(22), marginPosition(0, 8)]} />
+                                    <Text style={[fontSize(16)]}>{projectname}</Text>
                                 </View>
                             </View>
                         </View>
@@ -85,8 +84,6 @@ console.log('taskSessions',taskSessions)
             </View>
         </View>
         </TouchableWithoutFeedback>
-
-))}
         </View>
     )
 }

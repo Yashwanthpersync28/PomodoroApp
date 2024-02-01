@@ -1,5 +1,6 @@
 
-import { calendar } from "../screens/Calendar/calendar";
+import { Calendar} from "../screens/Calendar/Calendar";
+import DateStrip from "../screens/Calendar/Components/DateStrip";
 import { Manage } from "../screens/Manage/Manage";
 import { Report } from "../screens/Report/Report";
 import Homepage from "../screens/auth/login/Homepage/Homepage";
@@ -25,14 +26,14 @@ export const  BottomTabs = [
         icon:'grid',
     },
     {
-        name:'Pomodoro2',
-        component:Pomodoro2,
+        name:'Calendar',
+        component:Calendar,
         label:'Calendar',
         icon:'calendar',
     },
     {
-        name:'Permissions',
-        component:Permissions,
+        name:'Report',
+        component:Report,
         label:'Report',
         icon:'clock',
     },

@@ -7,8 +7,8 @@ export const modalData = {
         {name:'Prohibit to Exit',id:'exit'}
     ],
     TimerMode:[
-        {id:'hightoLow',start:'25:00',end:'00:00',desc:'Countdown from 25 Minutes until time turns out'},
-        {id:'lowToHigh',start:'00:00',end:'∞',desc:'Start Counting from 0 until stopped manually'},
+        {id:'1',start:'25:00',end:'00:00',desc:'Countdown from 25 Minutes until time turns out'},
+        {id:'2',start:'00:00',end:'∞',desc:'Start Counting from 0 until stopped manually'},
     ],
     whiteNoiseMode:[
         {id:'1',MusicName:'None',song:''},
@@ -21,8 +21,23 @@ export const modalData = {
         {id:'8',MusicName:'Soft Melody',song:'softmelody.mp3'},
         {id:'9',MusicName:'Birds Chirps',song:'birds.mp3'},
     ],
+
+CompletionSounds : [
+    {id:'1',MusicName:'Carol of Bells',tune:'carolofbells.mp3'},
+    {id:'2',MusicName:'Despecito',tune:'despecito.mp3'},
+    {id:'3',MusicName:'Shape of You',tune:'shapeofyou.mp3'},
+],
+
+    reminderRintones:[
+        {id:'1',MusicName:'None',song:''},
+        {id:'2',MusicName:'Adventure',song:'adventure.mp3'},
+        {id:'3',MusicName:'Jazz Beats',song:'drumbeats.mp3'},
+        {id:'4',MusicName:'Wake me Now',song:'alert2.mp3'},
+        {id:'5',MusicName:'Melting Ice',song:'meltingice.mp3'},
+        {id:'6',MusicName:'Shadow',       song:'shadow.mp3'},
+    ],
     focusTime:[
-        {id:'1', focusTime: 300},
+        {id:'1', focusTime: 30},
         {id:'2', focusTime: 600},
         {id:'3', focusTime: 900},
         {id:'4', focusTime: 1500},
@@ -31,7 +46,7 @@ export const modalData = {
         {id:'7', focusTime: 3600}
     ],
     breakTime:[
-        {id:'1', breakTime: 60},
+        {id:'1', breakTime: 10},
         {id:'2', breakTime: 120},
         {id:'3', breakTime: 180},
         {id:'4', breakTime: 240},

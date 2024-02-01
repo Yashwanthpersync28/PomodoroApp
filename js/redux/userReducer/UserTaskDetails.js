@@ -12,5 +12,5 @@ const UsersTasks = createSlice({
   },
 });
 
-export const { addUserTasks } = UsersTasks.actions;
+export const { addUserTasks,isTaskCompleted } = UsersTasks.actions;
 export const usersTasksReducer = UsersTasks.reducer;

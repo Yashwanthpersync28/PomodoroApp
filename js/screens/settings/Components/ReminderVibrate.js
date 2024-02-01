@@ -1,33 +1,26 @@
-import {
-    View,
-    Text,
-    FlatList,
-    TouchableOpacity,
-  } from 'react-native';
-  import React, { useState } from 'react';
-  import {
-    styles,
+import { View, Text ,FlatList,TouchableOpacity} from 'react-native'
+import React from 'react'
+import Modal from 'react-native-modal'
+import {styles,
     widthValue,
     radius,
-    heightValue,
     fontSize,
     paddingPosition,
     marginPosition,
-    borderWidth,
     padding,
-    flex
-  } from '../../../styles/Styles';
-  import Modal from 'react-native-modal';
-import { TimerButton } from './TimerButton';
-import { modalData } from '../../../constants/ModalsData';
-import Icon, { Icons } from '../../../components/Icons';
-  
-  export const WhiteNoiseModal = ({closeModal,currentModal,selectedTune,handleNoise,updateNoise,stopSound }) => {
+    heightValue,
+    borderWidth
+} from '../../../styles/Styles'
+import { TimerButton } from '../../dashboard/Components/TimerButton'
+import Icon, { Icons } from '../../../components/Icons'
 
-     const renderTunes=({item})=>{
-      const isSelected = selectedTune === item.MusicName
+const ReminderVibrate = ({closeModal,currentModal,vibrationOptions,handleVibration,vibration}) => {
+
+
+    const renderOptions = ({item})=>{
+        const isSelected = vibration === item.name
       return(
-        <TouchableOpacity onPress={()=>handleNoise(item)}>
+        <TouchableOpacity onPress={()=>handleVibration(item)}>
         <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
               <View>
                 <View
@@ -37,7 +30,7 @@ import Icon, { Icons } from '../../../components/Icons';
                     paddingPosition(15, 0, 20, 0),
                   ]}>
                   <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
-                    {item.MusicName}
+                    {item.name}
                   </Text>
                 </View>
               </View>
@@ -49,20 +42,25 @@ import Icon, { Icons } from '../../../components/Icons';
             </View> 
             </TouchableOpacity>
       )
-     }
 
-    return (
-      <View style={[{ width: widthValue(1) }, styles.centerHorizontal]}>
-        <Modal
+    }
+
+
+
+
+  return (
+    <View style={[{width:widthValue(1)},styles.centerHorizontal]}>
+      <Modal 
         animationIn={'slideInUp'}
         animationOut={'slideOutDown'}
-        isVisible={currentModal ===4}
-        hasBackdrop={true}
-        backdropColor='black'
+        backdropColor='Black'
         backdropOpacity={0.5}
+        hasBackdrop={true}
+        isVisible={currentModal === 9}
         onBackdropPress={closeModal}
-          style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}>
-          <View
+        style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}
+      >
+        <View
             style={[
               styles.bgWhite,
               {
@@ -83,18 +81,19 @@ import Icon, { Icons } from '../../../components/Icons';
                 fontSize(24),
                 paddingPosition(0, 0, 20, 0),
               ]}>
-              White Noise 
+              Reminder Vibrate
             </Text>
 
-<FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/>
+<FlatList data={vibrationOptions} renderItem={renderOptions} keyExtractor={item=>item.name}/>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal(),stopSound()}}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-        <TimerButton buttonText={'Ok'}onPress={()=>{updateNoise(),stopSound()}} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+        <TimerButton buttonText={'Cancel'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Ok'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>
-        </Modal>
-      </View>
-    );
-  };
-  
+      </Modal>
+    </View>
+  )
+}
+
+export default ReminderVibrate

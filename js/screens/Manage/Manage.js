@@ -73,7 +73,6 @@ const onClose=()=>{
       <View style={[flex(0.2)]}>
            <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
       </View>
-      
       <View style={[flex(2)]}>
         {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={onClose} handleCount={(val)=>setcount(val)}/> :null:null}
         {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={onClose} sessions={session} onPressSession={(val)=>setsession(val)} taskname={taskname} onChangeText={(val)=>setTaskname(val)} handleCounter={handleCounter} receivedPriorityData={receivedPriorityData} receiveTagsData={receiveTagsData} receiveProjectData={receiveProjectData} selectedDate={selectedDate}/> :null:null}
@@ -86,7 +85,6 @@ const onClose=()=>{
       <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent bgColor={styles.bglgWhite} placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
-        
         </View>
         <View style={[{height:heightValue(2.8)},styles.rowWrap,styles.spaceEvenly]}>
            <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:Taskdatas})}/>

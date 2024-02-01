@@ -7,7 +7,7 @@ const taskSession = createSlice({
     },
     reducers:{
         setTaskSession(state,action){
-            state.taskSession = action.payload
+            state.session = action.payload
         }
     }
 })

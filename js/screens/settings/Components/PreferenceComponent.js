@@ -1,12 +1,10 @@
-import { View, Text,TouchableOpacity } from 'react-native'
+import { View, Text,TouchableOpacity,Switch } from 'react-native'
 import React from 'react'
 import { flex, fontSize, fontWeight, margin, marginPosition, padding, styles, widthValue } from '../../../styles/Styles'
-import { useNavigation } from '@react-navigation/native'
 import Icon, { Icons } from '../../../components/Icons'
-import { useSelector } from 'react-redux'
- export const PreferenceComponent = ({PreferanceName,showDetail,name,Icontype,detail1,detail2,showToggle,onPress}) => {
 
-  
+ export const PreferenceComponent = ({PreferanceName,showDetail,showIcon,name,Icontype,detail1,detail2,onPress,onValueChange,value,thumbColor,}) => {
+
   return (
     <TouchableOpacity style={[flex(0.3),styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10)]} onPress={onPress} >
         <Text style={[fontSize(20),styles.black,{fontWeight:"500"}]}>{PreferanceName}</Text>
@@ -20,7 +18,13 @@ import { useSelector } from 'react-redux'
           <Text style={[margin(0,0,10),styles.black,{fontWeight:'500'}]}>{detail2}</Text>
           </View> }
         </View>
-     <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[styles.black,fontSize(30)]} />
+        {showIcon === true ?
+     <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[styles.black,fontSize(30)]} /> : 
+     (
+      <Switch 
+      onValueChange={onValueChange} value={value} thumbColor={thumbColor}  trackColor={{false:'#efefef',true:'#ff6347'}}/>
+     )
+     }
      </View>
      </TouchableOpacity>
      

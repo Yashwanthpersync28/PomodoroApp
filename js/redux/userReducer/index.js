@@ -8,11 +8,20 @@ import { taskSessionsReducer } from './taskSessionsReducer';
 import { modalReducer } from '../userReducer/modalReducer';
 import { longBreakReducer } from './longBreakReducer';
 import { usersTrashLists } from './TrashReducer';
+import { TimerModeReducer } from './TimerModeReducer';
+import { localSessionReducer } from './localSessionReducer';
+import { breakReducer } from './breakReducer';
+import { autoBreakReducer } from './autoBreakReducer';
+import { autoFocusStartReducer } from './autoFocusStartReducer';
+import { reminderRingtoneReducer } from './reminderRingtoneReducer';
+import { WhiteNoiseReducer } from './WhiteNoiseReducer';
+import { completionSoundReducer } from './CompletionSoundReducer';
 
 
 export const userReducer = combineReducers({
     focusTime:focusTimeReducer,
     breakTime:breakTimeReducer,
+    TimerMode:TimerModeReducer,
     userTaglist:userTaglist,
     userProjectList:userProjectlist,
     userTasks:usersTasksReducer,
@@ -20,4 +29,11 @@ export const userReducer = combineReducers({
     currentModal:modalReducer,
     longBreak:longBreakReducer,
     usersTrashLists:usersTrashLists,
+    localSession:localSessionReducer,
+    breakSwitch: breakReducer,
+    autoBreak:autoBreakReducer,
+    autoFocus:autoFocusStartReducer,
+    reminderRingtone:reminderRingtoneReducer,
+    whiteNoise:WhiteNoiseReducer,
+    completionSound:completionSoundReducer,
 })

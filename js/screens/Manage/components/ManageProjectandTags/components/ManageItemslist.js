@@ -67,7 +67,6 @@ export const ManageItemslist = ({ data, showProjects }) => {
   const handleItemPress = (item) => {
     setSelectedItem(selectedItem === item ? null : item);
   };
-
   return (
     <View style={[flex(1)]}>
       {data.map((item) => (

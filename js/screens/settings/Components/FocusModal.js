@@ -12,7 +12,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
 
- export const FocusModal = ({currentModal}) => {
+ export const FocusModal = ({currentModal,closeModal}) => {
 
     const dispatch = useDispatch();
      const InitialSelectedTime = modalData.focusTime[3].id
@@ -32,9 +32,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
         return formattedTime;
       }
 
-      const closeModal = ()=>{
-        dispatch(setCurrentModal(0))
-      }
+      
     const renderItems =({item})=>{
         const isSelected = selectedItemId === item.id
         const formattedFocusTime = formatTime(item.focusTime)

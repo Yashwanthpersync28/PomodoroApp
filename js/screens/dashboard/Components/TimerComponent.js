@@ -23,6 +23,9 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
         const newTime = prevTime + 1;
         console.log('newTime',newTime)
         
+        if(newTime >=focusTime){
+          setSecondFocusProgress(0)
+        }
         const newProgress = Math.floor((newTime/focusTime)*100)
         setSecondFocusProgress(newProgress)
         return newTime;
@@ -34,7 +37,7 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
       timer = setInterval(secondTimer,1000)
     }
     return ()=>clearInterval(timer)
-  },[isTimerActive,secondTime])
+  },[isTimerActive,secondTime,focusTime])
 
 
   return (
@@ -49,7 +52,6 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
         backgroundColor="#efefef"
         lineCap='round'
         rotation={0}
-        // onAnimationComplete={()=>handleAnimation()}
       >
         {() => 
         <View style={[styles.allCenter]}>

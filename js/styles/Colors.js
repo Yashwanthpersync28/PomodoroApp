@@ -39,4 +39,5 @@ export const Colors =  {
     darkGreen:'#029689',
     LightGold:'#ffc032',
     borderGray:'#f2f0f0',
+    WhiteSmoke:'#f5f5f5',
 }

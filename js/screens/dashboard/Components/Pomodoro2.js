@@ -5,37 +5,102 @@ import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWid
 import { TimerButton } from './TimerButton';
 import { useSelector,useDispatch } from 'react-redux';
 import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
+import { setLocalSession } from '../../../redux/userReducer/localSessionReducer';
 
-export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,session,handleContinue,handlepause,handleStop,maxSession}) => {
+export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,completionSound}) => {
 
+  const dispatch = useDispatch();
+
+  const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
+  const localSession = useSelector((state)=>state.user.localSession.localSession);
+  const taskDetails = useSelector((state)=>state.user.userTasks.userTask.completed);
+  console.log('taskDetails',taskDetails)
+  const disableBreak = useSelector((state)=>state.user.breakSwitch.disableBreak)
+  console.log('disableBreak',disableBreak)
+  const autoStartBreak = useSelector((state)=>state.user.autoBreak.autoBreak)
+  console.log('autoBreak',autoStartBreak)
+  const autoStartFocus = useSelector((state)=>state.user.autoFocus.focusStart)
+  console.log('focusStart',autoStartFocus)
+  // const FocusTime = useSelector((state)=>state.user.focusTime.focusTime);
+
+  const maxSession = sessionNumber;
+  // const [displayTime,setDisplayTime] = useState(focusTime)
+  // const [displaSession,setDisplaSession] = useState('No Sessions')
+
+  useEffect(()=>{
+    setDisplayTime(FocusTime);
+    setTotalSessionTime(FocusTime)
+  // dispatch(setLocalSession(localSession))
+  },[FocusTime])
 
   useEffect(() => {
     let intervalId;
   
     const updateTimer = () => {
       if (isTimerActive) {
-        setTime((prevTime) => {
+        setDisplayTime((prevTime) => {
           const newTime = prevTime - 1;
-          console.log('newTime', newTime);
-  
+          console.log('completedTime', FocusTime - newTime)
+    
+          const newTotalSessionTime = currentTimer === 0 && !disableBreak ? BreakTime : FocusTime;
+    
           if (newTime <= 0) {
             setIsTimerActive(false);
             setProgress(0);
-            // playSound(song);
-            // Switch to the other timer type
+            // playSound();
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
             setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
-            setCurrentButton((prevButton) => (prevButton === 0 ? 3 : 0));
-            setSession((prevSession) => (prevSession  === 0 ? prevSession + 1 : prevSession));
-  
-            return currentTimer === 0 ? BreakTime : FocusTime;
+            
+            if(currentTimer === 0){
+              completionSound()
+            }
+            if(currentTimer === 1 ){
+              dispatch(setLocalSession(localSession + 1))
+            }
+            if(localSession === maxSession){
+              completedPomodoro()
+            }
+            console.log(localSession,'Updatedsession')
+            setCurrentButton( 
+              (currentTimer === 0  && !disableBreak? 3 : 0));
+
+
+            if(disableBreak === true && currentTimer === 0){
+              setDisplayTime(FocusTime)
+              setTotalSessionTime(FocusTime)
+              dispatch(setLocalSession(localSession+ 1))
+            } 
+            else if(disableBreak === false) {
+              if(currentTimer === 0){
+              setDisplayTime(BreakTime)
+              setTotalSessionTime(BreakTime);
+              } else if(currentTimer ===1 ){
+              setTotalSessionTime(FocusTime);
+
+              }
           }
-  
-          const newProgress = Math.floor((newTime / (currentTimer === 0 ? FocusTime : BreakTime)) * 100);
+          if(autoStartBreak === true && disableBreak === false && currentTimer === 0){
+            setTimeout(()=>{
+              handleStart(1)
+            },1000)
+          }
+
+          if(autoStartFocus === true && currentTimer ===1){
+            setTimeout(()=>{
+              handleStart(0)
+            },1000)
+          }
+          if(autoStartFocus === true && currentTimer === 1 && disableBreak === true ){
+            setTimeout(()=>{
+              handleStart(0)
+            },1000)
+          }
+            return newTotalSessionTime;
+          }
+          const newProgress = Math.max(0, Math.floor(((newTotalSessionTime - newTime) / newTotalSessionTime) * 100));
           setProgress(newProgress);
-  
-          setBarColor((currentTimer) => (currentTimer === 0 ? '#ff6347' : '#ff6347'));
-  
+          setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
+          setTime((prevTime) => prevTime - 1);
           return newTime;
         });
       }
@@ -45,8 +110,7 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
     }
   
     return () => clearInterval(intervalId);
-  }, [isTimerActive, currentTimer, FocusTime, BreakTime]);
-  
+  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession]);
 
   return (
     <View style={[styles.centerHorizontal]}>
@@ -54,7 +118,7 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
         <AnimatedCircularProgress
           size={230}
           width={20}
-          fill={(time / (currentTimer === 0 ? FocusTime : BreakTime)) * 100}
+          fill={(displayTime/totalSessionTime)*100}
           tintColor={barColor}
           backgroundColor="#efefef"
           rotation={0}
@@ -63,9 +127,9 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,setSession,isTi
           {() => (
             <View style={[styles.allCenter,{marginTop:-25}]}>
             <Text style={[{fontSize:50,fontWeight:'500'},styles.black]}>
-              {`${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`}
+              {`${Math.floor(displayTime / 60)}:${(displayTime % 60).toString().padStart(2, '0')}`}
             </Text>
-            <Text style={[styles.black]}>{session} of {maxSession} Sessions</Text>
+            <Text style={[styles.black]}>{displaySession}</Text>
             </View>
           )}
         </AnimatedCircularProgress>

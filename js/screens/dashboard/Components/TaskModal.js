@@ -11,7 +11,7 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     flex,
     styles,
@@ -38,16 +38,20 @@ import { Taskdata } from '../../../constants/Taskdata';
 import { useNavigation } from '@react-navigation/native';
 import { AddTask } from '../../Manage/components/AddTask/AddTask';
 import { Manage } from '../../Manage/Manage';
+import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
-export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
+export const TaskModal = ({ closeModal,setSelectedTask,updateTask}) => {
 
+    const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
   console.log('taskDetails',taskDetails)
+  const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
    const navigation = useNavigation();
     // const [currentPage ,setCurrentPage] = useState(0)
     const addTask = ()=>{
-        navigation.navigate('manage')
+        navigation.navigate('ManageScreen')
+        dispatch(setCurrentModal(0))
     }
 
 
@@ -124,8 +128,16 @@ export const TaskModal = ({ closeModal,currentModal,setSelectedTask }) => {
                         </View>
                         <View>
                         
-                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask} filteredTasks={filteredTasks} />
+                        {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details),
                        
+                       
+                    //    <Text>{details.Project.Projectname}</Text> 
+                       <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
+                       projectname={details.Project.Projectname}
+                      
+                        Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id}/> 
+                        ))}
+                        
                         </View>
                     </View>
                 </View>
