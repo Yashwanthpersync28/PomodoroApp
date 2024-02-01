@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef , useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import Icon, { Icons } from '../../../../components/Icons';
@@ -9,6 +9,7 @@ import { flex, fontSize, heightValue, styles, widthValue } from '../../../../sty
 export const DuedateCalendar = ({OnpressDate}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleDateString('default', { month: 'long' }));
+  const [selectedColor,setSelectedcolor]=useState('')
   const calendarRef = useRef(null);
 
   const today = new Date();
@@ -16,45 +17,73 @@ export const DuedateCalendar = ({OnpressDate}) => {
   minDate.setDate(today.getDate()); // Set minimum date to yesterday
 
   const handleDateChange = (date) => {
-    setSelectedDate(date.dateString);
-    console.log('Selected Date:', date.dateString);
-    OnpressDate(date.dateString)
-  };
+    // Check if selected date is today
+    setSelectedDate(date.dateString)
+    const isToday = date.dateString === today.toISOString().split('T')[0];
+    if (isToday) {
+      setSelectedcolor(Colors.LeafGreen, () => {
+        console.log('Selected date is today!', selectedColor);
+      });
+     
+      return;
+    }
+  
+    // Check if selected date is tomorrow
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const isTomorrow = date.dateString === tomorrow.toISOString().split('T')[0];
+    if (isTomorrow) {
+      setSelectedcolor(Colors.blue, () => {
+        console.log('Selected date is tomorrow!', selectedColor);
+      });
+     
 
+      // Update the selected date after handling color changes
+      setSelectedDate(date.dateString);
+      
+      return; // Exit the function to prevent setting it to purple
+    }
+  
+    // Check if selected date is in this week
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 2);
+    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7 - today.getDay());
+    const isInThisWeek = new Date(date.dateString) >= startOfWeek && new Date(date.dateString) <= endOfWeek;
+  
+    if (isInThisWeek) {
+      setSelectedcolor(Colors.SmokePurple, () => {
+        console.log('Selected date is in this week!', selectedColor);
+      });
+     
+    } else {
+      setSelectedcolor(Colors.Orange, () => {
+        console.log('Selected date is beyond this week!', selectedColor);
+      });
+      
+    }
+  
+    // Update the selected date after handling color changes
+    setSelectedDate(date.dateString);
+   
+  };
+  
   const handleMonthChange = (month) => {
     setCurrentMonth(month.toString('MMMM yyyy'));
   };
 
-  const handlePreviousMonth = (a) => {
-    console.log('gcvhbjn',calendarRef.current);
-    if (a) {
-      // Convert currentMonth string to Date object
-      const currentMonthDate = new Date(currentMonth);
-      console.log('gvhbj',currentMonthDate);
-      // Set the day to 1 to ensure it's a valid Date object for setMonth
-      currentMonthDate.setDate(1);
-  
-      calendarRef.current.setMonth(currentMonthDate, -1);
+  useEffect(() => {
+    // This effect runs when selectedColor changes
+    if (selectedDate) {
+      if(selectedColor===Colors.LeafGreen)
+      OnpressDate(selectedDate, selectedColor,'sun',Icons.Feather,'Today')
+      if(selectedColor===Colors.blue)
+      OnpressDate(selectedDate, selectedColor,'sunrise',Icons.Feather,'Tomorrow')
+      if(selectedColor===Colors.SmokePurple)
+      OnpressDate(selectedDate, selectedColor,'calendar-week',Icons.MaterialCommunityIcons,'This Week')
+      if(selectedColor===Colors.Orange)
+      OnpressDate(selectedDate, selectedColor,'calendar-check',Icons.MaterialCommunityIcons,'Planned')
     }
-  };
+  }, [selectedColor,selectedDate]);
   
-  
-
-  // const renderHeader = () => {
-  //   return (
-  //     <View style={[styles.row, { height: heightValue(15), width: widthValue(1.2) }, styles.bgGray, styles.row]}>
-  //       <TouchableOpacity style={[{ width: widthValue(6) }, styles.bgOrange, styles.allCenter]} onPress={()=>handlePreviousMonth(true)}>
-  //         <Icon name={'chevron-left'} type={Icons.Feather} style={[styles.black, fontSize(30)]} />
-  //       </TouchableOpacity>
-  //       <View style={[{ width: widthValue(1.9) }, styles.bgBlue, styles.allCenter]}>
-  //         <Text style={styles.white}>{currentMonth}</Text>
-  //       </View>
-  //       <View style={[{ width: widthValue(6) }, styles.bgsmokeOrange, styles.allCenter]}>
-  //         <Icon name={'chevron-right'} type={Icons.Feather} style={[styles.black, fontSize(30)]} />
-  //       </View>
-  //     </View>
-  //   );
-  // };
 
 
   const dayComponent = ({ date, state }) => {
@@ -71,7 +100,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
         ]}
       >
         <View style={[styles.allCenter]}>
-        <Text style={[styles.dayText, isToday && { color: 'white',borderRadius:20,width:20 }, isSelected && { backgroundColor: '#ff6347' , borderRadius:20,width:20,color:'black'},isRemainingDate && { color: 'black' }]}>{date.day}</Text>
+        <Text style={[styles.dayText, isToday && { color: 'white',borderRadius:20,width:20 }, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:'black'},isRemainingDate && { color: 'black' }]}>{date.day}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -84,7 +113,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
         ref={calendarRef}
         onDayPress={handleDateChange}
         onMonthChange={handleMonthChange}
-        markedDates={{ [selectedDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' } }}
+        markedDates={{ [selectedDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'blue' } }}
         theme={{
           selectedDayBackgroundColor: 'blue',
           todayTextColor: 'black',
@@ -100,8 +129,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
         minDate={minDate}
         dayComponent={dayComponent}
         disableDateBefore={minDateString} 
-        // calendarHeight={heightValue(300)}
-        // customHeader={renderHeader}
+      
        
       />
     </View>

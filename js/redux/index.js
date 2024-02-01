@@ -8,6 +8,7 @@ import { Rememberme } from './rememberReducer';
 import { focustime } from './TimerReducer/Index';
 import { focusTimeReducer } from './userReducer/focustimeReducer';
 
+
 export const reducer = combineReducers({
     auth: authReducer,
     system: systemReducer,
@@ -15,4 +16,5 @@ export const reducer = combineReducers({
     showcomponent:showComponent,
     UserDetails:Userdetails,
     RememberMe:Rememberme,
+    
 })

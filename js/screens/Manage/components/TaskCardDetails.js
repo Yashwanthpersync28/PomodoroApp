@@ -1,14 +1,16 @@
 import React from 'react'
-import {View,Text} from 'react-native'
+import {View,Text,TouchableOpacity} from 'react-native'
 import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, marginPosition, padding, radius, styles } from '../../../styles/Styles'
 import Icon, { Icons } from '../../../components/Icons'
+// import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const TaskCardDetails = ({name,ShowplayIcon,data}) => {
+const TaskCardDetails = ({name,ShowplayIcon,data,handleTask}) => {
     console.log('data',data);
   return (
     <>
     {data.map((dataitem,index)=>{
         return(
+            <TouchableOpacity key={index} onPress={()=>handleTask(dataitem.id)}>
      <View style={[styles.bgWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
         <View style={[flex(0.2),styles.selfStart]}>
             <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(20)]}/>
@@ -38,6 +40,7 @@ const TaskCardDetails = ({name,ShowplayIcon,data}) => {
         </View>
 
     </View>
+    </TouchableOpacity>
         )
     })}
     
