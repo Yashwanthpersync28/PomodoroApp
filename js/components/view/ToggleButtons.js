@@ -7,12 +7,12 @@ export const ToggleButtons = ({onPressProject,showProjects,onPressTags,title1,ti
    <View style={[styles.bgsmokeOrange,{height:heightValue(20)},marginPosition(10)]}>
     <View style={[styles.row,radius(10),flex(1),{backgroundColor:'#f5f5f5'}]}>
         <TouchableOpacity style={[flex(1)]} onPress={onPressProject}>
-        <View style={[flex(1),styles.allCenter,radius(5),showProjects?styles.bgOrange:null]}>
+        <View style={[flex(1),styles.allCenter,radius(5),showProjects?styles.bgOrange:styles.bgtoggleWhite]}>
             <Text style={[{fontWeight:'bold'},showProjects?styles.white:styles.black]}>{title1}</Text>
         </View>
         </TouchableOpacity>
         <TouchableOpacity style={[flex(1)]} onPress={onPressTags}>
-        <View style={[flex(1),styles.allCenter,radius(5),showProjects?null:styles.bgOrange]}>
+        <View style={[flex(1),styles.allCenter,radius(5),showProjects?styles.bgtoggleWhite:styles.bgOrange]}>
         <Text style={[{fontWeight:'bold'},showProjects?styles.black:styles.white]}>{title2}</Text>
         </View>
         </TouchableOpacity>

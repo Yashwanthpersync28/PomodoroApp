@@ -23,19 +23,22 @@ import Icon, { Icons } from '../Icons';
 import { Taskdata } from '../../constants/Taskdata';
 import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
 import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
+import { set } from 'react-native-reanimated';
 
-export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id}) => {
-
+export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata}) => {
     console.log('priorityname',priorityname)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
 console.log('taskSessions',taskSessions)
-
     const dispatch = useDispatch();
+
+  const taskId = id;
+//   const [status,setStatus] = useState(completed);
+//   console.log('taskId',taskId,status,'status')
     return (
 <View>
-            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions))}}>
-        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)}]}>
-            <View style={[{ width: 2, }, styles.bgbrown, radius(0, 0, 0, 5, 5),]}></View>
+            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata)}} style={[styles.bgWhite]}>
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},styles.bgWhite]}>
+            <View style={[{ width: 2, }, prioritycolor, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
@@ -43,6 +46,7 @@ console.log('taskSessions',taskSessions)
                     borderWidth(1),
                     styles.borderLightWhite,
                     radius(0, 5, 5, 0,),
+                    styles.bgWhite
                 ]}>
                 <View style={[
                     styles.row,
@@ -51,7 +55,9 @@ console.log('taskSessions',taskSessions)
                     paddingPosition(0, 0, 20,),
                 ]}>
                     <View style={[styles.row, styles.selfStart,]}>
-                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} />
+                        {completed === false ? 
+                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} /> :
+                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} />}
                         <View>
                             <Text style={[styles.black, fontSize(23),{ fontWeight: '500' }]}>
                                 {title}
@@ -59,7 +65,7 @@ console.log('taskSessions',taskSessions)
                             <View style={[styles.row, marginPosition(5)]}>
                                 <Text style={[styles.brown, marginPosition(0, 5)]}>{priorityname}</Text>
                                 <Text style={[styles.timerBlue, marginPosition(0, 5)]}>{tagname}</Text>
-                                <Text style={[styles.purple, marginPosition(0, 5)]} >{projectname}</Text>
+                                {/* <Text style={[styles.purple, marginPosition(0, 5)]} >{projectname}</Text> */}
                             </View>
                             <View style={[styles.row, marginPosition(8), styles.centerHorizontal]}>
                                 <View style={[styles.row, styles.centerHorizontal]}>
@@ -72,7 +78,7 @@ console.log('taskSessions',taskSessions)
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal]}>
                                     <Icon name={"bag-personal"} type={Icons.MaterialCommunityIcons} style={[{color:projectColor}, fontSize(22), marginPosition(0, 8)]} />
-                                    <Text style={[fontSize(16)]}>{projectname}</Text>
+                                    <Text style={[fontSize(16),{width:170}]}>{projectname}</Text>
                                 </View>
                             </View>
                         </View>

@@ -40,4 +40,5 @@ export const Colors =  {
     LightGold:'#ffc032',
     borderGray:'#f2f0f0',
     WhiteSmoke:'#f5f5f5',
+    toggleWhite:'#eeeeee',
 }

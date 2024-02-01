@@ -6,9 +6,7 @@ import { HeadingComponent } from '../../components/view/HeadingComponent'
 import { TimerButton } from './Components/TimerButton'
 import { useNavigation } from '@react-navigation/native'
 
- export const TrophyScreen = ({backHome}) => {
-
-  console.log('backHome',backHome)
+ export const TrophyScreen = ({}) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={[styles.bgWhite,flex(1),styles.spaceBetweenVertical]}>
@@ -21,7 +19,7 @@ import { useNavigation } from '@react-navigation/native'
       </View>
       </View>
       <View style={[styles.row,styles.spaceAroundVertical,marginPosition(0,0,10,0)]}>
-      <TimerButton buttonText={'Back to Home'} onPress={()=>backHome()} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Back to Home'} onPress={()=>navigation.navigate('PomodoroScreen')} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
       <TimerButton buttonText={'View Report'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
     </SafeAreaView>

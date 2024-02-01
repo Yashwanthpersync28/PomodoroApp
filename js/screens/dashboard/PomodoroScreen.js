@@ -93,6 +93,42 @@ export const PomodoroScreen = () => {
   const [taskCompleted,setTaskCompleted] = useState(false)
   const [displaySession,setDisplaySession] = useState('No Sessions')
 
+const [totalfocusTime,setTotalFocusTime] = useState(0);
+
+  const [data,setdata] = useState([]);
+  console.log(data,'completetaskdata')
+  // console.log(completed,'taskstatus')
+
+  // const objIndex = data.findIndex(obj=>obj.id === data.id)
+  // const completed  = data.objIndex.completed;
+  // console.log('alterTask',completed)
+
+
+  // const updatedvalue = ()=>{
+  //   data.completed = true;
+  // }
+
+  // const updateTaskCompletion = (id) => {
+  //   // Check if prevData is an array
+  //   if (Array.isArray(prevData)) {
+  //     setdata(prevData.map(task => {
+  //       if (task.id === id) {
+  //         // Update the completed property for the specific task
+  //         return { ...task, completed: true };
+  //       }
+  //       return task;
+  //     }));
+  //   }
+  // };
+  
+
+
+
+
+
+
+
+
 
   const navigation = useNavigation()
 
@@ -101,6 +137,8 @@ export const PomodoroScreen = () => {
     // setTaskCompleted(true)
     navigation.navigate('TrophyScreen')
     console.log('completed True')
+    // updatedvalue();
+    console.log(totalfocusTime,'totalfocusTime')
   } 
 
   const getDate = ()=>{
@@ -169,7 +207,7 @@ const completionSound = ()=>{
         console.log('shall i stop thew sound')
       },3000)
      } else {
-      console.lopg('sound error')
+      console.log('sound error')
      }
   }
    )
@@ -414,7 +452,8 @@ return (
   displaySession={displaySession}
   completedPomodoro={completedPomodoro}
   completionSound={completionSound}
-
+  setTotalFocusTime={setTotalFocusTime}
+  totalfocusTime={totalfocusTime}
   />
         }
   
@@ -423,11 +462,11 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={setdata} />}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {taskCompleted === true && <TrophyScreen backHome={backHome}/>}
+    {taskCompleted === true && <TrophyScreen />}
   </SafeAreaView>
 );
 };

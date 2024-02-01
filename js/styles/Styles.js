@@ -199,6 +199,7 @@ export const styles = StyleSheet.create({
     bgLightGold:{backgroundColor:Colors.LightGold},
     bgborderGray:{backgroundColor:Colors.borderGray},
     bgWhiteSmoke:{backgroundColor:Colors.WhiteSmoke},
+    bgtoggleWhite:{backgroundColor:Colors.toggleWhite},
 
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },

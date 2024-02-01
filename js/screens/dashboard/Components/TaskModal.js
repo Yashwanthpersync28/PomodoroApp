@@ -41,10 +41,12 @@ import { Manage } from '../../Manage/Manage';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
-export const TaskModal = ({ closeModal,setSelectedTask,updateTask}) => {
+export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,}) => {
 
     const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
+  const filteredTaskDetails = taskDetails.filter(task =>task.completed === false);
+  console.log(filteredTaskDetails,'filteredTaskDetails')
   console.log('taskDetails',taskDetails)
   const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
    const navigation = useNavigation();
@@ -54,19 +56,20 @@ export const TaskModal = ({ closeModal,setSelectedTask,updateTask}) => {
         dispatch(setCurrentModal(0))
     }
 
-
+console.log('id', taskDetails.map(data=>data.id))
 
     const [searchText,setSearchText] = useState('')
-    const [filteredTasks,setFilteredTasks] = useState(taskDetails)
+    const [filteredTasks,setFilteredTasks] = useState(filteredTaskDetails)
     console.log('filteredTasks',filteredTasks)
     const handleSearch=(text)=>{
         setSearchText(text)
         console.log(searchText)
-        const filteredArray = searchFilter(taskDetails,text,'Taskname');
+        const filteredArray = searchFilter(filteredTaskDetails,text,'Taskname');
         console.log('filteredArray',filteredArray)
         setFilteredTasks(filteredArray)
         console.log(filteredArray)
     }
+
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
             {/* {currentPage === 0  && */}
@@ -130,12 +133,14 @@ export const TaskModal = ({ closeModal,setSelectedTask,updateTask}) => {
                         
                         {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details),
                        
-                       
-                    //    <Text>{details.Project.Projectname}</Text> 
+                       <View>
+                       {/* <Text>{details.completed}</Text>  */}
                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
-                       projectname={details.Project.Projectname}
+                       projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details}
                       
                         Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id}/> 
+                        
+                        </View>
                         ))}
                         
                         </View>
