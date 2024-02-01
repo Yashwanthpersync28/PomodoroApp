@@ -1,5 +1,5 @@
 
-import { Calendar} from "../screens/Calendar/Calendar";
+import { CalendarScreen } from "../screens/Calendar/CalendarScreen";
 import DateStrip from "../screens/Calendar/Components/DateStrip";
 import { Manage } from "../screens/Manage/Manage";
 import { Report } from "../screens/Report/Report";
@@ -27,7 +27,7 @@ export const  BottomTabs = [
     },
     {
         name:'Calendar',
-        component:Calendar,
+        component:CalendarScreen,
         label:'Calendar',
         icon:'calendar',
     },

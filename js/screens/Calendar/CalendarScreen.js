@@ -8,11 +8,14 @@ import { black } from 'react-native-paper/lib/typescript/styles/themes/v2/colors
 import {DateSwiper} from './Components/DateSwiper'
 import { TaskCard } from '../../components/touchables/TaskCard'
 import { useSelector } from 'react-redux'
+import LottieView from 'lottie-react-native'
+import { notePad } from '../../constants/LottieConstants'
 
-export const Calendar = () => {
+export const CalendarScreen = () => {
 
   const userTask = useSelector((state)=>state.user.userTasks.userTask)
   const [showLists,setShowList] = useState(true)
+  const [isEmpty,setIsEmpty] = useState(true)
   return (
     <SafeAreaView style={[styles.bgWhite,flex(1), { justifyContent: 'flex-start' }, styles.center]}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
@@ -25,6 +28,9 @@ export const Calendar = () => {
       <View style={[flex(.2),{width:widthValue(1)}]}>
         <DateSwiper />
       </View>
+      {isEmpty === false ? <View>
+        <LottieView source={notePad} loop={false} autoPlay={true}/>
+      </View> :
       <View style={[ padding(0, 0, 20, 0, 20)]}>
         {userTask.map((details)=>(
       <TaskCard  title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
@@ -33,6 +39,7 @@ export const Calendar = () => {
                         Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id}/> 
                         ))}
       </View>
+}
       <View style={[{bottom: 15,right: 10, zIndex: 1, height:50, width:50,},styles.positionAbsolute,styles.allCenter,styles.bgOrange,radius(30)]}>
           <TouchableOpacity>
                <Icon name={'plus'} type={Icons.Entypo} style={[styles.white,fontSize(30)]}/>
@@ -41,5 +48,6 @@ export const Calendar = () => {
     </SafeAreaView>
   );
 };
+
 
 

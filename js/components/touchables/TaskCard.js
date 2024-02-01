@@ -34,7 +34,7 @@ console.log('taskSessions',taskSessions)
     return (
 <View>
             <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions))}}>
-        <View style={[styles.row,marginPosition(10,0,0),{width:widthValue(1.2)}]}>
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)}]}>
             <View style={[{ width: 2, }, styles.bgbrown, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
