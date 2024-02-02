@@ -25,6 +25,7 @@ export const PomodoroScreen = () => {
   const dispatch = useDispatch();
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
   const localSession = useSelector((state)=>state.user.localSession.localSession);
+  const userTask = useSelector((state)=>state.user.userTasks.userTask)
   console.log('sessionNumber',sessionNumber,'localSession',localSession)
 
   const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
@@ -95,35 +96,27 @@ export const PomodoroScreen = () => {
 
 const [totalfocusTime,setTotalFocusTime] = useState(0);
 
-  const [data,setdata] = useState([]);
+  const [data,setdata] = useState({});
   console.log(data,'completetaskdata')
-  // console.log(completed,'taskstatus')
+  console.log('asdfgds',typeof data,data)
 
-  // const objIndex = data.findIndex(obj=>obj.id === data.id)
-  // const completed  = data.objIndex.completed;
-  // console.log('alterTask',completed)
-
-
-  // const updatedvalue = ()=>{
-  //   data.completed = true;
-  // }
-
-  // const updateTaskCompletion = (id) => {
-  //   // Check if prevData is an array
-  //   if (Array.isArray(prevData)) {
-  //     setdata(prevData.map(task => {
-  //       if (task.id === id) {
+  // const updateCompleted = (taskId) => {
+  //   setdata((prevData) => {
+  //     const updatedUserTask = prevData.userTask.map((task) => {
+  //       if (task.id === taskId) {
   //         // Update the completed property for the specific task
   //         return { ...task, completed: true };
   //       }
   //       return task;
-  //     }));
-  //   }
-  // };
+  //     });
   
+  //     return { ...prevData, userTask: updatedUserTask };
+  //   });
+  // };
 
-
-
+  const updateValue = ()=>{
+    data.completed = true;
+  }
 
 
 
@@ -137,7 +130,7 @@ const [totalfocusTime,setTotalFocusTime] = useState(0);
     // setTaskCompleted(true)
     navigation.navigate('TrophyScreen')
     console.log('completed True')
-    // updatedvalue();
+    updateValue()
     console.log(totalfocusTime,'totalfocusTime')
   } 
 
