@@ -37,7 +37,7 @@ CompletionSounds : [
         {id:'6',MusicName:'Shadow',       song:'shadow.mp3'},
     ],
     focusTime:[
-        {id:'1', focusTime: 30},
+        {id:'1', focusTime: 10},
         {id:'2', focusTime: 600},
         {id:'3', focusTime: 900},
         {id:'4', focusTime: 1500},
