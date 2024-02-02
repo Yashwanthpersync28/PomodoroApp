@@ -80,7 +80,7 @@ export const Add = ({ onChangeText, Textinputname, value, headerName, IconFamily
   return (
     <SafeAreaView style={[flex(1), padding(0, 0, 20, 0, 20), styles.bgsmokewhite]}>
       <View style={[flex(0.1), paddingPosition(0, 0, 0, 0)]}>
-        <Header headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
+        <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), styles.bgWhite, flex(1)]}>
         <View style={[flex(0.3)]}>

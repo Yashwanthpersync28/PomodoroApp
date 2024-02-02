@@ -10,8 +10,8 @@ const UserProjects = createSlice({
       state.UserProjects.push(action.payload);
     },
     deleteUserProject(state, action) {
-      const ProjectIdToDelete = action.payload;
-      state.UserProjects = state.UserProjects.filter(project => project.id !== ProjectIdToDelete);
+      const ProjectNameToDelete = action.payload;
+      state.UserProjects = state.UserProjects.filter(project => project.name !== ProjectNameToDelete);
     },
     addBackUserProject(state, action) {
       state.UserProjects.push(action.payload);

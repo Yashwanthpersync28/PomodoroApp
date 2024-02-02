@@ -62,9 +62,10 @@ import { deleteUserProject } from '../../../../../redux/userReducer/UserProjectL
 import { useDispatch } from 'react-redux';
 import { addArchieveProjects, addArchieveTags } from '../../../../../redux/userReducer/ArchieveReducer';
 import { deleteUserTag } from '../../../../../redux/userReducer/userTaglistReducer';
-// import { Inneritem } from './InnerItem'; // Uncomment if needed
+import { NotaskFound } from '../../../../../components/view/NotaskFound';
+// import { Inneritem } from './InnerItem'; 
 
-export const ManageItemslist = ({ data, showProjects }) => {
+export const ManageItemslist = ({ data, showProjects , optionOne , optionTwo , handleArchieveProjects , handleArchieveTags, handleoptionOneProject,handleoptionOneTags,showArchievedlists}) => {
   console.log('data', data);
   const [selectedItem, setSelectedItem] = useState(null);
   const dispatch=useDispatch()
@@ -73,23 +74,12 @@ export const ManageItemslist = ({ data, showProjects }) => {
     setSelectedItem(selectedItem === item ? null : item);
   };
 
-  const handleArchieveProjects=(id)=>{
-    const restoredTask = data.find((task) => task.id === id);
-     console.log('restoredTask',restoredTask);
-    dispatch(deleteUserProject(id))
-    dispatch(addArchieveProjects(restoredTask))
-  }
-
-  const handleArchieveTags=(id)=>{
-    const restoredTaskTags = data.find((task) => task.id === id);
-    dispatch(deleteUserTag(id))
-    dispatch(addArchieveTags(restoredTaskTags))
-  }
+ 
   return (
     <View style={[flex(1)]}>
       {data.map((item,index) => (
         // <TouchableOpacity key={item.id} >
-          <View>
+          <View key={index}> 
             <View style={[styles.row, { height: heightValue(14) }, borderColor('#f2f0f0'), borderWidth(0,0,0,1), { position: 'relative', zIndex: 1 }]}>
               <View style={[flex(0.2), styles.allCenter]}>
                 <Icon name={showProjects ? 'briefcase' : 'tag'} type={Icons.Feather} style={[fontSize(20),{color:item.color}]} />
@@ -104,19 +94,19 @@ export const ManageItemslist = ({ data, showProjects }) => {
               </TouchableOpacity>
             </View>
             {/* options */}
-            {selectedItem && selectedItem.id === item.id && (
-              <View style={[{ position: 'absolute', top: 30, right: 0, zIndex: 99 }]}>
-                <TouchableOpacity>
-                <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 }]}>
-                  <Icon name={'edit-3'} type={Icons.Feather} style={[styles.black, fontSize(20), marginPosition(0, 10)]} />
-                  <Text style={[styles.black, fontSize(17)]}>Edit</Text>
+            {selectedItem && selectedItem.name === item.name && (
+              <View style={[{ position: 'absolute', top: 38, right: 10, zIndex: 99 },styles.bglgWhite,radius(10)]}>
+                <TouchableOpacity onPress={()=>showProjects?handleoptionOneProject(item.name):handleoptionOneTags(item.name)}>
+                <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 ,width:widthValue(3.5)},borderColor(styles.borderGray),borderWidth(0,0,0,1)]}>
+                  <Icon name={showArchievedlists?'arrow-up-box':'edit-3'} type={showArchievedlists?Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black, fontSize(20), marginPosition(0, 10)]} />
+                  <Text style={[styles.black, fontSize(17)]}>{optionOne}</Text>
                 </View>
                 </TouchableOpacity>
                
-                <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2, marginTop: 10 }]}>
-                <TouchableOpacity onPress={showProjects?()=>handleArchieveProjects(item.id):()=>handleArchieveTags(item.id)} style={[styles.row]}>
-                  <Icon name={'edit-3'} type={Icons.Feather} style={[styles.black, fontSize(20), marginPosition(0, 10)]} />
-                  <Text style={[styles.black, fontSize(17)]}>Archive</Text>
+                <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2,}]}>
+                <TouchableOpacity onPress={()=>showProjects?handleArchieveProjects(item.name):handleArchieveTags(item.name)} style={[styles.row]}>
+                  <Icon name={showArchievedlists?'delete-outline':'arrow-down-box'} type={Icons.MaterialCommunityIcons} style={[showArchievedlists?styles.Orange:styles.black, fontSize(22), marginPosition(0, 10)]} />
+                  <Text style={[showArchievedlists?styles.Orange:styles.black, fontSize(16)]}>{optionTwo}</Text>
                   </TouchableOpacity>
                 </View>
                 
@@ -124,8 +114,13 @@ export const ManageItemslist = ({ data, showProjects }) => {
             )}
             {/* <Inneritem visible={selectedItem && selectedItem.name === item.name} itemName={item.name} /> */}
           </View>
-        // </TouchableOpacity>
+        
       ))}
+      {data.length<1?<NotaskFound name={showProjects?'No projects found':'No Tags found'}/>:null}
     </View>
   );
 };
+// arrow-up-box (materiicons) for restore
+// arrow-down-box (mater) for archieve 
+// edit-3 feather for edit
+// delete-outline (ma) for delete

@@ -41,7 +41,7 @@ export const AddTask = ({ visible, onClose , handleCounter , receivedPriorityDat
     TextInputFocus.current.focus();
     // Keyboard.dismiss();
   }
-  if(taskname.length >=2 && Object.keys(receivedPriorityData).length >0 && Object.keys(receiveTagsData).length >0 && Object.keys(receiveProjectData).length >0 && selectedDate !=null ){
+  if(taskname.length >=2 && Object.keys(receivedPriorityData).length >0 && Object.keys(receiveTagsData).length >0 && Object.keys(receiveProjectData).length >0 && selectedDate !='' ){
     setDisablebutton(false)
    
   }

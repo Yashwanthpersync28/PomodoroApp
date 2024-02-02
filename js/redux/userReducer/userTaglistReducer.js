@@ -11,7 +11,7 @@ const UserTag = createSlice({
     },
     deleteUserTag(state, action) {
       const TagIdToDelete = action.payload;
-      state.UserTags = state.UserTags.filter(Tag => Tag.id !== TagIdToDelete);
+      state.UserTags = state.UserTags.filter(Tag => Tag.name !== TagIdToDelete);
     },
     addBackUserTag(state, action) {
       state.UserTags.push(action.payload);

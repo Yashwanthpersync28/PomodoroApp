@@ -12,14 +12,14 @@ const Archieve = createSlice({
     },
     deleteArchieveProjectForever(state, action) {
         const ProjectIdToDelete = action.payload;
-        state.ArchieveProjects = state.ArchieveProjects.filter(Project => Project.id !== ProjectIdToDelete);
+        state.ArchieveProjects = state.ArchieveProjects.filter(Project => Project.name !== ProjectIdToDelete);
       },
     addArchieveTags(state, action) {
       state.ArchieveTags.push(action.payload);
     },
     deleteArchieveTagsForever(state, action) {
         const TagsIdToDelete = action.payload;
-        state.ArchieveTags = state.ArchieveTags.filter(Tags => Tags.id !== TagsIdToDelete);
+        state.ArchieveTags = state.ArchieveTags.filter(Tags => Tags.name !== TagsIdToDelete);
       },
   },
 });
