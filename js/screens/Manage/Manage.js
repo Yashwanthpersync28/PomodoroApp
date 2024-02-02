@@ -133,7 +133,10 @@ const onClose=()=>{
         {ShowManagebutton ? 
         
         <View style={[{bottom: 0,right: 0,top:-20, zIndex: 1, height:heightValue(15), width:widthValue(2),},styles.positionAbsolute,styles.allCenter,styles.bgWhite,radius(10)]}>
-        <TouchableOpacity onPress={()=>navigation.navigate('manageProjectandTags')} style={[styles.row,styles.allCenter]}>
+        <TouchableOpacity onPress={() => {
+            navigation.navigate('manageProjectandTags');
+              setShowManagebutton(false);
+          }} style={[styles.row,styles.allCenter]}>
          <Icon name={'briefcase'} type={Icons.Feather} style={[styles.black,fontSize(25),marginPosition(0,10)]}/>
          <Text style={[styles.black,fontSize(16)]}>Manage Project & Tags</Text>
          </TouchableOpacity>
@@ -145,3 +148,5 @@ const onClose=()=>{
     </SafeAreaView>
   );
 };
+
+

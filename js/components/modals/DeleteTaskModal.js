@@ -5,14 +5,16 @@ import { Header } from '../../screens/Manage/components/Header';
 import CustomizedButtons from '../../screens/auth/onboarding/component/CustomizedButtons';
 import { addTrashtasks } from '../../redux/userReducer/TrashReducer';
 import { useDispatch } from 'react-redux';
+import { deleteUserTask } from '../../redux/userReducer/UserTaskDetails';
 
 
-export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted,DeleteTaskData}) => {
+export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted,DeleteTaskData,id}) => {
 const dispatch=useDispatch()
 
 const handledelete=()=>{
     handletoTaskDeleted()
     onClose()
+    dispatch(deleteUserTask(id))
     dispatch(addTrashtasks(DeleteTaskData))
 }
 

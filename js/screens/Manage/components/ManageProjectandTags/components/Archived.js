@@ -4,12 +4,16 @@ import { flex, heightValue, paddingPosition, styles } from '../../../../../style
 import {View,Text,ScrollView} from 'react-native'
 import { Icons } from '../../../../../components/Icons'
 import { Header } from '../../Header'
+import { ManageItemslist } from './ManageItemslist'
+import { useSelector } from 'react-redux'
 
 export const Archived = ({navigation,route}) => {
     const { name , data} = route.params;
  console.log('dataaaa',data);
+ const ArchievedData=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveTags)
+ console.log('ArchievedData',ArchievedData);
   return (
-    <SafeAreaView style={[flex(1), paddingPosition(0, 10, 0, 10), styles.bgWhite]}>
+    <SafeAreaView style={[flex(1), paddingPosition(0, 10, 0, 10), styles.bglgWhite]}>
         <View style={[{height:heightValue(14)}]}>
         <Header
           headername={name}
@@ -22,9 +26,10 @@ export const Archived = ({navigation,route}) => {
           IconfamilyLeft={Icons.AntDesign}
         />
         </View>
-        <View style={[flex(1),styles.bgGray]}>
+        <View style={[flex(1),styles.bgWhite]}>
             <ScrollView>
-
+                 <ManageItemslist data={ArchievedData} showProjects={true}/>
+                         
             </ScrollView>
         </View>
    </SafeAreaView>

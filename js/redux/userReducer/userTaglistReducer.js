@@ -9,9 +9,16 @@ const UserTag = createSlice({
     addTag(state, action) {
       state.UserTags.push(action.payload);
     },
+    deleteUserTag(state, action) {
+      const TagIdToDelete = action.payload;
+      state.UserTags = state.UserTags.filter(Tag => Tag.id !== TagIdToDelete);
+    },
+    addBackUserTag(state, action) {
+      state.UserTags.push(action.payload);
+    },
    
   },
 });
 
-export const { addTag } = UserTag.actions;
+export const { addTag , deleteUserTag , addBackUserTag} = UserTag.actions;
 export const userTaglist = UserTag.reducer;

@@ -11,6 +11,7 @@ import { TextInputCompnent } from '../../../../components'
 import TaskCardDetails from '../TaskCardDetails'
 import { useSelector } from 'react-redux'
 import { Dayheadings } from '../Completed/components/Dayheadings'
+import { HeaderBorder } from '../../../../components/view/HeaderBorder'
 
 export const Tasklist = ({navigation,route}) => {
     const [showSearchHeader,setSearchHeader]=useState(false)
@@ -62,13 +63,14 @@ export const Tasklist = ({navigation,route}) => {
       <TaskCardDetails data={Taskdatas} handleTask={(id)=>navigation.navigate('task',{id:id})}/>
      </View>
      {/* //Completed tasks */}
-     <View style={[styles.row]}>
+     {/* <View style={[styles.row]}>
      <Text style={[styles.gray]}>completed</Text>
             <View style={[styles.allCenter]}>
                 <View style={[borderColor('#f2f0f0'),borderWidth(0,2),{height:10,width:widthValue(1.3)},marginPosition(10,0,0,5)]}></View>
             </View>
 
-     </View>
+     </View> */}
+     <HeaderBorder name={'Completed'}/>
      </ScrollView>
    </SafeAreaView>
   )

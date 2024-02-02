@@ -41,7 +41,7 @@ export const ManageProjectandTags = ({ navigation }) => {
       {/* header end */}
       {/* toggle buttons */}
       <View style={[flex(0.2)]}>
-        <ToggleButtons titleone={'Projects'} titletwo={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
+        <ToggleButtons title1={'Projects'} title2={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
       </View>
       <View style={[flex(0.2),styles.centerVertical]}>
         <TouchableOpacity onPress={()=>console.log('hjbkn')} style={[styles.row, styles.centerHorizontal]}>
