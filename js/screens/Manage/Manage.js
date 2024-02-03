@@ -87,7 +87,7 @@ const onClose=()=>{
            <TextInputCompnent bgColor={styles.bglgWhite} placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
         </View>
         <View style={[{height:heightValue(2.8)},styles.rowWrap,styles.spaceEvenly]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:Taskdatas})}/>
+           <ManageButtons  color={'#6fbe6d'} heading={'Todaymorning'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:Taskdatas})}/>
            <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:Taskdatas})}/>
            <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:Taskdatas})}/>
            <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:Taskdatas})}/>
