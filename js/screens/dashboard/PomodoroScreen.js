@@ -101,6 +101,8 @@ export const PomodoroScreen = () => {
   const [displaySession,setDisplaySession] = useState('No Sessions')
   const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
+const currentdate = new Date();
+  const completedDate = currentdate.toISOString().split('T')[0]
 
 const userTask = useSelector((state)=>state.user.userTasks.userTask)
   console.log('userTask',userTask)
@@ -116,7 +118,7 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
         focusTime:FocusTime * sessionNumber,
         completedDate:completedDate,
       };
-  
+
       dispatch(replaceStatus(updatedTask));
       setdata((prevData) => ({
         ...prevData,

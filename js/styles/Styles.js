@@ -157,6 +157,7 @@ export const styles = StyleSheet.create({
     purple:{color:Colors.purple},
     timerBlue:{color:Colors.timerBlue},
     borderGray:{color:Colors.borderGray},
+    textGray:{color:Colors.textGray},
     
 
 // - - - - - BACKGROUND COLORS - - - - - //

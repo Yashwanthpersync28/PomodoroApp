@@ -8,7 +8,7 @@ import { deleteForeverUserTaskFromTrash } from '../../../redux/userReducer/Trash
 import { NotaskFound } from '../../../components/view/NotaskFound'
 
 
-const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon}) => {
+const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLinethrough}) => {
     console.log('dataaa',data.length);
     const [showOptionsIndex, setShowOptionsIndex] = useState(null);
     const dispatch=useDispatch()
@@ -35,18 +35,18 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon}) => {
             
      <View  key={index} style={[styles.bgWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
         <View style={[flex(0.2),styles.selfStart]}>
-            <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(20)]}/>
+            <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(22)]}/>
         </View>
         {/* //item list */}
         
         <TouchableOpacity key={index} onPress={()=>handleTask(dataitem.id)} style={[styles.column,flex(1)]}>
         <View style={[styles.column,flex(1)]}>
-            <Text style={[name==='Completed'?styles.gray:styles.black,fontWeight('bold'),]}>{dataitem.Taskname}</Text>
+            <Text style={[name==='Completed'?styles.textGray:styles.black,fontWeight('bold'),{textDecorationLine:showLinethrough?'line-through':'none'}]}>{dataitem.Taskname}</Text>
             <View style={[styles.rowWrap,marginPosition(10)]}>
               
                 {dataitem.Tags.map((tags,index)=>{
                     return(
-                           <Text style={[{color:tags.color},marginPosition(0,5)]}>{`#${tags.name}`}</Text> 
+                           <Text key={index} style={[{color:tags.color},marginPosition(0,5)]}>{`#${tags.name}`}</Text> 
                     )
                 })}
             
@@ -56,7 +56,7 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon}) => {
             <Text style={[styles.black,marginPosition(0,10)]}>{dataitem.Sessions}</Text>   
             <Icon name={'flag'} type={Icons.Feather} style={[{color:dataitem.Priority.color},fontSize(20),marginPosition(0,10)]}/>
             <Icon name={'briefcase'} type={Icons.Octicons} style={[{color:dataitem.Project.Color},fontSize(20),marginPosition(0,10)]}/>
-            <Text style={[{color:dataitem.Project.Color}]}>{dataitem.Project.Projectname}</Text>   
+            <Text style={[styles.gray]}>{dataitem.Project.Projectname}</Text>   
                 
             </View>
             {/* //options */}
