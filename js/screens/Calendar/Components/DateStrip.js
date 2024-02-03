@@ -108,17 +108,6 @@ export default function Example() {
             </View>
           </View>
         </View>
-
-        <View style={styles.footer}>
-          <TouchableOpacity
-            onPress={() => {
-              // handle onPress
-            }}>
-            <View style={styles.btn}>
-              <Text style={styles.btnText}>Schedule</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
       </View>
     </SafeAreaView>
   );

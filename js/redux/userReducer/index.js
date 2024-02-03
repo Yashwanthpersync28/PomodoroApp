@@ -17,6 +17,7 @@ import { reminderRingtoneReducer } from './reminderRingtoneReducer';
 import { WhiteNoiseReducer } from './WhiteNoiseReducer';
 import { completionSoundReducer } from './CompletionSoundReducer';
 import { ArchieveReducer } from './ArchieveReducer';
+import { SelecteddateReducer } from './SelecteddateReducer';
 
 
 export const userReducer = combineReducers({
@@ -37,5 +38,6 @@ export const userReducer = combineReducers({
     reminderRingtone:reminderRingtoneReducer,
     whiteNoise:WhiteNoiseReducer,
     completionSound:completionSoundReducer,
-    ProjectAndTagsArchieveReducer:ArchieveReducer
+    ProjectAndTagsArchieveReducer:ArchieveReducer,
+    selectedDateincalendar:SelecteddateReducer,
 })

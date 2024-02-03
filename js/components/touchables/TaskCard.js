@@ -37,7 +37,8 @@ console.log('taskSessions',taskSessions)
     return (
 <View>
             <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata)}} style={[styles.bgWhite]}>
-        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},styles.bgWhite]}>
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite
+]}>
             <View style={[{ width: 2,backgroundColor: prioritycolor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
@@ -46,20 +47,21 @@ console.log('taskSessions',taskSessions)
                     borderWidth(1),
                     styles.borderLightWhite,
                     radius(0, 5, 5, 0,5),
-                    completed?styles.bgLightWhite:styles.bgWhite
+                    completed?{backgroundColor:'#ffffff50'}:styles.bgWhite
                 ]}>
                 <View style={[
                     styles.row,
                     styles.spaceBetweenVertical,
                     { width: widthValue(1.3) },
                     paddingPosition(0, 0, 20,),
+                    completed?{backgroundColor:'#ffffff50'}:styles.bgWhite
                 ]}>
                     <View style={[styles.row, styles.selfStart]}>
                         {completed === false ? 
-                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} /> :
-                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} />}
+                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 20)]} /> :
+                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 20)]} />}
                         <View>
-                            <Text style={[completed?styles.gray:styles.black, completed && {textDecorationLine:'line-through'}, fontSize(23),{ fontWeight: '500' }]}>
+                            <Text style={[completed?styles.gray:styles.black, completed && {textDecorationLine:'line-through'}, fontSize(23),{ fontWeight: '500' ,width:widthValue(2)}]}>
                                 {title}
                             </Text>
                             <View style={[styles.row, marginPosition(5)]}>

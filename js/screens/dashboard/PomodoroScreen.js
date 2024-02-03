@@ -43,6 +43,11 @@ export const PomodoroScreen = () => {
   const [isTimerActive,setIsTimerActive] = useState(false);
   const [time, setTime] = useState(FocusTime);
 
+  const currentdate = new Date();
+  const completedDate = currentdate.toISOString().split('T')[0]
+  console.log(completedDate)
+  
+
   const [timerModeArray, setTimerModeArray] = useState([
     { id: '1', start: FocusTime, end: '00:00', desc: `Countdown from ${Math.floor(FocusTime / 60)}:${(FocusTime % 60).toString().padStart(2, '0')} Minutes until time turns out` },
     { id: '2', start: 0, end: '∞', desc: 'Start Counting from 0 until stopped manually' },
@@ -102,31 +107,14 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
   const [data,setdata] = useState({});
   console.log('completetaskdata',data,data.id)
 
-  // const updateValue = () => {
-  //   setdata((prevData) => ({
-  //     ...prevData,
-  //     completed: true,
-  //   }));
-  // };
-
-  // const updateTaskStatus = () => {
-  //   if (data.id) { // Check if data.id exists
-  //     const updatedTask = {
-  //       id: data.id,
-  //       ...data, // Include all properties from data
-  //     };
-
-  //     dispatch(replaceStatus(updatedTask));
-  //   }
-  // };
-
   const updateTaskAndValue = () => {
     if (data.id) {
       const updatedTask = {
         id: data.id,
         ...data,
         completed: true,
-        focusTime:FocusTime * localSession
+        focusTime:FocusTime * sessionNumber,
+        completedDate:completedDate,
       };
   
       dispatch(replaceStatus(updatedTask));
@@ -145,10 +133,11 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
     // setTaskCompleted(true)
     navigation.navigate('TrophyScreen')
     console.log('completed True')
-    // updateValue()
-    // updateTaskStatus()
     updateTaskAndValue();
-    setTotalFocusTime(FocusTime * sessionNumber)
+    setProgress(100)
+    setDisplaySession('No Session')
+    setCurrentButton(0)
+    setSelectedTask(taskSelected)
     console.log(totalfocusTime,'totalfocusTime')
   } 
 
@@ -477,7 +466,7 @@ return (
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {taskCompleted === true && <TrophyScreen />}
+    {taskCompleted === true && <TrophyScreen  setCurrentButton={setCurrentButton}/>}
   </SafeAreaView>
 );
 };

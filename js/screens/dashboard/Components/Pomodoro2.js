@@ -56,13 +56,14 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,totalfocusTime,
             
             if(currentTimer === 0){
               completionSound()
+              setCurrentButton(0);
             }
             if(currentTimer === 1 ){
               dispatch(setLocalSession(localSession + 1))
             }
             if(localSession === maxSession){
               completedPomodoro()
-              setTotalFocusTime((FocusTime - newTime) * localSession);
+              
             }
             console.log(localSession,'Updatedsession')
             setCurrentButton( 
@@ -80,7 +81,6 @@ export const Pomodoro2 = ({handleSkipBreak,playSound,handleStart,totalfocusTime,
               setTotalSessionTime(BreakTime);
               } else if(currentTimer ===1 ){
               setTotalSessionTime(FocusTime);
-
               }
           }
           if(autoStartBreak === true && disableBreak === false && currentTimer === 0){
