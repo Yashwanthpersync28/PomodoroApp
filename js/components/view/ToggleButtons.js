@@ -2,7 +2,10 @@ import React from 'react'
 import { flex, heightValue, marginPosition, radius, styles } from '../../styles/Styles'
 import {View,Text,TouchableOpacity} from 'react-native'
 
-export const ToggleButtons = ({onPressProject,showProjects,onPressTags,title1,title2}) => {
+export const ToggleButtons = ({onPressProject,showProjects,onPressTags,title1,title2,}) => {
+
+       
+
   return (
    <View style={[styles.bgsmokeOrange,{height:heightValue(20)},marginPosition(10)]}>
     <View style={[styles.row,radius(10),flex(1),{backgroundColor:'#f5f5f5'}]}>

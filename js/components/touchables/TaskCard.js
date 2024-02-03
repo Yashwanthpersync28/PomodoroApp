@@ -38,15 +38,15 @@ console.log('taskSessions',taskSessions)
 <View>
             <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata)}} style={[styles.bgWhite]}>
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},styles.bgWhite]}>
-            <View style={[{ width: 2, }, prioritycolor, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 2,backgroundColor: prioritycolor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
                     paddingPosition(15, 15, 5, 15),
                     borderWidth(1),
                     styles.borderLightWhite,
-                    radius(0, 5, 5, 0,),
-                    styles.bgWhite
+                    radius(0, 5, 5, 0,5),
+                    completed?styles.bgLightWhite:styles.bgWhite
                 ]}>
                 <View style={[
                     styles.row,
@@ -54,18 +54,17 @@ console.log('taskSessions',taskSessions)
                     { width: widthValue(1.3) },
                     paddingPosition(0, 0, 20,),
                 ]}>
-                    <View style={[styles.row, styles.selfStart,]}>
+                    <View style={[styles.row, styles.selfStart]}>
                         {completed === false ? 
                         <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} /> :
                          <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(35), marginPosition(0, 20)]} />}
                         <View>
-                            <Text style={[styles.black, fontSize(23),{ fontWeight: '500' }]}>
+                            <Text style={[completed?styles.gray:styles.black, completed && {textDecorationLine:'line-through'}, fontSize(23),{ fontWeight: '500' }]}>
                                 {title}
                             </Text>
                             <View style={[styles.row, marginPosition(5)]}>
                                 <Text style={[styles.brown, marginPosition(0, 5)]}>{priorityname}</Text>
                                 <Text style={[styles.timerBlue, marginPosition(0, 5)]}>{tagname}</Text>
-                                {/* <Text style={[styles.purple, marginPosition(0, 5)]} >{projectname}</Text> */}
                             </View>
                             <View style={[styles.row, marginPosition(8), styles.centerHorizontal]}>
                                 <View style={[styles.row, styles.centerHorizontal]}>

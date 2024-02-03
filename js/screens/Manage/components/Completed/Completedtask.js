@@ -14,8 +14,9 @@ import { useSelector } from 'react-redux'
 const Completedtask = ({navigation,route}) => {
     const [showSearchHeader,setSearchHeader]=useState(false)
     const {name,data}=route.params
-    const Trashdatas=useSelector((state=>state.user.usersTrashLists))
+    const Trashdatas=useSelector((state=>state.user.usersTrashLists.TrashLists))
     console.log('Trashdatas',Trashdatas);
+    const [showOptions,setShowOptions]=useState(false)
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
@@ -39,7 +40,7 @@ const Completedtask = ({navigation,route}) => {
      </View>
      <ScrollView showsVerticalScrollIndicator={false}>
      <View style={[flex(1),styles.column]}>
-        {name==='Trash'? <TaskCardDetails data={data}/>:
+        {name==='Trash'? <TaskCardDetails data={Trashdatas} handleTask={(index)=>console.log(index)}/>:
         <>       
          <Dayheadings headingname={'Today'} focusTime={'2h 10m'} completed={'2'} taskdata={'vhbjn'} name={name} data={data}/>
          <Dayheadings headingname={'Yesterday'} focusTime={'2h 5m'} completed={'2'} name={name} data={data}/>

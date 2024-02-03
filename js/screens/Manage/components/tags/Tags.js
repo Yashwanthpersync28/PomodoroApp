@@ -67,7 +67,7 @@ const Tags = ({ visible, onClose ,getTagDetails,handleCounter}) => {
       </View>
           <View style={[flex(0.8),{width:widthValue(1)},styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
             <View style={[flex(0.6),borderColor('#f7f7f7'),borderWidth(0,0,0,1)]}>
-             <Header headername={'Tags'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} onPress={handleTags} showLeftIocn={true}/>
+             <Header headername={'Tags'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} color={styles.black} onPress={handleTags}  showLeftIocn={true}/>
             </View>
              <View style={[flex(4)]}>
              <ScrollView >

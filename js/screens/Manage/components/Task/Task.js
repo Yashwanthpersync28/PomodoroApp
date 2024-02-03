@@ -71,8 +71,8 @@ const taskdata = [
         />
     </View>
     {/* render deletemodal */}
-    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)} DeleteTaskData={CurrentTask}/>}
-    {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() => setTaskdeletedModalVisible(false)}/>}
+    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)} DeleteTaskData={CurrentTask} id={id}/>}
+    {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}}/>}
     {/* option's */}
     {showOptions ? 
     <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}>

@@ -28,6 +28,7 @@ import { Archived } from "../screens/Manage/components/ManageProjectandTags/comp
 import { Task } from "../screens/Manage/components/Task/Task";
 import Completedtask from "../screens/Manage/components/Completed/Completedtask";
 import { TrophyScreen } from "../screens/dashboard/TrophyScreen";
+import {Tasklist} from "../screens/Manage/components/TasklistBasedonDays/Tasklist"
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -124,13 +125,6 @@ export const AppNavigationContainer = () => {
                         header: () => null,
                     }}
                 />
-                 {/* <Stack.Screen
-                    name={'manage'}
-                    component={Manage}
-                    options={{
-                        header: () => null,
-                    }}
-                /> */}
                  <Stack.Screen
                     name={'manageProjectandTags'}
                     component={ManageProjectandTags}
@@ -162,6 +156,13 @@ export const AppNavigationContainer = () => {
                 <Stack.Screen
                     name={'TrophyScreen'}
                     component={TrophyScreen}
+                    options={{
+                        header: () => null,
+                    }}
+                />  
+                 <Stack.Screen
+                    name={'tasklists'}
+                    component={Tasklist}
                     options={{
                         header: () => null,
                     }}

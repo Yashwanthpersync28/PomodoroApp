@@ -7,19 +7,39 @@ import { Header } from '../Header';
 import { ToggleButtons } from '../../../../components/view/ToggleButtons';
 import { Inneritem } from './components/InnerItem';
 import { ManageItemslist } from './components/ManageItemslist';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteUserProject } from '../../../../redux/userReducer/UserProjectListReducer';
+import { addArchieveProjects, addArchieveTags } from '../../../../redux/userReducer/ArchieveReducer';
+import { deleteUserTag } from '../../../../redux/userReducer/userTaglistReducer';
 
 
 export const ManageProjectandTags = ({ navigation }) => {
   const [showProjects, setshowProjects] = useState(true);
   //selectors
+  const dispatch=useDispatch();
   const Projects=useSelector((state)=>state.user.userProjectList.UserProjects);
   const Tags=useSelector((state)=>state.user.userTaglist.UserTags);
+  const ArchievedDataTags=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveTags)
+  const ArchievedDataProject=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveProjects)
 
   console.log('Projects',Projects);
   console.log('Tags',Tags);
    
-  
+  ///to get the user selected projectt name
+  const handleArchieveProjects=(name)=>{
+    const restoredTask = Projects.find((task) => task.name === name);
+     console.log('restoredTask',restoredTask);
+     console.log('name',name);
+    dispatch(deleteUserProject(name))
+    dispatch(addArchieveProjects(restoredTask))
+  }
+  //to get the user selected tag name
+  const handleArchieveTags=(name)=>{
+    const restoredTaskTags = Tags.find((task) => task.name === name);
+    dispatch(deleteUserTag(name))
+    dispatch(addArchieveTags(restoredTaskTags))
+  }
+
   return (
     <SafeAreaView style={[flex(1), paddingPosition(0, 10, 0, 10), styles.bgWhite]}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
@@ -41,7 +61,7 @@ export const ManageProjectandTags = ({ navigation }) => {
       {/* header end */}
       {/* toggle buttons */}
       <View style={[flex(0.2)]}>
-        <ToggleButtons titleone={'Projects'} titletwo={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
+        <ToggleButtons title1={'Projects'} title2={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
       </View>
       <View style={[flex(0.2),styles.centerVertical]}>
         <TouchableOpacity onPress={()=>console.log('hjbkn')} style={[styles.row, styles.centerHorizontal]}>
@@ -52,11 +72,11 @@ export const ManageProjectandTags = ({ navigation }) => {
       {/* toggle buttons end */}
       {/* items */}
       <View style={[flex(2)]}>
-       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects}/>
+       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false}/>
     </View>
       {/* footer */}
       <View style={[flex(0.2),borderColor('#f2f0f0'),borderWidth(0,1)]}>
-        <TouchableOpacity onPress={()=>navigation.navigate('archived',{name:showProjects?'Archived Projects':'Archived Tags',data:showProjects?Projects:Tags})} style={[flex(1)]}>
+        <TouchableOpacity onPress={()=>navigation.navigate('archived',{name:showProjects?'Archived Projects':'Archived Tags',ArchieveProject:showProjects})} style={[flex(1)]}>
         <View style={[styles.row, flex(1)]}>
           <View style={[flex(0.2), styles.centerVertical]}>
               <Icon name={'archive-outline'} type={Icons.Ionicons} style={[styles.black, fontSize(25)]} />

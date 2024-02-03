@@ -78,11 +78,11 @@ import Icon, { Icons } from '../../../components/Icons'
 // }
 // ... (your existing imports)
 
-export const DateSwiper = ({checkDate}) => {
+export const DateSwiper = ({checkDate,value}) => {
   const swiper = useRef();
   const date = new Date();
   const Today = date.getDate();
-  console.log('Today date is:', Today);
+  // console.log('Today date is:', Today);
   const [value, setValue] = useState(new Date());
   const [week, setWeek] = useState(0);
 
@@ -127,8 +127,14 @@ export const DateSwiper = ({checkDate}) => {
               {dates.map((item, dateIndex) => {
                 const isActive = value.toDateString() === item.date.toDateString();
                 console.log(isActive, 'isactive');
+                console.log(item.data)
                 return (
-                  <TouchableOpacity onPress={() => {setValue(item.date),checkDate()}} key={dateIndex}>
+                  <TouchableOpacity onPress={() => {
+                    setValue(item.date);
+                    checkDate();
+                    console.warn(value) // Assuming checkDate is a function you want to call
+                    console.log('Clicked Date:', item.date);
+                }} key={dateIndex}>
                     <View style={[{ width: 44, height: 55 }, isActive ? styles.bgtomotoRed : styles.bgWhite, radius(5), isActive ? borderWidth(0) : borderWidth(0.5), styles.allCenter, margin(0, 0, 8)]}>
                       {Today === item.date.getDate() && (
                         <Icon name={'star'} type={Icons.AntDesign} style={[styles.Orange, fontSize(10)]} />

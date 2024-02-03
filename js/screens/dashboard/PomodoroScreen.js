@@ -20,12 +20,13 @@ import { setCurrentModal } from '../../redux/userReducer/modalReducer';
 import { useNavigation } from '@react-navigation/native';
 import { TrophyScreen } from './TrophyScreen';
 import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
+import { replaceStatus } from '../../redux/userReducer/UserTaskDetails';
 export const PomodoroScreen = () => {
 
   const dispatch = useDispatch();
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
   const localSession = useSelector((state)=>state.user.localSession.localSession);
-  const userTask = useSelector((state)=>state.user.userTasks.userTask)
+  
   console.log('sessionNumber',sessionNumber,'localSession',localSession)
 
   const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
@@ -93,44 +94,61 @@ export const PomodoroScreen = () => {
   const [secondTime,setSecondTime] = useState(0*60);
   const [taskCompleted,setTaskCompleted] = useState(false)
   const [displaySession,setDisplaySession] = useState('No Sessions')
-
+  const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
 
+const userTask = useSelector((state)=>state.user.userTasks.userTask)
+  console.log('userTask',userTask)
   const [data,setdata] = useState({});
-  console.log(data,'completetaskdata')
-  console.log('asdfgds',typeof data,data)
+  console.log('completetaskdata',data,data.id)
 
-  // const updateCompleted = (taskId) => {
-  //   setdata((prevData) => {
-  //     const updatedUserTask = prevData.userTask.map((task) => {
-  //       if (task.id === taskId) {
-  //         // Update the completed property for the specific task
-  //         return { ...task, completed: true };
-  //       }
-  //       return task;
-  //     });
-  
-  //     return { ...prevData, userTask: updatedUserTask };
-  //   });
+  // const updateValue = () => {
+  //   setdata((prevData) => ({
+  //     ...prevData,
+  //     completed: true,
+  //   }));
   // };
 
-  const updateValue = ()=>{
-    data.completed = true;
-  }
+  // const updateTaskStatus = () => {
+  //   if (data.id) { // Check if data.id exists
+  //     const updatedTask = {
+  //       id: data.id,
+  //       ...data, // Include all properties from data
+  //     };
 
+  //     dispatch(replaceStatus(updatedTask));
+  //   }
+  // };
 
-
-
-
-
-  const navigation = useNavigation()
-
+  const updateTaskAndValue = () => {
+    if (data.id) {
+      const updatedTask = {
+        id: data.id,
+        ...data,
+        completed: true,
+        focusTime:FocusTime * localSession
+      };
+  
+      dispatch(replaceStatus(updatedTask));
+      setdata((prevData) => ({
+        ...prevData,
+        completed: true,
+      }));
+    }
+  };
+  
+  // Usage
+  
+  
 
   const completedPomodoro = ()=>{
     // setTaskCompleted(true)
     navigation.navigate('TrophyScreen')
     console.log('completed True')
-    updateValue()
+    // updateValue()
+    // updateTaskStatus()
+    updateTaskAndValue();
+    setTotalFocusTime(FocusTime * sessionNumber)
     console.log(totalfocusTime,'totalfocusTime')
   } 
 
@@ -206,7 +224,6 @@ const completionSound = ()=>{
    )
 }
 
-
   const handleStart = (timerType) => {
     if(selectedTask === taskSelected){
         // dispatch(setTimerMode(20))
@@ -218,6 +235,7 @@ const completionSound = ()=>{
       getDate()
       // dispacthsetLocalSession(localSession)
       // setSession(1)
+
     setIsTimerActive(true);
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
@@ -455,7 +473,7 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={setdata} />}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)} />}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
@@ -463,7 +481,6 @@ return (
   </SafeAreaView>
 );
 };
-
 
 
 

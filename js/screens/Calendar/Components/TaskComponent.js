@@ -5,19 +5,25 @@ import { useSelector } from 'react-redux'
 import { TaskCard } from '../../../components/touchables/TaskCard'
  export const TaskComponent = () => {
     const userTask = useSelector((state)=>state.user.userTasks.userTask)
+    const pendingTasks = userTask.filter(task=>task.completed === false);
+    const completedTasks = userTask.filter(task=>task.completed === true);
     const setSelectedTask= console.log('ih')
   return (
       <ScrollView showsVerticalScrollIndicator={false} style={[ padding(0, 0, 15, 0, 15),flex(.7)]}>
         <View style={[{marginLeft:5}]}>
-        {userTask.map((details)=>(  
+        {pendingTasks.map((details)=>(  
+          // <Text style={[{color:details.Priority.color}]}>{details.Priority.color}</Text>
       <TaskCard  title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
                        projectname={details.Project.Projectname}
-                        Sessions={details.Sessions}  projectColor={details.Project.Color} key={details.id} id={details.id} setSelectedTask={setSelectedTask} prioritycolor={details.Priority.color} completed={false}/> 
+                        Sessions={details.Sessions}  projectColor={details.Project.Color} key={details.id} id={details.id} setSelectedTask={setSelectedTask} prioritycolor={details.Priority.color} completed={false}
+                        /> 
                         ))}
+                        
                          </View>
+                        
                          <View>
                             <Text style={[styles.gray,fontSize(16),margin(0,10)]}>Completed Tasks</Text>
-                            {userTask.map((details)=>(  
+                            {completedTasks.map((details)=>(  
       <TaskCard  title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
                        projectname={details.Project.Projectname}
                         Sessions={details.Sessions}  projectColor={details.Project.Color} key={details.id} id={details.id} setSelectedTask={setSelectedTask} prioritycolor={details.Priority.color} completed={true}/> 
