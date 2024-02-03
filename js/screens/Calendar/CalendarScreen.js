@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView,StatusBar ,TouchableOpacity, Image, ScrollView} from 'react-native'
 import React,{useState} from 'react'
-import { flex, margin, styles, widthValue,padding, marginPosition,radius ,fontSize, heightValue} from '../../styles/Styles'
+import { flex, margin, styles, widthValue,padding, marginPosition,radius,paddingPosition ,fontSize, heightValue} from '../../styles/Styles'
 import { Header } from '../Manage/components/Header'
 import Icon, { Icons } from '../../components/Icons'
 import { ToggleButtons } from '../../components/view/ToggleButtons'
@@ -27,24 +27,23 @@ export const CalendarScreen = () => {
   return (
     <SafeAreaView style={[styles.bgWhiteSmoke,flex(1), { justifyContent: 'flex-start' }, styles.center]}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
-      <View style={[flex(.1), padding(0, 0, 20, 0, 20),]}>
+      <View style={[flex(.15), padding(0, 0, 20, 0, 20),]}>
       <Header headername={'Calendar'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'}/>
       </View>
-      <View style={[flex(.15), padding(0, 0, 20, 0, 20),]}>
+      <View style={[flex(.1), padding(0, 0, 20, 0, 20),]}>
       <ToggleButtons title1={'List'} title2={'Month'} showProjects={showLists} onPressTags={()=>setShowList(false)} onPressProject={()=>setShowList(true)}/>
       </View>
 
-
 {showLists?
         
-      <View style={[flex(.3),{width:widthValue(1)}]}>
+      <View style={[flex(.15),{width:widthValue(1)},paddingPosition(20)]}>
         <DateSwiper checkDate={checkDate}/>
       </View> :null }
 {showLists?
-<View style={[flex(.7)]}>
+<View style={[flex(.8)]}>
       {
       isEmpty === true ? 
-      <View style={[flex(.7),styles.selfStart,styles.centerHorizontal,{width:widthValue(1)}]}>
+      <View style={[flex(.8),styles.selfStart,styles.centerHorizontal,{width:widthValue(1)},styles.allCenter]}>
         <Image source={notepad} style={[{width:widthValue(1.8),height:widthValue(1.8)}]} />
         <Text style={[styles.black,fontSize(25),{fontWeight:'600'}]}>Empty</Text>
         <Text style={[styles.gray,fontSize(18),{fontWeight:'400'},margin(0,10)]}>You have not added any task on this date</Text>
