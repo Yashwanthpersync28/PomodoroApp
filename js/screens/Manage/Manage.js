@@ -16,6 +16,7 @@ import { Addtags } from './components/AddTags/Addtags';
 import { DueDateModal } from '../../components/modals/DueDateModal';
 import { useSelector } from 'react-redux';
 import { Header } from './components/Header';
+import { getCompletedTasksToday, getCompletedTasksTomorrow, getTasksToday, getTasksTomorrow } from '../../constants/getCompletedTasksFunctions';
 
 
 export const Manage = ({navigation,countvalue,modalVisibleval}) => {
@@ -34,6 +35,12 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     //selectors
     const Projectslist=useSelector((state)=>state.user.userProjectList.UserProjects)
     const Taskdatas=useSelector((state)=>state.user.userTasks.userTask)
+    console.log('jbdfv',Taskdatas);
+    const CompletedTodayTasks=getCompletedTasksToday(Taskdatas);//to get completed tasks fo Today
+    const TodayTasks=getTasksToday(Taskdatas)
+    const TomorrowTasks=getTasksTomorrow(Taskdatas)
+    const CompletedTasksTomorrow=getCompletedTasksTomorrow(Taskdatas)
+    console.log('kncd',TodayTasks);
     console.log('fghvjk',Projectslist);
     const handlePlusmodal=()=>{
       setShowPlus(false)
@@ -69,7 +76,7 @@ const onClose=()=>{
 
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
-    <StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
+    <StatusBar backgroundColor = "white" barStyle = "dark-content"/>
       <View style={[flex(0.2)]}>
            <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
       </View>
@@ -87,8 +94,8 @@ const onClose=()=>{
            <TextInputCompnent bgColor={styles.bglgWhite} placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather}/>
         </View>
         <View style={[{height:heightValue(2.8)},styles.rowWrap,styles.spaceEvenly]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Todaymorning'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:Taskdatas})}/>
-           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:Taskdatas})}/>
+           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
+           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})}/>
            <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.Foundation} iconname={'calendar'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:Taskdatas})}/>
            <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.FontAwesome} iconname={'calendar-check-o'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:Taskdatas})}/>
            <ManageButtons  color={'lightgreen'} heading={'Completed'} IconFamily={Icons.AntDesign} iconname={'checkcircleo'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Completed',data:Taskdatas})}/>

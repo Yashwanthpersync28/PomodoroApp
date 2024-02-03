@@ -4,7 +4,7 @@ import {View,Text,TouchableOpacity,Image} from 'react-native'
 import Icon, { Icons } from '../../../components/Icons'
 import { TextInputCompnent } from '../../../components'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
-export const HeaderSearch = ({handleBacktoHeader}) => {
+export const HeaderSearch = ({handleBacktoHeader,onChangeText}) => {
  
     return (
    <View style={[styles.row,flex(1)]}>
@@ -18,6 +18,7 @@ export const HeaderSearch = ({handleBacktoHeader}) => {
        Iconname={'search'}
        IconFamily={Icons.EvilIcons}
        bgColor={styles.bgWhite}
+       onChangeText={onChangeText}
        />
     </View>
     

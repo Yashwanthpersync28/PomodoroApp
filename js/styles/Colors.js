@@ -41,4 +41,5 @@ export const Colors =  {
     borderGray:'#f2f0f0',
     WhiteSmoke:'#f5f5f5',
     toggleWhite:'#eeeeee',
+    textGray:'#b6b6b6',
 }
