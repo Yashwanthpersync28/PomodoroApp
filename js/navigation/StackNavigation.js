@@ -90,6 +90,13 @@ export const AppNavigationContainer = () => {
                     }}
                 />
                 <Stack.Screen
+                    name={'manage'}
+                    component={Manage}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                <Stack.Screen
                     name={'addproject'}
                     component={AddProject}
                     options={{
