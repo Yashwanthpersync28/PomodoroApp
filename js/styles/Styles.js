@@ -207,6 +207,7 @@ export const styles = StyleSheet.create({
     borderOrange: { borderColor: Colors.Orange },
     borderBlack: { borderColor: Colors.black },
     borderGreen: { borderColor: Colors.green },
+    borderGray: { borderColor: Colors.gray },
     borderBlue: { borderColor: Colors.blue },
     borderLightBlue: { borderColor: Colors.lightBlue },
     borderLightWhite: { borderColor: Colors.lightWhite },

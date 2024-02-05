@@ -34,8 +34,8 @@ filteredTasks.forEach((task)=>{
     tasks.push(task)
   }
 )
-console.log('Tasks filtered with selected date:', filteredTasks);
 
+console.log('Tasks filtered with selected date:', filteredTasks);
 console.log('renderTaskArray',tasks)
 
   useEffect(() => {

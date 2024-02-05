@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { Header } from '../Manage/components/Header'
-import { styles, widthValue,flex } from '../../styles/Styles'
+import { styles, widthValue,flex, padding } from '../../styles/Styles'
 import Icon, { Icons } from '../../components/Icons'
 import { PreferenceComponent } from './Components/PreferenceComponent'
 import { TimerModeModal } from '../dashboard/Components/TimerModeModal'
@@ -21,6 +21,7 @@ import ReminderVibrate from './Components/ReminderVibrate'
 import { setSelectedRingtone } from '../../redux/userReducer/reminderRingtoneReducer'
 import { setSelectedCompletionSound } from '../../redux/userReducer/CompletionSoundReducer'
 import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer'
+import { useNavigation } from '@react-navigation/native'
 
 export const PomodoroPreference = () => {
 
@@ -56,6 +57,7 @@ const vibrationOptions = [
     const selectedCompletionSound = useSelector((state)=>state.user.completionSound.selectedCompletionSound)
     console.log('breakSwitch',breakSwitch,'autoBreak',autoBreak,'autoFocusStart',autoFocusStart)
 
+    const navigation = useNavigation();
 
     const handleRingtone = (item)=>{
       dispatch(setSelectedRingtone(item.MusicName))
@@ -163,15 +165,14 @@ const closeModal = ()=>{
   dispatch(setCurrentModal(0))
   
 }
-// const updateNoise = ()=>{
-// dispatch(setCurrentModal(0))
-//   console.log(selectedTune)
-// }
+const goBack = ()=>{
+  navigation.goBack();
+}
 
   return (
-    <View style={[styles.bgWhite,flex(1)]}>  
-    <View style={[flex(.1),{width:widthValue(1.1)}]}>
-      <Header  color={'black'} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'}/></View> 
+    <View style={[styles.bgWhite,flex(1),padding(0,0,10)]}>  
+    <View style={[flex(.1),{width:widthValue(1)}]}>
+      <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'} goBack={goBack}/></View> 
 
       <ScrollView  showsVerticalScrollIndicator={false} style={[flex(2)]}>
         <PreferenceComponent  showIcon={true}  showDetail={false}  PreferanceName={'Strict Mode'} onPress={()=>dispatch(setCurrentModal(2))}/>

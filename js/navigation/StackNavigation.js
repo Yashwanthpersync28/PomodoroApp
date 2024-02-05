@@ -29,6 +29,8 @@ import { Task } from "../screens/Manage/components/Task/Task";
 import Completedtask from "../screens/Manage/components/Completed/Completedtask";
 import { TrophyScreen } from "../screens/dashboard/TrophyScreen";
 import {Tasklist} from "../screens/Manage/components/TasklistBasedonDays/Tasklist"
+import{ Profile} from "../screens/SettingsScreen/profile/Profile";
+import { PomodoroPreference } from "../screens/SettingsScreen/PomodoroPreference";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -163,6 +165,20 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'tasklists'}
                     component={Tasklist}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'Profile'}
+                    component={Profile}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'PomodoroPreference'}
+                    component={PomodoroPreference}
                     options={{
                         header: () => null,
                     }}
