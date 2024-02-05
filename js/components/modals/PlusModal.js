@@ -7,20 +7,23 @@ import Icon, { Icons } from '../Icons';
 
 import { ModalButtons } from '../../screens/Manage/components/ModalButtons';
 
-export const PlusModal = ({ visible, onClose , handleCount }) => {
+export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
   const handletags = () => {
     console.log('hbjcn');
-    handleCount(3)
+    handleCount(1)
+    handleIndex(3)
   };
 
   const handleproject = () => {
-    handleCount(4)
+    handleCount(1)
+    handleIndex(5)
 
     console.log('hbjhrgfewil3cn');
   };
 
   const handletasks = () => {
     handleCount(1)
+    handleIndex(0)
 
     console.log('hbjcdfnbvfen');
   };

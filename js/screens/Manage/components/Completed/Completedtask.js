@@ -19,7 +19,6 @@ const Completedtask = ({navigation,route}) => {
    const [tempTrashdatas,setTempTrash]=useState(Trashdatas)
    const [InputText,setInputText]=useState('')
     console.log('Trashdatas',Trashdatas);
-    const [showOptions,setShowOptions]=useState(false)
 
     ///to filter data based on completed and which is completed today
     const completedTasksToday = getCompletedTasksToday(data);

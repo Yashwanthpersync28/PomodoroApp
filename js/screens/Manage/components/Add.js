@@ -78,8 +78,8 @@ export const Add = ({ onChangeText, Textinputname, value, headerName, IconFamily
   );
 
   return (
-    <SafeAreaView style={[flex(1), padding(0, 0, 20, 0, 20), styles.bgsmokewhite]}>
-      <View style={[flex(0.1), paddingPosition(0, 0, 0, 0)]}>
+    <SafeAreaView style={[flex(1), paddingPosition(0,20,0,20), styles.bgsmokewhite]}>
+      <View style={[flex(0.1),marginPosition(-30)]}>
         <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), styles.bgWhite, flex(1)]}>
@@ -101,10 +101,6 @@ export const Add = ({ onChangeText, Textinputname, value, headerName, IconFamily
           ))}
         </View>
       </ScrollView>
-      {/* <View style={[{ height: heightValue(10) }, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>
-        <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
-        <CustomizedButtons name={'ADD'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
-      </View> */}
     </SafeAreaView>
   );
 };

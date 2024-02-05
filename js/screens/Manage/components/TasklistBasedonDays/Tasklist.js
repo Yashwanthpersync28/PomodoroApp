@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { Dayheadings } from '../Completed/components/Dayheadings'
 import { HeaderBorder } from '../../../../components/view/HeaderBorder'
 import { GetRecomendedTasks, calculateFocusTime, formatTime } from '../../../../constants/getCompletedTasksFunctions'
+import { AddTask } from '../AddTask/AddTask'
 
 export const Tasklist = ({navigation,route}) => {
     const [showSearchHeader,setSearchHeader]=useState(false)
@@ -21,6 +22,7 @@ export const Tasklist = ({navigation,route}) => {
     const calculatefocus=calculateFocusTime(completedData);
     const getFocusTime=formatTime(calculatefocus)
     const [userInput,setUserInput]=useState('')
+    const [modalVisible,setModalVisible]=useState(false)
      console.log('data',data);
 
      useEffect(()=>{
@@ -71,7 +73,9 @@ export const Tasklist = ({navigation,route}) => {
        IconFamily={Icons.Feather}
        bgColor={styles.bgWhite}
        placeholder={'Add a Task...'}
+       onKeyPress={()=>setModalVisible(true)}
        />
+       {modalVisible && <AddTask visible={modalVisible} onClose={()=>setModalVisible(false)} count={0}/>}
      </View>
      {/* //tasks */}
      <View>

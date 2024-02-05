@@ -51,3 +51,29 @@ export const getCompletedTasksTomorrow = (data) => {
       export const GetRecomendedTasks=(data,InputText)=>{
             return data.filter(task => task.Taskname.toLowerCase().includes(InputText.toLowerCase()));
       }
+
+
+      //to get data for this week
+      export const getTasksThisWeek = (data,thisweek) => {
+        const today = new Date();
+        const endOfWeek = new Date(today);
+        endOfWeek.setDate(today.getDate() + (6 - today.getDay())); // Calculate end of the week
+      
+        const todayISO = today.toISOString().split('T')[0];
+        const endOfWeekISO = endOfWeek.toISOString().split('T')[0];
+      if(thisweek){
+        return data.filter(item => {
+          const itemDueDate = new Date(item.Duedate);
+          return itemDueDate >= today && itemDueDate <= endOfWeek && !item.completed;
+        })}
+        else{
+        return data.filter(item => {
+          const itemDueDate = new Date(item.Duedate);
+          return itemDueDate >= today || itemDueDate > endOfWeek || item.completed;
+        })
+      }
+      };
+      //to filter the data and get completed tasks of today date
+export const getCompletedTasks = (data) => {
+  return data.filter(item => item.completed);
+};
