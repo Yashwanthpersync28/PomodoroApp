@@ -1,13 +1,16 @@
 
 import React, { useState } from 'react'
-import { flex ,heightValue,marginPosition,paddingPosition,radius,styles} from '../../styles/Styles'
+import { borderColor, borderWidth, flex ,fontSize,heightValue,marginPosition,padding,paddingPosition,radius,styles} from '../../styles/Styles'
 import {View,Text,StatusBar,ScrollView} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Header } from '../Manage/components/Header'
-import { Icons } from '../../components/Icons'
+import Icon, { Icons } from '../../components/Icons'
 import { ToggleButtons } from '../../components/view/ToggleButtons'
 import { MiniCards } from '../Manage/components/TasklistBasedonDays/components/MiniCards'
 import { Colors } from '../../styles/Colors'
+import { ReportHeader } from './components/ReportHeader'
+import { FocusTime } from './components/FocusTime'
+import { FocusTimeGoal } from './FocusTimeGoal'
 
 export const Report = ({navigation}) => {
 
@@ -43,9 +46,19 @@ export const Report = ({navigation}) => {
      </View>
      <View style={[flex(1)]}>
      <ScrollView>
-         <View style={[styles.bgWhite,{height:heightValue(2.4)},radius(5),marginPosition(10)]}></View>
-         <View style={[styles.bgWhite,{height:heightValue(2.4)},radius(5),marginPosition(10)]}></View>
-         <View style={[styles.bgWhite,{height:heightValue(2.4)},radius(5),marginPosition(10)]}></View>
+         <View style={[styles.bgWhite,{height:heightValue(2.4)},radius(5),marginPosition(10),padding(10)]}>
+          <ReportHeader headername={'Focus Time'} options={'Tasks'}/>
+          {/* <ProgressBarExample/> */}
+          <FocusTime/>
+         </View>
+         <View style={[styles.bgWhite,{height:heightValue(2.4)},radius(5),marginPosition(10),padding(10)]}>
+         <ReportHeader headername={'Focus Time Goal'} options={'Monthly'}/>
+           <FocusTimeGoal/>
+         </View>
+         <View style={[styles.bgWhite,{height:heightValue(2.4)},radius(5),marginPosition(10),padding(10)]}>
+         <ReportHeader headername={'Pomodoro Records'} options={'Weekly'}/>
+
+         </View>
 
          </ScrollView>
      </View>

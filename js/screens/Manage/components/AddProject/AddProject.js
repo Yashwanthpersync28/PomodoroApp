@@ -25,7 +25,7 @@ export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
  const addUserProjectHandler = (projectData) => {
   dispatch(addproject(projectData ));
   // navigation.navigate('project')
-  handletoAddtask(4)
+  handletoAddtask(5)
 };
 
 const handleAdd = () => {

@@ -16,10 +16,6 @@ import { Project } from '../project/Project';
 import { AddProject } from '../AddProject/AddProject';
 
 export const AddTask = ({ visible, onClose ,count}) => {
-  // console.log('receivedPriorityDataa',receivedPriorityData);
-  // console.log('receiveTagsData',receiveTagsData);
-  // console.log('receiveProjectDataaaa',receiveProjectData);
-  // console.log('selectedDateeee',selectedDate);
   const navigation=useNavigation();
   const route = useRoute();
   const receivedData = route.params?.prioritydata;
@@ -91,7 +87,8 @@ const handleAddTaskButtons=(icon)=>{
 
 const addUserTaskHandler = (taskData) => {
   // dispatch(addTask({ email, taskData }));
-  dispatch(addUserTasks(taskData))
+  // dispatch(addUserTasks())
+  dispatch(addUserTasks({ payload: [...userDatasSelector, taskData] }));
 };
 
 
@@ -109,12 +106,16 @@ const SendData = () => {
     Archieve:false,
     trash:false,
     AddDate:currentDate,
-    Day:selectedDate.Day
+    Day:selectedDate.Day,
+    notes:''
     
   };
   onClose()
 
-  addUserTaskHandler(taskData);
+  // addUserTaskHandler(taskData);
+  // dispatch(addUserTasks({ payload: [...userDatasSelector,taskData] }));
+  dispatch(addUserTasks([...userDatasSelector,taskData]));
+
   console.log('taskname',taskname);
   console.log('sessions',session);
   console.log('priority',receivedPriorityData.length);
