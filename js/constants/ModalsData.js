@@ -58,4 +58,34 @@ CompletionSounds : [
         {id:'2', longBreak: 1200},
         {id:'3', longBreak: 1500},
     ],
+    countryCode: [
+        {
+            id:1,
+            name: "India",
+            dial_code: "+91",
+            code: "IN",
+            emoji: '🇮🇳'
+        },
+        {
+            id:2,
+            name: "United Arab Emirates",
+            dial_code: "+971",
+            code: "AE",
+            emoji: '🇦🇪'
+        },
+        {
+            id:3,
+            name: "United States",
+            dial_code: "+1",
+            code: "US",
+            emoji: '🇺🇸'
+        },
+        {
+            id:4,
+            name: "United Kingdom",
+            dial_code: "+44",
+            code: "GB",
+            emoji: '🇬🇧'
+        },
+    ]
  }

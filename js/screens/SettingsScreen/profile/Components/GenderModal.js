@@ -6,22 +6,16 @@ import Modal from 'react-native-modal'
 import { TimerButton } from '../../../dashboard/Components/TimerButton'
 import { useDispatch } from 'react-redux'
 import { setCurrentModal } from '../../../../redux/userReducer/modalReducer'
+import Icon, { Icons } from '../../../../components/Icons'
 
 
- export const GenderModal = ({currentModal,showModal,setSelectedGender,selectedGender}) => {
+ export const GenderModal = ({currentModal,showModal,setSelectedGender,selectedGender,gender}) => {
 
 
     const dispatch = useDispatch();
     
-    const gender = [
-        {id:'1',gender:'Male'},
-        {id:'2',gender:'Female'},
-        {id:'3',gender:'others'}
-]
-
-
-    const handleGenderModal = (gender)=>{
-        setSelectedGender(gender)
+    const handleGenderModal = (item)=>{
+        setSelectedGender(item.genderName)
         closeModal();
     }
     const closeModal=()=>{
@@ -29,19 +23,18 @@ import { setCurrentModal } from '../../../../redux/userReducer/modalReducer'
     }
 
     const renderItems =({item})=>{
-        const isSelected = selectedGender === item.id
+        const isSelected = selectedGender === item.genderName
+        console.log('isSelected',isSelected)
       
           return (
             <View>
-              <TouchableOpacity onPress={()=>{handleGenderModal(gender)}}> 
+              <TouchableOpacity onPress={()=>{handleGenderModal(item)}}> 
           <View style={[padding(0, 15, 5),styles.spaceBetweenVertical,styles.row]}>
-            <View>
-            <Text style={[styles.black, fontSize(20), { fontWeight: '400' }, marginPosition(5)]}>{item.gender}</Text>
+            <View style={[styles.row,styles.centerHorizontal]}>
+               <Icon name={isSelected ? "radio-btn-active" :"radio-btn-passive"} type={Icons.Fontisto} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 5)]} />
+            <Text style={[styles.black, fontSize(20), { fontWeight: '400' },]}>{item.genderName}</Text>
             </View>
             <View>
-              {isSelected && 
-               <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 5)]} />
-              }
               </View>
           </View>
           </TouchableOpacity>
@@ -58,9 +51,9 @@ import { setCurrentModal } from '../../../../redux/userReducer/modalReducer'
     backdropColor='black'
     backdropOpacity={0.5}
     onBackdropPress={showModal}
-    style={[{width:widthValue(1.1),height:heightValue(3)},styles.centerHorizontal,styles.positionAbsolute,{bottom:0},radius(10)]}>
+    style={[{width:widthValue(1),height:heightValue(3),margin:0},styles.centerHorizontal,radius(10)]}>
         
-        <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),radius(0,15,0,0,15)]}>
+        <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),styles.positionAbsolute,{bottom:0},radius(0,15,0,0,15)]}>
         <Text
             style={[
               styles.black,

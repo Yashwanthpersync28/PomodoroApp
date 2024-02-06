@@ -31,6 +31,10 @@ import { TrophyScreen } from "../screens/dashboard/TrophyScreen";
 import {Tasklist} from "../screens/Manage/components/TasklistBasedonDays/Tasklist"
 import{ Profile} from "../screens/SettingsScreen/profile/Profile";
 import { PomodoroPreference } from "../screens/SettingsScreen/PomodoroPreference";
+import { DateTime } from "../screens/SettingsScreen/Components/DateTime/DateTime";
+import { Notification } from "../screens/SettingsScreen/Notification/Notification";
+import { AccountSecurity } from "../screens/SettingsScreen/AccountSecurity/AccountSecurity";
+import { AppApearance } from "../screens/SettingsScreen/AppApearance/AppApearance";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -40,7 +44,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="BottomTabNavigation">
+            <Stack.Navigator initialRouteName="splash">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -190,6 +194,35 @@ export const AppNavigationContainer = () => {
                         header: () => null,
                     }}
                 />
+                 <Stack.Screen
+                    name={'DateTime'}
+                    component={DateTime}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'Notification'}
+                    component={Notification}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'AccountSecurity'}
+                    component={AccountSecurity}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'AppApearance'}
+                    component={AppApearance}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                
             </Stack.Navigator>
         </NavigationContainer>
     )

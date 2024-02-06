@@ -6,14 +6,22 @@ import { PreferenceComponent} from './Components/PreferenceComponent'
 import Icon, { Icons } from '../../components/Icons'
 import { Header } from '../Manage/components/Header'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import { Logout } from './Logout/Logout'
+import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 
 
 export const Settings = () => {
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
   
-
+  const logOut = ()=>{
+    navigation.navigate('signup')
+    dispatch(setCurrentModal(0));
+  }
 const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 
   return(
@@ -37,16 +45,17 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[paddingPosition(10,0,0,10)]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />
       <SettingComponent  PreferanceName={'Pomodoro Preference'} leftIconType={Icons.Entypo} IconLeft={'stopwatch'} onPress={()=>navigation.navigate('PomodoroPreference')}/>
-      <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'}/>
-      <SettingComponent  PreferanceName={'Notifications'} leftIconType={Icons.Fontisto} IconLeft={'bell'}/>
-      <SettingComponent  PreferanceName={'Account & Security'} leftIconType={Icons.MaterialIcons} IconLeft={'security'}/>
-      <SettingComponent  PreferanceName={'App Apearance'} leftIconType={Icons.FontAwesome} IconLeft={'eye'}/>
+      <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/>
+      <SettingComponent  PreferanceName={'Notifications'} leftIconType={Icons.Fontisto} IconLeft={'bell'} onPress={()=>navigation.navigate('Notification')}/>
+      <SettingComponent  PreferanceName={'Account & Security'} leftIconType={Icons.MaterialIcons} IconLeft={'security'} onPress={()=>navigation.navigate('AccountSecurity')}/>
+      <SettingComponent  PreferanceName={'App Apearance'} leftIconType={Icons.FontAwesome} IconLeft={'eye'} onPress={()=>navigation.navigate('AppApearance')}/>
       <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.FontAwesome5} IconLeft={'hand-holding-heart'}/>
-      <SettingComponent  PreferanceName={'FAQ'} leftIconType={Icons.AntDesign} IconLeft={'filetext1'}/>
+      {/* <SettingComponent  PreferanceName={'FAQ'} leftIconType={Icons.AntDesign} IconLeft={'filetext1'}/> */}
       {/* <SettingComponent  PreferanceName={'Contact Support'} leftIconType={Icons.Feather} IconLeft={'at-sign'}/>
       <SettingComponent  PreferanceName={'Privacy Policy'} leftIconType={Icons.MaterialIcons} IconLeft={'lock-person'}/>
       <SettingComponent  PreferanceName={'Terms of Services'} leftIconType={Icons.FontAwesome5} IconLeft={'file-signature'}/> */}
-      <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'}/>
+      <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'} onPress={()=>dispatch(setCurrentModal(13))}/>
+      {currentModal === 13 && <Logout currentModal={currentModal} logOut={logOut}/>} 
             </ScrollView>
     </View>
   )

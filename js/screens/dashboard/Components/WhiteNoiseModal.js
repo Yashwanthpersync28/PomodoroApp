@@ -26,6 +26,7 @@ import Icon, { Icons } from '../../../components/Icons';
 
      const renderTunes=({item})=>{
       const isSelected = selectedTune === item.MusicName
+      console.log('isSelected',isSelected)
       return(
         <TouchableOpacity onPress={()=>handleNoise(item)}>
         <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>

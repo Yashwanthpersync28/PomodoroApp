@@ -14,7 +14,7 @@ const BottomTabNavigation = () => {
   return (
    
     <Tab.Navigator 
-    initialRouteName='Settings'
+    initialRouteName='PomodoroScreen'
     screenOptions=
        {
         {
