@@ -100,7 +100,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
         ]}
       >
         <View style={[styles.allCenter]}>
-        <Text style={[styles.dayText, isToday && { color: 'white',borderRadius:20,width:20 }, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:'black'},isRemainingDate && { color: 'black' }]}>{date.day}</Text>
+        <Text style={[styles.dayText, isToday && { color: 'white',width:20 ,textAlign:'center'}, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:'white',textAlign:'center'},isRemainingDate && { color: 'black' ,textAlign:'center'}]}>{date.day}</Text>
         </View>
       </TouchableOpacity>
     );

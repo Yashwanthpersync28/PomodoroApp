@@ -9,7 +9,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { DeleteTaskModal } from '../../../../components/modals/DeleteTaskModal'
 import { TaskDeletedModal } from '../../../../components/modals/TaskDeletedModal'
 import { Colors } from '../../../../styles/Colors'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addUserTasks } from '../../../../redux/userReducer/UserTaskDetails'
+import DocumentPicker from 'react-native-document-picker';
 
 
 
@@ -21,10 +23,19 @@ export const Task = ({navigation,route}) => {
   const [subtask,setSubtask]=useState('')
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [isTaskdeletedModalVisible,setTaskdeletedModalVisible]=useState(false)
-  const [CurrentTask,setCurrentTask]=useState(null)
-//selectors
-const Taskdetails=useSelector((state)=>state.user.userTasks.userTask)
+  const [CurrentTask,setCurrentTask]=useState(null);
+  const [attachedFileUri, setAttachedFileUri] = useState(null);//for upload file
 
+  // console.log('CurrentTask',CurrentTask.notes);
+  //selectors
+  const Taskdetails=useSelector((state)=>state.user.userTasks.userTask)
+  const [notes,setAddNote]=useState('');
+  // console.log('AddNote',AddNote);
+
+
+// console.log('Taskdetailsnotes',Taskdetails.notes);
+console.log('Taskdetails',Taskdetails);
+const dispatch=useDispatch()
 const taskdata = [
   { startIcon: 'timer', name: 'Pomodoro', details: CurrentTask?.Sessions || 0, endIcon: 'timer', endIconcolor: Colors.Orange },
   { startIcon: 'calendar', name: 'Due Date', details: CurrentTask?.Day || 'today', endIcon: 'calendar', endIconcolor: 'green' },
@@ -50,8 +61,40 @@ const taskdata = [
     useEffect(() => {
       const foundTask = Taskdetails.find((task) => task.id === id);
       setCurrentTask(foundTask);
+      if (foundTask) {
+        setAddNote(foundTask.notes || ''); // Ensure notes is not undefined
+      }
       console.log('foundTask',foundTask);
     }, [id, Taskdetails]);
+
+
+    const handleAddnotes=()=>{
+
+const updatedEvents = Taskdetails.map(event => {
+            if (event.id === id) {
+                return {
+                    ...event,
+                    notes: notes,
+                    
+                };
+            }
+            return event;
+        });
+        console.log("updatedEventsupdatedEvents",updatedEvents)
+        dispatch(addUserTasks(updatedEvents));
+    }
+    /////
+    const handlePickFile = async () => {
+      try {
+        const res = await DocumentPicker.pick({
+          type: [DocumentPicker.types.allFiles],
+        });
+        setAttachedFileUri(res.uri);
+      } catch (error) {
+        console.error('Error picking file:', error);
+      }
+    };
+    
   return (
    <SafeAreaView style={[styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
@@ -64,7 +107,7 @@ const taskdata = [
           onPress={() => setShowoptions(!showOptions)}
           bgcolor={styles.white}
           color={styles.black}
-          goBack={() => navigation.goBack()}
+          goBack={() => {navigation.goBack(),handleAddnotes()}}
           showLeftIocn={true}
           IconNameLeft={'arrowleft'}
           IconfamilyLeft={Icons.AntDesign}
@@ -149,18 +192,23 @@ const taskdata = [
     <View style={[marginPosition(15)]}>
          <Text style={[styles.black,fontWeight('800')]}>Add a Note</Text>
          <View style={[styles.bgWhite,{height:heightValue(10)},paddingPosition(0,10,0,10),radius(6),marginPosition(10)]}>
-             <TextInput placeholder={'Add a note..'} style={[styles.black,fontSize(20),{ textAlignVertical: 'top' }]} placeholderTextColor={'black'} multiline={true} numberOfLines={3}/>
+             <TextInput value={notes} placeholder={'Add a note..'} style={[styles.black,fontSize(20),{ textAlignVertical: 'top' }]} placeholderTextColor={'black'} multiline={true} numberOfLines={3} onChangeText={(val)=>setAddNote(val)}/>
          </View>
     </View>
     {/* for uploading Attachment */}
     <View style={[marginPosition(15,0,15)]}>
          <Text style={[styles.black,fontWeight('800')]}>Add attachement</Text>
+         {attachedFileUri ? (
+  <Text style={styles.black}>Attached File: {attachedFileUri}</Text>
+):
+         <TouchableOpacity onPress={handlePickFile}>
          <View style={[styles.bgWhite,{height:heightValue(10)},padding(10),radius(6),styles.allCenter,styles.column,marginPosition(10)]}>
             <Icon name={'addfile'} type={Icons.AntDesign} style={[styles.gray,fontSize(20)]}/>
             <Text style={[styles.gray,fontSize(18)]}>Upload</Text>
          </View>
+         </TouchableOpacity>}
     </View>
-   <View style={[styles.bgOrange]}>
+   <View style={[styles.bglgWhite]}>
 
    </View>
    </ScrollView>

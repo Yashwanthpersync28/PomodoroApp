@@ -7,7 +7,7 @@ const UsersTasks = createSlice({
   },
   reducers: {
     addUserTasks(state, action) {
-      state.userTask.push(action.payload);
+      state.userTask=action.payload;
     },
     deleteUserTask(state, action) {
       const taskIdToDelete = action.payload;

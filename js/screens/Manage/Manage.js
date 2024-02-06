@@ -25,12 +25,6 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const [Seachvalue,setSearchvalue]=useState('')
     const [count,setcount]=useState(countvalue);
     const [index,setIndex]=useState(0)
-    const [receivedPriorityData,setPriorityData]=useState([])
-    const [receiveTagsData,setreceiveTagsData]=useState([]);
-    const [taskname,setTaskname]=useState('')
-    const [session,setsession]=useState(1)
-    const [receiveProjectData,setReceivedProjectData]=useState([])
-    const [selectedDate, setSelectedDate] = useState('');
     const [ShowPlus,setShowPlus]=useState(true)
     const [ShowManagebutton,setShowManagebutton]=useState(false)
     //selectors
