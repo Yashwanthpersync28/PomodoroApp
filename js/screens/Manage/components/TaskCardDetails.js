@@ -62,20 +62,6 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
             {/* //options */}
             {showOptionsIndex === index && (
                 <>
-            {/* <View style={[radius(5),styles.column,styles.bglgWhite,{width:widthValue(3),height:heightValue(9)},padding(10),styles.positionAbsolute,position(20,0,0,140),zIndex(99),flex(1)]}>
-            <TouchableOpacity onPress={()=>handletoRestore(index)}>
-              <View style={[styles.row,borderColor(styles.borderGray),borderWidth(0,0,0,1),marginPosition(0,0,5)]}>
-                 <Icon name={'archive-arrow-up'} type={Icons.MaterialCommunityIcons} style={[styles.black,fontSize(20),styles.textAlignVertical]}/>
-                 <Text style={[styles.black,fontSize(17)]}>Restore</Text>    
-               </View>
-               </TouchableOpacity>
-               <TouchableOpacity onPress={()=>handleDeleteForever(index)}>
-            <View style={[styles.row]}>
-             <Icon name={'delete'} type={Icons.MaterialCommunityIcons} style={[styles.Orange,fontSize(20),styles.textAlignVertical]}/>
-             <Text style={[styles.Orange,fontSize(17)]}>Delete forever</Text>    
-            </View>
-            </TouchableOpacity>
-           </View> */}
             <View style={[{ position: 'absolute', top: 10, right: -30, zIndex: 99 },styles.bglgWhite,radius(10)]}>
                 <TouchableOpacity onPress={()=>handletoRestore(index)}>
                 <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 ,width:widthValue(3.5)},borderColor(styles.borderGray),borderWidth(0,0,0,1)]}>

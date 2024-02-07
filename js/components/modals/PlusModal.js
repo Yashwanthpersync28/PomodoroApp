@@ -48,8 +48,8 @@ export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
               
               styles.column,
               styles.bgWhite,
-              radius(10),
-              { marginRight: 0, marginBottom: 0 , width:widthValue(3)},
+              radius(5),
+              { marginRight: 0, marginBottom: 0 , width:widthValue(3)}
             ]}>
             <ModalButtons name={'Task'} icon={'addfile'} iconfamily={Icons.AntDesign} onPress={handletasks}/>
             <ModalButtons name={'Project'} icon={'briefcase'} iconfamily={Icons.Feather} onPress={handleproject}/>

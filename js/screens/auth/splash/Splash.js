@@ -17,7 +17,7 @@ export const Splash = ({navigation}) => {
   useEffect(()=>{
     setTimeout(() => {
       if(showonboarding){
-        navigation.navigate('signup') ;
+        navigation.navigate('BottomTabNavigation') ;
         console.log('showcomp',showonboarding);
       }
       else{

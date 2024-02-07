@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { flex, padding, styles, marginPosition, heightValue, widthValue, radius } from '../../../styles/Styles';
+import { flex, padding, styles, marginPosition, heightValue, widthValue, radius, fontSize, fontWeight, lineHeight } from '../../../styles/Styles';
 import { BackButtonComponent, ButtonComponent, TextInputCompnent } from '../../../components';
-import { View, Text , Alert,ScrollView} from 'react-native';
+import { View, Text , Alert,ScrollView ,Image} from 'react-native';
 import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { OtpTextInput } from './Components/OtpTextInput';
 import { OtpTimer } from './Components/OtpTimer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 import { Icons } from '../../../components/Icons';
+import { handlePasswordvalidation } from '../../../constants/PasswordValidaton';
 
 export const Forgotpassword = ({navigation}) => {
   //refs
@@ -27,18 +28,22 @@ export const Forgotpassword = ({navigation}) => {
   const [count, setCount] = useState(0);
   const [Password, setPassword] = useState('');
   const [confirmPass, setConfirmpass] = useState('');
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [secureTextEntryPassword, setSecureTextEntryPassword] = useState(true);
+  const [secureTextEntryConfirmPassword, setSecureTextEntryConfirmPassword] = useState(true);
   const [inputone,setinputone]=useState('');
   const [inputTwo,setinputTwo]=useState('');
   const [inputThree,setinputThree]=useState('');
   const [inputfour,setinputfour]=useState('');
-  const [disable,setdisable]=useState(true)
+  const [disable,setdisable]=useState(true);
+  const [id,setId]=useState(null)
+  const [passwordError,setPasswordError]=useState('')
 ///selectors
 const userDetails=useSelector((state)=>state.UserDetails.userList)
-
+const dispatch=useDispatch()
   // handling screens based on count value
   const handleCount = () => {
     setCount(count+1)
+    console.log('if',id);
   //{- - - handle email - - - //}
   // setCount(count + 1)
   }
@@ -66,11 +71,17 @@ const handleEmailChange = (text) => {
   setEmail(text);
 };
 useEffect(() => {
+  if(Email.length>1){
   const user = userDetails.find(
     (useremail) => useremail.email.toLowerCase() === Email.toLowerCase()
   );
-console.log('users',user);
-
+  if(user){
+    setId(user.id)
+  }
+  // setId(user.id)
+  console.log('useruseruser',user);
+  
+// console.log('users',user.id);
   const result = Boolean(user);
 
   if (result) {
@@ -78,37 +89,47 @@ console.log('users',user);
   } else {
     setEmailError('Invalid email id');
   }
+}
+
 }, [Email, userDetails]);
 
 /////confirm password
 const [ConfirmError,setConfError]=useState('')
 
-const handleconfirmPassword=(val)=>{
-  setConfirmpass(val)
-  if(val===Password){
+const handleconfirmPassword=(pass,confpass)=>{
+  console.log('val',confpass);
+  setConfirmpass(confpass)
+  if(confpass===pass){
     setConfError('')
+    if(passwordError.length>1){
+      setConfError('Password not valid')
+    }
   }
   else{
     setConfError('Password does not match')
   }
+  
 }
 //Update password
 const UpdatePassword=()=>{
 
-  let userIndexToUpdate = userDetails.findIndex(user => user.email.toLowerCase() === Email.toLowerCase());
-  console.log('index',userIndexToUpdate);
-  if (userIndexToUpdate !== -1) {
-    userDetails[userIndexToUpdate].password = confirmPass
-    Alert.alert('Password Changed',
-    'Your password has been successfully changed.',[{
-      text: 'OK',
-      onPress: () => navigation.navigate('login') }])
-    console.log('updatedpass',userDetails);
-    addUser(userDetails)
-    console.log('updated',userDetails);
-  } else {
-    console.log(`User with email ${userEmailToUpdate} not found`);
-  }
+  const UserUpdatedPassword = userDetails.map(user => {
+    if (user.id === id) {
+        return {
+            ...user,
+            password: confirmPass,
+            
+        };
+    }
+    return user;
+});
+dispatch(addUser(UserUpdatedPassword))
+setCount(3)
+}
+const handlepass=(val)=>{
+    const PasswordvalidationResult=handlePasswordvalidation(val)
+    console.log('returnss',PasswordvalidationResult);
+    setPasswordError(PasswordvalidationResult)
 }
   return (
     <SafeAreaView style={[flex(1), styles.bgWhite, padding(20)]}>
@@ -125,14 +146,14 @@ const UpdatePassword=()=>{
       </View>
       <View style={[flex(0.3)]}>
         {count === 0 ? (
-          <HeadingComponent name={'Forgot Your Password? 🔑'} details={'No worries. We\'ll help you reset it. Please enter the email associated with your Focusify account.'} />
+          <HeadingComponent name={'Forgot Your Password? '} details={'No worries. We\'ll help you reset it. Please enter the email associated with your Focusify account.'} icon={'🔑'}/>
         ) : null}
         {count === 1 ? (
-          <HeadingComponent name={'Enter OTP Code 🔒'} details={'we have sent you an OTP code to your registered email address. Please check your ibox and enter the code'} />
+          <HeadingComponent name={'Enter OTP Code '} details={'we have sent you an OTP code to your registered email address. Please check your ibox and enter the code'} icon={'🔒'}/>
 
         ) : null}
         {count === 2 ? (
-          <HeadingComponent name={'Secure Your Account? 🔐'} details={'Almost there! Create a new password for your Focusify account to keep it secure. Remember to choose a strong and unique password'} />
+          <HeadingComponent name={'Secure Your Account? '} details={'Almost there! Create a new password for your Focusify account to keep it secure. Remember to choose a strong and unique password'} icon={'🔐'}/>
         ) : null}
       </View>
       <View style={[flex(2)]}>
@@ -146,6 +167,7 @@ const UpdatePassword=()=>{
               keyboardType="email-address"
               IconFamily ={Icons.MaterialCommunityIcons}
               Iconname={'email'}
+              bgColor={styles.bglgWhite}
             />
           {EmailError===''?null:
             <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -157,23 +179,27 @@ const UpdatePassword=()=>{
             <TextInputCompnent
               placeholder={'Password'}
               value={Password}
-              onChangeText={(val) => setPassword(val)}
-              secureTextEntry={secureTextEntry}
-              showText={() => setSecureTextEntry(!secureTextEntry)}
+              onChangeText={(val) => {setPassword(val),handleconfirmPassword(val,confirmPass),handlepass(val)}}
+              secureTextEntry={secureTextEntryPassword}
+              showText={() => setSecureTextEntryPassword(!secureTextEntryPassword)}
               IconFamily ={Icons.SimpleLineIcons}
-              Iconname={secureTextEntry ? 'lock' : 'lock-open'}
+              Iconname={secureTextEntryPassword ? 'lock' : 'lock-open'}
               ShowPasswordIcon={true}
+              bgColor={styles.bglgWhite}
             />
+            {passwordError===''?null:
+          <Text style={[styles.Orange]}>{passwordError}</Text>}
             <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>Confirm Password</Text>
             <TextInputCompnent
               placeholder={'Confirm Password'}
               value={confirmPass}
-              onChangeText={handleconfirmPassword}
-              secureTextEntry={secureTextEntry}
-              showText={() => setSecureTextEntry(!secureTextEntry)}
+              onChangeText={(val)=>handleconfirmPassword(Password,val)}
+              secureTextEntry={secureTextEntryConfirmPassword}
+              showText={() => setSecureTextEntryConfirmPassword(!secureTextEntryConfirmPassword)}
               IconFamily ={Icons.SimpleLineIcons}
-              Iconname={secureTextEntry ? 'lock' : 'lock-open'}
+              Iconname={secureTextEntryConfirmPassword ? 'lock' : 'lock-open'}
               ShowPasswordIcon={true}
+              bgColor={styles.bglgWhite}
             />
              {ConfirmError===''?null:
           <Text style={[styles.Orange]}>{ConfirmError}</Text>}
@@ -240,12 +266,22 @@ const UpdatePassword=()=>{
           </View>
         </View>
         </>:null}
+        
       </View>
-      <View style={[marginPosition(0), flex(3), { justifyContent: 'flex-end', alignItems: 'center' }]}>
-        {count ===0 ? <ButtonComponent  title={'Send OTP Code'} onPress={handleCount}/>:null}
-        {count ===1 ? <ButtonComponent title={'Submit OTP'} onPress={Checkotp}/>:null}
-        {count ===2 ? <ButtonComponent title={'Save New Password'} onPress={UpdatePassword} />:null}
+      {count===3 ? <>
+        <View style={[styles.column,styles.allCenter]}>
+               <Image source={require('../../../assets/Images/GotohomepageImage.png')} style={[{height:100,width:100}]}/>
+               <Text style={[styles.black,fontSize(30),fontWeight('bold'),lineHeight(35)]}>You're All Set!</Text>
+               <Text style={[styles.textCenter,fontSize(17),styles.Gray,{width:widthValue(2)},lineHeight(20),marginPosition(10)]}>Congratulation's Your password has been changed successfully</Text>
 
+         </View>
+        </>:null}
+      <View style={[marginPosition(0), flex(3), { justifyContent: 'flex-end', alignItems: 'center' }]}>
+        {count ===0 ? <ButtonComponent  title={'Send OTP Code'} onPress={handleCount} disabled={!(EmailError==='' && Email.length>6)}/>:null}
+        {count ===1 ? <ButtonComponent title={'Submit OTP'} onPress={Checkotp}/>:null}
+        {count ===2 ? <ButtonComponent title={'Save New Password'} onPress={UpdatePassword} disabled={!(ConfirmError==='' && Password.length>6 && confirmPass.length>6)}/>:null}
+        {count ===3 ? <ButtonComponent title={'Go to Homepage'} onPress={()=>navigation.navigate('BottomTabNavigation')} />:null}
+        
       </View>
       </ScrollView>
     </SafeAreaView>

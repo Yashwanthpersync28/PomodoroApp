@@ -9,15 +9,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from "../Icons";
 
-export const TextInputCompnent = ({ IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor}) => {
+export const TextInputCompnent = ({ IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor , showGray}) => {
 
     const { darkMode } = useSelector(state => state.system)
     return(
         <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),bgColor]}>
-            <Icon name={Iconname} type={IconFamily} style={[fontSize(30), styles.black]}/>
+            <Icon name={Iconname} type={IconFamily} style={[fontSize(20), showGray ? styles.lightGray:styles.black]}/>
             <View style={[styles.row, flex(1.5), value == "" && opacity(0.7), styles.centerHorizontal ]}>
                 <TextInput
-                    placeholderTextColor={darkMode ? Colors.white : Colors.black}
+                    placeholderTextColor={showGray ? Colors.lightGray : Colors.black}
                     placeholder={placeholder}
                     value={value}
                     onKeyPress={onKeyPress}
