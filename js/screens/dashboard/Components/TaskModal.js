@@ -41,7 +41,7 @@ import { Manage } from '../../Manage/Manage';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
-export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,}) => {
+export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor}) => {
 
     const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
@@ -94,7 +94,11 @@ console.log('id', taskDetails.map(data=>data.id))
                         radius(0, 20, 0, 0, 20),
                         styles.spaceBetweenVertical,
                     ]}>
+                         <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
+        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+        </View>
                     <View style={[styles.row, styles.allCenter, styles.selfEnd]}>
+                   
                         <View>
                             <Text
                                 style={[
@@ -122,28 +126,32 @@ console.log('id', taskDetails.map(data=>data.id))
                              style={[fontSize(20)]} 
                              value={searchText}
                              onChangeText={handleSearch}
-                             
                              />
                         </View>
                         <View style={[styles.row, styles.centerHorizontal, margin(0, 20)]}>
                             <Text style={[marginPosition(0, 10), styles.gray, { fontWeight: '500' }]}>Today Tasks</Text>
                             <View style={[borderWidth(0, 1), styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
                         </View>
+                        
                         <View>
-                        
-                        {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details),
-                       
-                       <View>
-                       {/* <Text>{details.completed}</Text>  */}
+                {filteredTasks.length === 0 ?
+                       <View style={[styles.centerHorizontal]}>
+                            <Text style={[styles.black,{fontWeight:'500'},fontSize(18),padding(0,20),{fontWeight:'600'}]}>You don't have any tasks</Text>
+                        </View>  :
+                        <View> 
+
+                  {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details),
+                     
+                  
+                    <View>
                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
-                       projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details}
-                      
+                       projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details} setTaskColor={setTaskColor}
                         Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id}/> 
-                        
                         </View>
-                        ))}
-                        
-                        </View>
+                        ))} 
+                        </View> }
+                        </View> 
+     
                     </View>
                 </View>
             </Modal> 

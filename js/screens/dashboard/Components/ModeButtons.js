@@ -13,8 +13,8 @@ const Button = ({ icon, text, onPress,iconType}) => (
 
   <TouchableOpacity onPress={onPress}>
     <View style={[styles.centerHorizontal]}>
-    <Icon name={icon} type={iconType}  style={[fontSize(30),styles.black]}  />
-    <Text style={[fontSize(18), marginPosition(10),styles.black]}>{text}</Text> 
+    <Icon name={icon} type={iconType}  style={[fontSize(30),styles.iconGray]}  />
+    <Text style={[fontSize(15.5), marginPosition(10),styles.iconGray]}>{text}</Text> 
     </View>
   </TouchableOpacity>
 );

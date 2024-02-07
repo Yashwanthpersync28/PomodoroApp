@@ -34,15 +34,15 @@ export const Header = () => {
             styles.row,
             styles.spaceBetweenVertical,
             styles.centerHorizontal,
-            {height:heightValue(20),width:widthValue(1.18)}
+            {height:heightValue(22),width:widthValue(1.18)}
           ]}>
           <Image
             source={timer}
-            style={[{width: widthValue(12), height: widthValue(12)}]} />
+            style={[{width: widthValue(14), height: widthValue(14)}]} />
          
-          <Text style={[ styles.white,fontSize(25), {fontWeight: '600'}]}>Focusify</Text>
+          <Text style={[ styles.white,fontSize(23), {fontWeight: '600'}]}>Focusify</Text>
 
-          <TouchableOpacity onPress={()=>navigation.navigate('Notification1')}><Icon name={"bell"} type={Icons.Feather} style={[styles.white,fontSize(30)]} /></TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('Notification1')}><Icon name={"bell"} type={Icons.Feather} style={[styles.white,fontSize(24)]} /></TouchableOpacity>
         </View>
       </View>
   )

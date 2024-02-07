@@ -25,13 +25,13 @@ export const Settings = () => {
 const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 
   return(
-  <TouchableOpacity style={[flex(6),styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,25,10)]} onPress={onPress} >
+  <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,25,10)]} onPress={onPress} >
     <View style={[styles.row]}>
-     <Icon name={IconLeft} type={leftIconType}  style={[styles.black,fontSize(30)]} /> 
-     <Text style={[fontSize(20),styles.black,{fontWeight:"500"},marginPosition(0,0,0,30)]}>{PreferanceName}</Text>
+     <Icon name={IconLeft} type={leftIconType}  style={[styles.black,fontSize(25)]} /> 
+     <Text style={[fontSize(18),styles.black,{fontWeight:"500"},marginPosition(0,0,0,30)]}>{PreferanceName}</Text>
      </View>
         <View style={[styles.row,styles.centerHorizontal]}>
-      <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[styles.black,fontSize(30)]} /> 
+      <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[styles.black,fontSize(25)]} /> 
       </View>
      </TouchableOpacity>
   )
@@ -42,7 +42,7 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
     <View style={[{height:heightValue(15)}]}> 
       <Header color={styles.black} headername={'Settings'} />
       </View> 
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[paddingPosition(10,0,0,10)]}>
+    <View  style={[paddingPosition(10,0,0,10),{height:heightValue(1.3)}]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />
       <SettingComponent  PreferanceName={'Pomodoro Preference'} leftIconType={Icons.Entypo} IconLeft={'stopwatch'} onPress={()=>navigation.navigate('PomodoroPreference')}/>
       <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/>
@@ -56,7 +56,7 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
       <SettingComponent  PreferanceName={'Terms of Services'} leftIconType={Icons.FontAwesome5} IconLeft={'file-signature'}/> */}
       <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'} onPress={()=>dispatch(setCurrentModal(13))}/>
       {currentModal === 13 && <Logout currentModal={currentModal} logOut={logOut}/>} 
-            </ScrollView>
+            </View>
     </View>
   )
 }

@@ -47,7 +47,6 @@ export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => 
   const renderItem = ({item,index})=>{
     return(
     <View>
-            <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
               
             <TouchableOpacity onPress={()=>{toggleSwitch(index),console.log(item.id)}}>
               <View
@@ -57,7 +56,7 @@ export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => 
                   paddingPosition(15, 0, 20, 0),
                 ]}>
                   
-                <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
+                <Text style={[styles.black, fontSize(18), { fontWeight: '500' }]}>
                   {item.name}
                 </Text>
                 <Switch
@@ -70,21 +69,21 @@ export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => 
               </View>
               </TouchableOpacity>
             </View>
-          </View>
     )
   }
 
   return (
     <View style={[{ width: widthValue(1) }, styles.centerHorizontal]}>
-      <Modal
-        animationIn={'slideInUp'}
-        animationOut={'slideOutDown'}
-        visible={currentModal===2}
-        hasBackdrop={true}
-        backdropColor='black'
-        backdropOpacity={0.5}
-        onBackdropPress={closeModal}
-        style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}>
+      <Modal 
+      isVisible={currentModal ===2}
+      hasBackdrop={true}
+      animationIn={'slideInUp'}
+      animationOut={'slideOutDown'}
+      onBackdropPress={closeModal}
+      backdropColor='black'
+      backdropOpacity={0.5}
+      style={[{ margin: 0, width: widthValue(1), height: heightValue(2),}]}>
+
         <View
           style={[
             styles.bgWhite,
@@ -98,24 +97,31 @@ export const StrictModeModal = ({closeModal,currentModal,updateStrictMode }) => 
             radius(0, 20, 0, 0, 20),
             styles.spaceBetweenVertical,
           ]}>
+            <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
+        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+        </View>
           <Text
             style={[
               styles.black,
               styles.textCenter,
               { fontWeight: '500' },
-              fontSize(24),
-              paddingPosition(0, 0, 20, 0),
+              fontSize(22),
+              paddingPosition(10, 0, 20, 0),
             ]}>
             Strict Mode
           </Text>
+
+          <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
           <FlatList data={modalData.StrictMode} renderItem={renderItem} keyExtractor={item=>item.id}/>
+          </View>
+
           
           <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Ok'}onPress={updateStrictMode} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,15,20)]}  ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Ok'}onPress={updateStrictMode} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} paddingval={[padding(0,15,20)]}  BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
-      </Modal>
+        </Modal>
     </View>
   );
 };

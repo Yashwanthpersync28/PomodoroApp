@@ -21,7 +21,7 @@ export const MonthScreen = () => {
 
         <View style={marginPosition(10)}>
           {tasksForDate.map((task, index) => (
-            <View key={index} style={[styles.bgOrange, paddingPosition(5, 0, 5, 8), radius(0, 0, 0, 5, 5), borderWidth(0.1), styles.allCenter, margin(0, 5)]}>
+            <View key={index} style={[{backgroundColor:task.Project.Color}, paddingPosition(5, 0, 5, 8), radius(0, 0, 0, 5, 5), borderWidth(0.1), styles.allCenter, margin(0, 5)]}>
               <Text style={[styles.white, fontSize(15)]}>{task.Taskname}</Text>
             </View>
           ))}

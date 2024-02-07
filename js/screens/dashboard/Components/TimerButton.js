@@ -18,7 +18,7 @@ import {
     padding,  
   } from '../../../styles/Styles';
 import Icon,{Icons} from '../../../components/Icons';
- export const TimerButton = ({onPress,buttonText,ButtonIcon,widthVal,BgColor,textColor,borderWidth}) => {
+ export const TimerButton = ({onPress,buttonText,ButtonIcon,widthVal,BgColor,textColor,borderWidth,heightval,paddingval}) => {
   return (
     <View
         style={[
@@ -29,10 +29,9 @@ import Icon,{Icons} from '../../../components/Icons';
           onPress={onPress}
           style={[
             styles.centerVertical,
-            { height: heightValue(14)},
             radius(30),
             marginPosition(0,0,20),
-            paddingPosition(10,20,10,20),
+            paddingval,
             borderWidth,
             styles.borderOrange,
             widthVal,
@@ -40,7 +39,7 @@ import Icon,{Icons} from '../../../components/Icons';
           ]}>
           <View
             style={[styles.row, styles.centerHorizontal,styles.spaceEvenly]}>
-          <Icon name={ButtonIcon} type={Icons.FontAwesome5} style={[styles.white,fontSize(20),padding(0,0,10)]} />
+          <Icon name={ButtonIcon} type={Icons.FontAwesome5} style={[styles.white,fontSize(18),padding(0,10,10)]} />
            <Text style={[textColor,fontSize(20), {fontWeight:'500'}]}>
             {buttonText}
             </Text> 

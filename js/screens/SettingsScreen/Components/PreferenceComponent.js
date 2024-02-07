@@ -7,7 +7,7 @@ import Icon, { Icons } from '../../../components/Icons'
 
   return (
     <TouchableOpacity style={[flex(0.3),styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10)]} onPress={onPress} >
-        <Text style={[fontSize(20),styles.black,{fontWeight:"500"}]}>{PreferanceName}</Text>
+        <Text style={[fontSize(18),styles.black,{fontWeight:"500"}]}>{PreferanceName}</Text>
         <View style={[styles.row,styles.centerHorizontal]}>
 
         <View style={[styles.row,marginPosition(0,10,0),]}>

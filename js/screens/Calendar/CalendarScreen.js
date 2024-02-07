@@ -61,7 +61,7 @@ console.log('renderTaskArray',tasks)
 
       {showLists ? (
         <View style={flex(.7)}>
-          {isEmpty && filteredTasks.length === 0 ? (
+          {isEmpty && tasks.length === 0 ? (
             <View style={[flex(.8), styles.selfStart, styles.centerHorizontal, { width: widthValue(1) }, styles.allCenter]}>
               <Image source={notepad} style={{ width: widthValue(1.8), height: widthValue(1.8) }} />
               <Text style={[styles.black, fontSize(25), { fontWeight: '600' }]}>Empty</Text>

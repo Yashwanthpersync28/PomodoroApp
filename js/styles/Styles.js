@@ -158,6 +158,7 @@ export const styles = StyleSheet.create({
     timerBlue:{color:Colors.timerBlue},
     borderGray:{color:Colors.borderGray},
     textGray:{color:Colors.textGray},
+    iconGray:{color:Colors.iconGray},
     
 
 // - - - - - BACKGROUND COLORS - - - - - //
@@ -201,6 +202,7 @@ export const styles = StyleSheet.create({
     bgborderGray:{backgroundColor:Colors.borderGray},
     bgWhiteSmoke:{backgroundColor:Colors.WhiteSmoke},
     bgtoggleWhite:{backgroundColor:Colors.toggleWhite},
+    bgiconGray :{backfaceVisibility:Colors.iconGray},
 
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },

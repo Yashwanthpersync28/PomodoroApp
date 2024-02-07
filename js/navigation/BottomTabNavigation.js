@@ -12,7 +12,6 @@ import Icon,{Icons} from '../components/Icons';
 const Tab = createBottomTabNavigator();
 const BottomTabNavigation = () => {
   return (
-   
     <Tab.Navigator 
     initialRouteName='PomodoroScreen'
     screenOptions=
@@ -26,13 +25,14 @@ const BottomTabNavigation = () => {
                 borderTopWidth:0,
                 shadowOpacity:0,
                 elevation:0,
-                paddingBottom:15,
-                paddingHorizontal:30,
+                paddingBottom:20,
+                paddingHorizontal:20,
                 height:heightValue(10),
             },
             tabBarLabelStyle:{
                 fontSize:12,
                 fontWeight:'500',
+                marginTop:-13,
             },  
         }
     }
@@ -44,8 +44,8 @@ const BottomTabNavigation = () => {
             component={menu.component}
             options={{
                 tabBarLabel:menu.label,
-                    tabBarIcon:({color,focused})=>(
-                        <Feather  name={menu.icon} style={[fontSize(22)]} color={focused? '#ff6347':'black'}/>
+                    tabBarIcon:({focused})=>(
+     <Icon name={menu.icon} type={menu.iconType} style={[fontSize(26)]} color={focused? '#ff6347':'gray'} /> 
                     )
                 }
             }/>

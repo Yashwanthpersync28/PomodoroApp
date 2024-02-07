@@ -108,8 +108,8 @@ const handlePhone = (text)=>{
                     },
                 }
                 launchImageLibrary(options, response=>{
-                    setSelectedImage(response,assets[0].uri);
-                    console.log(response,assets[0].uri);
+                    setSelectedImage(response.uri);
+                    console.log(response.uri);
                     setShowProfilePic(true)
                 })
             }},
@@ -121,8 +121,8 @@ const handlePhone = (text)=>{
                     }
                 };
                 launchCamera(options,response=>{
-                    setSelectedImage(response.assets[0].uri);
-                    console.log(response.assets[0].uri);
+                    setSelectedImage(response.uri); 
+                    console.log(response.uri);
                     setShowProfilePic(true)
                 })
             }}
@@ -146,10 +146,6 @@ const handlePhone = (text)=>{
     </View>   
 
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[marginPosition(30),{height:heightValue(1.2)},padding(0,0,30),]}>
-        {/* <DetailComponent name={'Full name'} placeholder={'Julius Ceaser'}  value={fullname} /> */}
-        
-        {/* <DetailComponent name={'Username'} placeholder={'juliusCeaser'} EmailIcon={'person-outline'} EmailIconType={Icons.Ionicons}  value={fullname} onChangeText={(text)=>setFullname(text)}/> */}
-       
         <View style={[margin(0,10)]}>
                 <Text style={[styles.black,fontSize(18),padding(0,10),{fontWeight:'500'}]}>
                     Full Name

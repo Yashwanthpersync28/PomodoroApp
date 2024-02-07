@@ -45,8 +45,8 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 </View>
 
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Yes. Logout'}  onPress={logOut} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]}ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Yes. Logout'}  onPress={logOut} widthVal={{width:widthValue(2.5)}}  paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
         

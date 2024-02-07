@@ -28,20 +28,19 @@ import Icon, { Icons } from '../../../components/Icons';
       const isSelected = selectedTune === item.MusicName
       console.log('isSelected',isSelected)
       return(
+        <View>
         <TouchableOpacity onPress={()=>handleNoise(item)}>
-        <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
-              <View>
+        <View style={[styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
                 <View
                   style={[
                     styles.row,
                     styles.spaceBetweenVertical,
                     paddingPosition(15, 0, 20, 0),
                   ]}>
-                  <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
+                  <Text style={[styles.black, fontSize(18), { fontWeight: '500' }]}>
                     {item.MusicName}
                   </Text>
                 </View>
-              </View>
               <View>
         {isSelected &&
          <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 5)]} />
@@ -49,6 +48,8 @@ import Icon, { Icons } from '../../../components/Icons';
         </View>
             </View> 
             </TouchableOpacity>
+            </View>
+
       )
      }
 
@@ -76,22 +77,25 @@ import Icon, { Icons } from '../../../components/Icons';
               radius(0, 20, 0, 0, 20),
               styles.spaceBetweenVertical,
             ]}>
+              <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
+        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+        </View>
             <Text
               style={[
                 styles.black,
                 styles.textCenter,
                 { fontWeight: '500' },
-                fontSize(24),
+                fontSize(22),
                 paddingPosition(0, 0, 20, 0),
               ]}>
               White Noise 
             </Text>
-
-<FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/>
+            <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
+<FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/></View>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal(),stopSound()}}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-        <TimerButton buttonText={'Ok'}onPress={()=>{updateNoise(),stopSound()}} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal(),stopSound()}} paddingval={[padding(0,15,20)]} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Ok'}onPress={()=>{updateNoise(),stopSound()}} paddingval={[padding(0,15,20)]} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>
         </Modal>

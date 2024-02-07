@@ -13,7 +13,7 @@ import { Icons } from '../../components/Icons';
 import { modalData } from '../../constants/ModalsData';
 import Sound from 'react-native-sound';
 import { Header } from './Components/Header';
-import { Pomodoro2 } from './Components/Pomodoro2';
+import {  PomodoroTimer } from './Components/PomodoroTimer';
 import { useDispatch,useSelector } from 'react-redux';
 import { Button } from 'react-native';
 import { setCurrentModal } from '../../redux/userReducer/modalReducer';
@@ -101,6 +101,9 @@ export const PomodoroScreen = () => {
   const [displaySession,setDisplaySession] = useState('No Sessions')
   const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
+const [taskColor,setTaskColor] = useState('white') 
+
+console.log('taskColor',taskColor)
 // const currentdate = new Date();
 //   const completedDate = currentdate.toISOString().split('T')[0]
 
@@ -133,14 +136,14 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
 
   const completedPomodoro = ()=>{
     // setTaskCompleted(true)
-    navigation.navigate('TrophyScreen')
+    // navigation.navigate('TrophyScreen')
     console.log('completed True')
     updateTaskAndValue();
     setProgress(100)
     setDisplaySession('No Session')
-    setCurrentButton(0)
-    setSelectedTask(taskSelected)
+        setSelectedTask(taskSelected)
     console.log(totalfocusTime,'totalfocusTime')
+    dispatch(setCurrentModal(14))
   } 
 
   const getDate = ()=>{
@@ -311,6 +314,7 @@ const completionSound = ()=>{
     setProgress(100)
     setDisplaySession('No Sessions')
     dispatch(setTaskSession(sessionNumber))
+    setTaskColor('white')
     }
     else if(timerMode === 1){
       // setBarColor('#ff6347')
@@ -320,6 +324,8 @@ const completionSound = ()=>{
     setSecondTime(0*60)
     setIsTimerActive(false)
     setCurrentButton(0)
+    setTaskColor('white')
+
     }
     // setSession('No');
     
@@ -394,6 +400,12 @@ const updateTask = ()=>{
   }
 }
 
+
+const goBack = ()=>{
+  navigation.goBack();
+  setCurrentButton(0)
+}
+
 return (
   <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
     <StatusBar backgroundColor = "#ff6347" barStyle = "dark-content"/>
@@ -402,7 +414,7 @@ return (
         <View style={[marginPosition(0,0,0,20)]}>
           <Header />
         </View>
-        <TaskComponent handleTasks={handleTasks} selectedTask={selectedTask}  setCurrentModal={setCurrentModal} clearTask={clearTask} taskSelected={taskSelected}/>
+        <TaskComponent handleTasks={handleTasks} selectedTask={selectedTask}  setCurrentModal={setCurrentModal} clearTask={clearTask} taskSelected={taskSelected} taskColor={taskColor}/>
       </View>
       <View style={[{ backgroundColor: 'white', height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
       </View>
@@ -426,7 +438,7 @@ return (
         handleAnimation={handleAnimation}
         />  }
         {timerMode === 0 &&
-<Pomodoro2  
+<PomodoroTimer  
   time={time} 
   setTime={setTime}
   displayTime={displayTime}
@@ -464,12 +476,17 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)} />}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor}/>}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
+   
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {taskCompleted === true && <TrophyScreen  setCurrentButton={setCurrentButton}/>}
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal}/>}
+
   </SafeAreaView>
+
+
+
 );
 };
 

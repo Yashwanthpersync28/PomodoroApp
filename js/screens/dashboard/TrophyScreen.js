@@ -1,15 +1,28 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 import LottieView from 'lottie-react-native'
-import { heightValue, widthValue ,styles, fontSize,marginPosition,flex} from '../../styles/Styles'
+import { heightValue, widthValue ,styles, fontSize,marginPosition,flex,padding} from '../../styles/Styles'
 import { HeadingComponent } from '../../components/view/HeadingComponent'
 import { TimerButton } from './Components/TimerButton'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { setCurrentModal } from '../../redux/userReducer/modalReducer'
+import Modal from 'react-native-modal'
 
- export const TrophyScreen = ({setCurrentButton}) => {
+ export const TrophyScreen = ({currentModal,}) => {
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  const goBack = ()=>{
+    dispatch(setCurrentModal(0))
+  }
   return (
-    <SafeAreaView style={[styles.bgWhite,flex(1),styles.spaceBetweenVertical]}>
+    <Modal 
+    isVisible={currentModal === 14}
+    hasBackdrop={true}
+    animationIn={'slideInUp'}
+    animationOut={'slideOutDown'}
+    style={[styles.bgWhite,{heighgt:heightValue(1),margin:0},styles.spaceBetweenVertical]}>
       <View style={[styles.centerHorizontal]}>
         <LottieView  source={require('../../assets/Lottieview/Trophy1.json')} autoPlay={true} loop={false} style={[{width:widthValue(.8),height:heightValue(1.7)}]}/>
         <View style={[{height:heightValue(8)},styles.centerVertical,]}>
@@ -19,9 +32,9 @@ import { useNavigation } from '@react-navigation/native'
       </View>
       </View>
       <View style={[styles.row,styles.spaceAroundVertical,marginPosition(0,0,10,0)]}>
-      <TimerButton buttonText={'Back to Home'} onPress={()=>{navigation.navigate('PomodoroScreen'),setCurrentButton(0)}} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'View Report'} widthVal={{width:widthValue(2.3)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton onPress={goBack} buttonText={'Back to Home'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]}  textColor={[styles.Orange]}  />
+      <TimerButton onPress={()=>navigation.navigate('Report')} buttonText={'View Report'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]}  textColor={[styles.white]}  />
       </View>
-    </SafeAreaView>
+    </Modal>
   )
 }
