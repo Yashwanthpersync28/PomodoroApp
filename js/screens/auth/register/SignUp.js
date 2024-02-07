@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform , StatusBar} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { flex, fontSize, heightValue, marginPosition, padding, styles, widthValue } from '../../../styles/Styles';
+import { flex, fontSize, fontWeight, heightValue, marginPosition, padding, styles, widthValue } from '../../../styles/Styles';
 import { BackButtonComponent } from '../../../components/touchables/BackButton';
 import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { TextInputCompnent } from '../../../components/inputs/TextInputComponent';
@@ -11,12 +11,13 @@ import LoaderModalComponent from '../../../components/modals/LoaderModalComponen
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 import { Icons } from '../../../components/Icons';
+import { handlePasswordvalidation } from '../../../constants/PasswordValidaton';
 
 export const SignUp = ({ navigation }) => {
   //selectors
   const dispatch=useDispatch();
   const userDatas=useSelector((state)=>state.UserDetails.userList)
-  console.log('fcgvhbjkn',userDatas.length);
+  console.log('fcgvhbjkn',userDatas);
   //states
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
@@ -32,17 +33,15 @@ export const SignUp = ({ navigation }) => {
   };
 ///Store user data in redux
   const handletoLogin = () => {
-    // dispatch(addUser({email:Email,password:Password}))
+
     const newUser = {
       email: Email,
       password: Password,
-      id: userDatas.length,
-      tasks: [],
-      Tags: [],
-      Project: [],
+      id: userDatas.length+1,
     };
   
-    dispatch(addUser(newUser));
+    dispatch(addUser([...userDatas,newUser]));
+    
     navigation.navigate('login')
   };
 
@@ -58,32 +57,8 @@ const handleEmailChange = (text) => {
 ////password validation
 const handlePassword = (val) => {
   setPassword(val);
-
-  const minLength = 6;
-  const hasNumber = /\d/.test(val);
-  const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(val);
-  const hasUpperCase = /[A-Z]/.test(val);
-
-  // let error = '';
-
-  if (val.length < minLength) {
-    setPasswordError(`Password must be at least ${minLength} characters. `);
-  }
-
-  else if (!hasNumber) {
-    setPasswordError('Password must contain at least one number. ');
-  }
-
-  else if (!hasSpecialSymbol) {
-    setPasswordError('Password must contain at least one special symbol. ');
-  }
-
-  else if (!hasUpperCase) {
-    setPasswordError('Password must contain at least one uppercase letter. ');
-  }
-  else{
-    setPasswordError('')
-  }
+  const passwordvalidation=handlePasswordvalidation(val)
+setPasswordError(passwordvalidation)
 };
 
 //to handle disable button
@@ -111,13 +86,13 @@ else{
         style={[padding(20), styles.bgWhite, flex(1)]}
       >
         <View style={[styles.centerVertical, flex(0.3)]}>
-          <BackButtonComponent onPress={() => navigation.navigate('onboarding')} />
+          <BackButtonComponent onPress={() => navigation.goBack()} />
         </View>
         <View style={[flex(0.3)]}>
-          <HeadingComponent name={'Join Focusify Today 👤'} details={'Unlock Your Productivity Potential!'} />
+          <HeadingComponent name={'Join Focusify Today'} details={'Unlock Your Productivity Potential!'} icon={'👤'}/>
         </View>
         <View style={[flex(0.3)]}>
-          <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Email</Text>
+          <Text style={[padding(0, 10, 0, 10, 0), styles.black,fontWeight('bold')]}>Email</Text>
           <TextInputCompnent
             placeholder={'Email'}
             value={Email}
@@ -125,10 +100,12 @@ else{
             keyboardType="email-address"
             IconFamily ={Icons.MaterialCommunityIcons}
             Iconname={'email'}
+            bgColor={styles.bglgWhite}
+            // fontsize={20}
           />
           {EmailError===''?null:
-          <Text style={[styles.Orange]}>{EmailError}</Text>}
-          <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Password</Text>
+          <Text style={[styles.Orange,fontSize(16.5)]}>{EmailError}</Text>}
+          <Text style={[padding(0, 10, 0, 10, 0), styles.black, fontWeight('bold')]}>Password</Text>
           <TextInputCompnent
             placeholder={'Password'}
             value={Password}
@@ -138,15 +115,16 @@ else{
             IconFamily ={Icons.SimpleLineIcons}
             Iconname={'lock'}
             ShowPasswordIcon={true}
+            bgColor={styles.bglgWhite}
           />
           {PasswordError===''?null:
-          <Text style={[styles.Orange]}>{PasswordError}</Text>}
+          <Text style={[styles.Orange,fontSize(16.5)]}>{PasswordError}</Text>}
         </View>
         <View style={[styles.column, styles.centerVertical, padding(10), flex(0.3)]}>
           <View style={[styles.row,styles.centerVertical]}>
-          <Text style={[styles.black]}>Already have an account ?</Text>
-          <TouchableOpacity onPress={handletoLogin}>
-            <Text style={[styles.Orange, marginPosition(0, 0, 0, 5)]}>Log in</Text>
+          <Text style={[styles.black,fontSize(20)]}>Already have an account ?</Text>
+          <TouchableOpacity onPress={()=>navigation.navigate('login')}>
+            <Text style={[styles.Orange, marginPosition(0, 0, 0, 5),fontSize(20),fontWeight('bold')]}>Log in</Text>
           </TouchableOpacity>
           </View>
         </View>

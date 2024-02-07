@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { ButtonComponent, TextInputCompnent, BackButtonComponent } from "../../../components";
-import { padding , styles, marginPosition, flex, fontSize} from "../../../styles/Styles";
+import { padding , styles, marginPosition, flex, fontSize, fontWeight} from "../../../styles/Styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeadingComponent } from "../../../components/view/HeadingComponent";
 import Icon, { Icons } from "../../../components/Icons";
 import LoaderModalComponent from "../../../components/modals/LoaderModalComponent";
 import { setOnboarding } from "../../../redux/ShowComponentReducer/ShowOnboardingReducer";
 import { setRememberMe } from "../../../redux/rememberReducer/RemembermeReducer";
+import { handlePasswordvalidation } from "../../../constants/PasswordValidaton";
 
 
 export const LoginScreen = ({navigation}) => {
@@ -69,7 +70,7 @@ export const LoginScreen = ({navigation}) => {
           })
         );
       } else {
-        // Dispatch the setRememberMe action with default values if Remember Me is unchecked
+        // Dispatched the setRememberMe action with default values if Remember Me is unchecked
         dispatch(
           setRememberMe({
             email: "",
@@ -78,10 +79,7 @@ export const LoginScreen = ({navigation}) => {
           })
         );
       }
-      // {id:user.id}
-      // addproject
-      // addtags  
-      // BottomTabNavigation
+     
     }
     else{
       setPasswordError('invalid Password')
@@ -101,32 +99,8 @@ const handleEmailChange = (text) => {
 ////password validation
 const handlePassword = (val) => {
   setPassword(val);
-
-  const minLength = 6;
-  const hasNumber = /\d/.test(val);
-  const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(val);
-  const hasUpperCase = /[A-Z]/.test(val);
-
-  // let error = '';
-
-  if (val.length < minLength) {
-    setPasswordError(`Password must be at least ${minLength} characters. `);
-  }
-
-  else if (!hasNumber) {
-    setPasswordError('Password must contain at least one number. ');
-  }
-
-  else if (!hasSpecialSymbol) {
-    setPasswordError('Password must contain at least one special symbol. ');
-  }
-
-  else if (!hasUpperCase) {
-    setPasswordError('Password must contain at least one uppercase letter. ');
-  }
-  else{
-    setPasswordError('')
-  }
+  const passwordValidation=handlePasswordvalidation(val)
+  setPasswordError(passwordValidation)
 };
 /// - - - handle disable button - - -  //
 useEffect(()=>{
@@ -156,10 +130,10 @@ useEffect(()=>{
     <BackButtonComponent onPress={()=>navigation.navigate('signup')}/>
   </View>
   <View style={[flex(0.3)]}>
-    <HeadingComponent name={'Welcome Back 👋'} details={'Let\'s Get Back to Productivity'} />
+    <HeadingComponent name={'Welcome Back '} details={'Let\'s Get Back to Productivity'} icon={'👋'}/>
   </View>
   <View style={[flex(0.3)]}>
-    <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Email</Text>
+    <Text style={[padding(0, 10, 0, 10, 0), styles.black,fontWeight('bold')]}>Email</Text>
     <TextInputCompnent
       placeholder={'Email'}
       value={Email}
@@ -167,10 +141,11 @@ useEffect(()=>{
       keyboardType="email-address"
       IconFamily ={Icons.MaterialCommunityIcons}
       Iconname={'email'}
+      bgColor={styles.bglgWhite}
     />
     {EmailError===''?null:
           <Text style={[styles.Orange]}>{EmailError}</Text>}
-    <Text style={[padding(0, 10, 0, 10, 0), styles.black]}>Password</Text>
+    <Text style={[padding(0, 10, 0, 10, 0), styles.black,fontWeight('bold')]}>Password</Text>
     <TextInputCompnent
       placeholder={'Password'}
       value={Password}
@@ -180,9 +155,10 @@ useEffect(()=>{
       IconFamily ={Icons.SimpleLineIcons}
       Iconname={'lock'}
       ShowPasswordIcon={true}
+      bgColor={styles.bglgWhite}
     />
     {PasswordError===''?null:
-          <Text style={[styles.Orange]}>{PasswordError}</Text>}
+          <Text style={[styles.Orange,fontSize(16.5)]}>{PasswordError}</Text>}
   </View>
   <View style={[styles.row, marginPosition(0), flex(0.3), styles.centerVertical]}>
   <View style={[styles.row, flex(3), styles.selfStart]}>
@@ -190,12 +166,12 @@ useEffect(()=>{
       <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
     </TouchableOpacity>
     <View style={[styles.allCenter]}>
-      <Text style={[styles.black, marginPosition(0, 0, 0, 10), fontSize(16)]}>Remember Me</Text>
+      <Text style={[styles.black, marginPosition(0, 0, 0, 10), fontSize(17),fontWeight('bold')]}>Remember Me</Text>
     </View>
   </View>
   <View style={[flex(1.5), styles.centerHorizontal, { alignItems: 'flex-end' }]}>
     <TouchableOpacity onPress={handleforgotPassword}>
-      <Text style={[styles.Orange, fontSize(16)]}>Forgot password?</Text>
+      <Text style={[styles.Orange, fontSize(17)]}>Forgot password?</Text>
     </TouchableOpacity>
   </View>
 </View>

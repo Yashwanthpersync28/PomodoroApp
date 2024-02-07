@@ -35,7 +35,7 @@ export const Swipercomponent = () => {
   
   return (
     <View style={[flex(1)]}>
-    <View style={[flex(1),borderColor('#f7f7f7'),borderWidth(0,0,0,2),styles.bgsmokewhite]}>
+    <View style={[flex(1),styles.bgsmokewhite]}>
       <Swiper
         ref={swiper}
         loop={false}
@@ -88,13 +88,14 @@ export const Swipercomponent = () => {
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgsmokewhite,{height:heightValue(7)}]}>
+      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgWhite,{height:heightValue(7)},borderColor('#f7f7f7'),borderWidth(2)]}>
+       
        {getStarted? <> 
-                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(3)}]} handlecontinue={handleit}/>
-                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(3)}]}/>
+                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(2.4)},marginPosition(0)]} handlecontinue={handleit}/>
+                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(2.4)},marginPosition(0)]}/>
           
            </>:
-           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)}]}/>
+           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)},marginPosition(0)]}/>
         }
     </View>
      
@@ -104,3 +105,4 @@ export const Swipercomponent = () => {
 };
 
 
+// borderColor('#f7f7f7'),borderWidth(2)

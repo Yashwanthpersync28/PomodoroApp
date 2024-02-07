@@ -6,7 +6,7 @@ const CustomizedButtons = ({name,handlecontinue,bgcolor,color,width,style,disabl
   return (
    
      <TouchableOpacity onPress={handlecontinue} disabled={disable}>
-      <View style={[radius(30),{height:heightValue(15),},bgcolor,styles.allCenter,marginPosition(0,0,0),style]}>
+      <View style={[radius(30),{height:heightValue(15)},bgcolor,styles.allCenter,style]}>
         <Text style={[color,fontSize(20),{fontfamily:500},]}>{name}</Text>
       </View>
     </TouchableOpacity>
