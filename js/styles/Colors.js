@@ -42,5 +42,7 @@ export const Colors =  {
     WhiteSmoke:'#f5f5f5',
     toggleWhite:'#eeeeee',
     textGray:'#b6b6b6',
-    iconGray:'#65656a'
+    iconGray:'#65656a',
+    TextBlack:'#242424',
+    MilkyWhite:'#fdfdfd',
 }

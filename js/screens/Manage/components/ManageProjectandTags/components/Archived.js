@@ -45,7 +45,7 @@ export const Archived = ({navigation,route}) => {
  }
 
   return (
-    <SafeAreaView style={[flex(1), paddingPosition(0, 10, 0, 10), styles.bgWhite]}>
+    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bgWhite]}>
         <View style={[{height:heightValue(14)}]}>
         <Header
           headername={name}

@@ -12,12 +12,13 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
        <Icon name={IconNameLeft} type={IconfamilyLeft} style={[styles.black,fontSize(30)]} />:
      <Image
      source={require('../../../assets/Images/timericon2.png')}
-     style={[{width: widthValue(6), height: widthValue(6)}]}
+     style={[{width: widthValue(6), height: widthValue(6)},marginPosition(0,0,0,-10)]}
    />}
      </TouchableOpacity>
     </View>
     <View style={[flex(1),styles.allCenter]}>
-        <Text style={[fontSize(25),color,{fontWeight:"700"}]}>{headername}</Text>
+        <Text style={[fontSize(22),color,{fontWeight:"800"}]}>{headername}</Text>
+        {/* ndcbjd  */}
     </View>
     <View style={[flex(0.2),{justifyContent:'flex-end',alignItems:'center'},styles.row]}>
        <TouchableOpacity onPress={handleSearch}>

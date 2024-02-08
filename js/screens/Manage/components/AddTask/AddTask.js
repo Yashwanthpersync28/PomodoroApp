@@ -1,6 +1,6 @@
 import React, { useRef, useState , useEffect} from 'react'
 import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView,TouchableOpacity,StatusBar} from 'react-native'
-import { borderColor, borderWidth, flex, fontSize, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../../../styles/Styles'
+import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../../../styles/Styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../../styles/Colors';
 import Icon, { Icons } from '../../../../components/Icons';
@@ -14,6 +14,7 @@ import { DueDateModal } from '../../../../components/modals/DueDateModal';
 import { Addtags } from '../AddTags/Addtags';
 import { Project } from '../project/Project';
 import { AddProject } from '../AddProject/AddProject';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const AddTask = ({ visible, onClose ,count}) => {
   const navigation=useNavigation();
@@ -30,7 +31,7 @@ export const AddTask = ({ visible, onClose ,count}) => {
  const today = new Date();
  const currentDate = today.toISOString().split('T')[0];
  const [receivedPriorityData,setPriorityData]=useState([])///priority data
- const [session,setsession]=useState(1)//to  get session
+ const [session,setsession]=useState(null)//to  get session
  const [taskname,setTaskname]=useState('')//to get task name
  const [selectedDate, setSelectedDate] = useState('')//to get selected data
  const [receiveTagsData,setreceiveTagsData]=useState([]);
@@ -60,7 +61,7 @@ export const AddTask = ({ visible, onClose ,count}) => {
   // setDisablebutton(taskname.length <= 2);
 }, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate,]);
 
-const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || Colors.LeafGreen},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
+const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || 'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
 
 
 
@@ -136,7 +137,7 @@ const getProjectDetails=(name,color)=>{
   console.log('hjberk');
 }
   return (
-    
+    <>
     <Modal
     animationType="slide"
     transparent={true}
@@ -159,7 +160,7 @@ const getProjectDetails=(name,color)=>{
       {/* //addText  */}
       <View style={[flex(1),paddingPosition(0,20,0,20),styles.selfStart]}>
            <TextInput value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black]} 
-                  placeholderTextColor={darkMode ? Colors.white : Colors.black}/>
+                  placeholderTextColor={Colors.iconGray}/>
       </View>
       {/*  */}
       {/* //sessons */}
@@ -170,15 +171,15 @@ const getProjectDetails=(name,color)=>{
       {/*  */}
       {/* //footer */}
       <View style={[flex(1.3),{width:widthValue(1.1)},styles.row,borderColor('#f7f7f7'),borderWidth(0,1)]}>
-           <View style={[styles.row,flex(1),styles.allCenter,marginPosition(0,0,0,20)]}>
+           <View style={[styles.row,flex(1),styles.allCenter,marginPosition(0,0,0,10)]}>
                  {
                    iconData.map((icon,index)=>
                       <TouchableOpacity key={index} onPress={()=>handleAddTaskButtons(icon.name)}>
-                          <Icon  name={icon.name} type={index==0 ? icon.name==='sun'||icon.name==='sunrise'? Icons.Feather:Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black,fontSize(30),marginPosition(0,20),{color:icon.color}]}/> 
+                          <Icon  name={icon.name} type={index==0 ? icon.name==='sun'||icon.name==='sunrise'? Icons.Feather:Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black,fontSize(25),marginPosition(0,20),{color:icon.color}]}/> 
                       </TouchableOpacity> 
                      )}
                     <View style={[radius(30),flex(1),{justifyContent:'center',alignItems:'flex-end'}]}>
-                      <CustomizedButtons disable={Disablebutton} name={'Add'} bgcolor={Disablebutton ? styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} handlecontinue={Disablebutton ? null : SendData}/>
+                      <CustomizedButtons disable={Disablebutton} name={'Add'} bgcolor={Disablebutton ? styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3),height:heightValue(18)}]} handlecontinue={Disablebutton ? null : SendData}/>
                     </View>
             </View>
       </View>
@@ -207,6 +208,8 @@ const getProjectDetails=(name,color)=>{
      <AddProject handletoAddtask={(val)=>setCounter(val)}/>
      }
   </Modal>
+  
+    </>
   )
 }
 

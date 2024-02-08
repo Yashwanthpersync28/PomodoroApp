@@ -159,8 +159,8 @@ export const styles = StyleSheet.create({
     borderGray:{color:Colors.borderGray},
     textGray:{color:Colors.textGray},
     iconGray:{color:Colors.iconGray},
-    
-
+    TextBlack:{color:Colors.TextBlack},
+    MilkyWhite:{color:Colors.MilkyWhite},
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
     bgBlack: { backgroundColor: Colors.black },
@@ -202,8 +202,10 @@ export const styles = StyleSheet.create({
     bgborderGray:{backgroundColor:Colors.borderGray},
     bgWhiteSmoke:{backgroundColor:Colors.WhiteSmoke},
     bgtoggleWhite:{backgroundColor:Colors.toggleWhite},
-    bgiconGray :{backfaceVisibility:Colors.iconGray},
+    bgiconGray :{backgroundColor:Colors.iconGray},
+    bgMilkyWhite :{backgroundColor:Colors.MilkyWhite},
 
+    
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderOrange: { borderColor: Colors.Orange },

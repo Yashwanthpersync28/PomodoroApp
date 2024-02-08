@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
-import { borderColor, borderWidth, flex, fontSize, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../styles/Styles';
+import { borderColor, borderWidth, flex, fontSize, fontWeight, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../styles/Styles';
 import CustomizedButtons from '../../screens/auth/onboarding/component/CustomizedButtons';
 import Icon, { Icons } from '../Icons';
 import { Header } from '../../screens/Manage/components/Header';
@@ -100,7 +100,7 @@ export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAd
                   <Icon name={'flag'} type={Icons.Ionicons} style={[styles.white, { fontSize: 20 }]} />
                 </View>
                 <View style={[styles.allCenter]}>
-                  <Text style={[styles.black, marginPosition(0, 0, 0, 10)]}>{list.name}</Text>
+                  <Text style={[styles.black, marginPosition(0, 0, 0, 10),fontWeight('bold')]}>{list.name}</Text>
                 </View>
                 <View style={[flex(1), { justifyContent: 'flex-end', alignItems: 'flex-end' }]}>
                   {list.showCheck && <Icon name={'check'} type={Icons.Feather} style={[styles.Orange, { fontSize: 25 }]} />}

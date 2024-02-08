@@ -20,7 +20,7 @@ export const TaskDeletedModal = ({ visible, onClose }) => {
         <View style={[{width:widthValue(10)},borderColor('#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5),]}></View>
          <View style={[styles.allCenter,flex(1)]}>
            <Icon name={'checkcircle'} type={Icons.AntDesign} style={[styles.Orange,fontSize(50)]}/>
-           <Text style={[styles.black,fontSize(19),marginPosition(10),fontWeight('bold')]}>Task has been deleted!</Text>
+           <Text style={[styles.black,fontSize(20),marginPosition(10),fontWeight('bold')]}>Task has been deleted!</Text>
            </View>
         </View>
       </View>

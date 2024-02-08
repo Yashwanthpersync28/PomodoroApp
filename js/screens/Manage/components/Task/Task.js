@@ -5,7 +5,7 @@ import { Header } from '../Header'
 import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, marginPosition, padding, paddingPosition, radius, styles, textColor, widthValue } from '../../../../styles/Styles'
 import Icon, { Icons } from '../../../../components/Icons'
 import { TextInputCompnent } from '../../../../components'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { DeleteTaskModal } from '../../../../components/modals/DeleteTaskModal'
 import { TaskDeletedModal } from '../../../../components/modals/TaskDeletedModal'
 import { Colors } from '../../../../styles/Colors'
@@ -46,9 +46,9 @@ const taskdata = [
 ];
 
 
-    const optionsdata=[{'name':'Pin','iconfamily':Icons.Entypo,'iconname':'pin'},{'name':'Share','iconfamily':Icons.AntDesign,'iconname':'sharealt'},
-    {'name':'Dublicate','iconfamily':Icons.MaterialIcons,'iconname':'file-copy'},{'name':'Comment','iconfamily':Icons.Fontisto,'iconname':'commenting'},
-    {'name':'Location','iconfamily':Icons.EvilIcons,'iconname':'location'},{'name':'Delete','iconfamily':Icons.MaterialCommunityIcons,'iconname':'delete-outline'}]
+    const optionsdata=[{'name':'pin','iconfamily':Icons.SimpleLineIcons,'iconname':'pin'},{'name':'Share','iconfamily':Icons.AntDesign,'iconname':'sharealt'},
+    {'name':'Dublicate','iconfamily':Icons.AntDesign,'iconname':'copy1'},{'name':'Comment','iconfamily':Icons.Fontisto,'iconname':'commenting'},
+    {'name':'Location','iconfamily':Icons.Feather,'iconname':'map-pin'},{'name':'Delete','iconfamily':Icons.Octicons,'iconname':'trash'}]
 
     //handle options
     const handleOptions=(val)=>{
@@ -98,7 +98,7 @@ const updatedEvents = Taskdetails.map(event => {
   return (
    <SafeAreaView style={[styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
-
+     
     <View style={[{height:heightValue(14)}]}>
     <Header
           headername={'Task'}
@@ -114,17 +114,19 @@ const updatedEvents = Taskdetails.map(event => {
         />
     </View>
     {/* render deletemodal */}
-    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)} DeleteTaskData={CurrentTask} id={id}/>}
+    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)} DeleteTaskData={CurrentTask} id={id} Taskname={CurrentTask.Taskname}/>}
     {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}}/>}
     {/* option's */}
     {showOptions ? 
-    <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}>
+    <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},paddingPosition(5,15,5,15),radius(10),styles.column,styles.bgWhite]}>
      {/* <View style={[{width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}> */}
        {optionsdata.map((options,index)=>{
         return(
           <TouchableOpacity onPress={()=>handleOptions(options.name)}>
-            <View key={index} style={[styles.row,options.name==='Delete'?null:borderColor('#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(5,0,5)]}>
+            <View key={index} style={[styles.row,options.name==='Delete'?null:borderColor('#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(10,0,10)]}>
+            <View style={[{width:widthValue(16)},styles.allCenter]}>
             <Icon name={options.iconname} type={options.iconfamily} style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(20),styles.textAlignVertical]}/>
+            </View>
             <Text style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{options.name}</Text>
            </View>
            </TouchableOpacity>
@@ -134,8 +136,8 @@ const updatedEvents = Taskdetails.map(event => {
      {/* </View> */}
     </View>:null}
     {/*  */}
-    <ScrollView showsVerticalScrollIndicator={false}>
-
+    <ScrollView showsVerticalScrollIndicator={false} >
+    <TouchableWithoutFeedback onPress={()=>setShowoptions(false)}>
     <View style={[styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor(CurrentTask?.Project.Color||'orange'),borderWidth(0,0,2),styles.centerHorizontal]}>
       <View style={[flex(0.2),marginPosition(0,0,0,10)]}>
           <Icon name={'play'} type={Icons.AntDesign} style={[styles.Orange,fontSize(20)]}/>
@@ -211,6 +213,7 @@ const updatedEvents = Taskdetails.map(event => {
    <View style={[styles.bglgWhite]}>
 
    </View>
+   </TouchableWithoutFeedback>
    </ScrollView>
    </SafeAreaView>
   )

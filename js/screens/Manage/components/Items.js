@@ -1,6 +1,6 @@
     import React from 'react';
     import { TouchableOpacity } from 'react-native';
-    import { borderColor, borderWidth, flex, fontSize, heightValue, styles } from '../../../styles/Styles';
+    import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, styles } from '../../../styles/Styles';
     import Icon, { Icons } from '../../../components/Icons';
     import { View, Text } from 'react-native';
     
@@ -12,14 +12,14 @@
           {DataItems.map((data, index) => (
             <TouchableOpacity
               key={index}
-              style={[{ height: heightValue(12) }, styles.row, borderColor('#f7f7f7'), borderWidth(0, 0, 0, 1)]}
+              style={[{ height: heightValue(12) }, styles.row, borderColor('#f7f7f7'), borderWidth(0, 1)]}
               onPress={() => handleItemPress(data.name,data.color)}
             >
               <View style={[flex(0.2),styles.allCenter]}>
-                <Icon name={iconName} type={Iconfamily} style={[{color:data.color},fontSize(30)]} />
+                <Icon name={iconName} type={Iconfamily} style={[{color:data.color},fontSize(25)]} />
               </View>
               <View style={[flex(1), styles.centerVertical]}>
-                <Text style={[fontSize(22), styles.black]}>{data.name}</Text>
+                <Text style={[fontSize(20), styles.black,fontWeight('bold')]}>{data.name}</Text>
               </View>
               <View style={[flex(0.2), styles.allCenter]}>
                 <Icon

@@ -10,6 +10,7 @@ import {Dayheadings} from './components/Dayheadings'
 import TaskCardDetails from '../TaskCardDetails'
 import { useSelector } from 'react-redux'
 import { GetRecomendedTasks, calculateFocusTime, formatTime, getCompletedTasksToday, getCompletedTasksYesterday } from '../../../../constants/getCompletedTasksFunctions'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 
 const Completedtask = ({navigation,route}) => {
@@ -18,6 +19,8 @@ const Completedtask = ({navigation,route}) => {
     const Trashdatas=useSelector((state=>state.user.usersTrashLists.TrashLists))
    const [tempTrashdatas,setTempTrash]=useState(Trashdatas)
    const [InputText,setInputText]=useState('')
+   const [showOptionsIndex, setShowOptionsIndex] = useState(null);
+
     console.log('Trashdatas',Trashdatas);
 
     ///to filter data based on completed and which is completed today
@@ -44,7 +47,7 @@ useEffect(()=>{
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
-     <View style={[{height:heightValue(12)}]}>
+     <View style={[{height:heightValue(15)}]}>
         {showSearchHeader?<HeaderSearch handleBacktoHeader={()=>{setSearchHeader(false),setInputText('')}} onChangeText={(val)=>setInputText(val)}/>:
         <Header
          headername={name}
