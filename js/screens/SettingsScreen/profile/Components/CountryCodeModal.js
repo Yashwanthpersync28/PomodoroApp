@@ -11,7 +11,7 @@ import Icon, { Icons } from '../../../../components/Icons'
 export const CountryCodeModal = ({currentModal,closeModal,selectedCountry,handleCountrySelected}) => {
 
     const renderCountryCode = ({item})=>{
-        // const isSelected = selectedCountry = item;
+        const isSelected = selectedCountry = item;
         return(
         <TouchableOpacity onPress={()=>{handleCountrySelected(item)}} style={[styles.centerHorizontal,styles.row,padding(0,10,15)]}>
                 <Text style={[styles.black,fontSize(18)]}>{item.emoji}</Text>

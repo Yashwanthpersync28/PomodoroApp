@@ -54,9 +54,14 @@ CompletionSounds : [
         {id:'6', breakTime: 600},
     ],
     longBreakTime:[
-        {id:'1', longBreak: 900},
+        {id:'1', longBreak: 40},
         {id:'2', longBreak: 1200},
         {id:'3', longBreak: 1500},
+    ],
+    longBreakAfter:[
+        {id:'1', longBreak: 2},
+        {id:'2', longBreak: 4},
+        {id:'3', longBreak: 5},
     ],
     countryCode: [
         {
@@ -87,5 +92,14 @@ CompletionSounds : [
             code: "GB",
             emoji: '🇬🇧'
         },
-    ]
+    ],
+    darkMode:[
+        {id:'1', mode: 'System Default'},
+        {id:'2', mode: 'Light' },
+        {id:'3', mode: 'Dark' },
+    ],
+    language:[
+        {id:'1', mode: 'English'},
+        {id:'2', mode: 'Arabic' },
+    ],
  }

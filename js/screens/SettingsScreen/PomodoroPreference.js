@@ -22,6 +22,7 @@ import { setSelectedRingtone } from '../../redux/userReducer/reminderRingtoneRed
 import { setSelectedCompletionSound } from '../../redux/userReducer/CompletionSoundReducer'
 import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer'
 import { useNavigation } from '@react-navigation/native'
+import { LongBreakSession } from './Components/LongBreakSession'
 
 export const PomodoroPreference = () => {
 
@@ -55,6 +56,7 @@ const vibrationOptions = [
     const selectedRingtone = useSelector((state)=>state.user.reminderRingtone.selectedRingtone)
     const selectedWhiteNoise = useSelector((state)=>state.user.whiteNoise.selectedWhiteNoise)
     const selectedCompletionSound = useSelector((state)=>state.user.completionSound.selectedCompletionSound)
+    const longBreakSession = useSelector((state)=>state.user.longBreakSession.longBreakSession)
     console.log('breakSwitch',breakSwitch,'autoBreak',autoBreak,'autoFocusStart',autoFocusStart)
 
     const navigation = useNavigation();
@@ -181,7 +183,7 @@ const goBack = ()=>{
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${(Math.floor(focusTime / 60))} Minutes`} PreferanceName={'Pomodoro Length'} onPress={()=>dispatch(setCurrentModal(5))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${(Math.floor(breakTime / 60))} Minutes`} PreferanceName={'Short Break Length'} onPress={()=>dispatch(setCurrentModal(6))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${(Math.floor(LongBreak / 60))} Minutes`}PreferanceName={'Long Break Length'} onPress={()=>dispatch(setCurrentModal(7))}/>
-        <PreferenceComponent  showIcon={true}  showDetail={true} detail2={' 4 Pomodoro'} PreferanceName={'LongBreak After'}/>
+        <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${longBreakSession} Pomodoro`} PreferanceName={'LongBreak After'} onPress={()=>dispatch(setCurrentModal(15))}/>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={breakSwitch ? 'white': 'white'}  value={breakSwitch} onValueChange={disableBreak}  PreferanceName={'Disable Break'}/>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={autoBreak ? 'white': 'white'}  value={autoBreak} onValueChange={autoStartBreak}  PreferanceName={'AutoStart Break'}/>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={autoFocusStart ? 'white': 'white'}  value={autoFocusStart} onValueChange={autoStartFocus}  PreferanceName={'Auto Start Next Pomodoro'}/>
@@ -193,10 +195,12 @@ const goBack = ()=>{
 {/* {currentModal === 4 &&  <WhiteNoiseModal currentModal={currentModal} handleNoise={handleNoise} closeModal={closeModal} stopSound={stopSound} updateNoise={updateNoise} selectedTune={selectedTune}/>} */}
 {currentModal === 5 &&  <FocusModal currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 6 &&  <BreakModal currentModal={currentModal} closeModal={closeModal}/>}
+{currentModal === 15 &&  <LongBreakSession currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 7 &&  <LongBreakModal currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 8 &&  <SoundModal  isVisible={currentModal === 8} data={modalData.CompletionSounds} title={'Completion Sound'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleCompletionSound(item)}  selectedSong={selectedCompletionSound} onPress2={()=>{closeModal(),stopSound()}} onPress3={()=>{closeModal(),stopSound()}}/>}
 {currentModal === 10 &&  <SoundModal isVisible={currentModal === 10} data={modalData.reminderRintones}  title={'Reminder Ringtone'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleRingtone(item)} selectedSong={selectedRingtone} onPress2={closeModal} onPress3={closeModal}/>}
 {currentModal === 4 &&  <SoundModal isVisible={currentModal === 4} data={modalData.whiteNoiseMode}  title={'White Noise'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleNoise(item)}    selectedSong={selectedWhiteNoise} onPress2={closeModal} onPress3={closeModal}/>}
+
 {currentModal === 9 &&  <ReminderVibrate  currentModal={currentModal} handleNoise={handleNoise} closeModal={closeModal}  handleVibration={handleVibration} vibration={vibration} vibrationOptions={vibrationOptions}/>}
     </View>
   )

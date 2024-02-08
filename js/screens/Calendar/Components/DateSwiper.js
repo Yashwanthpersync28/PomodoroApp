@@ -7,13 +7,13 @@ import Swiper from 'react-native-swiper'
 import Icon, { Icons } from '../../../components/Icons'
 import { useSelector } from 'react-redux'
 
-export const DateSwiper = ({handleValue}) => {
+export const DateSwiper = ({value,setValue}) => {
 
   const swiper = useRef();
   const date = new Date();
   const Today = date.getDate();
   // console.log('Today date is:', Today);
-  const [value, setValue] = useState(new Date());
+  // const [value, setValue] = useState(new Date());
   console.log('value',value)
   // const selecteddate = value;
   const [week, setWeek] = useState(0);
@@ -64,7 +64,7 @@ export const DateSwiper = ({handleValue}) => {
 
                 return (
                   <TouchableOpacity 
-                onPress={()=>{setValue(item.date),handleValue(value)}}
+                onPress={()=>{setValue(item.date)}}
                 key={dateIndex}>
                     <View style={[{ width: 44, height: 55 }, isActive ? styles.bgtomotoRed : styles.bgWhite, radius(5), isActive ? borderWidth(0) : borderWidth(0.5), styles.allCenter, margin(0, 0, 8)]}>
                       {Today === item.date.getDate() && (
@@ -83,8 +83,6 @@ export const DateSwiper = ({handleValue}) => {
     </SafeAreaView>
   );
 };
-
-
 
 
 

@@ -18,6 +18,7 @@ import { WhiteNoiseReducer } from './WhiteNoiseReducer';
 import { completionSoundReducer } from './CompletionSoundReducer';
 import { ArchieveReducer } from './ArchieveReducer';
 import { SelecteddateReducer } from './SelecteddateReducer';
+import { LongBreakSessionReducer } from './LongBreakSessionReducer';
 
 
 export const userReducer = combineReducers({
@@ -40,4 +41,5 @@ export const userReducer = combineReducers({
     completionSound:completionSoundReducer,
     ProjectAndTagsArchieveReducer:ArchieveReducer,
     selectedDateincalendar:SelecteddateReducer,
+    longBreakSession:LongBreakSessionReducer,
 })

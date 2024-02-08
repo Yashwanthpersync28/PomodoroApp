@@ -20,7 +20,7 @@ import { AddTask } from "../screens/Manage/components/AddTask/AddTask";
 import { PriorityModal } from "../components/modals/PriorityModal";
 import Tags from "../screens/Manage/components/tags/Tags";
 import { TimerComponent } from "../screens/dashboard/Components/TimerComponent";
-import { Notification1 } from "../screens/SettingsScreens/Notification1";
+import { Notification1 } from "../screens/dashboard/Notification1";
 import { Timer } from "../screens/dashboard/Components/Timer";
 import { PomodoroScreen } from "../screens/dashboard/PomodoroScreen";
 import { ManageProjectandTags } from "../screens/Manage/components/ManageProjectandTags/ManageProjectandTags";
@@ -44,7 +44,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="splash">
+            <Stack.Navigator initialRouteName="BottomTabNavigation">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}

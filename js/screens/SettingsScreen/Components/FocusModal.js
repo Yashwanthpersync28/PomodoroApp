@@ -42,7 +42,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
               <TouchableOpacity onPress={()=>{handleSelectTimerFormat(item)}}> 
           <View style={[padding(0, 15, 5),styles.spaceBetweenVertical,styles.row]}>
             <View>
-            <Text style={[styles.black, fontSize(20), { fontWeight: '400' }, marginPosition(5)]}>{formattedFocusTime}</Text>
+            <Text style={[styles.black, fontSize(19), { fontWeight: '400' }, marginPosition(5)]}>{formattedFocusTime}</Text>
             </View>
             <View>
               {isSelected && 
@@ -72,7 +72,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
               styles.black,
               styles.textCenter,
               { fontWeight: '500' },
-              fontSize(24),
+              fontSize(22),
               paddingPosition(0, 0, 20, 0),
             ]}>
             Pomodoro Time
@@ -86,8 +86,8 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 />
 </View>
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
       </Modal>

@@ -144,6 +144,8 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
         setSelectedTask(taskSelected)
     console.log(totalfocusTime,'totalfocusTime')
     dispatch(setCurrentModal(14))
+    setCurrentTimer(1)
+    setTaskColor('white')
   } 
 
   const getDate = ()=>{

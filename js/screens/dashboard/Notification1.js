@@ -4,7 +4,7 @@ import { widthValue, radius,flex, styles,paddingPosition,heightValue, shadow, fo
 import Icon, { Icons } from '../../components/Icons';
 import { timer } from '../../constants/imageConstant';
 import { useNavigation } from '@react-navigation/native';
-import { NotificationCard } from './NotificationCard';
+import { NotificationCard } from './Components/NotificationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFocusTime } from '../../redux/userReducer/focustimeReducer';
 
@@ -36,12 +36,12 @@ export const Notification1 = () => {
             {height:heightValue(20)}
           ]}>
             <TouchableOpacity onPress={goback}>
-          <Icon name={"arrowleft"} type={Icons.AntDesign} style={[styles.black,fontSize(30)]} /></TouchableOpacity>
+          <Icon name={"arrowleft"} type={Icons.AntDesign} style={[styles.black,fontSize(25)]} /></TouchableOpacity>
           
-          <Text style={[ styles.black,fontSize(25), {fontWeight: '600'}]}>
+          <Text style={[ styles.black,fontSize(23), {fontWeight: '600'}]}>
             Notifications
           </Text>
-          <Icon name={"settings"} type={Icons.Feather} style={[styles.black,fontSize(30)]} />
+          <Icon name={"settings"} type={Icons.Feather} style={[styles.black,fontSize(25)]} />
         </View>
         <NotificationCard />
         <NotificationCard />

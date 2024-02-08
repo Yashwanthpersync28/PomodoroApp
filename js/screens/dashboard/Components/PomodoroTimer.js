@@ -6,6 +6,7 @@ import { TimerButton } from './TimerButton';
 import { useSelector,useDispatch } from 'react-redux';
 import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
 import { setLocalSession } from '../../../redux/userReducer/localSessionReducer';
+import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
 
 export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusTime,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,completionSound,setTotalFocusTime}) => {
 
@@ -21,6 +22,10 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
   console.log('autoBreak',autoStartBreak)
   const autoStartFocus = useSelector((state)=>state.user.autoFocus.focusStart)
   console.log('focusStart',autoStartFocus)
+  const longBreakTime = useSelector((state)=>state.user.longBreak.longBreak)
+  console.log('longBreak',longBreakTime)
+  const longBreakSession = useSelector((state)=>state.user.longBreakSession.longBreakSession)
+  console.log(longBreakSession,'longBreakSession')
   // const FocusTime = useSelector((state)=>state.user.focusTime.focusTime);
   const taskId =  useSelector((state)=>state.user.userTasks.userTask.map(task=>task.id))
     console.log(taskId);
@@ -28,12 +33,57 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
   // const [displayTime,setDisplayTime] = useState(focusTime)
   // const [displaSession,setDisplaSession] = useState('No Sessions')
 
+  const [currentBreak,setCurrentBreak] = useState()
+  const [longBreak,setLongBreak] = useState(false)
   useEffect(()=>{
     setDisplayTime(FocusTime);
     setTotalSessionTime(FocusTime)
   // dispatch(setLocalSession(localSession))
   },[FocusTime])
 
+//   useEffect(() => {
+//     let intervalId;
+
+//     const updateTimer = () => {
+//         if (isTimerActive) {
+//             setDisplayTime((prevTime) => {
+//                 const newTime = prevTime - 1;
+//                 if (newTime <= 0) {
+//                     setIsTimerActive(false);
+//                     setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
+//                     if (currentTimer === 0) {
+//                         completionSound();
+//                     }
+//                     if (currentTimer === 1) {
+//                         dispatch(setLocalSession(localSession + 1));
+//                     }
+//                     if (localSession === longBreakSession) {
+//                         setTotalSessionTime(longBreakTime);
+//                         setDisplayTime(longBreakTime)
+//                     } else {
+//                         setTotalSessionTime(FocusTime);
+//                     }
+//                     if (localSession === maxSession) {
+//                         completedPomodoro();
+//                     }
+//                     setCurrentButton((currentTimer === 0 && !disableBreak ? 3 : 0));
+
+//                     return FocusTime;
+//                 }
+//                 const newProgress = Math.max(0, Math.floor(((totalSessionTime - newTime) / totalSessionTime) * 100));
+//                 setProgress(newProgress);
+//                 setTime((prevTime) => prevTime - 1);
+//                 return newTime;
+//             });
+//         }
+//     };
+
+//     if (isTimerActive) {
+//         intervalId = setInterval(updateTimer, 1000);
+//     }
+
+//     return () => clearInterval(intervalId);
+// }, [isTimerActive, currentTimer, focusTime, totalSessionTime, maxSession, localSession, longBreakSession, longBreakTime, disableBreak]);
   useEffect(() => {
     let intervalId;
   
@@ -45,7 +95,7 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
           setTotalFocusTime(FocusTime - newTime);
           console.log('totalfocusTime',totalfocusTime)
     
-          const newTotalSessionTime = currentTimer === 0 && !disableBreak ? BreakTime : FocusTime;
+          const newTotalSessionTime = currentTimer === 0 && !disableBreak ?BreakTime  : FocusTime;
     
           if (newTime <= 0) {
             setIsTimerActive(false);
@@ -60,9 +110,14 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
             if(currentTimer === 1 ){
               dispatch(setLocalSession(localSession + 1))
             }
+            if(localSession === 2){
+              alert('sesion completed')
+              setTotalSessionTime(longBreakTime)
+            }
+            
             if(localSession === maxSession){
               completedPomodoro()
-              
+              // setCurrentButton(0)  
             }
             console.log(localSession,'Updatedsession')
             setCurrentButton( 
@@ -113,7 +168,10 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
     }
   
     return () => clearInterval(intervalId);
-  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession]);
+  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession,longBreakSession,longBreakTime,]);
+
+
+
 
   return (
     <View style={[styles.centerHorizontal]}>

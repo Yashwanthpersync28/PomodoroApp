@@ -9,42 +9,36 @@ import Icon, { Icons } from '../../../components/Icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
-import { setLongBreak } from '../../../redux/userReducer/longBreakReducer';
+import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSessionReducer';
 
 
 
- export const LongBreakModal = ({currentModal}) => {
+ export const LongBreakSession = ({currentModal}) => {
 
+    
     const dispatch = useDispatch();
-     const InitialLongBreak = modalData.longBreakTime[1].id
+
+     const InitialLongBreak = modalData.longBreakAfter[1].id;
     const [selectedLongBreak,setSelectedLongBreak] = useState(InitialLongBreak)
 
-
+    
     const handleLongBreak=(item)=>{
         setSelectedLongBreak(item.id)
-        console.log('setSelectedLongBreak',item.longBreak)
-        dispatch(setLongBreak(item.longBreak))
+        console.log('selectedBreakTime',item.longBreak)
+        dispatch(setLongBreakSession(item.longBreak))
       }
 
-      const formatTime = (seconds)=>{
-        const minutes = Math.floor(seconds/60);
-        const secondsLeft = seconds%60;
-    
-        const formattedTime = `${String(minutes).padStart(2,'0')}:${String(secondsLeft).padStart(2,'0')}`
-        return formattedTime;
-      }
       const closeModal = ()=>{
         dispatch(setCurrentModal(0))
       }
     const renderItems =({item})=>{
         const isSelected = selectedLongBreak === item.id
-        const formattedlongBreak = formatTime(item.longBreak)
           return (
             <View>
               <TouchableOpacity onPress={()=>{handleLongBreak(item)}}> 
           <View style={[padding(0, 15, 5),styles.spaceBetweenVertical,styles.row]}>
             <View>
-            <Text style={[styles.black, fontSize(20), { fontWeight: '400' }, marginPosition(5)]}>{formattedlongBreak}</Text>
+            <Text style={[styles.black, fontSize(18), { fontWeight: '400' }, marginPosition(5)]}>{item.longBreak}</Text>
             </View>
             <View>
               {isSelected && 
@@ -61,7 +55,7 @@ import { setLongBreak } from '../../../redux/userReducer/longBreakReducer';
      <Modal 
       animationIn={'slideInUp'}
       animationOut={'slideOutDown'}
-      isVisible={currentModal===7}
+      isVisible={currentModal===15}
       hasBackdrop={true}
       backdropColor='black'
       backdropOpacity={0.5}
@@ -74,15 +68,15 @@ import { setLongBreak } from '../../../redux/userReducer/longBreakReducer';
               styles.black,
               styles.textCenter,
               { fontWeight: '500' },
-              fontSize(24),
+              fontSize(22),
               paddingPosition(0, 0, 20, 0),
             ]}>
-            Long Break Length
+            Long Break After
           </Text>
           <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
 
             <FlatList
-  data={modalData.longBreakTime}
+  data={modalData.longBreakAfter}
   renderItem={renderItems}
   keyExtractor={item=>item.id}
 />

@@ -17,7 +17,7 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
      </TouchableOpacity>
     </View>
     <View style={[flex(1),styles.allCenter]}>
-        <Text style={[fontSize(25),color,{fontWeight:"700"}]}>{headername}</Text>
+        <Text style={[fontSize(24),color,{fontWeight:"600"}]}>{headername}</Text>
     </View>
     <View style={[flex(0.2),{justifyContent:'flex-end',alignItems:'center'},styles.row]}>
        <TouchableOpacity onPress={handleSearch}>
@@ -27,7 +27,7 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
        </TouchableOpacity>
         <TouchableOpacity onPress={onPress} style={[styles.row,{justifyContent:'center',alignItems:'flex-end'}]}>
        
-     <Icon name={IconNameRight} type={IconfamilyRight} style={[styles.black,fontSize(30)]} />
+     <Icon name={IconNameRight} type={IconfamilyRight} style={[styles.black,fontSize(26)]} />
      </TouchableOpacity>
     </View>
    </View>

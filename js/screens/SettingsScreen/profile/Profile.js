@@ -14,6 +14,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 import { GenderModal } from './Components/GenderModal'
 import { CountryCodeModal } from './Components/CountryCodeModal'
 import { modalData } from '../../../constants/ModalsData'
+import { DarkModeMOdal } from '../Components/DarkModeModal'
 
 
  export const Profile = () => {
@@ -25,9 +26,9 @@ import { modalData } from '../../../constants/ModalsData'
 
 
     const gender = [
-        {id:'1',genderName:'Male'},
-        {id:'2',genderName:'Female'},
-        {id:'3',genderName:'Others'}
+        {id:'1',mode:'Male'},
+        {id:'2',mode:'Female'},
+        {id:'3',mode:'Others'}
 ]
 
     const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
@@ -36,7 +37,7 @@ import { modalData } from '../../../constants/ModalsData'
 
     const [showProfilePic,setShowProfilePic] = useState(false)
     const [selectedImage,setSelectedImage] = useState(null)
-    const initialGender = gender[0].genderName;
+    const initialGender = gender[0].mode;
     console.log('initialGender',initialGender)
     const [selectedGender,setSelectedGender] = useState(initialGender)
     const [email,setEmail] = useState('')
@@ -108,8 +109,8 @@ const handlePhone = (text)=>{
                     },
                 }
                 launchImageLibrary(options, response=>{
-                    setSelectedImage(response.uri);
-                    console.log(response.uri);
+                    setSelectedImage(response.assets[0].uri);
+                    console.log(response.assets[0].uri);
                     setShowProfilePic(true)
                 })
             }},
@@ -121,8 +122,8 @@ const handlePhone = (text)=>{
                     }
                 };
                 launchCamera(options,response=>{
-                    setSelectedImage(response.uri); 
-                    console.log(response.uri);
+                    setSelectedImage(response.assets[0].uri); 
+                    console.log(response.assets[0].uri);
                     setShowProfilePic(true)
                 })
             }}
@@ -130,10 +131,16 @@ const handlePhone = (text)=>{
         ])
     }
 
+
+    
+    const handleGenderModal = (item)=>{
+        setSelectedGender(item.mode)
+        closeModal();
+    }
   return (
     <SafeAreaView style={[flex(1),styles.bgWhite]}>
             <StatusBar backgroundColor = "white" barStyle = "dark-content"/>
-        <View style={[{height:heightValue(10)},padding(0,0,30),]}>
+        <View style={[{height:heightValue(12)},padding(0,0,30),]}>
       <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'My Profile'} goBack={PreviousScreen}/>
     </View>
     <View style={[styles.centerHorizontal,marginPosition(15,0,0,0),styles.positionRelative,padding(0,0,30),]}>
@@ -209,7 +216,9 @@ const handlePhone = (text)=>{
     <View style={[styles.flexEnd,{width:widthValue(1)},padding(0,20,0),styles.bgWhite,styles.centerHorizontal]}>
         <ButtonComponent title={'Save'} />
     </View>
-    {currentModal === 11 && <GenderModal gender={gender} currentModal={currentModal} showModal={showModal} setSelectedGender={setSelectedGender} selectedGender={selectedGender}/>}
+    {currentModal === 11 && <DarkModeMOdal selectedThing={selectedGender}  closeModal={closeModal} visibleAt={currentModal===11} handleFuntion={handleGenderModal}  data={gender}/>} 
+
+    {/* {currentModal === 11 && <GenderModal gender={gender} currentModal={currentModal} showModal={showModal} setSelectedGender={setSelectedGender} selectedGender={selectedGender}/>} */}
     </SafeAreaView>
     
   )

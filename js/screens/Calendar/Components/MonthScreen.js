@@ -21,8 +21,8 @@ export const MonthScreen = () => {
 
         <View style={marginPosition(10)}>
           {tasksForDate.map((task, index) => (
-            <View key={index} style={[{backgroundColor:task.Project.Color}, paddingPosition(5, 0, 5, 8), radius(0, 0, 0, 5, 5), borderWidth(0.1), styles.allCenter, margin(0, 5)]}>
-              <Text style={[styles.white, fontSize(15)]}>{task.Taskname}</Text>
+            <View key={index} style={[{backgroundColor:task.Project.Color}, paddingPosition(2, 4, 2, 4), radius(0, 0, 0, 5, 5), borderWidth(0.1), styles.allCenter, margin(0, 5)]}>
+              <Text style={[styles.white, fontSize(12)]}>{task.Taskname}</Text>
             </View>
           ))}
         </View>
@@ -31,10 +31,10 @@ export const MonthScreen = () => {
   };
 
   return (
-    <View>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[styles.centerHorizontal, flex(0.2)]}>
         <Calendar
-          style={[{ width: widthValue(1.1), height: heightValue(1.2), marginBottom: 10 }]}
+          style={[{ width: widthValue(1.1), minHeight: heightValue(1.5), marginBottom: 10 }]}
           theme={{
             calendarBackground: 'white',
             todayTextColor: 'white',
@@ -51,6 +51,6 @@ export const MonthScreen = () => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
