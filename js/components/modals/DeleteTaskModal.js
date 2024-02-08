@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { deleteUserTask } from '../../redux/userReducer/UserTaskDetails';
 
 
-export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted,DeleteTaskData,id}) => {
+export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted,DeleteTaskData,id,Taskname}) => {
 const dispatch=useDispatch()
 
 const handledelete=()=>{
@@ -37,13 +37,13 @@ const handledelete=()=>{
           </View>
           {/*  */}
           <View style={[flex(0.8),padding(20),styles.allCenter,]}>
-            <Text style={[styles.textCenter,styles.black,fontWeight('bold'),fontSize(19)]}>Are you sure you want to delete the "create a web site design for pomodor" task?</Text>
+            <Text style={[styles.textCenter,styles.black,fontWeight('bold'),fontSize(18)]}>{`Are you sure you want to delete the "${Taskname}" task?`}</Text>
           </View>
           {/* footer */}
-          <View style={[flex(0.5), styles.row, padding(0, 0, 20, 0, 20), styles.allCenter,borderColor('#e3e1e1'), borderWidth(0,1)]}>
+          <View style={[flex(0.5), styles.row, styles.allCenter,borderColor('#e3e1e1'), borderWidth(0,1)]}>
             <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
-              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} handlecontinue={()=>onClose()}/>
-              <CustomizedButtons  name={'Yes, Delete'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} handlecontinue={handledelete}/>
+              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} handlecontinue={()=>onClose()}/>
+              <CustomizedButtons  name={'Yes, Delete'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={handledelete}/>
             </View>
           </View>
           {/*  */}

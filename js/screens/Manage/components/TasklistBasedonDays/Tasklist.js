@@ -59,7 +59,7 @@ export const Tasklist = ({navigation,route}) => {
      {/* //minicards */}
      <ScrollView showsVerticalScrollIndicator={false}>
      <View style={[{height:heightValue(4.3)},marginPosition(0,0,10)]}>
-          <View style={[styles.rowWrap,styles.spaceEvenly,styles.centerHorizontal]}>
+          <View style={[styles.rowWrap,styles.spaceBetween,styles.centerHorizontal]}>
             <MiniCards number={getFocusTime} name={'Total Pomodoro Hours'}/>
             <MiniCards number={'02:05'} name={'Elapsed time'}/>
             <MiniCards number={data.length} name={'Task Waiting'}/>
@@ -82,7 +82,7 @@ export const Tasklist = ({navigation,route}) => {
       <TaskCardDetails data={tempData} handleTask={(id)=>navigation.navigate('task',{id:id})} showPlayIcon={true}/>
      </View>
      <HeaderBorder name={'Completed'}/>
-     <TaskCardDetails data={completedData} handleTask={(id)=>console.log('ghb')} showLinethrough={true} name={'Completed'}/>
+     <TaskCardDetails data={completedData} handleTask={(id)=>navigation.navigate('task',{id:id})} showLinethrough={true} name={'Completed'}/>
 
      </ScrollView>
    </SafeAreaView>

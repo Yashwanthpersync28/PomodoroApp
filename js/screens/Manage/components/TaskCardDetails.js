@@ -6,6 +6,7 @@ import { addBackUserTask} from '../../../redux/userReducer/UserTaskDetails'
 import { useDispatch } from 'react-redux'
 import { deleteForeverUserTaskFromTrash } from '../../../redux/userReducer/TrashReducer'
 import { NotaskFound } from '../../../components/view/NotaskFound'
+import { Colors } from '../../../styles/Colors'
 
 
 const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLinethrough}) => {
@@ -33,13 +34,13 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
     {data.map((dataitem,index)=>{
         return(
             
-     <View  key={index} style={[styles.bgWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
+     <View  key={index} style={[styles.bgMilkyWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
         <View style={[flex(0.2),styles.selfStart]}>
             <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(22)]}/>
         </View>
         {/* //item list */}
         
-        <TouchableOpacity key={index} onPress={()=>handleTask(dataitem.id)} style={[styles.column,flex(1)]}>
+        <TouchableOpacity key={index} onPress={()=>{handleTask(dataitem.id),setShowOptionsIndex(null)}} style={[styles.column,flex(1)]}>
         <View style={[styles.column,flex(1)]}>
             <Text style={[name==='Completed'?styles.textGray:styles.black,fontWeight('bold'),{textDecorationLine:showLinethrough?'line-through':'none'}]}>{dataitem.Taskname}</Text>
             <View style={[styles.rowWrap,marginPosition(10)]}>
@@ -62,18 +63,18 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
             {/* //options */}
             {showOptionsIndex === index && (
                 <>
-            <View style={[{ position: 'absolute', top: 10, right: -30, zIndex: 99 },styles.bglgWhite,radius(10)]}>
+            <View style={[{ position: 'absolute', top: 20, right: -35, zIndex: 99 },styles.bgsmokewhite,radius(10),paddingPosition(0,10,0,10)]}>
                 <TouchableOpacity onPress={()=>handletoRestore(index)}>
-                <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 ,width:widthValue(3.5)},borderColor(styles.borderGray),borderWidth(0,0,0,1)]}>
-                  <Icon name={'archive-arrow-up'} type={Icons.MaterialCommunityIcons} style={[styles.black, fontSize(20), marginPosition(0, 10)]} />
+                <View style={[styles.row, radius(10), styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 ,width:widthValue(3)},borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
+                  <Icon name={'archive-arrow-up-outline'} type={Icons.MaterialCommunityIcons} style={[styles.black, fontSize(20), marginPosition(0, 10)]} />
                   <Text style={[styles.black, fontSize(17)]}>Restore</Text>
                 </View>
                 </TouchableOpacity>
                
-                <View style={[styles.row, radius(10), styles.bglgWhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2,}]}>
+                <View style={[styles.row, radius(10), styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2,}]}>
                 <TouchableOpacity onPress={()=>handleDeleteForever(index)} style={[styles.row]}>
-                  <Icon name={'delete'} type={Icons.MaterialCommunityIcons} style={[styles.black, fontSize(22), marginPosition(0, 10)]} />
-                  <Text style={[styles.black, fontSize(16)]}>Delete forever</Text>
+                  <Icon name={'trash'} type={Icons.Octicons} style={[styles.Orange, fontSize(20), marginPosition(0, 10)]} />
+                  <Text style={[styles.Orange, fontSize(16)]}>Delete forever</Text>
                   </TouchableOpacity>
                 </View>
                 

@@ -7,7 +7,7 @@ import Icon, { Icons } from '../../../components/Icons'
 export const ManageButtons = ({height,IconFamily,heading,iconname,hours,color,showhours,handlebuttons}) => {
   return (
     <TouchableOpacity onPress={handlebuttons}>
-    <View style={[{width:widthValue(2.5)},borderColor(color),borderWidth(1),radius(10),marginPosition(5,0,10),styles.column,paddingPosition(15,5,15,10),{justifyContent:'center'}]}>
+    <View style={[{width:widthValue(2.5)},borderColor(color),borderWidth(1),radius(10),marginPosition(0,4,10,12),styles.column,paddingPosition(15,5,15,10),{justifyContent:'center'}]}>
        <View style={[styles.row,styles.centerHorizontal]}>
        <Icon name={iconname} type={IconFamily} style={[{color:color}, fontSize(20),styles.textAlignVertical]} />
         {/* <View style={[styles.column]}> */}

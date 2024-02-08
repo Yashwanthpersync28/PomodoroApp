@@ -14,7 +14,7 @@ export const TextInputCompnent = ({ IconFamily , Iconname , placeholder, value, 
     const { darkMode } = useSelector(state => state.system)
     return(
         <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),bgColor]}>
-            <Icon name={Iconname} type={IconFamily} style={[fontSize(20), showGray ? styles.lightGray:styles.black]}/>
+            <Icon name={Iconname} type={IconFamily} style={[fontSize(20),styles.black]}/>
             <View style={[styles.row, flex(1.5), value == "" && opacity(0.7), styles.centerHorizontal ]}>
                 <TextInput
                     placeholderTextColor={showGray ? Colors.lightGray : Colors.black}

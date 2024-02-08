@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUserProject } from '../../../../redux/userReducer/UserProjectListReducer';
 import { addArchieveProjects, addArchieveTags } from '../../../../redux/userReducer/ArchieveReducer';
 import { deleteUserTag } from '../../../../redux/userReducer/userTaglistReducer';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 
 export const ManageProjectandTags = ({ navigation }) => {
@@ -41,7 +42,7 @@ export const ManageProjectandTags = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={[flex(1), paddingPosition(0, 10, 0, 10), styles.bgWhite]}>
+    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bgWhite]}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       {/* header */}
       <View style={[flex(0.2)]}>
@@ -71,9 +72,16 @@ export const ManageProjectandTags = ({ navigation }) => {
       </View>
       {/* toggle buttons end */}
       {/* items */}
+      
       <View style={[flex(2)]}>
+       
        <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false}/>
+      <TouchableWithoutFeedback onPress={()=>console.log('gvhbjn')}>
+      <View style={[flex(1)]}>
+      </View>
+      </TouchableWithoutFeedback>
     </View>
+   
       {/* footer */}
       <View style={[flex(0.2),borderColor('#f2f0f0'),borderWidth(0,1)]}>
         <TouchableOpacity onPress={()=>navigation.navigate('archived',{name:showProjects?'Archived Projects':'Archived Tags',ArchieveProject:showProjects})} style={[flex(1)]}>

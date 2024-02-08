@@ -56,9 +56,9 @@ export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) =
             </View>
             </ScrollView>
          </View>
-         <View style={[flex(1),styles.row,styles.allCenter,styles.spaceBetweenVertical,borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(0,20,0,20)]}>
-         <CustomizedButtons handlecontinue={handleCancel} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
-               <CustomizedButtons disable={checkedItem.length<1}  handlecontinue={handleAdd} name={'OK'} bgcolor={checkedItem.length<1?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} />
+         <View style={[flex(0.6),styles.row,styles.allCenter,styles.spaceBetweenVertical,borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(0,10,0,10)]}>
+         <CustomizedButtons handlecontinue={handleCancel} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} />
+               <CustomizedButtons disable={checkedItem.length<1}  handlecontinue={handleAdd} name={'OK'} bgcolor={checkedItem.length<1?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} />
          </View>
       </View>
 </View>

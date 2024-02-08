@@ -20,7 +20,7 @@ import CustomizedButtons from '../../auth/onboarding/component/CustomizedButtons
 import Icon, { Icons } from '../../../components/Icons';
 import { Header } from './Header';
 
-export const Add = ({ onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack}) => {
+export const Add = ({IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack}) => {
   //colors data
   const colorData = [
     {id:0,colors:styles.bgLightGold},
@@ -85,7 +85,7 @@ export const Add = ({ onChangeText, Textinputname, value, headerName, IconFamily
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), styles.bgWhite, flex(1)]}>
         <View style={[flex(0.3)]}>
           <Text style={[styles.black, marginPosition(0, 0, 10), { fontWeight: '500' }]}>{Textinputname}</Text>
-          <TextInputCompnent placeholder={Textinputname} value={value} onChangeText={onChangeText} secureTextEntry={false} ShowPasswordIcon={false} name={'lock-open'} />
+          <TextInputCompnent Iconname={IconnameForInputIcon} IconFamily={IconFamilyforInputIcon} showGray={true} bgColor={styles.bglgWhite} placeholder={Textinputname} value={value} onChangeText={onChangeText} secureTextEntry={false} ShowPasswordIcon={false} name={'lock-open'} />
         </View>
         <View style={[flex(3), marginPosition(0)]}>
           <Text style={[styles.black, fontSize(20), { fontWeight: '500' },marginPosition(0,0,5)]}>{`Project Color Mark`}</Text>

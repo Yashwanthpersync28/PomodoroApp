@@ -98,6 +98,8 @@ const handleMenu=()=>{
         onPress={handleMenu}
         goBack={()=>handletoAddtask(5)}
         handletoAddtask={handletoAddtask}
+        IconnameForInputIcon={'briefcase'}
+        IconFamilyforInputIcon={Icons.Ionicons}
         />
         <View style={[styles.allCenter]}>
               <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>

@@ -174,6 +174,13 @@ export const AppNavigationContainer = () => {
                     }}
                 />
                  <Stack.Screen
+                    name={'manage'}
+                    component={Manage}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
                     name={'Profile'}
                     component={Profile}
                     options={{

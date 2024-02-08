@@ -63,7 +63,7 @@ const onClose=()=>{
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent bgColor={styles.bglgWhite} placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather} showGray={true}/>
         </View>
-        <View style={[{height:heightValue(2.8)},styles.rowWrap,styles.spaceEvenly]}>
+        <View style={[{height:heightValue(3.2)},styles.rowWrap,{ justifyContent: 'flex-start'}]}>
            <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
            <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.Feather} iconname={'sunrise'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})}/>
            <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-week'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:getTasksThisWeekdata,completedData:getCompletedtasksThisWeek})}/>
@@ -75,14 +75,14 @@ const onClose=()=>{
          <View style={[styles.row,marginPosition(0,0,10)]}>
             <Text style={[styles.black,marginPosition(0,3,0,5)]}>Projects</Text>
             <View style={[styles.allCenter]}>
-            <View style={[borderColor('#f2f0f0'),borderWidth(0,0,0,0.7,0),{width:widthValue(1.5)}]}></View>
+            <View style={[borderColor('#f2f0f0'),borderWidth(0,0,0,0.7,0),{width:widthValue(1.3)}]}></View>
             </View>
          </View>
-        <View style={[styles.rowWrap, { justifyContent: 'flex-start' }]}>
+        <View style={[styles.rowWrap, { justifyContent: 'flex-start'}]}>
   {Projectslist.map((data, index) => {
     return (
       <TouchableOpacity key={index}>
-        <View style={[{ width: widthValue(2.5) }, borderColor(data.color), borderWidth(1), radius(10), marginPosition(5, 0, 5,10), styles.column,paddingPosition(10,5,20,14), { justifyContent: 'center' }]}>
+        <View style={[{ width: widthValue(2.5) }, borderColor(data.color), borderWidth(1), radius(10), styles.column,paddingPosition(10,5,20,14),marginPosition(0,4,10,12), { justifyContent: 'center' }]}>
           <View style={[styles.row]}>
             <Icon name={'briefcase'} type={Icons.Entypo} style={[{ color: data.color }, fontSize(20),styles.textAlignVertical]} />
             <View style={[{ width: widthValue(4.2) }]}>
@@ -97,6 +97,7 @@ const onClose=()=>{
     )
   })}
 </View>
+
 
         </View>
       </ScrollView>
