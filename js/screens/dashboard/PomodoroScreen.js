@@ -21,6 +21,8 @@ import { useNavigation } from '@react-navigation/native';
 import { TrophyScreen } from './TrophyScreen';
 import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
 import { addUserTasks, replaceStatus } from '../../redux/userReducer/UserTaskDetails';
+import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
+import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer';
 export const PomodoroScreen = () => {
 
   const dispatch = useDispatch();
@@ -39,6 +41,9 @@ export const PomodoroScreen = () => {
   console.log('focusStart',autoStartFocus)
   const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
   console.log(currentModal,'currentModal')
+  const disableBreak = useSelector((state)=>state.user.breakSwitch.disableBreak)
+  console.log('disableBreak',disableBreak)
+  const initialTune = useSelector((state)=>state.user.whiteNoise.selectedWhiteNoise)
   const [currentTimer,setCurrentTimer] = useState(0)
   const [isTimerActive,setIsTimerActive] = useState(false);
   const [time, setTime] = useState(FocusTime);
@@ -88,8 +93,8 @@ export const PomodoroScreen = () => {
   const InitialTimerMode = timerModeArray[0].id;
   const [selectedMode,setSelectedMode] = useState(InitialTimerMode)
 
-  const initialtune = modalData.whiteNoiseMode[0].MusicName;
-  const [selectedTune,setSelectedTune] = useState(initialtune)
+  // const initialtune = modalData.whiteNoiseMode[0].MusicName;
+  const [selectedTune,setSelectedTune] = useState(initialTune)
 
   const taskSelected = 'Select Task';
   const [selectedTask,setSelectedTask] = useState(taskSelected)
@@ -102,7 +107,7 @@ export const PomodoroScreen = () => {
   const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
 const [taskColor,setTaskColor] = useState('white') 
-
+console.log(totalfocusTime,'totaltime completed')
 console.log('taskColor',taskColor)
 // const currentdate = new Date();
 //   const completedDate = currentdate.toISOString().split('T')[0]
@@ -118,8 +123,9 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
         id: data.id,
         ...data,
         completed: true,
-        focusTime:FocusTime * sessionNumber,
+        focusTime:FocusTime * localSession,
         completedDate:completedDate,
+        totalTimeCompleted:totalfocusTime,
       };
 
       dispatch(replaceStatus(updatedTask));
@@ -135,18 +141,21 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
   
 
   const completedPomodoro = ()=>{
-    // setTaskCompleted(true)
-    // navigation.navigate('TrophyScreen')
+    if(currentTimer === 0){
     console.log('completed True')
     updateTaskAndValue();
-    setProgress(100)
     setDisplaySession('No Session')
         setSelectedTask(taskSelected)
     console.log(totalfocusTime,'totalfocusTime')
     dispatch(setCurrentModal(14))
     setCurrentTimer(1)
     setTaskColor('white')
-  } 
+    // setDisplayTime(FocusTime)
+  }  else{
+    setDisplayTime(FocusTime);
+    setTotalSessionTime(FocusTime);
+  }
+}
 
   const getDate = ()=>{
     const date = new Date();
@@ -231,19 +240,15 @@ const completionSound = ()=>{
       getDate()
       // dispacthsetLocalSession(localSession)
       // setSession(1)
-
+if(initialTune !=='None'){
+ playSound(initialTune)
+}
     setIsTimerActive(true);
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
     }
   };
 
-  const handleStop = () => {
-    {timerMode === 0 ? 
-      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'))
-       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
-      }
-  };
 
   const handlepause = ()=>{
     {timerMode === 0 ? 
@@ -253,6 +258,13 @@ const completionSound = ()=>{
     setBarColor('#1c97f0')) : (setIsTimerActive(false),setCurrentButton(2),setBarColor('#1c97f0'))}
   }
 
+  const handleStop = () => {
+    {timerMode === 0 ? 
+      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),updateTaskAndValue())
+      
+       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
+      }
+  };
   const handleContinue = ()=>{
     setIsTimerActive(true)
     console.log('timer is active now')
@@ -265,8 +277,12 @@ const completionSound = ()=>{
     console.log('timer is not active now')
     setCurrentButton(0)
     setTime(FocusTime)
+    setDisplayTime(FocusTime)
     // setSession('2 of 4')
-    setProgress(100)
+    // setProgress(100)
+    // setLocalSession(localSession+1)
+    dispatch(setLocalSession(localSession + 1))
+    setTotalSessionTime(FocusTime)
     setBarColor('#ff6347')
   }
 
@@ -313,7 +329,7 @@ const completionSound = ()=>{
     setIsTimerActive(false)
     console.log('timer is not  active now')
     setCurrentButton(0)
-    setProgress(100)
+    setTotalSessionTime(FocusTime)
     setDisplaySession('No Sessions')
     dispatch(setTaskSession(sessionNumber))
     setTaskColor('white')
@@ -351,13 +367,10 @@ const completionSound = ()=>{
   const handleNoise = (item) => {
     setSelectedTune(item.MusicName);
     console.log('selectedTune',selectedTune);
-
+    dispatch(setSelectedWhiteNoise(item.MusicName))
     playSound(item.song);
   };
 
-  // Example: Play the first white noise song from the array
-  // const selectedWhiteNoise = whiteNoiseSongs[0];
-  // handleNoise(selectedWhiteNoise);
   const handleTimerMode = (item)=>{
     setSelectedMode(item.id)
   }
@@ -404,8 +417,12 @@ const updateTask = ()=>{
 
 
 const goBack = ()=>{
-  navigation.goBack();
+  // if(autoStartBreak === true &&  autoStartFocus ===true && disableBreak === true)
   setCurrentButton(0)
+  setDisplayTime(FocusTime)
+  setCurrentButton(0)
+  setDisplaySession('No Session')
+  setTime(FocusTime)
 }
 
 return (
@@ -483,7 +500,7 @@ return (
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
    
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {currentModal === 14 && <TrophyScreen currentModal={currentModal}/>}
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime}/>}
 
   </SafeAreaView>
 

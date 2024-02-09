@@ -10,6 +10,11 @@ export const MonthScreen = () => {
   const userTasks = useSelector((state) => state.user.userTasks.userTask);
   console.log(userTasks, 'userTasks');
 
+  const truncateText = (text)=>{
+    if(text.length > 8){
+      return text.substring(0, 8)+ '...'
+    }
+  }
   const renderDay = (date) => {
     const selectedDate = moment(date.dateString).format('YYYY-MM-DD');
     const tasksForDate = userTasks.filter((task) => moment(task.Duedate).format('YYYY-MM-DD') === selectedDate);
@@ -22,7 +27,7 @@ export const MonthScreen = () => {
         <View style={marginPosition(10)}>
           {tasksForDate.map((task, index) => (
             <View key={index} style={[{backgroundColor:task.Project.Color}, paddingPosition(2, 4, 2, 4), radius(0, 0, 0, 5, 5), borderWidth(0.1), styles.allCenter, margin(0, 5)]}>
-              <Text style={[styles.white, fontSize(12)]}>{task.Taskname}</Text>
+              <Text style={[styles.white, fontSize(12)]}>{truncateText(task.Taskname)}</Text>
             </View>
           ))}
         </View>

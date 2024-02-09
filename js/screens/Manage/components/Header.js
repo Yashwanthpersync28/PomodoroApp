@@ -17,7 +17,7 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
      </TouchableOpacity>
     </View>
     <View style={[flex(1),styles.allCenter]}>
-        <Text style={[fontSize(22),color,{fontWeight:"800"}]}>{headername}</Text>
+        <Text style={[fontSize(22),color,{fontWeight:"700"}]}>{headername}</Text>
         {/* ndcbjd  */}
     </View>
     <View style={[flex(0.2),{justifyContent:'flex-end',alignItems:'center'},styles.row]}>

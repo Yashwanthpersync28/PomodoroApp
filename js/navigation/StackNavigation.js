@@ -35,6 +35,11 @@ import { DateTime } from "../screens/SettingsScreen/Components/DateTime/DateTime
 import { Notification } from "../screens/SettingsScreen/Notification/Notification";
 import { AccountSecurity } from "../screens/SettingsScreen/AccountSecurity/AccountSecurity";
 import { AppApearance } from "../screens/SettingsScreen/AppApearance/AppApearance";
+import { HelpandSupport } from "../screens/SettingsScreen/Help/HelpandSupport";
+import { Terms } from "../screens/SettingsScreen/Help/Components/Terms";
+import { PrivacyPolicy } from "../screens/SettingsScreen/Help/Components/PrivacyPolicy";
+import { FAQ } from "../screens/SettingsScreen/Help/Components/FAQ";
+import { ContactSupport } from "../screens/SettingsScreen/Help/Components/ContactSupport";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -218,6 +223,41 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'AppApearance'}
                     component={AppApearance}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'HelpandSupport'}
+                    component={HelpandSupport}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'Terms'}
+                    component={Terms}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'PrivacyPolicy'}
+                    component={PrivacyPolicy}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'FAQ'}
+                    component={FAQ}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'ContactSupport'}
+                    component={ContactSupport}
                     options={{
                         header: () => null,
                     }}

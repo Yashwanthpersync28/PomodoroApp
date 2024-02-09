@@ -45,11 +45,11 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
     <View  style={[paddingPosition(10,0,0,10),{height:heightValue(1.3)}]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />
       <SettingComponent  PreferanceName={'Pomodoro Preference'} leftIconType={Icons.Entypo} IconLeft={'stopwatch'} onPress={()=>navigation.navigate('PomodoroPreference')}/>
-      <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/>
+      {/* <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/> */}
       <SettingComponent  PreferanceName={'Notifications'} leftIconType={Icons.Fontisto} IconLeft={'bell'} onPress={()=>navigation.navigate('Notification')}/>
       <SettingComponent  PreferanceName={'Account & Security'} leftIconType={Icons.MaterialIcons} IconLeft={'security'} onPress={()=>navigation.navigate('AccountSecurity')}/>
       <SettingComponent  PreferanceName={'App Apearance'} leftIconType={Icons.FontAwesome} IconLeft={'eye'} onPress={()=>navigation.navigate('AppApearance')}/>
-      <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.FontAwesome5} IconLeft={'hand-holding-heart'}/>
+      <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.FontAwesome5} IconLeft={'hand-holding-heart'} onPress={()=>navigation.navigate('HelpandSupport')}/>
       {/* <SettingComponent  PreferanceName={'FAQ'} leftIconType={Icons.AntDesign} IconLeft={'filetext1'}/> */}
       {/* <SettingComponent  PreferanceName={'Contact Support'} leftIconType={Icons.Feather} IconLeft={'at-sign'}/>
       <SettingComponent  PreferanceName={'Privacy Policy'} leftIconType={Icons.MaterialIcons} IconLeft={'lock-person'}/>

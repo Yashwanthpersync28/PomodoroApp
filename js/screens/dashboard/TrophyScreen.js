@@ -9,13 +9,17 @@ import { useDispatch } from 'react-redux'
 import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import Modal from 'react-native-modal'
 
- export const TrophyScreen = ({currentModal,}) => {
+ export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime}) => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const goBack = ()=>{
+  const goback = ()=>{
     dispatch(setCurrentModal(0))
+    setCurrentButton(0)
+    setDisplayTime(FocusTime)
+    setTotalSessionTime(FocusTime)
   }
+
   return (
     <Modal 
     isVisible={currentModal === 14}
@@ -32,7 +36,7 @@ import Modal from 'react-native-modal'
       </View>
       </View>
       <View style={[styles.row,styles.spaceAroundVertical,marginPosition(0,0,10,0)]}>
-      <TimerButton onPress={goBack} buttonText={'Back to Home'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]}  textColor={[styles.Orange]}  />
+      <TimerButton onPress={goback} buttonText={'Back to Home'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]}  textColor={[styles.Orange]}  />
       <TimerButton onPress={()=>navigation.navigate('Report')} buttonText={'View Report'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]}  textColor={[styles.white]}  />
       </View>
     </Modal>

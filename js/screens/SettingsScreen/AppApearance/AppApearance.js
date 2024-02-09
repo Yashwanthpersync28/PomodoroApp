@@ -39,8 +39,8 @@ const closeModal=()=>{
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
       <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'App Apearance'} goBack={PreviousScreen}/></View> 
       <View  showsVerticalScrollIndicator={false} style={[{height:heightValue(6)}]}>
-        <PreferenceComponent showIcon={true}  showDetail={true}  PreferanceName={'Time Format'} detail2={selectedMode}  onPress={()=>dispatch(setCurrentModal(16))}/>
-        <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={'English'}  PreferanceName={'App Language'} onPress={()=>dispatch(setCurrentModal(17))}/>
+        <PreferenceComponent showIcon={true}  showDetail={true}  PreferanceName={'Theme'} detail2={selectedMode}  onPress={()=>dispatch(setCurrentModal(16))}/>
+        <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={selectedLang}  PreferanceName={'App Language'} onPress={()=>dispatch(setCurrentModal(17))}/>
         </View> 
         {currentModal === 16 && <DarkModeMOdal selectedThing={selectedMode}  closeModal={closeModal} visibleAt={currentModal===16} handleFuntion={handleDarkMode}  data={modalData.darkMode}/>} 
         {currentModal === 17 && <DarkModeMOdal selectedThing={selectedLang}  closeModal={closeModal} visibleAt={currentModal===17} handleFuntion={handleLanguage}  data={modalData.language}/>} 

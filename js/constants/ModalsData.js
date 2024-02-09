@@ -46,7 +46,7 @@ CompletionSounds : [
         {id:'7', focusTime: 3600}
     ],
     breakTime:[
-        {id:'1', breakTime: 10},
+        {id:'1', breakTime: 5},
         {id:'2', breakTime: 120},
         {id:'3', breakTime: 180},
         {id:'4', breakTime: 240},

@@ -25,65 +25,32 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
   const longBreakTime = useSelector((state)=>state.user.longBreak.longBreak)
   console.log('longBreak',longBreakTime)
   const longBreakSession = useSelector((state)=>state.user.longBreakSession.longBreakSession)
-  console.log(longBreakSession,'longBreakSession')
+  const longBreakNumber= parseInt(longBreakSession)
+  // console.log(longBreakSessionNumber,'longBreakSessionNumber')
+
   // const FocusTime = useSelector((state)=>state.user.focusTime.focusTime);
   const taskId =  useSelector((state)=>state.user.userTasks.userTask.map(task=>task.id))
     console.log(taskId);
   const maxSession = sessionNumber;
   // const [displayTime,setDisplayTime] = useState(focusTime)
+  console.log('localSession:', localSession);
+
+
   // const [displaSession,setDisplaSession] = useState('No Sessions')
 
-  const [currentBreak,setCurrentBreak] = useState()
-  const [longBreak,setLongBreak] = useState(false)
-  useEffect(()=>{
-    setDisplayTime(FocusTime);
-    setTotalSessionTime(FocusTime)
-  // dispatch(setLocalSession(localSession))
-  },[FocusTime])
+  const [currentBreakTime,setCurrentBreakTime] = useState(BreakTime)
+const [CompletedTime,setCompletedTime]= useState(0)
+  console.log(
+    'currentBreak',currentBreakTime
+  )
+  // const [longBreak,setLongBreak] = useState(false)
 
-//   useEffect(() => {
-//     let intervalId;
 
-//     const updateTimer = () => {
-//         if (isTimerActive) {
-//             setDisplayTime((prevTime) => {
-//                 const newTime = prevTime - 1;
-//                 if (newTime <= 0) {
-//                     setIsTimerActive(false);
-//                     setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
-//                     if (currentTimer === 0) {
-//                         completionSound();
-//                     }
-//                     if (currentTimer === 1) {
-//                         dispatch(setLocalSession(localSession + 1));
-//                     }
-//                     if (localSession === longBreakSession) {
-//                         setTotalSessionTime(longBreakTime);
-//                         setDisplayTime(longBreakTime)
-//                     } else {
-//                         setTotalSessionTime(FocusTime);
-//                     }
-//                     if (localSession === maxSession) {
-//                         completedPomodoro();
-//                     }
-//                     setCurrentButton((currentTimer === 0 && !disableBreak ? 3 : 0));
+  // useEffect(()=>{
+  //   setDisplayTime(FocusTime);
+  //   setTotalSessionTime(FocusTime)
+  // },[FocusTime])
 
-//                     return FocusTime;
-//                 }
-//                 const newProgress = Math.max(0, Math.floor(((totalSessionTime - newTime) / totalSessionTime) * 100));
-//                 setProgress(newProgress);
-//                 setTime((prevTime) => prevTime - 1);
-//                 return newTime;
-//             });
-//         }
-//     };
-
-//     if (isTimerActive) {
-//         intervalId = setInterval(updateTimer, 1000);
-//     }
-
-//     return () => clearInterval(intervalId);
-// }, [isTimerActive, currentTimer, focusTime, totalSessionTime, maxSession, localSession, longBreakSession, longBreakTime, disableBreak]);
   useEffect(() => {
     let intervalId;
   
@@ -95,35 +62,38 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
           setTotalFocusTime(FocusTime - newTime);
           console.log('totalfocusTime',totalfocusTime)
     
-          const newTotalSessionTime = currentTimer === 0 && !disableBreak ?BreakTime  : FocusTime;
+         let  newTotalSessionTime =  (currentTimer === 0 && !disableBreak) ? currentBreakTime:FocusTime
+         
     
           if (newTime <= 0) {
             setIsTimerActive(false);
             setProgress(0);
             // playSound();
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
-            setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'));
+            setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'))
+           
             
+            if (localSession === longBreakNumber){
+              console.log('mathcing',localSession === longBreakNumber)
+              setBreakTime(longBreakTime)
+            }
             if(currentTimer === 0){
               completionSound()
             }
             if(currentTimer === 1 ){
               dispatch(setLocalSession(localSession + 1))
-            }
-            if(localSession === 2){
-              alert('sesion completed')
-              setTotalSessionTime(longBreakTime)
-            }
+            }     
             
             if(localSession === maxSession){
               completedPomodoro()
-              // setCurrentButton(0)  
+              setCurrentTimer(1)   
             }
+            
             console.log(localSession,'Updatedsession')
             setCurrentButton( 
               (currentTimer === 0  && !disableBreak? 3 : 0));
 
-
+          
             if(disableBreak === true && currentTimer === 0){
               setDisplayTime(FocusTime)
               setTotalSessionTime(FocusTime)
@@ -131,23 +101,79 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
             } 
             else if(disableBreak === false) {
               if(currentTimer === 0){
+                if(localSession === longBreakNumber ){
+                  console.log('it here',localSession === longBreakNumber )
+                  setCurrentBreakTime(longBreakTime)
+                  setTotalSessionTime(longBreakTime)
+                  setDisplayTime(longBreakTime)
+                  setBarColor('#ff6347')
+                } else if(longBreakTime ===0){
+              setCurrentBreakTime(BreakTime)
               setDisplayTime(BreakTime)
               setTotalSessionTime(BreakTime);
+              
+                } else if (autoStartFocus ===true){
+              setDisplayTime(BreakTime)
+              setTotalSessionTime(BreakTime);
+                }
+                 else {
+                  setCurrentBreakTime(BreakTime)
+                  setDisplayTime(BreakTime)
+                  setTotalSessionTime(BreakTime);
+                 }
               } else if(currentTimer ===1 ){
               setTotalSessionTime(FocusTime);
               }
-          }
+          } 
+         /*  //Long Break functionality
+          // else if (disableBreak === false) {
+          //   if (currentTimer === 0) {
+          //     if (localSession === longBreakNumber) {
+          //       console.log('it here', localSession === longBreakNumber);
+          //       if (longBreakTime === 0) {
+          //         setCurrentBreakTime(BreakTime);
+          //         setTotalSessionTime(BreakTime);
+          //         setDisplayTime(BreakTime);
+          //         setBarColor('#ff6347');
+          //       } else {
+          //         setCurrentBreakTime(longBreakTime);
+          //         setTotalSessionTime(longBreakTime);
+          //         setDisplayTime(longBreakTime);
+          //         setBarColor('skyblue');
+          //       }
+          //     } else {
+          //       setDisplayTime(BreakTime);
+          //       setTotalSessionTime(BreakTime);
+          //     }
+          //   } else if (currentTimer === 1) {
+          //     setTotalSessionTime(FocusTime);
+          //   }
+          // } */
+          
+
           if(autoStartBreak === true && disableBreak === false && currentTimer === 0){
             setTimeout(()=>{
               handleStart(1)
             },1000)
           }
 
-          if(autoStartFocus === true && currentTimer ===1){
+          if(autoStartFocus === true && currentTimer === 1){
+            if(disableBreak === true && currentTimer === 1){
             setTimeout(()=>{
               handleStart(0)
-            },1000)
+            },1000)}
+            else {
+              setTimeout(()=>{
+                handleStart(0)
+              },1000)
+            }
           }
+        
+          // if( disableBreak ===true && autoStartFocus === true && currentTimer === 1 ){
+          //   setTimeout(()=>{
+          //     handleStart(0)
+          //   },1000)
+          // }
           if(autoStartFocus === true && currentTimer === 1 && disableBreak === true ){
             setTimeout(()=>{
               handleStart(0)
@@ -168,9 +194,11 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
     }
   
     return () => clearInterval(intervalId);
-  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession,longBreakSession,longBreakTime,]);
+  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession,longBreakSession,longBreakTime,currentBreakTime,setTotalSessionTime,setCurrentBreakTime]);
 
-
+const addsession= ()=>{
+  setLocalSession(localSession +1)
+}
 
 
   return (
@@ -191,6 +219,10 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
               {`${Math.floor(displayTime / 60)}:${(displayTime % 60).toString().padStart(2, '0')}`}
             </Text>
             <Text style={[styles.black]}>{displaySession}</Text>
+            {/* <Text style={[styles.black]}>{currentBreakTime}</Text> */}
+            {/* <Text style={[styles.black]}>{(displayTime / totalSessionTime) * 100)}</Text> */}
+            {console.log('Display Time:',currentBreakTime )}
+    {console.log('Progress:', (displayTime / totalSessionTime) * 100)}
             </View>
           )}
         </AnimatedCircularProgress>
@@ -199,7 +231,7 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
         {currentButton === 0 &&
           <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2) }}  paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
-          <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>}
         {currentButton === 2 &&
           <View style={[styles.row, styles.spaceEvenly, { width: widthValue(1) }]}>
           <TimerButton onPress={handleStop} buttonText={'Stop'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]} />
@@ -208,7 +240,7 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
         {currentButton === 3 &&
           <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 4 &&
-          <TimerButton onPress={handleSkipBreak} buttonText={'Skip Break'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
+          <TimerButton onPress={()=>{handleSkipBreak()}} buttonText={'Skip Break'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
       </View>
     </View>
   );
