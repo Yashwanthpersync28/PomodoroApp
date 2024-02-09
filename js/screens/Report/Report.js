@@ -10,8 +10,9 @@ import { MiniCards } from '../Manage/components/TasklistBasedonDays/components/M
 import { Colors } from '../../styles/Colors'
 import { ReportHeader } from './components/ReportHeader'
 import { FocusTime } from './components/FocusTime'
-import { FocusTimeGoal } from './FocusTimeGoal'
-// import { FocusTimeGoal } from './FocusTimeGoal'
+import {  ProjectTimeDistribution } from './ProjectTimeDistribution'
+import { ProgressCalendar } from './components/ProgressCalendar'
+
 
 export const Report = ({navigation}) => {
 
@@ -20,7 +21,7 @@ export const Report = ({navigation}) => {
     <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bglgWhite]}>
     <StatusBar backgroundColor={Colors.lgWhite} barStyle="dark-content" />
     {/* header */}
-    <View style={[flex(0.2)]}>
+    <View style={[{height:heightValue(14)}]}>
       <Header
         headername={'Report'}
         IconfamilyRight={Icons.Entypo}
@@ -34,9 +35,11 @@ export const Report = ({navigation}) => {
         IconfamilyLeft={Icons.AntDesign}
       />
     </View>
-    <View style={[flex(0.2)]}>
+    
+    <View style={[{height:heightValue(12)}]}>
         <ToggleButtons title1={'Pomodoro'} title2={'Tasks'} onPressProject={() => setShowPomodoro(true)} showProjects={showpomodoro} onPressTags={() => setShowPomodoro(false)} />
       </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[{height:heightValue(4.2)}]}>
           <View style={[styles.rowWrap,styles.spaceBetween,styles.centerHorizontal]}>
             <MiniCards number={'3'} name={showpomodoro?'Focus Time Today':'Task Completed today'}/>
@@ -46,15 +49,16 @@ export const Report = ({navigation}) => {
           </View>
           
      </View>
-     <View style={[flex(1)]}>
-         <View style={[styles.bgWhite,{height:heightValue(2.3)},radius(5),marginPosition(10),padding(10)]}>
+     <View>   
+         <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
           <ReportHeader headername={'Focus Time'} options={'Tasks'}/>
-          {/* <ProgressBarExample/> */}
-          {/* <FocusTime/> */}
-          {/* <FocusTimeGoal/> */}
-          <FocusTimeGoal/>
+          
+          <FocusTime/>
+          <ProjectTimeDistribution/>
+          <ProgressCalendar/>
          </View>
      </View>
+     </ScrollView>
     
     </SafeAreaView>
   )

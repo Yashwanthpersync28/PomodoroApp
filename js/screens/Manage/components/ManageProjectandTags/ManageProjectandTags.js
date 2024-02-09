@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StatusBar, TouchableOpacity ,FlatList} from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity ,FlatList, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, paddingPosition, radius, styles, widthValue } from '../../../../styles/Styles';
 import Icon, { Icons } from '../../../../components/Icons';
@@ -12,10 +12,14 @@ import { deleteUserProject } from '../../../../redux/userReducer/UserProjectList
 import { addArchieveProjects, addArchieveTags } from '../../../../redux/userReducer/ArchieveReducer';
 import { deleteUserTag } from '../../../../redux/userReducer/userTaglistReducer';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { AddTask } from '../AddTask/AddTask';
+import { AddProject } from '../AddProject/AddProject';
 
 
 export const ManageProjectandTags = ({ navigation }) => {
+  const [modalVisible,setmodalVisible]=useState(true)
   const [showProjects, setshowProjects] = useState(true);
+  const [showAddTask,setshowAddTask]=useState(false)
   //selectors
   const dispatch=useDispatch();
   const Projects=useSelector((state)=>state.user.userProjectList.UserProjects);
@@ -42,6 +46,9 @@ export const ManageProjectandTags = ({ navigation }) => {
   }
 
   return (
+    
+    
+    
     <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bgWhite]}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       {/* header */}
@@ -65,7 +72,7 @@ export const ManageProjectandTags = ({ navigation }) => {
         <ToggleButtons title1={'Projects'} title2={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
       </View>
       <View style={[flex(0.2),styles.centerVertical]}>
-        <TouchableOpacity onPress={()=>console.log('hjbkn')} style={[styles.row, styles.centerHorizontal]}>
+        <TouchableOpacity onPress={()=>{showProjects?navigation.navigate('addproject',{ProjectName:''}):navigation.navigate('addtags')}} style={[styles.row, styles.centerHorizontal]}>
         <Icon name={'plus'} type={Icons.Feather} style={[styles.black, fontSize(25), marginPosition(0, 10)]} />
         <Text style={[styles.Orange, fontSize(20)]}>{showProjects?'Add Project':'Add Tags'}</Text>
         </TouchableOpacity>
@@ -74,12 +81,13 @@ export const ManageProjectandTags = ({ navigation }) => {
       {/* items */}
       
       <View style={[flex(2)]}>
-       
-       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false}/>
-      <TouchableWithoutFeedback onPress={()=>console.log('gvhbjn')}>
+       <ScrollView>
+       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false} handleoptionOneProject={(name)=>{navigation.navigate('addproject',{ProjectName:name})}}/>
+      {/* <TouchableWithoutFeedback onPress={()=>console.log('gvhbjn')}>
       <View style={[flex(1)]}>
       </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
+      </ScrollView>
     </View>
    
       {/* footer */}
@@ -100,6 +108,7 @@ export const ManageProjectandTags = ({ navigation }) => {
       </View>
       {/* footer end */}
     </SafeAreaView>
+   
   );
 };
 

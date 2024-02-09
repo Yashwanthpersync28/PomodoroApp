@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import {View,Modal} from 'react-native'
 import { Add } from '../Add';
-import { borderColor, borderWidth, flex, heightValue, styles, widthValue } from '../../../../styles/Styles';
+import { borderColor, borderWidth, flex, heightValue, marginPosition, styles, widthValue } from '../../../../styles/Styles';
 import { Icons } from '../../../../components/Icons';
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addproject } from '../../../../redux/userReducer/UserProjectListReducer';
+// import { useNavigation } from '@react-navigation/native';
 
 
 
-export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
-  
+export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToProject,route}) => {
+  // const [editName,setEditname]=useState('')
+  useEffect(() => {
+    if (!HandleToProject ) {
+      const {ProjectName} =route.params
+      setproject(ProjectName);
+    }
+    else{
+      setproject('')
+    }
+  }, [HandleToProject]);
+
+
   //states
   const [project,setproject]=useState('');
   const [selectedColor,setSelectedColor]=useState('')
@@ -18,17 +30,25 @@ export const AddProject = ({visible,onClose,navigation,handletoAddtask}) => {
   ///selectors
   const dispatch=useDispatch();
   const userProjectDetails=useSelector((state)=>state.user.userProjectList.UserProjects)
+  console.log('userProjectDetails',userProjectDetails);
   console.log('length',userProjectDetails.length);
   const [id,setid]=useState(userProjectDetails.length+1)
-
   //send data to Project
  const addUserProjectHandler = (projectData) => {
   dispatch(addproject(projectData ));
   // navigation.navigate('project')
+  if(!HandleToProject){
+    
+    navigation.navigate('manageProjectandTags')
+  }
+  else{
+    console.log('not');
   handletoAddtask(5)
+  }
 };
 
 const handleAdd = () => {
+
   // setid((prevId => prevId + 1))
   console.log('move to Add task');
   console.log('projectname',project);
@@ -49,6 +69,7 @@ useEffect(() => {
   } else {
     setbuttonColor(styles.bgdarkOrange);
   }
+
 }, [project, selectedColor ]);
 
 
@@ -95,15 +116,16 @@ const handleMenu=()=>{
         name={'dots-three-vertical'} 
         bgcolor={styles.bgsmokewhite} 
         color={styles.black} 
-        onPress={handleMenu}
-        goBack={()=>handletoAddtask(5)}
+        onPress={()=>console.log('ghbn')}
+        goBack={()=>{HandleToProject ? handletoAddtask(5): navigation.navigate('manageProjectandTags')}}
         handletoAddtask={handletoAddtask}
         IconnameForInputIcon={'briefcase'}
         IconFamilyforInputIcon={Icons.Ionicons}
+        marginTop={HandleToProject ? true : false}
         />
         <View style={[styles.allCenter]}>
               <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>
-                   <CustomizedButtons handlecontinue={()=>handletoAddtask(5)} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
+                   <CustomizedButtons handlecontinue={()=>{HandleToProject?handletoAddtask(5):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
                    <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(3) }]} />
               </View>
          </View>
@@ -111,3 +133,4 @@ const handleMenu=()=>{
   )
 }
 
+// handletoAddtask(5)

@@ -262,6 +262,7 @@ export const AppNavigationContainer = () => {
                         header: () => null,
                     }}
                 />
+               
                 
             </Stack.Navigator>
         </NavigationContainer>

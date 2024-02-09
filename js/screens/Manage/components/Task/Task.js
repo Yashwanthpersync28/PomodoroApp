@@ -86,12 +86,15 @@ const updatedEvents = Taskdetails.map(event => {
     /////
     const handlePickFile = async () => {
       try {
-        const res = await DocumentPicker.pick({
-          type: [DocumentPicker.types.allFiles],
-        });
-        setAttachedFileUri(res.uri);
-      } catch (error) {
-        console.error('Error picking file:', error);
+        const doc = await DocumentPicker.pick();
+        console.log(doc);
+        setAttachedFileUri(doc.uri); // Update the attachedFileUri state with the URI of the selected file
+      } catch (err) {
+        if (DocumentPicker.isCancel(err))
+          console.log('User cancelled the upload', err);
+        else {
+          console.log(err);
+        }
       }
     };
     

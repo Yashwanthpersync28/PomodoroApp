@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../../../redux/userReducer/userTaglistReducer'
 // import { addTags } from '../../../../redux/userTagsReducer/userTaglistReducer'
 
-export const Addtags = ({visible,onClose,navigation,handletoTags}) => {
+export const Addtags = ({visible,onClose,navigation,handletoTags,HandleBack}) => {
   //states
     const [tag,settag]=useState('')
     const [selectedColor,setSelectedColor]=useState('')
@@ -20,10 +20,13 @@ export const Addtags = ({visible,onClose,navigation,handletoTags}) => {
     const [id,setid]=useState(Tags.length+1)
 //send data to taglist
 const addUserTagsHandler = (tagsData) => {
-  // dispatch(addTags({ email, tagsData }));
   dispatch(addTag(tagsData))
-  // navigation.navigate('tag')
+  if(!HandleBack){
+    navigation.navigate('manageProjectandTags')
+  }
+  else{
   handletoTags(3)
+}
 };
 
 const handleAdd=()=>{
@@ -79,13 +82,14 @@ const handleMenu=()=>{
     // </Modal>
     <View style={[flex(1),styles.bgsmokewhite]}>
     <Add
+    marginTop={HandleBack ? true : false}
      IconnameForInputIcon={'tag'}
      IconFamilyforInputIcon={Icons.Feather}
     ColorSelected={(val)=>setSelectedColor(val)} onChangeText={(val)=>settag(val)} Textinputname={'Tag Name'} value={tag} headerName={'Add New Tag'} IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.bgsmokewhite} color={styles.black}  onPress={handleMenu}
-    goBack={()=>handletoTags(3)}/>
+    goBack={()=>{HandleBack ? handletoTags(3): navigation.navigate('manageProjectandTags')}}/>
     <View style={[styles.allCenter]}>
           <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>
-               <CustomizedButtons handlecontinue={()=>handletoTags(3)} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
+               <CustomizedButtons handlecontinue={()=>{HandleBack?handletoTags(3):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
                <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(3) }]} />
           </View>
      </View>

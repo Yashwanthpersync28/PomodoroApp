@@ -7,7 +7,7 @@ import { DropDown } from './DropDown'
 
 export const ReportHeader = ({headername,options}) => {
   return (
-    <View style={[styles.row,styles.spaceBetweenVertical,borderColor(Colors.borderGray),borderWidth(0,0,0,1),{height:heightValue(18)}]}>
+    <View style={[styles.row,styles.spaceBetweenVertical,borderColor(Colors.borderGray),borderWidth(0,0,0,1),{height:heightValue(14)}]}>
             
             <Text style={[styles.black,styles.textAlignVertical,fontWeight('bold'),fontSize(21)]}>{headername}</Text>
             <View >

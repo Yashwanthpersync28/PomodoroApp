@@ -20,7 +20,7 @@ import CustomizedButtons from '../../auth/onboarding/component/CustomizedButtons
 import Icon, { Icons } from '../../../components/Icons';
 import { Header } from './Header';
 
-export const Add = ({IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack}) => {
+export const Add = ({IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack , marginTop}) => {
   //colors data
   const colorData = [
     {id:0,colors:styles.bgLightGold},
@@ -79,7 +79,7 @@ export const Add = ({IconFamilyforInputIcon , IconnameForInputIcon, onChangeText
 
   return (
     <SafeAreaView style={[flex(1), paddingPosition(0,20,0,20), styles.bgsmokewhite]}>
-      <View style={[flex(0.1),marginPosition(-30)]}>
+      <View style={[flex(0.1),marginPosition(marginTop ? -30 : -10)]}>
         <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), styles.bgWhite, flex(1)]}>
