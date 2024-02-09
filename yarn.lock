@@ -1465,6 +1465,15 @@
   dependencies:
     "merge-options" "^3.0.4"
 
+"@react-native-community/art@*", "@react-native-community/art@^1.2.0":
+  "integrity" "sha512-a+ZcRGl/BzLa89yi33Mbn5SHavsEXqKUMdbfLf3U8MDLElndPqUetoJyGkv63+BcPO49UMWiQRP1YUz6/zfJ+A=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/art/-/art-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "art" "^0.10.3"
+    "invariant" "^2.2.4"
+    "prop-types" "^15.7.2"
+
 "@react-native-community/cli-clean@^9.2.1":
   "integrity" "sha512-dyNWFrqRe31UEvNO+OFWmQ4hmqA07bR9Ief/6NnGwx67IO9q83D5PEAf/o96ML6jhSbDwCmpPKhPwwBbsyM3mQ=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-9.2.1.tgz"
@@ -2301,6 +2310,11 @@
     "get-intrinsic" "^1.2.1"
     "is-array-buffer" "^3.0.2"
     "is-shared-array-buffer" "^1.0.2"
+
+"art@^0.10.3":
+  "integrity" "sha512-HXwbdofRTiJT6qZX/FnchtldzJjS3vkLJxQilc3Xj+ma2MXjY4UAyQ0ls1XZYVnDvVIBiFZbC6QsvtW86TD6tQ=="
+  "resolved" "https://registry.npmjs.org/art/-/art-0.10.3.tgz"
+  "version" "0.10.3"
 
 "asap@^2.0.0", "asap@~2.0.3", "asap@~2.0.6":
   "integrity" "sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA=="
@@ -7108,10 +7122,10 @@
   "resolved" "https://registry.npmjs.org/react-native-countdown-circle-timer/-/react-native-countdown-circle-timer-3.2.1.tgz"
   "version" "3.2.1"
 
-"react-native-document-picker@^9.1.1":
-  "integrity" "sha512-BW+7DbsILuFThlBm7NUFVUmKKf6Awkcf9R0q8wiCU2DlGGtAKQTt2iHpO5+Dn/7WMPB+rqNv3X1HsmJQ0t5R3g=="
-  "resolved" "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-9.1.1.tgz"
-  "version" "9.1.1"
+"react-native-document-picker@^8.2.2":
+  "integrity" "sha512-5xYoueCDaeU+eZLJM4AxGPedublk4w3YzpdoQR9ayd4E5AdLt1uY1ruK8HoZ/+G4v97o2cFlxfYcuw9QWVMUDA=="
+  "resolved" "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-8.2.2.tgz"
+  "version" "8.2.2"
   dependencies:
     "invariant" "^2.2.4"
 
@@ -7157,6 +7171,11 @@
   "integrity" "sha512-7xU71u1Xe239F7DCvO3rfuqthzOa52v5Nvd0OQ5OpEkL9S9UGhWMLRw0b7OC9zti846puTGJDnjy8FvXiAzgxQ=="
   "resolved" "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-4.0.4.tgz"
   "version" "4.0.4"
+
+"react-native-pie@^1.1.2":
+  "integrity" "sha512-aShbks0NA4QzXftKpdQd/lNfkvj23yS2pF1A61Y+bKhFMnky0xubN1m4edcDNVWC0a2l40rM9C3JwJOIchv3kQ=="
+  "resolved" "https://registry.npmjs.org/react-native-pie/-/react-native-pie-1.1.2.tgz"
+  "version" "1.1.2"
 
 "react-native-progress-circle@^2.1.0":
   "integrity" "sha512-VP0s92bgbTMQy4hQzPU4LlGyFj3z5u7i1HYFG8/yzXXfGkX1cxKS4xOlE+OTaObWC99w7Bodi3h8R7En2nQPYw=="

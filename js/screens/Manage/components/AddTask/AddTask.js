@@ -15,9 +15,10 @@ import { Addtags } from '../AddTags/Addtags';
 import { Project } from '../project/Project';
 import { AddProject } from '../AddProject/AddProject';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ManageProjectandTags } from '../ManageProjectandTags/ManageProjectandTags';
 
-export const AddTask = ({ visible, onClose ,count}) => {
-  const navigation=useNavigation();
+export const AddTask = ({ visible, onClose ,count }) => {
+  // const navigation=useNavigation();
   const route = useRoute();
   const receivedData = route.params?.prioritydata;
   const receivedProjectname=route.params?.projectname;
@@ -50,7 +51,7 @@ export const AddTask = ({ visible, onClose ,count}) => {
     TextInputFocus.current.focus();
     // Keyboard.dismiss();
   }
-  if(taskname.length >=2 && Object.keys(receivedPriorityData).length >0 && Object.keys(receiveTagsData).length >0 && Object.keys(receiveProjectData).length >0 && selectedDate !='' ){
+  if(session!=null && taskname.length >=2 && Object.keys(receivedPriorityData).length >0 && Object.keys(receiveTagsData).length >0 && Object.keys(receiveProjectData).length >0 && selectedDate !='' ){
     setDisablebutton(false)
    
   }
@@ -58,8 +59,9 @@ export const AddTask = ({ visible, onClose ,count}) => {
     setDisablebutton(true)
   }
   
+  
   // setDisablebutton(taskname.length <= 2);
-}, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate,]);
+}, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate]);
 
 const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || 'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
 
@@ -199,17 +201,18 @@ const getProjectDetails=(name,color)=>{
      <Tags getTagDetails={getTagDetails} handleCounter={(val)=>setCounter(val)} onClose={onClose}/>
      }
      {counter===4 && 
-     <Addtags handletoTags={(val)=>setCounter(val)} />
+     <Addtags handletoTags={(val)=>setCounter(val)} HandleBack={true}/>
      }
      {counter===5 && 
      <Project getProjectDetails={getProjectDetails} handleCounter={(val)=>setCounter(val)} onClose={onClose}/>
      }
      {counter===6 && 
-     <AddProject handletoAddtask={(val)=>setCounter(val)}/>
+     <AddProject handletoAddtask={(val)=>setCounter(val)} HandleToProject={true} />
      }
   </Modal>
   
-    </>
+  
+  </>
   )
 }
 

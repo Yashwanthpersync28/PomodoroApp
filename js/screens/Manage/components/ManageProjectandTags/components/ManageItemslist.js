@@ -119,11 +119,8 @@ export const ManageItemslist = ({ data, showProjects , optionOne , optionTwo , h
           </View>
         
       ))}
+      <View style={[styles.bgsmokewhite,{height:heightValue(12)}]}></View>
       {data.length<1?<NotaskFound name={showProjects?'No projects found':'No Tags found'}/>:null}
     </View>
   );
 };
-// arrow-up-box (materiicons) for restore
-// arrow-down-box (mater) for archieve 
-// edit-3 feather for edit
-// delete-outline (ma) for delete

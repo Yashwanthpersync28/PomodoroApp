@@ -26,6 +26,7 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const Taskdatas=useSelector((state)=>state.user.userTasks.userTask)
     const Trashdata=useSelector((state)=>state.user.usersTrashLists.TrashLists)
     console.log('jbdfv',Taskdatas);
+    //get user data based on days
     const CompletedTodayTasks=getCompletedTasksToday(Taskdatas);//to get completed tasks fo Today
     const TodayTasks=getTasksToday(Taskdatas)
     const TomorrowTasks=getTasksTomorrow(Taskdatas)
@@ -39,6 +40,7 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     console.log('getTasksThisMonthdata',getTasksThisMonthdata);
     console.log('kncd',TodayTasks);
     console.log('fghvjk',Projectslist);
+    //plus modal
     const handlePlusmodal=()=>{
       setShowPlus(false)
         setmodalVisible(true)
@@ -58,10 +60,10 @@ const onClose=()=>{
       </View>
       <View style={[flex(2)]}>
        {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={onClose} handleCount={(val)=>setcount(val)} handleIndex={(val)=>setIndex(val)}/> :null:null}
-       {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={onClose} count={index}/> :null:null}
+       {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={onClose} count={index} navigation={navigation}/> :null:null}
       <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
-           <TextInputCompnent bgColor={styles.bglgWhite} placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather} showGray={true}/>
+           <TextInputCompnent bgColor={styles.bglgWhite   } placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather} showGray={true}/>
         </View>
         <View style={[{height:heightValue(3.2)},styles.rowWrap,{ justifyContent: 'flex-start'}]}>
            <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
