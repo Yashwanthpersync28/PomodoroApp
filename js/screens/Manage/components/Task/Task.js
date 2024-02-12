@@ -143,7 +143,7 @@ const updatedEvents = Taskdetails.map(event => {
     <TouchableWithoutFeedback onPress={()=>setShowoptions(false)}>
     <View style={[styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor(CurrentTask?.Project.Color||'orange'),borderWidth(0,0,2),styles.centerHorizontal]}>
       <View style={[flex(0.2),marginPosition(0,0,0,10)]}>
-          <Icon name={'play'} type={Icons.AntDesign} style={[styles.Orange,fontSize(20)]}/>
+          <Icon name={'circle'} type={Icons.Entypo} style={[styles.Orange,fontSize(20),fontWeight('bold')]}/>
       </View>
       <View style={[flex(2)]}>
           <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>{CurrentTask?.Taskname||'wait'}</Text>
@@ -179,20 +179,29 @@ const updatedEvents = Taskdetails.map(event => {
       bgColor={styles.bgWhite}
     />
     </View>
-    <View style={[marginPosition(10)]}>
-        <Text style={[styles.black,fontWeight('800')]}>Tags</Text>
-        <View style={[styles.rowWrap,marginPosition(10)]}>
-          {CurrentTask?.Tags.map((task,index)=>{
-                return(
-                  <View style={[padding(6),styles.row,styles.allCenter,borderColor(task.color),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
-                  <Text style={[{color:task.color}]}>{task.name}</Text>
-                  <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
+    {/* //Tags */}
+    {/* //Tags */}
+{/* //Tags */}
+<View style={[marginPosition(10)]}>
+    <Text style={[styles.black,fontWeight('800')]}>Tags</Text>
+    <View style={[flex(1),styles.rowWrap,marginPosition(10)]}>
+        {CurrentTask?.Tags.map((task,index)=>{
+            return(
+                <View style={[padding(6),styles.row,styles.allCenter,borderColor(task.color),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
+                    <Text style={[{color:task.color},styles.textAlignVertical]}>{`#${task.name}`}</Text>
+                    <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10,0,5),styles.textAlignVertical]}/>
                 </View> 
-                )
-          })||null}
-                
+            )
+        }) || null}
+        <TouchableOpacity>
+        <View style={[styles.allCenter,borderColor(Colors.borderGray),borderWidth(1),{height:35,width:45},radius(15)]}>
+            <Icon name={'plus'} type={Icons.Feather} style={[styles.gray,fontSize(18)]}/>
         </View>
+        </TouchableOpacity>
     </View>
+</View>
+
+
     {/* add note */}
     <View style={[marginPosition(15)]}>
          <Text style={[styles.black,fontWeight('800')]}>Add a Note</Text>

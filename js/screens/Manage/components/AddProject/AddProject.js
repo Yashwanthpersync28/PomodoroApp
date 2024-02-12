@@ -16,6 +16,14 @@ export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToP
     if (!HandleToProject ) {
       const {ProjectName} =route.params
       setproject(ProjectName);
+      setTempProjectName(ProjectName)
+      const OriginalColor=userProjectDetails.filter(list=>{
+        if(list.name===ProjectName){
+          return list
+        }
+      })
+      console.log('OriginalColor',OriginalColor[0].color)
+      setTempColor(OriginalColor[0].color)
     }
     else{
       setproject('')
@@ -27,6 +35,8 @@ export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToP
   const [project,setproject]=useState('');
   const [selectedColor,setSelectedColor]=useState('')
   const [buttoncolor,setbuttonColor]=useState(styles.bgdarkOrange)
+  const [TempProjectName,setTempProjectName]=useState('')//used for edit name
+  const [TempColor,setTempColor]=useState('')//used for change color if it is edited
   ///selectors
   const dispatch=useDispatch();
   const userProjectDetails=useSelector((state)=>state.user.userProjectList.UserProjects)
@@ -35,14 +45,26 @@ export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToP
   const [id,setid]=useState(userProjectDetails.length+1)
   //send data to Project
  const addUserProjectHandler = (projectData) => {
-  dispatch(addproject(projectData ));
   // navigation.navigate('project')
   if(!HandleToProject){
-    
+    //function for edit , to take already exist project and edit the name
+    const EditedProject=userProjectDetails.map(Projectlist=>{
+             if(Projectlist.name === TempProjectName){
+              return {
+                ...Projectlist,
+                color:selectedColor,
+                name:project
+              }
+             }
+             return Projectlist
+    })
+    console.log('EditedProject',EditedProject);
+    dispatch(addproject(EditedProject));
     navigation.navigate('manageProjectandTags')
   }
   else{
     console.log('not');
+    dispatch(addproject([...userProjectDetails,projectData]));
   handletoAddtask(5)
   }
 };
@@ -122,6 +144,7 @@ const handleMenu=()=>{
         IconnameForInputIcon={'briefcase'}
         IconFamilyforInputIcon={Icons.Ionicons}
         marginTop={HandleToProject ? true : false}
+        EditableColor={TempColor}
         />
         <View style={[styles.allCenter]}>
               <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>

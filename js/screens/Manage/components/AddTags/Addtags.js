@@ -8,23 +8,57 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../../../redux/userReducer/userTaglistReducer'
 // import { addTags } from '../../../../redux/userTagsReducer/userTaglistReducer'
 
-export const Addtags = ({visible,onClose,navigation,handletoTags,HandleBack}) => {
+export const Addtags = ({visible,onClose,navigation,handletoTags,HandleBack,route}) => {
   //states
     const [tag,settag]=useState('')
     const [selectedColor,setSelectedColor]=useState('')
     const [buttoncolor,setbuttonColor]=useState(styles.bgdarkOrange)
-  
+    const [TempTagName,setTempTagname]=useState('')
+    const [TempColor,settempcolor]=useState('')
 ///selectors
     const dispatch=useDispatch()
     const Tags=useSelector((state => state.user.userTaglist.UserTags))
     const [id,setid]=useState(Tags.length+1)
+
+//used useeffect for edit and displaying tag name and color
+useEffect(() => {
+  if (!HandleBack ) {
+    const {TagName} =route.params
+    settag(TagName);
+    setTempTagname(TagName)
+    const OriginalColor=Tags.filter(list=>{
+      if(list.name===TagName){
+        return list
+      }
+    })
+    console.log('OriginalColor',OriginalColor[0].color)
+    settempcolor(OriginalColor[0].color)
+  }
+  else{
+    settag('')
+  }
+}, [HandleBack]);
+
 //send data to taglist
 const addUserTagsHandler = (tagsData) => {
-  dispatch(addTag(tagsData))
+  
   if(!HandleBack){
+    const EditedTag=Tags.map(Taglist=>{
+      if(Taglist.name === TempTagName){
+       return {
+         ...Taglist,
+         color:selectedColor,
+         name:tag
+       }
+      }
+      return Taglist
+})
+console.log('EditedTag',EditedTag);
+dispatch(addTag(EditedTag));
     navigation.navigate('manageProjectandTags')
   }
   else{
+    dispatch(addTag([...Tags,tagsData]))
   handletoTags(3)
 }
 };
@@ -63,30 +97,15 @@ const handleMenu=()=>{
  console.log('fghjk');
 }
   return (
-    // <Modal
-    // animationType="slide"
-    // transparent={true}
-    // visible={visible}
-    // onRequestClose={onClose}
-    // >
-    // <View style={[flex(1),styles.bgsmokewhite]}>
-    //     <Add ColorSelected={(val)=>setSelectedColor(val)} onChangeText={(val)=>settag(val)} Textinputname={'Tag Name'} value={tag} headerName={'Add New Tag'} IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.bgsmokewhite} color={styles.black}  onPress={handleMenu}
-    //     goBack={handleGoback}/>
-    //     <View style={[styles.allCenter]}>
-    //           <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>
-    //                <CustomizedButtons handlecontinue={handleGoback} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
-    //                <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(3) }]} />
-    //           </View>
-    //      </View>
-    // </View>
-    // </Modal>
     <View style={[flex(1),styles.bgsmokewhite]}>
     <Add
     marginTop={HandleBack ? true : false}
      IconnameForInputIcon={'tag'}
      IconFamilyforInputIcon={Icons.Feather}
     ColorSelected={(val)=>setSelectedColor(val)} onChangeText={(val)=>settag(val)} Textinputname={'Tag Name'} value={tag} headerName={'Add New Tag'} IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.bgsmokewhite} color={styles.black}  onPress={handleMenu}
-    goBack={()=>{HandleBack ? handletoTags(3): navigation.navigate('manageProjectandTags')}}/>
+    goBack={()=>{HandleBack ? handletoTags(3): navigation.navigate('manageProjectandTags')}}
+    EditableColor={TempColor}
+    />
     <View style={[styles.allCenter]}>
           <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>
                <CustomizedButtons handlecontinue={()=>{HandleBack?handletoTags(3):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />

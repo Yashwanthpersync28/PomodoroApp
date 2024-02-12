@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions , Image} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
-import { margin } from '../../../../styles/Styles';
+import { fontSize, margin, styles } from '../../../../styles/Styles';
 margin
 const { width, height } = Dimensions.get('window');
 
@@ -14,6 +14,9 @@ export const TvScreen = () => {
     <View style={styless.tvscreenBottom} />
     <View style={styless.tvscreenLeft} />
     <View style={styless.tvscreenRight} />
+    {/* <View style={[styles.positionAbsolute]}>
+      <Image source={require('../../../../assets/Images/Lottiemobileone.png')}/>
+    </View> */}
    </View>
 
   );

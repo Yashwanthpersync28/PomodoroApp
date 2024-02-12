@@ -7,7 +7,7 @@ const UserProjects = createSlice({
   },
   reducers: {
     addproject(state, action) {
-      state.UserProjects.push(action.payload);
+      state.UserProjects=action.payload
     },
     deleteUserProject(state, action) {
       const ProjectNameToDelete = action.payload;

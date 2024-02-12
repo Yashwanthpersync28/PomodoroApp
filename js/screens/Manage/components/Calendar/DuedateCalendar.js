@@ -68,6 +68,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
   
   const handleMonthChange = (month) => {
     setCurrentMonth(month.toString('MMMM yyyy'));
+    // setCurrentMonth(month.toLocaleDateString('default', { month: 'long', year: 'numeric' }));
   };
 
   useEffect(() => {
@@ -97,6 +98,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
           styles.dayContainer,
           { backgroundColor: isToday ? '#4bb058' : 'transparent', borderRadius: 20 ,justifyContent:'center',alignItems:'center'},styles.allCenter
           // isSelected && { borderColor: '#ff6347', borderWidth: 2 },
+          // ,{ height: 35, justifyContent: 'center', alignItems: 'center' }
         ]}
       >
         <View style={[styles.allCenter]}>
@@ -106,10 +108,73 @@ export const DuedateCalendar = ({OnpressDate}) => {
     );
   };
 
+ 
+  // const dayComponent = ({ date, state }) => {
+  //   // const isToday = date.dateString === today.toISOString().split('T')[0];
+  //   const isToday = date.year === today.getFullYear() && date.month === today.getMonth() + 1 && date.day === today.getDate();
+
+  //   const isSelected = selectedDate === date.dateString;
+  //   const isRemainingDate = !isToday && !isSelected;
+  //   const isBeforeToday = new Date(date.dateString) < today;
+  //   const isTodayOrAfter = !isBeforeToday; // Check if the date is today or after
+  
+  //   let textColor = 'black'; // Default text color
+  
+  //   // Set text color to gray for dates before today
+  //   if (isBeforeToday) {
+  //     textColor = 'gray';
+  //   }
+  
+  //   // Render TouchableOpacity for today and future dates
+  //   if ( isTodayOrAfter) {
+  //     return (
+  //       <TouchableOpacity
+  //         onPress={() => handleDateChange(date)}
+  //         style={[
+  //           styles.dayContainer,
+  //           { backgroundColor: isToday ? '#4bb058' : 'transparent', borderRadius: 20 ,justifyContent:'center',alignItems:'center'},styles.allCenter
+  //         ]}
+  //       >
+  //         <View style={[styles.allCenter]}>
+  //           <Text style={[
+  //             styles.dayText,
+  //             isToday && { color: 'white', width: 20, textAlign: 'center' },
+  //             isSelected && { backgroundColor: selectedColor, borderRadius: 20, width: 20, color: 'white', textAlign: 'center' },
+  //             isRemainingDate && { color: 'black', textAlign: 'center' },
+  //             { color: textColor, textAlign: 'center' } // Apply the text color
+  //           ]}>{date.day}</Text>
+  //         </View>
+  //       </TouchableOpacity>
+  //     );
+  //   } else {
+  //     // Render a disabled date without TouchableOpacity for past dates
+  //     return (
+  //       <View
+  //         style={[
+  //           styles.dayContainer,
+  //           { backgroundColor: isToday ? '#4bb058' : 'transparent', borderRadius: 20 ,justifyContent:'center',alignItems:'center'},styles.allCenter
+  //         ]}
+  //       >
+  //         <View style={[styles.allCenter]}>
+  //           <Text style={[
+  //             styles.dayText,
+  //             isToday && { color: 'white', width: 20, textAlign: 'center' },
+  //             isSelected && { backgroundColor: selectedColor, borderRadius: 20, width: 20, color: 'white', textAlign: 'center' },
+  //             isRemainingDate && { color: 'black', textAlign: 'center' },
+  //             { color: textColor, textAlign: 'center' } // Apply the text color
+  //           ]}>{date.day}</Text>
+  //         </View>
+  //       </View>
+  //     );
+  //   }
+  // };
+  
+  
+  
+  
   const minDateString = minDate.toISOString().split('T')[0];
   return (
-    <View style={[flex(1),styles.allCenter]}>
-      <Calendar
+    <Calendar
         ref={calendarRef}
         onDayPress={handleDateChange}
         onMonthChange={handleMonthChange}
@@ -120,21 +185,25 @@ export const DuedateCalendar = ({OnpressDate}) => {
           todayBackgroundColor:'#4bb058',
           calendarBackground: '#ffffff',
           dayTextColor: 'black',
-          textDayFontWeight:'bold',
-          textDayHeaderFontWeight:'bold',
+          textDayFontWeight: 'bold', // Bold weight for day names
+          textMonthFontWeight: 'bold', // Bold weight for month names
+          textYearFontWeight: 'bold', // Bold weight for year
+          textDayHeaderFontWeight: 'bold', // Bold weight for day header (Sun, Mon, Tue, ...)
           agendaDayTextColor: 'red',
-          textDayStyle:{color:'black'},
+          textDayStyle: {color:'black'},
           dayTextColor: 'blue',
+          
         }}
-        minDate={minDate}
+        // minDate={minDate}
+        minDate={new Date()}
         dayComponent={dayComponent}
         disableDateBefore={minDateString} 
       
        
-      />
-    </View>
+      /> 
   );
 };
+
 
 
 

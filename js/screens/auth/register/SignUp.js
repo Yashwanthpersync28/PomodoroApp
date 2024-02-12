@@ -86,7 +86,7 @@ else{
         style={[padding(20), styles.bgWhite, flex(1)]}
       >
         <View style={[styles.centerVertical, flex(0.3)]}>
-          <BackButtonComponent onPress={() => navigation.goBack()} />
+          <BackButtonComponent onPress={() => navigation.navigate('onboarding')} />
         </View>
         <View style={[flex(0.3)]}>
           <HeadingComponent name={'Join Focusify Today'} details={'Unlock Your Productivity Potential!'} icon={'👤'}/>

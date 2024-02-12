@@ -72,7 +72,7 @@ export const ManageProjectandTags = ({ navigation }) => {
         <ToggleButtons title1={'Projects'} title2={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
       </View>
       <View style={[flex(0.2),styles.centerVertical]}>
-        <TouchableOpacity onPress={()=>{showProjects?navigation.navigate('addproject',{ProjectName:''}):navigation.navigate('addtags')}} style={[styles.row, styles.centerHorizontal]}>
+        <TouchableOpacity onPress={()=>{showProjects?navigation.navigate('addproject',{ProjectName:''}):navigation.navigate('addtags',{TagName:''})}} style={[styles.row, styles.centerHorizontal]}>
         <Icon name={'plus'} type={Icons.Feather} style={[styles.black, fontSize(25), marginPosition(0, 10)]} />
         <Text style={[styles.Orange, fontSize(20)]}>{showProjects?'Add Project':'Add Tags'}</Text>
         </TouchableOpacity>
@@ -82,7 +82,7 @@ export const ManageProjectandTags = ({ navigation }) => {
       
       <View style={[flex(2)]}>
        <ScrollView>
-       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false} handleoptionOneProject={(name)=>{navigation.navigate('addproject',{ProjectName:name})}}/>
+       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false} handleoptionOneProject={(name)=>{navigation.navigate('addproject',{ProjectName:name})}} handleoptionOneTags={(name)=>{navigation.navigate('addtags',{TagName:name})}}/>
       {/* <TouchableWithoutFeedback onPress={()=>console.log('gvhbjn')}>
       <View style={[flex(1)]}>
       </View>

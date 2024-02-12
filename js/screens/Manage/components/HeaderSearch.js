@@ -19,6 +19,7 @@ export const HeaderSearch = ({handleBacktoHeader,onChangeText}) => {
        IconFamily={Icons.EvilIcons}
        bgColor={styles.bgWhite}
        onChangeText={onChangeText}
+       showFontsize={true}
        />
     </View>
     
