@@ -29,6 +29,7 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     //get user data based on days
     const CompletedTodayTasks=getCompletedTasksToday(Taskdatas);//to get completed tasks fo Today
     const TodayTasks=getTasksToday(Taskdatas)
+    console.log('TodayTaskssbcs j',TodayTasks);
     const TomorrowTasks=getTasksTomorrow(Taskdatas)
     const CompletedTasksTomorrow=getCompletedTasksTomorrow(Taskdatas)
     const getTasksThisWeekdata=getTasksThisWeek(Taskdatas,true);

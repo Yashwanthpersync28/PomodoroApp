@@ -60,7 +60,7 @@ const data=[{projectName:'Pomodoroo',color:Colors.Orange,focusTime:'15h 20m',per
                {data.map((project,index)=>{
                 return(
                  
-                  <View style={[styles.row,styles.centerVertical,{width:widthValue(3)},marginPosition(10)]}>
+                  <View style={[styles.row,styles.centerHorizontal,{width:widthValue(3)},marginPosition(10)]}>
                        <View style={[styles.centerHorizontal,{width:widthValue(16)}]}>
                             <Icon name={'briefcase'} type={Icons.Entypo} style={[fontSize(24),styles.textAlignVertical,{color:project.color}]}/>
                        </View>

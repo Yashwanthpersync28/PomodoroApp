@@ -6,6 +6,8 @@ import CustomizedButtons from '../../screens/auth/onboarding/component/Customize
 import { Header } from '../../screens/Manage/components/Header';
 import Icon, { Icons } from '../Icons';
 import { DuedateCalendar } from '../../screens/Manage/components/Calendar/DuedateCalendar';
+import { Colors } from '../../styles/Colors';
+import { ProgressCalendar } from '../../screens/Report/components/ProgressCalendar';
 
 
 
@@ -35,19 +37,18 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
     </TouchableOpacity>
     </View>
     <View style={[flex(0.8), { width: widthValue(1) }, styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
-      <View style={[styles.allCenter, flex(0.5), borderColor('#e3e1e1'), borderWidth(0, 0, 0, 1)]}>
+      <View style={[styles.allCenter, flex(0.5), borderColor(Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
         <Header headername={'Due Date'} bgcolor={styles.white} color={styles.black} showLeftIocn={true}/>
       </View>
-      <View style={[styles.spaceBetween, flex(0.6), styles.row,borderColor('#e3e1e1'),borderWidth(0,0,0,1)]}>
+      <View style={[styles.spaceBetween, flex(0.6), styles.row,borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
           {calendarheaderData.map((data,index)=>{
               return(
                   <View style={[styles.column,styles.allCenter]}>
-                    <TouchableOpacity onPress={()=>handleDays(index)}>
-                  <View style={[{height:40,width:40},data.color,styles.allCenter,radius(20)]}>
-                     <Icon name={data.IconName} type={data.Iconfamily} style={[styles.white,fontSize(20)]}/>
-                  </View>
-                 
-                  <Text style={[styles.black,fontSize(16),marginPosition(3)]}>{data.name}</Text>
+                    <TouchableOpacity onPress={()=>handleDays(index)} style={[styles.allCenter]}>
+                          <View style={[{height:40,width:40},data.color,styles.allCenter,radius(20)]}>
+                                <Icon name={data.IconName} type={data.Iconfamily} style={[styles.white,fontSize(20)]}/>
+                          </View>
+                          <Text style={[styles.black,fontSize(16),marginPosition(3),styles.textCenter]}>{data.name}</Text>
                   </TouchableOpacity>
                 </View>
               )
@@ -55,17 +56,16 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
        
       </View>
       <View style={[ flex(2.5),marginPosition(15,0,15)]}>
-          <View style={[flex(1),borderWidth(1),borderColor('#e3e1e1'),radius(15),styles.allCenter]}>
+          <View style={[flex(1),borderWidth(1),borderColor(Colors.borderGray),radius(15),padding(5)]}>
            <DuedateCalendar OnpressDate={OnpressDate}/>
-           
-           
+          {/* <ProgressCalendar/> */} 
         </View>
       </View>
 
-      <View style={[flex(0.6), styles.row, padding(0, 0, 20, 0, 20), styles.allCenter,borderColor('#e3e1e1'),borderWidth(0,1)]}>
+      <View style={[flex(0.6), styles.row, styles.allCenter,borderColor(Colors.borderGray),borderWidth(0,1)]}>
         <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
-          <CustomizedButtons handlecontinue={GoToAddtask} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
-          <CustomizedButtons name={'OK'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} handlecontinue={GoToAddtask} />
+          <CustomizedButtons handlecontinue={GoToAddtask} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} />
+          <CustomizedButtons name={'OK'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={GoToAddtask} />
         </View>
       </View>
     </View>

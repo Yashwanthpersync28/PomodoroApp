@@ -38,7 +38,7 @@ export const Tasklist = ({navigation,route}) => {
   return (
    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
-    <View style={[{height:heightValue(12)}]}>
+    <View style={[{height:heightValue(16)}]}>
         {showSearchHeader?<HeaderSearch handleBacktoHeader={()=>{setSearchHeader(false),setUserInput('')}} onChangeText={(val)=>setUserInput(val)}/>:
         <Header
          headername={name}

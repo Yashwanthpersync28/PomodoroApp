@@ -110,7 +110,8 @@ const SendData = () => {
     trash:false,
     AddDate:currentDate,
     Day:selectedDate.Day,
-    notes:''
+    notes:'',
+    attachement:'',
     
   };
   onClose()

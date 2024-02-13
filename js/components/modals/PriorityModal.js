@@ -109,10 +109,10 @@ export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAd
             ))}
           </View>
 
-          <View style={[flex(1), styles.row, padding(0, 0, 20, 0, 20), styles.allCenter]}>
+          <View style={[flex(1), styles.row, styles.allCenter]}>
             <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
-              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} handlecontinue={()=>handletoAddtask(0)}/>
-              <CustomizedButtons disable={selectedItem===null} name={'OK'} bgcolor={selectedItem===null?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(3) }]} handlecontinue={GoToAddtask} />
+              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} handlecontinue={()=>handletoAddtask(0)}/>
+              <CustomizedButtons disable={selectedItem===null} name={'OK'} bgcolor={selectedItem===null?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={GoToAddtask} />
             </View>
           </View>
         </View>

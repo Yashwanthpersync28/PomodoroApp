@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { View, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import {
@@ -20,7 +20,12 @@ import CustomizedButtons from '../../auth/onboarding/component/CustomizedButtons
 import Icon, { Icons } from '../../../components/Icons';
 import { Header } from './Header';
 
-export const Add = ({IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack , marginTop}) => {
+export const Add = ({EditableColor , IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack , marginTop}) => {
+  useEffect(() => {
+    if (EditableColor) {
+      setSelectedColor(EditableColor);
+    }
+  }, [EditableColor]);
   //colors data
   const colorData = [
     {id:0,colors:styles.bgLightGold},

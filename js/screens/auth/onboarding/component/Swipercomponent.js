@@ -7,8 +7,9 @@ import { Onboaringdata } from '../../../../constants/Onboardingdata';
 import CustomizedButtons from './CustomizedButtons';
 import { useNavigation } from '@react-navigation/native';
 import { ButtonComponent } from '../../../../components';
+import { Colors } from '../../../../styles/Colors';
 
-export const Swipercomponent = () => {
+export const Swipercomponent = ({handleIndex}) => {
   const swiper = useRef();
   const navigation=useNavigation()
   const [index, setIndex] = useState(0);
@@ -17,6 +18,8 @@ export const Swipercomponent = () => {
   
   
   let handleSwipeIndexChange=(w)=>{
+    console.log('w',w);
+    handleIndex(w)
     setIndex(w)
     if(w===2){
       setgetStarted(false);
@@ -88,7 +91,7 @@ export const Swipercomponent = () => {
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgWhite,{height:heightValue(7)},borderColor('#f7f7f7'),borderWidth(2)]}>
+      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgWhite,{height:heightValue(7)},borderColor(Colors.borderGray),borderWidth(1)]}>
        
        {getStarted? <> 
                 <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(2.4)},marginPosition(0)]} handlecontinue={handleit}/>
@@ -105,4 +108,5 @@ export const Swipercomponent = () => {
 };
 
 
-// borderColor('#f7f7f7'),borderWidth(2)
+
+

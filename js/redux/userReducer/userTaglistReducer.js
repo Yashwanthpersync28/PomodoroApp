@@ -7,7 +7,7 @@ const UserTag = createSlice({
   },
   reducers: {
     addTag(state, action) {
-      state.UserTags.push(action.payload);
+      state.UserTags=action.payload;
     },
     deleteUserTag(state, action) {
       const TagIdToDelete = action.payload;

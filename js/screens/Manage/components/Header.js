@@ -23,7 +23,7 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
     <View style={[flex(0.2),{justifyContent:'flex-end',alignItems:'center'},styles.row]}>
        <TouchableOpacity onPress={handleSearch}>
        {showSearch &&
-         <Icon name={'search1'} type={Icons.AntDesign} style={[styles.black,fontSize(30),marginPosition(0,10)]} /> 
+         <Icon name={'search1'} type={Icons.AntDesign} style={[styles.black,fontSize(25),marginPosition(0,10)]} /> 
          }
        </TouchableOpacity>
         <TouchableOpacity onPress={onPress} style={[styles.row,{justifyContent:'center',alignItems:'flex-end'}]}>
