@@ -181,6 +181,9 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
       } else {
         console.log('Sound initialized successfully');
   
+
+        // looping 
+        newSound.getNumberOfLoops(-1)
         // Continue with playback logic
         newSound.play((success) => {
           if (success) {
