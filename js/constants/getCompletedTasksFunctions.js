@@ -6,6 +6,7 @@ export const getCompletedTasksToday = (data) => {
 //to filter out today tasks only and not completed tasks
 export const getTasksToday= (data) => { 
   const today = new Date().toISOString().split('T')[0];
+  console.log('todaybndfj',today);
   return data.filter(item =>item.Duedate === today && !item.completed);
 }
 //to get tomorrow tasks

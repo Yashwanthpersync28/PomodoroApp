@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { borderColor, borderWidth, fontSize, fontWeight, heightValue, paddingPosition, position, radius, styles, widthValue } from '../../../styles/Styles';
-import { Colors } from '../../../styles/Colors';
-import Icon, { Icons } from '../../../components/Icons';
+import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
 
 export const DropDown = () => {
- 
-
-  return (
-    <View style={[{height:heightValue(16),width:widthValue(4)},styles.bgOrange,radius(10)]}>
-
+  return(
+    <View>
+      <Text>weekly</Text>
     </View>
-  );
-};
-
-
-
+  )
+}
