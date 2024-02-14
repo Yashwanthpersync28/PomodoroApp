@@ -12,11 +12,19 @@ import { ReportHeader } from './components/ReportHeader'
 import { FocusTime } from './components/FocusTime'
 import {  ProjectTimeDistribution } from './ProjectTimeDistribution'
 import { ProgressCalendar } from './components/ProgressCalendar'
+import { PomodoroRecords } from './components/PomodoroRecords'
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 
 export const Report = ({navigation}) => {
 
   const [showpomodoro,setShowPomodoro]=useState(true)
+  const [clickedDropdown,setClickedDropdown]=useState(true)
+  const pomodoroOptions=['Weekly','Mon','Biweekly']
+  const TasksOptions=['Task','Weekly','Biweekly']
+  const [name,setname]=useState(showpomodoro?'Weekly':'Task')
+  console.log('name',name);
+ 
   return (
     <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bglgWhite]}>
     <StatusBar backgroundColor={Colors.lgWhite} barStyle="dark-content" />
@@ -51,11 +59,13 @@ export const Report = ({navigation}) => {
      </View>
      <View>   
          <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
-          <ReportHeader headername={'Focus Time'} options={'Tasks'}/>
-          
-          <FocusTime/>
-          <ProjectTimeDistribution/>
-          <ProgressCalendar/>
+          <ReportHeader showPomodoro={showpomodoro} headername={'Focus Time'} options={'Tasks'} ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/>
+             <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
+              {name==='Weekly' &&  <FocusTime/> }
+             {name==='Monthly' && <ProjectTimeDistribution/>}
+             {name==='Biweekly' && <ProgressCalendar/>}
+              {/* <PomodoroRecords/> */}
+              </TouchableWithoutFeedback>
          </View>
      </View>
      </ScrollView>
