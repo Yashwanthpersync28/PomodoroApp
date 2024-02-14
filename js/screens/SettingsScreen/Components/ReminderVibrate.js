@@ -73,6 +73,9 @@ const ReminderVibrate = ({closeModal,currentModal,vibrationOptions,handleVibrati
               radius(0, 20, 0, 0, 20),
               styles.spaceBetweenVertical,
             ]}>
+              <View style={[styles.centerHorizontal,marginPosition(-5,0,20,0)]}>
+        <View style={[{ width: 30,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
+        </View>
             <Text
               style={[
                 styles.black,
@@ -87,8 +90,8 @@ const ReminderVibrate = ({closeModal,currentModal,vibrationOptions,handleVibrati
 <FlatList data={vibrationOptions} renderItem={renderOptions} keyExtractor={item=>item.name}/>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-        <TimerButton buttonText={'Ok'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+        <TimerButton buttonText={'Cancel'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Ok'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>
       </Modal>

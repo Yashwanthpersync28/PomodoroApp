@@ -7,11 +7,13 @@ import { useSelector,useDispatch } from 'react-redux';
 import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
 import { setLocalSession } from '../../../redux/userReducer/localSessionReducer';
 import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
+import { modalData } from '../../../constants/ModalsData';
 
-export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusTime,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,completionSound,setTotalFocusTime}) => {
+export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusTime,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime}) => {
 
   const dispatch = useDispatch();
 
+  const selectedCompletionSound = useSelector(state=>state.user.completionSound.selectedCompletionSound)
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
   const localSession = useSelector((state)=>state.user.localSession.localSession);
   const taskDetails = useSelector((state)=>state.user.userTasks.userTask.completed);
@@ -34,6 +36,7 @@ export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusT
   const maxSession = sessionNumber;
   // const [displayTime,setDisplayTime] = useState(focusTime)
   console.log('localSession:', localSession);
+const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === selectedCompletionSound)
 
 
   // const [displaSession,setDisplaSession] = useState('No Sessions')
@@ -46,10 +49,10 @@ const [CompletedTime,setCompletedTime]= useState(0)
   // const [longBreak,setLongBreak] = useState(false)
 
 
-  // useEffect(()=>{
-  //   setDisplayTime(FocusTime);
-  //   setTotalSessionTime(FocusTime)
-  // },[FocusTime])
+  useEffect(()=>{
+    setDisplayTime(FocusTime);
+    setTotalSessionTime(FocusTime)
+  },[FocusTime])
 
   useEffect(() => {
     let intervalId;
@@ -77,9 +80,9 @@ const [CompletedTime,setCompletedTime]= useState(0)
               console.log('mathcing',localSession === longBreakNumber)
               setBreakTime(longBreakTime)
             }
-            if(currentTimer === 0){
-              completionSound()
-            }
+            // if(currentTimer === 0){
+            //   completionSound()
+            // }
             if(currentTimer === 1 ){
               dispatch(setLocalSession(localSession + 1))
             }     

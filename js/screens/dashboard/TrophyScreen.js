@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import Modal from 'react-native-modal'
 
- export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime}) => {
+ export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask,stopSound}) => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
@@ -18,8 +18,16 @@ import Modal from 'react-native-modal'
     setCurrentButton(0)
     setDisplayTime(FocusTime)
     setTotalSessionTime(FocusTime)
+    stopSound()
   }
 
+  const gotoReport = ()=>{
+    navigation.navigate('Report')
+    setCurrentButton(0)
+    setDisplayTime(FocusTime)
+    setTotalSessionTime(FocusTime)
+    stopSound()
+  }
   return (
     <Modal 
     isVisible={currentModal === 14}
@@ -32,12 +40,12 @@ import Modal from 'react-native-modal'
         <View style={[{height:heightValue(8)},styles.centerVertical,]}>
       <Text style={[fontSize(40),styles.black,{fontWeight:'bold'},styles.textCenter]}>Congratulations!</Text>
       <Text style={[fontSize(24),{color:'#a5a5a6' },marginPosition(10),styles.textCenter]}>You've completed the Task</Text>
-      <Text style={[fontSize(24),{color:'#a5a5a6' },,styles.textCenter]}>"Create a Wireframe Design"</Text>
+      <Text style={[fontSize(24),{color:'#a5a5a6' },,styles.textCenter]}>{selectedTask}</Text>
       </View>
       </View>
       <View style={[styles.row,styles.spaceAroundVertical,marginPosition(0,0,10,0)]}>
       <TimerButton onPress={goback} buttonText={'Back to Home'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]}  textColor={[styles.Orange]}  />
-      <TimerButton onPress={()=>navigation.navigate('Report')} buttonText={'View Report'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]}  textColor={[styles.white]}  />
+      <TimerButton onPress={gotoReport} buttonText={'View Report'}  widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]}  textColor={[styles.white]}  />
       </View>
     </Modal>
   )

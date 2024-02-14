@@ -45,7 +45,7 @@ const BottomTabNavigation = () => {
             options={{
                 tabBarLabel:menu.label,
                     tabBarIcon:({focused})=>(
-     <Icon name={menu.icon} type={menu.iconType} style={[fontSize(26)]} color={focused? '#ff6347':'gray'} /> 
+     <Icon name={menu.icon} type={menu.iconType} style={[fontSize(26)]} color={focused? '#ff6347':'#7f7f7f'} /> 
                     )
                 }
             }/>

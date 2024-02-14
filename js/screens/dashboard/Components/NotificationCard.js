@@ -13,7 +13,7 @@ export const NotificationCard = () => {
         <Text style={[fontSize(16),styles.black,{fontWeight:'400'},marginPosition(10)]}>we noticed some unusual activity in your account.Please review your recent logins and update your password if necessary</Text>
         <Text style={[fontSize(14),styles.black,{fontWeight:'400'},marginPosition(5)]}>9:41 AM</Text>
       </View>
-      <Icon name={"arrowright"} type={Icons.AntDesign} style={[styles.black,fontSize(22)]} />
+      <Icon name={"chevron-small-right"} type={Icons.Entypo} style={[styles.black,fontSize(28)]} />
     </View>
   )
 }

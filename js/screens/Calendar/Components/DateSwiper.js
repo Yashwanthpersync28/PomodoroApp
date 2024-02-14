@@ -6,6 +6,7 @@ import moment from 'moment'
 import Swiper from 'react-native-swiper'
 import Icon, { Icons } from '../../../components/Icons'
 import { useSelector } from 'react-redux'
+import { TouchableWithoutFeedback } from 'react-native'
 
 export const DateSwiper = ({value,setValue}) => {
 
@@ -63,17 +64,17 @@ export const DateSwiper = ({value,setValue}) => {
   console.log('Selected date in DateSwiper:', item.date);
 
                 return (
-                  <TouchableOpacity 
+                  <TouchableWithoutFeedback 
                 onPress={()=>{setValue(item.date)}}
                 key={dateIndex}>
-                    <View style={[{ width: 44, height: 55 }, isActive ? styles.bgtomotoRed : styles.bgWhite, radius(5), isActive ? borderWidth(0) : borderWidth(0.5), styles.allCenter, margin(0, 0, 8)]}>
+                    <View style={[{  height: 55 }, isActive ? styles.bgtomotoRed : styles.bgWhite, radius(5), styles.allCenter, margin(0, 0, 8),padding(0,8,15),shadow(2)]}>
                       {Today === item.date.getDate() && (
                         <Icon name={'star'} type={Icons.AntDesign} style={[styles.Orange, fontSize(10)]} />
                       )}
                       <Text style={[isActive ? styles.white : styles.black, fontSize(20), { fontWeight: '600' }]}>{item.date.getDate()}</Text>
-                      <Text style={[isActive ? styles.white : styles.gray, fontSize(16), { fontWeight: '400' }]}>{item.day}</Text>
+                      <Text style={[isActive ? styles.white : styles.gray, fontSize(15), { fontWeight: '300' }]}>{item.day}</Text>
                     </View>
-                  </TouchableOpacity>
+                  </TouchableWithoutFeedback>
                 );
               })}
             </View>

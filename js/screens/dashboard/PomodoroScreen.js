@@ -43,7 +43,8 @@ export const PomodoroScreen = () => {
   console.log(currentModal,'currentModal')
   const disableBreak = useSelector((state)=>state.user.breakSwitch.disableBreak)
   console.log('disableBreak',disableBreak)
-  const initialTune = useSelector((state)=>state.user.whiteNoise.selectedWhiteNoise)
+  const selectedTune = useSelector((state)=>state.user.whiteNoise.selectedWhiteNoise)
+  console.log('whiteNOiose songs',selectedTune)
   const [currentTimer,setCurrentTimer] = useState(0)
   const [isTimerActive,setIsTimerActive] = useState(false);
   const [time, setTime] = useState(FocusTime);
@@ -94,7 +95,7 @@ export const PomodoroScreen = () => {
   const [selectedMode,setSelectedMode] = useState(InitialTimerMode)
 
   // const initialtune = modalData.whiteNoiseMode[0].MusicName;
-  const [selectedTune,setSelectedTune] = useState(initialTune)
+  // const [selectedTune,setSelectedTune] = useState(initialTune)
 
   const taskSelected = 'Select Task';
   const [selectedTask,setSelectedTask] = useState(taskSelected)
@@ -109,6 +110,8 @@ const [totalfocusTime,setTotalFocusTime] = useState(0);
 const [taskColor,setTaskColor] = useState('white') 
 console.log(totalfocusTime,'totaltime completed')
 console.log('taskColor',taskColor)
+const TrophySong = useSelector((state)=>state.user.completionSound.selectedCompletionSound) 
+console.log(';completedSound',TrophySong)
 // const currentdate = new Date();
 //   const completedDate = currentdate.toISOString().split('T')[0]
 
@@ -139,34 +142,40 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
   // Usage
   
   
+  // const stopSoundAfterDelay = ()=>{
 
-  const completedPomodoro = ()=>{
-    if(currentTimer === 0){
-    console.log('completed True')
+  // }
+
+const completedPomodoro = () => {
+  if (currentTimer === 0) {
+    console.log('completed True');
     updateTaskAndValue();
-    setDisplaySession('No Session')
-        setSelectedTask(taskSelected)
-    console.log(totalfocusTime,'totalfocusTime')
-    dispatch(setCurrentModal(14))
-    setCurrentTimer(1)
-    setTaskColor('white')
-    // setDisplayTime(FocusTime)
-  }  else{
+    setDisplaySession('No Session');
+    setSelectedTask(taskSelected);
+    console.log(totalfocusTime, 'totalfocusTime');
+    dispatch(setCurrentModal(14));
+    setCurrentTimer(1);
+    setTaskColor('white');
+    stopSound()
+    const selectedMusic = modalData.CompletionSounds.find(item => item.MusicName === TrophySong);
+    console.log(selectedMusic.tune, 'selectedMusic');
+    if (selectedMusic) {
+      completionSound(selectedMusic.tune);
+      console.log('completion sound started');
+    } else {
+      console.log('song did not get selected');
+    }
+  } else {
     setDisplayTime(FocusTime);
     setTotalSessionTime(FocusTime);
   }
-}
+};
 
-  const getDate = ()=>{
-    const date = new Date();
-    const presentDate = date.getDate();
-    const presentDay = date.getDay();
-    const hours = date.getHours();
-    const seconds = date.getSeconds();
-    console.log('presentDate',presentDate,'presentDay',presentDay,'hours',hours)
-  }
   //TIMER SETUP//
 
+  // const playCompletionSound = ()=>{
+
+  // }
   const playSound = (song) => {
     // Stop the currently playing sound
     if (sound) {
@@ -181,24 +190,25 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
       } else {
         console.log('Sound initialized successfully');
   
-
         // looping 
-        newSound.getNumberOfLoops(-1)
+        
         // Continue with playback logic
-        newSound.play((success) => {
-          if (success) {
-            console.log('Sound played successfully');
+        
+        newSound.play((success)=>{
+          if(success){
+            console.log('song is succes')
           } else {
-            console.error('Playback failed due to audio decoding errors');
+            console.log('song is failed')
           }
-        });
-  
+        })
+      
+        newSound.setNumberOfLoops(-120)
         // Save the reference to the new sound
         setSound(newSound);
       }
     });
   };
-  
+
 
   const stopSound=()=>{
     if(sound){
@@ -208,30 +218,34 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
   }
   //audio section playSound //
 
+  const completionSound = (completedSound) => {
+    const completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.error("Sound can't play:", error);
+      } else {
+        console.log('Sound initialized successfully');
+        
+          completionSong.play((success)=>{
+            if(success){
+              console.log('sucess')
+            } else{
+              console.log('failure')
+            }
+          })
+        completionSong.setCurrentTime(5)
+      }
+    });
+  };
   
-  const completionSong = new Sound('adventure.mp3',Sound.MAIN_BUNDLE, (error)=>{
-    if(error){
-      console.error("play can't play")
-    } else {
-      console.log('No error')
-    }
-  }) 
+  
+  
 
-const completionSound = ()=>{
-   completionSong.play((success)=>{
-    if(success){
-      console.log('song playing ')
+  
 
-      setTimeout(()=>{
-        console.log('shall i stop thew sound')
-      },3000)
-     } else {
-      console.log('sound error')
-     }
-  }
-   )
-}
-
+ 
+ 
+ 
+ 
   const handleStart = (timerType) => {
     if(selectedTask === taskSelected){
         // dispatch(setTimerMode(20))
@@ -240,13 +254,9 @@ const completionSound = ()=>{
       // dispatch(setTaskSession(sessionNumber));
       console.log('timer is not  active now')
     } else  if(selectedTask !== taskSelected){
-      getDate()
       // dispacthsetLocalSession(localSession)
       // setSession(1)
-if(initialTune !=='None'){
- playSound(initialTune)
-}
-    setIsTimerActive(true);
+  setIsTimerActive(true);
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
     }
@@ -368,11 +378,14 @@ if(initialTune !=='None'){
   
   
   const handleNoise = (item) => {
-    setSelectedTune(item.MusicName);
-    console.log('selectedTune',selectedTune);
     dispatch(setSelectedWhiteNoise(item.MusicName))
-    playSound(item.song);
-  };
+    console.log('selectedTune',selectedTune);
+    const selectedMusic = modalData.whiteNoiseMode.find(item=>item.MusicName === selectedTune);
+      if(selectedMusic){
+        playSound(selectedMusic.song);
+        console.log(selectedMusic.song,'selectedMusic in whitenoise isssss')
+      }
+    }
 
   const handleTimerMode = (item)=>{
     setSelectedMode(item.id)
@@ -397,10 +410,27 @@ if(initialTune !=='None'){
     }
   }
   const updateNoise = ()=>{
-    // setCurrentModal(0);
   dispatch(setCurrentModal(0))
+  if(selectedTune !=='None'){
+    const selectedMusic = modalData.whiteNoiseMode.find(item =>item.MusicName === selectedTune);
 
-    console.log(selectedTune)
+      if(selectedMusic){
+        playSound(selectedMusic.song)
+        // console.log(selectedMusic.song,'selectedMusic')
+        if(localSession === maxSession){
+          stopSound();
+          console.log('song fyhgjgjgjghj')
+        }
+        setTimeout(()=>{
+          stopSound();
+          console.log('song stopped')
+        },FocusTime*1000)
+      } else {
+        console.error('the selected music dont have song')
+      }
+    }else {
+      console.log('No Music selected')
+    }
   }
 
   //  end of WhiteNoise modal functions
@@ -418,15 +448,6 @@ const updateTask = ()=>{
   }
 }
 
-
-const goBack = ()=>{
-  // if(autoStartBreak === true &&  autoStartFocus ===true && disableBreak === true)
-  setCurrentButton(0)
-  setDisplayTime(FocusTime)
-  setCurrentButton(0)
-  setDisplaySession('No Session')
-  setTime(FocusTime)
-}
 
 return (
   <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
@@ -487,12 +508,11 @@ return (
   totalSessionTime={totalSessionTime}
   displaySession={displaySession}
   completedPomodoro={completedPomodoro}
-  completionSound={completionSound}
+  // completionSound={()=>completionSound()}
   setTotalFocusTime={setTotalFocusTime}
   totalfocusTime={totalfocusTime}
   />
         }
-  
       </View>
     </View>
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
@@ -502,8 +522,8 @@ return (
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
    
-    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} currentModal={currentModal} selectedTune={selectedTune} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime}/>}
+    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} stopSound={stopSound}/>}
 
   </SafeAreaView>
 

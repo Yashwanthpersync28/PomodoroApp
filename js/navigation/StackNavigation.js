@@ -49,7 +49,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="splash">
+            <Stack.Navigator initialRouteName="BottomTabNavigation">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}

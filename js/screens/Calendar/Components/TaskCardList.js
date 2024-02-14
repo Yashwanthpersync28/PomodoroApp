@@ -21,10 +21,8 @@ import {
     margin,
 } from '../../../styles/Styles';
 import Icon, { Icons } from '../../../components/Icons';
-import { setTaskSession } from '../../../redux/userReducer/taskSessionsReducer';
-import { setLocalSession } from '../../../redux/userReducer/localSessionReducer';
 
-export const TaskCardList = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata,setTaskColor}) => {
+export const TaskCardList = ({title,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,completed}) => {
     console.log('priorityname',priorityname)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
 console.log('taskSessions',taskSessions)
@@ -32,9 +30,9 @@ console.log('taskSessions',taskSessions)
     return (
 <View>
             <TouchableWithoutFeedback  key={id}  style={[styles.bgWhite]}>
-        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite,radius(0,5,5,0,0)
 ]}>
-            <View style={[{ width: 2,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 4,height:150 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,

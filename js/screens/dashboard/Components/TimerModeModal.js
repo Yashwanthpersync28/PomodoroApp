@@ -61,8 +61,8 @@ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTim
       style={[{width:widthValue(1),margin:0,height:heightValue(3)}]}
       >
         <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),radius(0,15,0,0,15)]}>
-          <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
-        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+        <View style={[styles.centerHorizontal,marginPosition(-5,0,12,0)]}>
+        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
 
         <Text

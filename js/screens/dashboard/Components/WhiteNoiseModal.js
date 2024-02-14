@@ -77,8 +77,8 @@ import Icon, { Icons } from '../../../components/Icons';
               radius(0, 20, 0, 0, 20),
               styles.spaceBetweenVertical,
             ]}>
-              <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
-        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+              <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
+        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
             <Text
               style={[
@@ -94,7 +94,7 @@ import Icon, { Icons } from '../../../components/Icons';
 <FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/></View>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal(),stopSound()}} paddingval={[padding(0,15,20)]} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Cancel'} onPress={()=>{closeModal()}} paddingval={[padding(0,15,20)]} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
         <TimerButton buttonText={'Ok'}onPress={()=>{updateNoise(),stopSound()}} paddingval={[padding(0,15,20)]} widthVal={{width:widthValue(2.5)}} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>

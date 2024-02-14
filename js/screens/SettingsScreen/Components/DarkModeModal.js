@@ -47,8 +47,8 @@ import { modalData } from '../../../constants/ModalsData'
     style={[{width:widthValue(1),height:heightValue(3),margin:0},styles.centerHorizontal,radius(10)]}>
         
         <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),styles.positionAbsolute,{bottom:0},radius(0,15,0,0,15)]}>
-        <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
-        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+        <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
+        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
         <Text
             style={[

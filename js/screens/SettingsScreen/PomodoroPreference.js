@@ -134,6 +134,9 @@ const vibrationOptions = [
           newSound.play((success)=>{
             if(success){
               console.log('Sound played successfully');
+              setTimeout(()=>{
+                console.log('shall i end the song')
+              },5000)
             } else {
               console.error('Playback failed due to audio decoding errors');
             }
@@ -142,12 +145,13 @@ const vibrationOptions = [
           }
           )
         }
-  
       }
       )
     }
 const handleNoise = (item)=>{
+  stopSound()
   dispatch(setSelectedWhiteNoise(item.MusicName))
+  console.log('selectedWhiteNoise',selectedWhiteNoise)
   playSound(item.song)
 }
 
@@ -199,8 +203,8 @@ const goBack = ()=>{
 {currentModal === 7 &&  <LongBreakModal currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 8 &&  <SoundModal  isVisible={currentModal === 8} data={modalData.CompletionSounds} title={'Completion Sound'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleCompletionSound(item)}  selectedSong={selectedCompletionSound} onPress2={()=>{closeModal(),stopSound()}} onPress3={()=>{closeModal(),stopSound()}}/>}
 {currentModal === 10 &&  <SoundModal isVisible={currentModal === 10} data={modalData.reminderRintones}  title={'Reminder Ringtone'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleRingtone(item)} selectedSong={selectedRingtone} onPress2={closeModal} onPress3={closeModal}/>}
-{currentModal === 4 &&  <SoundModal isVisible={currentModal === 4} data={modalData.whiteNoiseMode}  title={'White Noise'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleNoise(item)}    selectedSong={selectedWhiteNoise} onPress2={closeModal} onPress3={closeModal}/>}
-
+{/* {currentModal === 4 &&  <SoundModal isVisible={currentModal === 4} data={modalData.whiteNoiseMode}  title={'White Noise'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleNoise(item)} selectedSong={selectedWhiteNoise} onPress2={closeModal} onPress3={closeModal}/>} */}
+{currentModal === 4 && <WhiteNoiseModal />}
 {currentModal === 9 &&  <ReminderVibrate  currentModal={currentModal} handleNoise={handleNoise} closeModal={closeModal}  handleVibration={handleVibration} vibration={vibration} vibrationOptions={vibrationOptions}/>}
     </View>
   )

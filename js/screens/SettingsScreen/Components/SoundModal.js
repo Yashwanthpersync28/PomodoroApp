@@ -75,8 +75,8 @@ import { Title } from 'react-native-paper';
               styles.spaceBetweenVertical,
               borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,
             ]}>
-              <View style={[styles.centerHorizontal,marginPosition(-5,0,10,0)]}>
-        <View style={[{ width: 40,height:6  },styles.bgLightWhite,styles.centerHorizontal, radius(5)]}></View>
+              <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
+        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
             <Text
               style={[

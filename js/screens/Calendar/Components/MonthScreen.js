@@ -13,6 +13,8 @@ export const MonthScreen = () => {
   const truncateText = (text)=>{
     if(text.length > 8){
       return text.substring(0, 8)+ '...'
+    } else {
+      return text.substring()
     }
   }
   const renderDay = (date) => {
@@ -26,7 +28,7 @@ export const MonthScreen = () => {
 
         <View style={marginPosition(10)}>
           {tasksForDate.map((task, index) => (
-            <View key={index} style={[{backgroundColor:task.Project.Color}, paddingPosition(2, 4, 2, 4), radius(0, 0, 0, 5, 5), borderWidth(0.1), styles.allCenter, margin(0, 5)]}>
+            <View key={index} style={[{backgroundColor:task.Project.Color}, paddingPosition(2, 4, 2, 4), radius(0, 0, 0, 5, 5), borderWidth(0.1), margin(0, 5)]}>
               <Text style={[styles.white, fontSize(12)]}>{truncateText(task.Taskname)}</Text>
             </View>
           ))}
