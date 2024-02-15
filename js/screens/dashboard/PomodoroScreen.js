@@ -50,9 +50,19 @@ export const PomodoroScreen = () => {
   const [time, setTime] = useState(FocusTime);
 
   const currentdate = new Date();
+
   const completedDate = currentdate.toISOString().split('T')[0]
   console.log(completedDate)
-  
+  const currentTime = new Date();
+
+  // Get the current hour, minute, and second
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+  const seconds = currentTime.getSeconds();
+
+  // Display the current time
+  const completedtime = `${hours}:${minutes}:${seconds}`
+  console.log('completedtime',completedtime);
 
   const [timerModeArray, setTimerModeArray] = useState([
     { id: '1', start: FocusTime, end: '00:00', desc: `Countdown from ${Math.floor(FocusTime / 60)}:${(FocusTime % 60).toString().padStart(2, '0')} Minutes until time turns out` },
@@ -129,6 +139,7 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
         focusTime:FocusTime * localSession,
         completedDate:completedDate,
         totalTimeCompleted:totalfocusTime,
+        completedAt:completedtime,
       };
 
       dispatch(replaceStatus(updatedTask));
@@ -138,6 +149,7 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
       }));
     }
   };
+
   
   // Usage
   

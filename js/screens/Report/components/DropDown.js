@@ -28,7 +28,7 @@ console.log('headerData',headerData);
      <TouchableOpacity onPress={()=>handleDropdown(false)}>
       <View style={[styles.row]}>
           <Text style={[styles.black,fontWeight('600')]}>{name}</Text>
-          <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.borderGray,fontSize(25)]}/>
+          <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.black,fontSize(25)]}/>
       </View>
     </TouchableOpacity>
     :
@@ -38,10 +38,10 @@ console.log('headerData',headerData);
         <TouchableOpacity onPress={()=>handleItem(items)}>
         <View style={[styles.row]}>
           <View>
-            <Text style={[items.selected ? styles.black : styles.borderGray,items.selected && fontWeight('600')]}>{items.name}</Text>
+            <Text style={[ styles.black ,items.selected && fontWeight('600')]}>{items.name}</Text>
             </View>
             <View style={[styles.flexEnd,flex(1)]}>
-               <Icon name={items.selected ? 'chevron-up':'chevron-down'} type={Icons.Feather} style={[items.selected ? styles.black : styles.borderGray,items.selected && fontWeight('600'),fontSize(25),marginPosition(0,0,0,5)]}/>
+               <Icon name={items.selected ? 'chevron-up':'chevron-down'} type={Icons.Feather} style={[styles.black , items.selected && fontWeight('600'),fontSize(25),marginPosition(0,0,0,5)]}/>
             </View>
         </View>
         </TouchableOpacity>
