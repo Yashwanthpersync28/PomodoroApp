@@ -51,6 +51,7 @@ export const PomodoroScreen = () => {
   const [time, setTime] = useState(FocusTime);
 
   const currentdate = new Date();
+
   const completedDate = currentdate.toISOString().split('T')[0]
   console.log(completedDate)
 
@@ -151,6 +152,7 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
       }));
     }
   };
+
   
   // Usage
   

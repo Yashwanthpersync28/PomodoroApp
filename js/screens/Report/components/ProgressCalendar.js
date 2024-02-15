@@ -40,9 +40,9 @@ export const ProgressCalendar = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={[styles.centerHorizontal, flex(0.2)]}>
+      <View style={[styles.centerHorizontal, flex(0.2),marginPosition(25)]}>
         <Calendar
-          style={[{ width: widthValue(1.1), minHeight: heightValue(1.5), marginBottom: 10 }]}
+          style={[{ width: widthValue(1.2), minHeight: heightValue(2)}]}
           theme={{
             calendarBackground: 'white',
             todayTextColor: 'white',

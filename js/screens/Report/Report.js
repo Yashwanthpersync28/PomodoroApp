@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { borderColor, borderWidth, flex ,fontSize,heightValue,marginPosition,padding,paddingPosition,radius,styles} from '../../styles/Styles'
+import { borderColor, borderWidth, flex ,fontSize,heightValue,marginPosition,padding,paddingPosition,position,radius,styles, zIndex} from '../../styles/Styles'
 import {View,Text,StatusBar,ScrollView} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Header } from '../Manage/components/Header'
@@ -14,6 +14,7 @@ import {  ProjectTimeDistribution } from './ProjectTimeDistribution'
 import { ProgressCalendar } from './components/ProgressCalendar'
 import { PomodoroRecords } from './components/PomodoroRecords'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { DropDown } from './components/DropDown'
 
 
 export const Report = ({navigation}) => {
@@ -57,19 +58,49 @@ export const Report = ({navigation}) => {
           </View>
           
      </View>
-     <View>   
-         <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
+      <View>   
+          <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
+             <View style={[zIndex(100)]}>
+               {/* <DropDown showPomodoro={showpomodoro}  ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/> */}
+
           <ReportHeader showPomodoro={showpomodoro} headername={'Focus Time'} options={'Tasks'} ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/>
-             <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
-              {name==='Weekly' &&  <FocusTime/> }
-             {name==='Monthly' && <ProjectTimeDistribution/>}
-             {name==='Biweekly' && <ProgressCalendar/>}
-              {/* <PomodoroRecords/> */}
-              </TouchableWithoutFeedback>
          </View>
-     </View>
+            <View style={[zIndex(0)]}>
+                <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
+                 {name==='Weekly' &&  <FocusTime/> }
+              {name==='Monthly' && <PomodoroRecords/>}
+             {name==='Biweekly' && <ProgressCalendar/>}
+               {/* <PomodoroRecords/> */}
+               </TouchableWithoutFeedback>
+               </View>
+          </View>
+        </View>
+
+
+     
      </ScrollView>
     
     </SafeAreaView>
   )
 }
+
+
+
+
+// <View>   
+//          <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
+//           <View style={[zIndex(100)]}>
+//           <DropDown showPomodoro={showpomodoro}  ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/>
+
+//           {/* <ReportHeader showPomodoro={showpomodoro} headername={'Focus Time'} options={'Tasks'} ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/> */}
+//           </View>
+//           <View style={[zIndex(0),styles.bgOrange]}>
+//              <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
+//               {name==='Weekly' &&  <FocusTime/> }
+//              {name==='Monthly' && <ProjectTimeDistribution/>}
+//              {name==='Biweekly' && <ProgressCalendar/>}
+//               {/* <PomodoroRecords/> */}
+//               </TouchableWithoutFeedback>
+//               </View>
+//          </View>
+//      </View>

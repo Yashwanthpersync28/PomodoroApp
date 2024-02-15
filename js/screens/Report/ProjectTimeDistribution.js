@@ -19,7 +19,7 @@ const data=[{projectName:'Pomodoroo',color:Colors.Orange,focusTime:'15h 20m',per
       <View style={[marginPosition(20),styles.positionRelative,{height:heightValue(4)},styles.allCenter]}>
       <Pie
               radius={50}
-              innerRadius={45}
+              innerRadius={42}
               sections={[
                 {
                   percentage: 10,
