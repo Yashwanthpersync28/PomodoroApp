@@ -1,6 +1,6 @@
 import { View,SafeAreaView, Text,StatusBar} from 'react-native';
 import React, { useState,useRef,useEffect } from 'react';
-import {flex,styles, widthValue, radius, heightValue, marginPosition,} from '../../styles/Styles';
+import {flex,styles, widthValue, radius, heightValue, marginPosition, margin,} from '../../styles/Styles';
 import {HomepageHeader} from './Components/HomepageHeader';
 import {ModeButtons} from './Components/ModeButtons';
 import {TimerComponent} from './Components/TimerComponent';
@@ -23,6 +23,7 @@ import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
 import { addUserTasks, replaceStatus } from '../../redux/userReducer/UserTaskDetails';
 import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
 import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer';
+import { SwitchComponent } from '../../components/touchables/SwitchComponent';
 export const PomodoroScreen = () => {
 
   const dispatch = useDispatch();
@@ -52,6 +53,17 @@ export const PomodoroScreen = () => {
   const currentdate = new Date();
   const completedDate = currentdate.toISOString().split('T')[0]
   console.log(completedDate)
+
+  const currentTime = new Date();
+
+  // Get the current hour, minute, and second
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+  const seconds = currentTime.getSeconds();
+  
+  // Display the current time
+  const completedtime = `${hours}:${minutes}:${seconds}`
+  console.log('completedtime',completedtime);
   
 
   const [timerModeArray, setTimerModeArray] = useState([
@@ -129,6 +141,7 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
         focusTime:FocusTime * localSession,
         completedDate:completedDate,
         totalTimeCompleted:totalfocusTime,
+        completedAt:completedtime,
       };
 
       dispatch(replaceStatus(updatedTask));
@@ -218,26 +231,43 @@ const completedPomodoro = () => {
   }
   //audio section playSound //
 
+  // const completionSound = (completedSound) => {
+  //   const completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
+  //     if (error) {
+  //       console.error("Sound can't play:", error);
+  //     } else {
+  //       console.log('Sound initialized successfully');
+        
+  //         completionSong.play((success)=>{
+  //           if(success){
+  //             console.log('sucess')
+  //           } else{
+  //             console.log('failure')
+  //           }
+  //         })
+  //       completionSong.setCurrentTime(5)
+  //     }
+  //   });
+  // };
+  
   const completionSound = (completedSound) => {
     const completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
-      if (error) {
-        console.error("Sound can't play:", error);
-      } else {
-        console.log('Sound initialized successfully');
-        
-          completionSong.play((success)=>{
-            if(success){
-              console.log('sucess')
-            } else{
-              console.log('failure')
-            }
-          })
-        completionSong.setCurrentTime(5)
-      }
+        if (error) {
+            console.error("Sound can't play:", error);
+        } else {
+            
+                    setTimeout(() => {
+                        completionSong.stop();
+                        completionSong.release();
+                        alert('Sound stopped after 5 seconds')
+                        console.log('Sound stopped after 5 seconds');
+                    }, 5000);
+                
+           
+        }
     });
-  };
-  
-  
+};
+
   
 
   

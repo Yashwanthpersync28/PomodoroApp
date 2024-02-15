@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { Header } from '../Manage/components/Header'
-import { styles, widthValue,flex, padding } from '../../styles/Styles'
+import { styles, widthValue,flex, padding, heightValue } from '../../styles/Styles'
 import Icon, { Icons } from '../../components/Icons'
 import { PreferenceComponent } from './Components/PreferenceComponent'
 import { TimerModeModal } from '../dashboard/Components/TimerModeModal'
@@ -33,6 +33,7 @@ const vibrationOptions = [
 
 
     const focusTime = useSelector((state)=>state.user.focusTime.focusTime,)
+    // console.log("Focus Time State:", state.user.focusTime); 
     const breakTime = useSelector((state)=>state.user.breakTime.breakTime,)
     const LongBreak = useSelector((state)=>state.user.longBreak.longBreak,)
   console.log('time',focusTime)
@@ -65,16 +66,16 @@ const vibrationOptions = [
       dispatch(setSelectedRingtone(item.MusicName))
     }
 
-    const disableBreak = (value)=>{
-      dispatch(setDisableBreak(value))
+    const disableBreak = ()=>{
+      dispatch(setDisableBreak(!breakSwitch))
     }
 
-    const autoStartBreak = (value)=>{
-      dispatch(setAutoBreak(value))
+    const autoStartBreak = ()=>{
+      dispatch(setAutoBreak(!autoBreak))
     }
 
-    const autoStartFocus = (value)=>{
-      dispatch(setFocusStart(value))
+    const autoStartFocus = ()=>{
+      dispatch(setFocusStart(!autoFocusStart))
     }
     const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
 
@@ -177,10 +178,10 @@ const goBack = ()=>{
 
   return (
     <View style={[styles.bgWhite,flex(1),padding(0,0,10)]}>  
-    <View style={[flex(.1),{width:widthValue(1)}]}>
+    <View style={[{height:heightValue(10)},{width:widthValue(1)}]}>
       <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'} goBack={goBack}/></View> 
 
-      <ScrollView  showsVerticalScrollIndicator={false} style={[flex(2)]}>
+      <ScrollView  showsVerticalScrollIndicator={false} style={[{height:heightValue(10)}]}>
         <PreferenceComponent  showIcon={true}  showDetail={false}  PreferanceName={'Strict Mode'} onPress={()=>dispatch(setCurrentModal(2))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail1={formatTime(focusTime)} detail2={ '00:00'} name={'arrowright'} Icontype={Icons.AntDesign} PreferanceName={'Timer Mode'} onPress={()=>dispatch(setCurrentModal(3))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={selectedWhiteNoise} PreferanceName={'WhiteNoise'} onPress={()=>dispatch(setCurrentModal(4))}/>
@@ -188,9 +189,9 @@ const goBack = ()=>{
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${(Math.floor(breakTime / 60))} Minutes`} PreferanceName={'Short Break Length'} onPress={()=>dispatch(setCurrentModal(6))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${(Math.floor(LongBreak / 60))} Minutes`}PreferanceName={'Long Break Length'} onPress={()=>dispatch(setCurrentModal(7))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail2={`${longBreakSession} Pomodoro`} PreferanceName={'LongBreak After'} onPress={()=>dispatch(setCurrentModal(15))}/>
-        <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={breakSwitch ? 'white': 'white'}  value={breakSwitch} onValueChange={disableBreak}  PreferanceName={'Disable Break'}/>
-        <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={autoBreak ? 'white': 'white'}  value={autoBreak} onValueChange={autoStartBreak}  PreferanceName={'AutoStart Break'}/>
-        <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={autoFocusStart ? 'white': 'white'}  value={autoFocusStart} onValueChange={autoStartFocus}  PreferanceName={'Auto Start Next Pomodoro'}/>
+        <PreferenceComponent  showIcon={false} showDetail={false} isEnabled={breakSwitch} switchFunction={disableBreak}  PreferanceName={'Disable Break'}/>
+        <PreferenceComponent  showIcon={false} showDetail={false} isEnabled={autoBreak} switchFunction={autoStartBreak}  PreferanceName={'AutoStart Break'}/>
+        <PreferenceComponent  showIcon={false} showDetail={false} isEnabled={autoFocusStart} switchFunction={autoStartFocus}  PreferanceName={'Auto Start Next Pomodoro'}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Reminder Ringtone'} detail2={selectedRingtone} onPress={()=>dispatch(setCurrentModal(10))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Reminder Vibrate'} detail2={vibration} onPress={()=>dispatch(setCurrentModal(9))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Completion Sound'} detail2={selectedCompletionSound} onPress={()=>dispatch(setCurrentModal(8))} />

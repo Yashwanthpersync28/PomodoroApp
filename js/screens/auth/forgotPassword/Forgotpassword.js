@@ -108,7 +108,6 @@ const handleconfirmPassword=(pass,confpass)=>{
   else{
     setConfError('Password does not match')
   }
-  
 }
 //Update password
 const UpdatePassword=()=>{

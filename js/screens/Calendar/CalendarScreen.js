@@ -14,11 +14,13 @@ import { notepad } from '../../constants/imageConstant'
 import { TaskComponent } from './Components/TaskComponent'
 import { MonthScreen } from './Components/MonthScreen'
 import { shadow } from 'react-native-paper'
+import { AddTask } from '../Manage/components/AddTask/AddTask'
 
 
 export const CalendarScreen = () => {
   const userTask = useSelector((state) => state.user.userTasks.userTask);
   const [showLists, setShowList] = useState(true);
+  const [taskVisible,setTaskVisible] = useState(false)
   // const [isEmpty, setIsEmpty] = useState(false);
 
   const date = new Date()
@@ -112,9 +114,12 @@ console.log('renderTaskArray',tasks)
       )}
 
       <View style={[styles.positionAbsolute, { bottom: 15, right: 10, zIndex: 1, height: 50, width: 50 }, styles.allCenter, styles.bgOrange, radius(30)]}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>setTaskVisible(true)}>
           <Icon name={'plus'} type={Icons.Entypo} style={[styles.white, fontSize(30)]} />
         </TouchableOpacity>
+        {taskVisible && <AddTask visible={taskVisible} onClose={()=>setTaskVisible(false)} count={0}/>}
+
+
       </View>
     </SafeAreaView>
   );

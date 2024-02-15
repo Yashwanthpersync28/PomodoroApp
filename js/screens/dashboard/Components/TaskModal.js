@@ -42,7 +42,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
 export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor}) => {
-
+ const [modalVisible,setModalVisible]=useState(true)
     const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
   const filteredTaskDetails = taskDetails.filter(task =>task.completed === false);
@@ -52,8 +52,7 @@ export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTas
    const navigation = useNavigation();
     // const [currentPage ,setCurrentPage] = useState(0)
     const addTask = ()=>{
-        navigation.navigate('ManageScreen')
-        dispatch(setCurrentModal(0))
+       return <AddTask visible={modalVisible} onClose={()=>setModalVisible(!modalVisible)} count={0}/>
     }
 
 console.log('id', taskDetails.map(data=>data.id))
@@ -72,7 +71,6 @@ console.log('id', taskDetails.map(data=>data.id))
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            {/* {currentPage === 0  && */}
             <Modal
                 animationIn={'slideInUp'}
                 animationOut={'slideOutDown'}
@@ -112,9 +110,10 @@ console.log('id', taskDetails.map(data=>data.id))
                                 Select Task
                             </Text>
                         </View>
-                        <TouchableOpacity onPress={addTask}>
+                        <TouchableOpacity onPress={()=>setModalVisible(true)}>
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
                         </TouchableOpacity>
+                        {modalVisible && <AddTask visible={modalVisible} onClose={()=>setModalVisible(false)} count={0}/>}
                     </View>
                     <View style={[borderWidth(0, 1, 0, 1, 0), styles.borderLightWhite,]}>
 
@@ -155,7 +154,6 @@ console.log('id', taskDetails.map(data=>data.id))
                     </View>
                 </View>
             </Modal> 
-            {/* {currentPage ===1 && <Manage countvalue={1} modalVisibleval={true}/> } */}
             </KeyboardAvoidingView>
     );
 };

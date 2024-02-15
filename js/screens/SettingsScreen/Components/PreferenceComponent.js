@@ -1,12 +1,13 @@
 import { View, Text,TouchableOpacity,Switch } from 'react-native'
 import React from 'react'
-import { flex, fontSize, fontWeight, margin, marginPosition, padding, styles, widthValue } from '../../../styles/Styles'
+import { flex, fontSize, fontWeight, heightValue, margin, marginPosition, padding, styles, widthValue } from '../../../styles/Styles'
 import Icon, { Icons } from '../../../components/Icons'
+import { SwitchComponent } from '../../../components/touchables/SwitchComponent'
 
- export const PreferenceComponent = ({PreferanceName,showDetail,showIcon,name,Icontype,detail1,detail2,onPress,onValueChange,value,thumbColor,}) => {
+ export const PreferenceComponent = ({PreferanceName,showDetail,showIcon,name,Icontype,detail1,detail2,onPress,onValueChange,value,thumbColor,isEnabled,switchFunction}) => {
 
   return (
-    <TouchableOpacity style={[flex(0.3),styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10)]} onPress={onPress} >
+    <TouchableOpacity style={[{height:heightValue(18)},styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10),marginPosition(0,0,8,0)]} onPress={onPress} >
         <Text style={[fontSize(18),styles.black,{fontWeight:"500"}]}>{PreferanceName}</Text>
         <View style={[styles.row,styles.centerHorizontal]}>
 
@@ -21,8 +22,7 @@ import Icon, { Icons } from '../../../components/Icons'
         {showIcon === true ?
      <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[styles.black,fontSize(30)]} /> : 
      (
-      <Switch 
-      onValueChange={onValueChange} value={value} thumbColor={thumbColor}  trackColor={{false:'#efefef',true:'#ff6347'}}/>
+      <SwitchComponent isEnabled={isEnabled} switchFunction={switchFunction}/>
      )
      }
      </View>

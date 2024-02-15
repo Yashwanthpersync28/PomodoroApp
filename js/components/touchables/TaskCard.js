@@ -36,14 +36,15 @@ console.log('taskSessions',taskSessions)
             <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor)}} style={[styles.bgWhite]}>
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite
 ]}>
-            <View style={[{ width: 2,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 4,height:132 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            {/* <View style={[{ width: 3,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View> */}
             <View
                 style={[
                     styles.row,
                     paddingPosition(15, 15, 5, 15),
                     borderWidth(1),
                     styles.borderLightWhite,
-                    radius(0, 5, 5, 0,5),
+                    radius(0, 5, 5, 0,0),
                     completed?{backgroundColor:'#ffffff50'}:styles.bgWhite
                 ]}>
                 <View style={[

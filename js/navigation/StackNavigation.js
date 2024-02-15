@@ -40,6 +40,7 @@ import { Terms } from "../screens/SettingsScreen/Help/Components/Terms";
 import { PrivacyPolicy } from "../screens/SettingsScreen/Help/Components/PrivacyPolicy";
 import { FAQ } from "../screens/SettingsScreen/Help/Components/FAQ";
 import { ContactSupport } from "../screens/SettingsScreen/Help/Components/ContactSupport";
+import { ChangePassword } from "../screens/SettingsScreen/changePassword/ChangePassword";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -258,6 +259,13 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'ContactSupport'}
                     component={ContactSupport}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'ChangePassword'}
+                    component={ChangePassword}
                     options={{
                         header: () => null,
                     }}

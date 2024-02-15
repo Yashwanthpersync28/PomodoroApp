@@ -32,7 +32,7 @@ console.log('taskSessions',taskSessions)
             <TouchableWithoutFeedback  key={id}  style={[styles.bgWhite]}>
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite,radius(0,5,5,0,0)
 ]}>
-            <View style={[{ width: 4,height:150 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 4,height:149 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
@@ -45,7 +45,7 @@ console.log('taskSessions',taskSessions)
                 <View style={[
                     styles.row,
                     styles.spaceBetweenVertical,
-                    { width: widthValue(1.3) },
+                    { width: widthValue(1.35) },
                     paddingPosition(0, 0, 20,),
                     completed?{backgroundColor:'#ffffff50'}:styles.bgWhite
                 ]}>
