@@ -8,15 +8,20 @@ import { ButtonComponent, TextInputCompnent } from '../../../components'
 import { useState } from 'react'
 import { handlePasswordvalidation } from '../../../constants/PasswordValidaton'
 import { useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
- export const ChangePassword = ({PreviousScreen}) => {
+ export const ChangePassword = ({}) => {
   const userDetails = useSelector(state=>state.UserDetails.userList)
   console.log('userDetails',userDetails)
 
+  const navigation = useNavigation();
 
+  const PreviousScreen = ()=>{
+    navigation.goBack();
+  }
   // setUserId(userDetails.map(user=>user.id))
 
-  console.log(userId,'useridjkbhbjh')
+  // console.log(userId,'useridjkbhbjh')
   const [password,setPassword] = useState('')
   const [conPassword,setConPassword] = useState('')
   const [securedpass,setSecuredPass] = useState(true)
@@ -42,7 +47,6 @@ import { useSelector } from 'react-redux'
     } else{
       setConError('Password does not match')
     }
-      
   }
 
 //  const UpdatePassword = ()=>{

@@ -202,7 +202,7 @@ const goBack = ()=>{
 {currentModal === 6 &&  <BreakModal currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 15 &&  <LongBreakSession currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 7 &&  <LongBreakModal currentModal={currentModal} closeModal={closeModal}/>}
-{currentModal === 8 &&  <SoundModal  isVisible={currentModal === 8} data={modalData.CompletionSounds} title={'Completion Sound'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleCompletionSound(item)}  selectedSong={selectedCompletionSound} onPress2={()=>{closeModal(),stopSound()}} onPress3={()=>{closeModal(),stopSound()}}/>}
+{currentModal === 8 &&  <SoundModal  isVisible={currentModal === 8} data={modalData.CompletionSounds} title={'Completion Sound'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>{handleCompletionSound(item),stopSound()}}  selectedSong={selectedCompletionSound} onPress2={()=>{closeModal(),stopSound()}} onPress3={()=>{closeModal(),stopSound()}}/>}
 {currentModal === 10 &&  <SoundModal isVisible={currentModal === 10} data={modalData.reminderRintones}  title={'Reminder Ringtone'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleRingtone(item)} selectedSong={selectedRingtone} onPress2={closeModal} onPress3={closeModal}/>}
 {/* {currentModal === 4 &&  <SoundModal isVisible={currentModal === 4} data={modalData.whiteNoiseMode}  title={'White Noise'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleNoise(item)} selectedSong={selectedWhiteNoise} onPress2={closeModal} onPress3={closeModal}/>} */}
 {currentModal === 4 && <WhiteNoiseModal />}

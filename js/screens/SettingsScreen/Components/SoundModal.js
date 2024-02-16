@@ -28,7 +28,7 @@ import { Title } from 'react-native-paper';
       const isSelected = selectedSong === item.MusicName
       return(
         <TouchableOpacity onPress={()=>onPress(item)}>
-        <View style={[styles.row,styles.spaceBetweenVertical,styles.centerHorizontal,borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
+        <View style={[styles.row,styles.spaceBetweenVertical,styles.centerHorizontal,]}>
               <View>
                 <View
                   style={[
@@ -75,7 +75,7 @@ import { Title } from 'react-native-paper';
               styles.spaceBetweenVertical,
               borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,
             ]}>
-              <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
+              <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0),]}>
         <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
             <Text
@@ -88,9 +88,10 @@ import { Title } from 'react-native-paper';
               ]}>
               {title}
             </Text>
-
+            
+<View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
 <FlatList data={data} renderItem={({item})=>renderTunes({item})} keyExtractor={item=>item.id} onPress={(item) => onPress(item)}/>
-        
+</View>
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
       <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
       <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>

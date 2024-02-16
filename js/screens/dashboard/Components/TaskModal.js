@@ -41,7 +41,7 @@ import { Manage } from '../../Manage/Manage';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
-export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor}) => {
+export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor,addTask}) => {
  const [modalVisible,setModalVisible]=useState(true)
     const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
@@ -51,9 +51,7 @@ export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTas
   const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
    const navigation = useNavigation();
     // const [currentPage ,setCurrentPage] = useState(0)
-    const addTask = ()=>{
-       return <AddTask visible={modalVisible} onClose={()=>setModalVisible(!modalVisible)} count={0}/>
-    }
+  
 
 console.log('id', taskDetails.map(data=>data.id))
 
@@ -96,7 +94,6 @@ console.log('id', taskDetails.map(data=>data.id))
         <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
                     <View style={[styles.row, styles.allCenter, styles.selfEnd]}>
-                   
                         <View>
                             <Text
                                 style={[
@@ -110,10 +107,9 @@ console.log('id', taskDetails.map(data=>data.id))
                                 Select Task
                             </Text>
                         </View>
-                        <TouchableOpacity onPress={()=>setModalVisible(true)}>
+                        <TouchableOpacity onPress={addTask}>
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
                         </TouchableOpacity>
-                        {modalVisible && <AddTask visible={modalVisible} onClose={()=>setModalVisible(false)} count={0}/>}
                     </View>
                     <View style={[borderWidth(0, 1, 0, 1, 0), styles.borderLightWhite,]}>
 
@@ -150,7 +146,7 @@ console.log('id', taskDetails.map(data=>data.id))
                         ))} 
                         </View> }
                         </View> 
-     
+    
                     </View>
                 </View>
             </Modal> 

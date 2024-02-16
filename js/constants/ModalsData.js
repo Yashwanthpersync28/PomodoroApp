@@ -23,27 +23,25 @@ export const modalData = {
     ],
 
 CompletionSounds : [
-    {id:'1',MusicName:'Carol of Bells',tune:'carolofbells.mp3'},
-    {id:'2',MusicName:'Despecito',tune:'despecito.mp3'},
-    {id:'3',MusicName:'Shape of You',tune:'shapeofyou.mp3'},
-],
+    {id:'1',MusicName:'Jingle',tune:'jingle.mp3'},
+    {id:'2',MusicName:'Classic Alarm',tune:'classicalarm.mp3'},
+    {id:'3',MusicName:'Jazz tune',tune:'jazztune.mp3'},
 
+],
     reminderRintones:[
         {id:'1',MusicName:'None',song:''},
         {id:'2',MusicName:'Adventure',song:'adventure.mp3'},
         {id:'3',MusicName:'Jazz Beats',song:'drumbeats.mp3'},
         {id:'4',MusicName:'Wake me Now',song:'alert2.mp3'},
         {id:'5',MusicName:'Melting Ice',song:'meltingice.mp3'},
-        {id:'6',MusicName:'Shadow',       song:'shadow.mp3'},
+        {id:'6',MusicName:'Shadow',song:'shadow.mp3'},
     ],
     focusTime:[
         {id:'1', focusTime: 10},
-        {id:'2', focusTime: 600},
-        {id:'3', focusTime: 900},
-        {id:'4', focusTime: 1500},
-        {id:'5', focusTime: 1800},
-        {id:'6', focusTime: 2700},
-        {id:'7', focusTime: 3600}
+        {id:'2', focusTime: 1500},
+        {id:'3', focusTime: 1800},
+        {id:'4', focusTime: 2700},
+        {id:'5', focusTime: 3600}
     ],
     breakTime:[
         {id:'1', breakTime: 5},

@@ -24,6 +24,7 @@ import { addUserTasks, replaceStatus } from '../../redux/userReducer/UserTaskDet
 import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
 import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer';
 import { SwitchComponent } from '../../components/touchables/SwitchComponent';
+import { AddTask } from '../Manage/components/AddTask/AddTask';
 export const PomodoroScreen = () => {
 
   const dispatch = useDispatch();
@@ -115,6 +116,7 @@ export const PomodoroScreen = () => {
 
   const [sound,setSound] = useState(null)
 
+  const [completionsound,setCompletionSound] = useState(null)
   const [secondTime,setSecondTime] = useState(0*60);
   const [taskCompleted,setTaskCompleted] = useState(false)
   const [displaySession,setDisplaySession] = useState('No Sessions')
@@ -205,10 +207,7 @@ const completedPomodoro = () => {
       } else {
         console.log('Sound initialized successfully');
   
-        // looping 
-        
-        // Continue with playback logic
-        
+        // Continue with playback logic    
         newSound.play((success)=>{
           if(success){
             console.log('song is succes')
@@ -231,41 +230,16 @@ const completedPomodoro = () => {
       sound.release();
     }
   }
-  //audio section playSound //
-
-  // const completionSound = (completedSound) => {
-  //   const completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
-  //     if (error) {
-  //       console.error("Sound can't play:", error);
-  //     } else {
-  //       console.log('Sound initialized successfully');
-        
-  //         completionSong.play((success)=>{
-  //           if(success){
-  //             console.log('sucess')
-  //           } else{
-  //             console.log('failure')
-  //           }
-  //         })
-  //       completionSong.setCurrentTime(5)
-  //     }
-  //   });
-  // };
-  
+  let completionSong;
+//completion sound section
   const completionSound = (completedSound) => {
-    const completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
+     completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
         if (error) {
             console.error("Sound can't play:", error);
         } else {
-            
-                    setTimeout(() => {
-                        completionSong.stop();
-                        completionSong.release();
-                        alert('Sound stopped after 5 seconds')
-                        console.log('Sound stopped after 5 seconds');
-                    }, 5000);
-                
-           
+            completionSong.play(() => {
+                console.log('Song started');
+            });
         }
     });
 };
@@ -481,6 +455,9 @@ const updateTask = ()=>{
 }
 
 
+const addTask = ()=>{
+  dispatch(setCurrentModal(18))
+}
 return (
   <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
     <StatusBar backgroundColor = "#ff6347" barStyle = "dark-content"/>
@@ -550,12 +527,13 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask}/>}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
    
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} stopSound={stopSound}/>}
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} />}
+    {currentModal ===18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
 
   </SafeAreaView>
 

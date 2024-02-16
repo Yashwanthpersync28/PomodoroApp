@@ -143,12 +143,12 @@ const handlePhone = (text)=>{
         <View style={[{height:heightValue(12)},padding(0,0,30),]}>
       <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'My Profile'} goBack={PreviousScreen}/>
     </View>
-    <View style={[styles.centerHorizontal,marginPosition(15,0,0,0),styles.positionRelative,padding(0,0,30),]}>
+    <View style={[styles.centerHorizontal,marginPosition(15,0,0,0),styles.positionRelative,padding(0,0,30),styles.bgGray]}>
      <TouchableWithoutFeedback style={[styles.black,fontSize(50),borderWidth(1),{width:widthValue(3.2),height:widthValue(3.2)},radius(widthValue(1.75)),styles.allCenter]} onPress={handleImage} >
      
      {showProfilePic ? <Image source={{uri:selectedImage}} style={[{width:widthValue(3.2),height:widthValue(3.2)},radius(widthValue(1.75))]}/> :
      <Image source={profile} style={[{width:widthValue(3.2),height:widthValue(3.2)},radius(widthValue(1.75))]}/> }
-    </TouchableWithoutFeedback> 
+    </TouchableWithoutFeedback>
     <Icon name={'pencil-box'} type={Icons.MaterialCommunityIcons} style={[fontSize(30),styles.Orange,styles.positionAbsolute,{bottom:4,right:144}]}/>
     </View>   
 
@@ -217,8 +217,6 @@ const handlePhone = (text)=>{
         <ButtonComponent title={'Save'} />
     </View>
     {currentModal === 11 && <DarkModeMOdal selectedThing={selectedGender}  closeModal={closeModal} visibleAt={currentModal===11} handleFuntion={handleGenderModal}  data={gender}/>} 
-
-    {/* {currentModal === 11 && <GenderModal gender={gender} currentModal={currentModal} showModal={showModal} setSelectedGender={setSelectedGender} selectedGender={selectedGender}/>} */}
     </SafeAreaView>
     
   )

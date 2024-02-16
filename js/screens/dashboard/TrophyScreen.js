@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import Modal from 'react-native-modal'
 
- export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask,stopSound}) => {
+ export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask}) => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ import Modal from 'react-native-modal'
     setCurrentButton(0)
     setDisplayTime(FocusTime)
     setTotalSessionTime(FocusTime)
-    stopSound()
+    // stopCompletionSound()
   }
 
   const gotoReport = ()=>{
@@ -26,7 +26,7 @@ import Modal from 'react-native-modal'
     setCurrentButton(0)
     setDisplayTime(FocusTime)
     setTotalSessionTime(FocusTime)
-    stopSound()
+    // stopCompletionSound()
   }
   return (
     <Modal 

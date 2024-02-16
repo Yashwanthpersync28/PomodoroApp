@@ -8,7 +8,7 @@ import { useState } from 'react'
       export const SwitchComponent = ({isEnabled,switchFunction}) => {
 
 
-    const animation = useSharedValue(isEnabled?18:0);
+    const animation = useSharedValue(isEnabled?14:0);
     const animatedStyle = useAnimatedStyle(()=>{
         return {
             transform:[{translateX:animation.value}]
@@ -18,17 +18,17 @@ import { useState } from 'react'
     const toggleSwitch =()=>{
         switchFunction();
         if(isEnabled){
-            animation.value = withTiming(0,{duration:200})
+            animation.value = withTiming(0,{duration:500})
             // setIsEnabled(false)
         } else{
-            animation.value = withTiming(18,{duration:100})
+            animation.value = withTiming(14,{duration:500})
             
     }
 }
 return (
       <View>
-    <TouchableOpacity style={[{width:45,height:25},isEnabled?styles.bgOrange:styles.bgLightWhite,radius(30),styles.centerHorizontal,padding(0,0,4),styles.row,borderWidth(.2),styles.borderWhite]} onPress={toggleSwitch}>
-<Animated.View style={[{width:20,height:20},styles.bgWhite,radius(12.5),animatedStyle]}>
+    <TouchableOpacity style={[{width:35,height:20},isEnabled?styles.bgOrange:styles.bgLightWhite,radius(30),styles.centerHorizontal,padding(0,0,4),styles.row,borderWidth(.2),styles.borderWhite]} onPress={toggleSwitch}>
+<Animated.View style={[{width:15,height:15},styles.bgWhite,radius(7.5),animatedStyle]}>
 </Animated.View>
     </TouchableOpacity>
   </View>
