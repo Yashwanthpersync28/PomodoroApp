@@ -16,7 +16,7 @@ export const Dayheadings = ({headingname,focusTime,completed,taskdata,name,data,
        </View>
        {/* notaskfound */}
        <View style={[marginPosition(10)]}>
-       <TaskCardDetails name={name} data={data} showLinethrough={true} handleTask={(id)=>navigation.navigate('task',{id:id})}/>
+       <TaskCardDetails name={name} data={data} showLinethrough={true} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:true})}/>
        </View>
        </>
   )

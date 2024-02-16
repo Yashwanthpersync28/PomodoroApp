@@ -7,9 +7,10 @@ import { IconComponent } from "../view";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Icon from "../Icons";
+import Icon, { Icons } from "../Icons";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor , showGray}) => {
+export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor , showGray,ShowXbbutton,handleX}) => {
 
     const { darkMode } = useSelector(state => state.system)
     return(
@@ -36,6 +37,11 @@ export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeho
             {ShowPasswordIcon ? 
            <Feather name={ secureTextEntry? 'eye-off' : 'eye'} style={[fontSize(20),styles.black]} onPress={showText}/>
        :null}
-           </View>
+       <TouchableWithoutFeedback onPress={handleX}>
+       {ShowXbbutton ? 
+           <Feather name={'x'} type={Icons.Feather} style={[fontSize(25),styles.black]}/>
+       :null}
+         </TouchableWithoutFeedback>
+   </View>
     )
 }

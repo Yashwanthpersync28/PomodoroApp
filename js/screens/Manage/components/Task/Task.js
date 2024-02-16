@@ -10,23 +10,27 @@ import { DeleteTaskModal } from '../../../../components/modals/DeleteTaskModal'
 import { TaskDeletedModal } from '../../../../components/modals/TaskDeletedModal'
 import { Colors } from '../../../../styles/Colors'
 import { useDispatch, useSelector } from 'react-redux'
-import { addUserTasks } from '../../../../redux/userReducer/UserTaskDetails'
+import { addUserTasks, deleteUserTask } from '../../../../redux/userReducer/UserTaskDetails'
 import DocumentPicker from 'react-native-document-picker';
 import { GetUpdatedAttachement } from '../../../../constants/documentpicker'
+import { addTrashtasks } from '../../../../redux/userReducer/TrashReducer'
 
 
 
 export const Task = ({navigation,route}) => {
-  const {id}=route.params
+  const {id,completedTask}=route.params
   console.log('id',id);
   //states
+  const [isDeleteFolder,setisDeleteFolder]=useState(false)
   const [showOptions,setShowoptions]=useState(false)
   const [subtask,setSubtask]=useState('')
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [isTaskdeletedModalVisible,setTaskdeletedModalVisible]=useState(false)
   const [CurrentTask,setCurrentTask]=useState(null);
   const [attachedFileUri, setAttachedFileUri] = useState('');//for upload file
-
+  const [TempOptions,setTempOptions]=useState([{'name':'pin','iconfamily':Icons.SimpleLineIcons,'iconname':'pin'},{'name':'Share','iconfamily':Icons.AntDesign,'iconname':'sharealt'},
+  {'name':'Dublicate','iconfamily':Icons.AntDesign,'iconname':'copy1'},{'name':'Comment','iconfamily':Icons.Fontisto,'iconname':'commenting'},
+  {'name':'Location','iconfamily':Icons.Feather,'iconname':'map-pin'},{'name':'Delete','iconfamily':Icons.Octicons,'iconname':'trash'}])
   // console.log('CurrentTask',CurrentTask.notes);
   //selectors
   const Taskdetails=useSelector((state)=>state.user.userTasks.userTask)
@@ -116,6 +120,8 @@ const updatedEvents = Taskdetails.map(event => {
     };
     ////delete folder
     const handleDelete=()=>{
+      setDeleteModalVisible(false);
+
       const DeletedFile = Taskdetails.map(event => {
         if (event.id === id) {
             return {
@@ -147,6 +153,27 @@ const updatedEvents = Taskdetails.map(event => {
         })
         dispatch(addUserTasks(Removetag))
     }
+
+
+
+    ///to handle based on completed task or not
+    useEffect(()=>{
+      if(completedTask){
+        const updatedarr=optionsdata.filter(option => option.name === 'pin' || option.name === 'Share');
+        setTempOptions(updatedarr)
+      }
+      
+
+
+    },[completedTask])
+
+const handleDeletedtasks=()=>{
+  setTaskdeletedModalVisible(true)
+  onClose()
+  dispatch(deleteUserTask(id))
+  dispatch(addTrashtasks(CurrentTask))
+}
+
   return (
    <SafeAreaView style={[styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
@@ -166,16 +193,16 @@ const updatedEvents = Taskdetails.map(event => {
         />
     </View>
     {/* render deletemodal */}
-    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>setTaskdeletedModalVisible(true)} DeleteTaskData={CurrentTask} id={id} Taskname={CurrentTask.Taskname}/>}
+    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>handleDeletedtasks()}  Taskname={CurrentTask.Taskname} headername={'Delete Task'}/>}
     {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}}/>}
     {/* option's */}
     {showOptions ? 
     <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},paddingPosition(5,15,5,15),radius(10),styles.column,styles.bgWhite]}>
      {/* <View style={[{width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}> */}
-       {optionsdata.map((options,index)=>{
+       {TempOptions.map((options,index)=>{
         return(
-          <TouchableOpacity onPress={()=>handleOptions(options.name)}>
-            <View key={index} style={[styles.row,options.name==='Delete'?null:borderColor('#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(10,0,10)]}>
+          <TouchableOpacity onPress={()=>{handleOptions(options.name),console.log('bfdj',options)}}>
+            <View key={index} style={[styles.row,options.name==='Delete' || options.name==='Share'?borderColor('white'):borderColor('#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(10,0,10)]}>
             <View style={[{width:widthValue(16)},styles.allCenter]}>
             <Icon name={options.iconname} type={options.iconfamily} style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(20),styles.textAlignVertical]}/>
             </View>
@@ -261,6 +288,8 @@ const updatedEvents = Taskdetails.map(event => {
          </View>
     </View>
     {/* for uploading Attachment */}
+    {isDeleteFolder && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>handleDelete()}  Taskname={attachedFileUri} headername={'Delete file'}/>}
+
     <View style={[marginPosition(15,0,15)]}>
          <Text style={[styles.black,fontWeight('800')]}>Add attachement</Text>
          {attachedFileUri!='' ? (
@@ -273,7 +302,7 @@ const updatedEvents = Taskdetails.map(event => {
              <Text style={[styles.black,fontSize(18)]}>Desig-{attachedFileUri}</Text>
              </View>
              </TouchableOpacity>
-             <TouchableOpacity onPress={()=>{handleDelete(),setAttachedFileUri('')}} style={[{width:widthValue(10)}]}>
+             <TouchableOpacity onPress={()=>{setisDeleteFolder(true),setAttachedFileUri('')}} style={[{width:widthValue(10)}]}>
              <View style={[styles.flexEnd]}>
               <Icon name={'trash'} type={Icons.Octicons} style={[styles.Orange,fontSize(25)]}/>
             </View>

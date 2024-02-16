@@ -21,6 +21,8 @@ import { SelecteddateReducer } from './SelecteddateReducer';
 import { LongBreakSessionReducer } from './LongBreakSessionReducer';
 import { StrictModeReducers } from './StrictModeReducers';
 import { NotificationsReducer } from './NotifricationsReducer';
+import { userInformationReducer } from './UserInformationReducer';
+
 
 
 export const userReducer = combineReducers({
@@ -46,4 +48,6 @@ export const userReducer = combineReducers({
     longBreakSession:LongBreakSessionReducer,
     strictMode:StrictModeReducers,
     notifications:NotificationsReducer,
+    Userinfo:userInformationReducer,
+   
 })

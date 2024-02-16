@@ -7,8 +7,8 @@ export const NotaskFound = ({name}) => {
   return (
     <View style={[{height:heightValue(2)},styles.allCenter,styles.column]}>
     <Image
-     source={require('../../assets/Images/Notaskfound.png')}
-      style={[{width: widthValue(2), height: widthValue(1.8)}]}
+     source={require('../../assets/Images/notepad3.png')}
+      style={[{width: widthValue(2), height: widthValue(2)}]}
      />
      <Text style={[styles.black,fontWeight('bold'),fontSize(19)]}>{name}</Text>
  </View>

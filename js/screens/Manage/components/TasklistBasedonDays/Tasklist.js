@@ -41,7 +41,7 @@ export const Tasklist = ({navigation,route}) => {
    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
     <View style={[{height:heightValue(16)}]}>
-        {showSearchHeader?<HeaderSearch handleBacktoHeader={()=>{setSearchHeader(false),setUserInput('')}} onChangeText={(val)=>setUserInput(val)}/>:
+        {showSearchHeader?<HeaderSearch handleX={()=>setUserInput('')} handleBacktoHeader={()=>{setSearchHeader(false),setUserInput('')}} onChangeText={(val)=>setUserInput(val)} value={userInput}/>:
         <Header
          headername={name}
          IconfamilyRight={Icons.Entypo}
@@ -70,13 +70,6 @@ export const Tasklist = ({navigation,route}) => {
      </View>
      {/* addtask */}
      <View style={[{height:heightValue(14)}]}>
-     {/* <TextInputCompnent
-       Iconname={'plus'}
-       IconFamily={Icons.Feather}
-       bgColor={styles.bgWhite}
-       placeholder={'Add a Task...'}
-       onKeyPress={()=>setModalVisible(true)}
-       /> */}
        <TouchableWithoutFeedback onPress={()=>setModalVisible(true)}>
       <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),borderColor(Colors.borderGray),borderWidth(1),styles.bgWhite,{height:heightValue(14)}]}>
             <Icon name={'plus'} type={Icons.Feather} style={[fontSize(20),styles.black]}/>
@@ -89,10 +82,10 @@ export const Tasklist = ({navigation,route}) => {
      </View>
      {/* //tasks */}
      <View>
-      <TaskCardDetails data={tempData} handleTask={(id)=>navigation.navigate('task',{id:id})} showPlayIcon={true}/>
+      <TaskCardDetails data={tempData} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:false})} showPlayIcon={true}/>
      </View>
      <HeaderBorder name={'Completed'}/>
-     <TaskCardDetails data={completedData} handleTask={(id)=>navigation.navigate('task',{id:id})} showLinethrough={true} name={'Completed'}/>
+     <TaskCardDetails data={completedData} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:true})} showLinethrough={true} name={'Completed'}/>
 
      </ScrollView>
    </SafeAreaView>

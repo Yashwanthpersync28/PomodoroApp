@@ -13,6 +13,7 @@ import LoaderModalComponent from "../../../components/modals/LoaderModalComponen
 import { setOnboarding } from "../../../redux/ShowComponentReducer/ShowOnboardingReducer";
 import { setRememberMe } from "../../../redux/rememberReducer/RemembermeReducer";
 import { handlePasswordvalidation } from "../../../constants/PasswordValidaton";
+import { addUserData } from "../../../redux/userReducer/UserInformationReducer";
 
 
 export const LoginScreen = ({navigation}) => {
@@ -60,6 +61,10 @@ export const LoginScreen = ({navigation}) => {
      if(user){
       dispatch(setOnboarding(true))
       navigation.navigate('BottomTabNavigation')
+      dispatch(addUserData({
+        email:Email,
+        password:Password
+      }))
       if (remember) {
         // Dispatch the setRememberMe action with email, password, and rememberMe values
         dispatch(
@@ -70,11 +75,12 @@ export const LoginScreen = ({navigation}) => {
           })
         );
       } else {
+
         // Dispatched the setRememberMe action with default values if Remember Me is unchecked
         dispatch(
           setRememberMe({
-            email: "",
-            password: "",
+            email: '',
+            password: '',
             rememberMe: false,
           })
         );
@@ -82,7 +88,16 @@ export const LoginScreen = ({navigation}) => {
      
     }
     else{
-      setPasswordError('invalid Password')
+      const emailExists = userDetails.some(
+        (credentials) => credentials.email === Email
+      );
+  
+      if (emailExists) {
+        setPasswordError('Incorrect Password');
+      } else {
+        setEmailError('Email not found');
+      }
+      
 
     }
     console.log('xdfghjkl');
@@ -92,8 +107,10 @@ export const LoginScreen = ({navigation}) => {
 const handleEmailChange = (text) => {
   setEmail(text);
   // Validations
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
+
   setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
+
 };
 
 ////password validation

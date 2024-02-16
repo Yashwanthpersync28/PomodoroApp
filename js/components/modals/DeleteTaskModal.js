@@ -8,15 +8,15 @@ import { useDispatch } from 'react-redux';
 import { deleteUserTask } from '../../redux/userReducer/UserTaskDetails';
 
 
-export const DeleteTaskModal = ({ visible, onClose , getPriorityDetails,handletoTaskDeleted,DeleteTaskData,id,Taskname}) => {
+export const DeleteTaskModal = ({headername, visible, onClose , getPriorityDetails,handletoTaskDeleted,Taskname}) => {
 const dispatch=useDispatch()
 
-const handledelete=()=>{
-    handletoTaskDeleted()
-    onClose()
-    dispatch(deleteUserTask(id))
-    dispatch(addTrashtasks(DeleteTaskData))
-}
+// const handledelete=()=>{
+//     handletoTaskDeleted()
+//     onClose()
+//     dispatch(deleteUserTask(id))
+//     dispatch(addTrashtasks(DeleteTaskData))
+// }
 
   return (
     <Modal
@@ -33,7 +33,7 @@ const handledelete=()=>{
           {/* header */}
           <View style={[styles.allCenter, flex(0.4), borderColor('#e3e1e1'), borderWidth(0, 0, 0, 1)]}>
             <View style={[{width:widthValue(10)},borderColor('#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5)]}></View>
-            <Header headername={'Delete Task'} bgcolor={styles.white} color={styles.Orange} showLeftIocn={true} />
+            <Header headername={headername} bgcolor={styles.white} color={styles.Orange} showLeftIocn={true} />
           </View>
           {/*  */}
           <View style={[flex(0.8),padding(20),styles.allCenter,]}>
@@ -43,7 +43,7 @@ const handledelete=()=>{
           <View style={[flex(0.5), styles.row, styles.allCenter,borderColor('#e3e1e1'), borderWidth(0,1)]}>
             <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
               <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} handlecontinue={()=>onClose()}/>
-              <CustomizedButtons  name={'Yes, Delete'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={handledelete}/>
+              <CustomizedButtons  name={'Yes, Delete'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={handletoTaskDeleted}/>
             </View>
           </View>
           {/*  */}
