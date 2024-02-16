@@ -25,6 +25,8 @@ import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
 import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer';
 import { SwitchComponent } from '../../components/touchables/SwitchComponent';
 import { AddTask } from '../Manage/components/AddTask/AddTask';
+import { CancelModal } from './Components/CancelModal';
+import { Logout } from '../SettingsScreen/Logout/Logout';
 export const PomodoroScreen = () => {
 
   const dispatch = useDispatch();
@@ -130,6 +132,18 @@ console.log(';completedSound',TrophySong)
 // const currentdate = new Date();
 //   const completedDate = currentdate.toISOString().split('T')[0]
 
+
+useEffect(()=>{
+    
+})
+
+
+const handleNoise = item => {
+   dispatch(setSelectedWhiteNoise(item.MusicName))
+  console.log('selectedTune',selectedTune);
+  playSound(item.song)
+}
+
 const userTask = useSelector((state)=>state.user.userTasks.userTask)
   console.log('userTask',userTask)
   const [data,setdata] = useState({});
@@ -224,6 +238,7 @@ const completedPomodoro = () => {
   };
 
 
+  
   const stopSound=()=>{
     if(sound){
       sound.stop();
@@ -262,9 +277,29 @@ const completedPomodoro = () => {
     } else  if(selectedTask !== taskSelected){
       // dispacthsetLocalSession(localSession)
       // setSession(1)
-  setIsTimerActive(true);
+    setIsTimerActive(true);
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
+    if(selectedTune !=='None'){
+    const selectedMusic = modalData.whiteNoiseMode.find(item =>item.MusicName === selectedTune);
+
+      if(selectedMusic){
+        playSound(selectedMusic.song)
+        // console.log(selectedMusic.song,'selectedMusic')
+        if(localSession === maxSession){
+          stopSound();
+          console.log('song fyhgjgjgjghj')
+        }
+        setTimeout(()=>{
+          stopSound();
+          console.log('song stopped')
+        })
+      } else {
+        console.error('the selected music dont have song')
+      }
+    }else {
+      console.log('No Music selected')
+    }
     }
   };
 
@@ -279,7 +314,7 @@ const completedPomodoro = () => {
 
   const handleStop = () => {
     {timerMode === 0 ? 
-      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),updateTaskAndValue())
+      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'))
       
        :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
       }
@@ -290,7 +325,6 @@ const completedPomodoro = () => {
     setCurrentButton(1)
     setBarColor('#ff6347')
   }
-
   const handleSkipBreak = ()=>{
     setIsTimerActive(false)
     console.log('timer is not active now')
@@ -339,10 +373,24 @@ const completedPomodoro = () => {
   dispatch(setCurrentModal(0))
   }
 
+  const closeTask = ()=>{
+    setSelectedTask(taskSelected);
+      setDisplayTime(FocusTime)
+    setIsTimerActive(false)
+    console.log('timer is not  active now')
+    setCurrentButton(0)
+    setTotalSessionTime(FocusTime)
+    setDisplaySession('No Sessions')
+    dispatch(setTaskSession(sessionNumber))
+    setTaskColor('white')
+  }
   const clearTask = ()=>{
     // 
 
-    if(timerMode === 0){    
+    if(timerMode === 0){   
+      if(isTimerActive ){
+        dispatch(setCurrentModal(19))
+      }  else {
       setSelectedTask(taskSelected);
       setDisplayTime(FocusTime)
     setIsTimerActive(false)
@@ -352,17 +400,18 @@ const completedPomodoro = () => {
     setDisplaySession('No Sessions')
     dispatch(setTaskSession(sessionNumber))
     setTaskColor('white')
+    setBarColor('#ff6347') 
+      }
     }
+
     else if(timerMode === 1){
       // setBarColor('#ff6347')
-      setSelectedTask(taskSelected);
-
+    setSelectedTask(taskSelected);
     setSecondFocusProgress(0)
     setSecondTime(0*60)
     setIsTimerActive(false)
     setCurrentButton(0)
     setTaskColor('white')
-
     }
     // setSession('No');
     
@@ -381,17 +430,6 @@ const completedPomodoro = () => {
 
   //  start of WhiteNoise modal functions
 
-  
-  
-  const handleNoise = (item) => {
-    dispatch(setSelectedWhiteNoise(item.MusicName))
-    console.log('selectedTune',selectedTune);
-    const selectedMusic = modalData.whiteNoiseMode.find(item=>item.MusicName === selectedTune);
-      if(selectedMusic){
-        playSound(selectedMusic.song);
-        console.log(selectedMusic.song,'selectedMusic in whitenoise isssss')
-      }
-    }
 
   const handleTimerMode = (item)=>{
     setSelectedMode(item.id)
@@ -417,26 +455,6 @@ const completedPomodoro = () => {
   }
   const updateNoise = ()=>{
   dispatch(setCurrentModal(0))
-  if(selectedTune !=='None'){
-    const selectedMusic = modalData.whiteNoiseMode.find(item =>item.MusicName === selectedTune);
-
-      if(selectedMusic){
-        playSound(selectedMusic.song)
-        // console.log(selectedMusic.song,'selectedMusic')
-        if(localSession === maxSession){
-          stopSound();
-          console.log('song fyhgjgjgjghj')
-        }
-        setTimeout(()=>{
-          stopSound();
-          console.log('song stopped')
-        },FocusTime*1000)
-      } else {
-        console.error('the selected music dont have song')
-      }
-    }else {
-      console.log('No Music selected')
-    }
   }
 
   //  end of WhiteNoise modal functions
@@ -454,6 +472,13 @@ const updateTask = ()=>{
   }
 }
 
+const displayTimerMode = ()=>{
+if(isTimerActive){
+  dispatch(setCurrentModal(20))
+} else {
+  dispatch(setCurrentModal(3))
+}
+}
 
 const addTask = ()=>{
   dispatch(setCurrentModal(18))
@@ -525,15 +550,18 @@ return (
       </View>
     </View>
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
-      <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal}/>
+      <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal} displayTimerMode={displayTimerMode}/>
     </View>
     {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask}/>}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
-{currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray}/>}
+{currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray} />}
    
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
     {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} />}
     {currentModal ===18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
+    {currentModal === 19 && <Logout HeaderName={'Cancel Task'} VisibleAt={currentModal === 19} question={'Are you sure youy want to cancel task?'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
+    {currentModal === 20 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 20} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
+
 
   </SafeAreaView>
 

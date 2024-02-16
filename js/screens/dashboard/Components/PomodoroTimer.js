@@ -172,11 +172,11 @@ const [CompletedTime,setCompletedTime]= useState(0)
             }
           }
         
-          // if( disableBreak ===true && autoStartFocus === true && currentTimer === 1 ){
-          //   setTimeout(()=>{
-          //     handleStart(0)
-          //   },1000)
-          // }
+          if( disableBreak ===true && autoStartFocus === true && currentTimer === 1 ){
+            setTimeout(()=>{
+              handleStart(0)
+            },1000)
+          }
           if(autoStartFocus === true && currentTimer === 1 && disableBreak === true ){
             setTimeout(()=>{
               handleStart(0)
@@ -209,7 +209,7 @@ const addsession= ()=>{
     <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)), styles.bgWhite, shadow(10), styles.allCenter]}>
         <AnimatedCircularProgress
           size={widthValue(1.6)}
-          width={20}
+          width={18}
           fill={(displayTime/totalSessionTime)*100}
           tintColor={barColor}
           backgroundColor="#efefef"
@@ -218,7 +218,7 @@ const addsession= ()=>{
         >
           {() => (
             <View style={[styles.allCenter,{marginTop:-25}]}>
-            <Text style={[{fontSize:60,fontWeight:'500'},styles.black]}>
+            <Text style={[{fontSize:55,fontWeight:'500'},styles.black]}>
               {`${Math.floor(displayTime / 60)}:${(displayTime % 60).toString().padStart(2, '0')}`}
             </Text>
             <Text style={[styles.black]}>{displaySession}</Text>

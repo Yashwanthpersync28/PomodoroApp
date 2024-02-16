@@ -19,13 +19,13 @@ const Button = ({ icon, text, onPress,iconType}) => (
   </TouchableOpacity>
 );
 
-export const ModeButtons = () => {
+export const ModeButtons = ({displayTimerMode}) => {
 
   const dispatch = useDispatch();
   return(
   <View style={[{ width: widthValue(1) }, styles.row, styles.bgWhite, styles.spaceEvenly, styles.centerHorizontal, marginPosition(0, 0, 30, 0)]}>
     <Button icon="alert-circle" text="Strict Mode" iconType={Icons.Feather} onPress={()=>dispatch(setCurrentModal(2))} />
-    <Button icon="hourglass-outline" text="Timer Mode" iconType={Icons.Ionicons} onPress={()=>dispatch(setCurrentModal(3))} />
+    <Button icon="hourglass-outline" text="Timer Mode" iconType={Icons.Ionicons} onPress={displayTimerMode} />
     <Button icon="itunes-note" text="White Noise" iconType={Icons.FontAwesome5} onPress={()=>dispatch(setCurrentModal(4))} />
   </View>
   )

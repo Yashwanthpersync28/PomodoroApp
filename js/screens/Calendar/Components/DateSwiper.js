@@ -67,7 +67,7 @@ export const DateSwiper = ({value,setValue}) => {
                   <TouchableWithoutFeedback 
                 onPress={()=>{setValue(item.date)}}
                 key={dateIndex}>
-                    <View style={[{  height: 55 }, isActive ? styles.bgtomotoRed : styles.bgWhite, radius(5), styles.allCenter, margin(0, 0, 8),padding(0,8,15),shadow(2)]}>
+                    <View style={[{  height: 55 }, isActive ? styles.bgtomotoRed : styles.bgWhite, radius(5), styles.allCenter, margin(0, 0, 4),padding(0,8,14),shadow(2)]}>
                       {Today === item.date.getDate() && (
                         <Icon name={'star'} type={Icons.AntDesign} style={[styles.Orange, fontSize(10)]} />
                       )}

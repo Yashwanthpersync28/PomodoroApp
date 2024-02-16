@@ -8,7 +8,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 
 
 
- export const Logout = ({currentModal,logOut}) => {
+ export const Logout = ({currentModal,OnPress1,OnPress2,HeaderName,question,option1,option2,VisibleAt}) => {
 
 
     const dispatch = useDispatch();
@@ -17,12 +17,11 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
         dispatch(setCurrentModal(0))
     }
 
-
   return (
     <Modal 
     animationIn={'slideInUp'}
     animationOut={'slideOutDown'}
-    isVisible={currentModal === 13}
+    isVisible={VisibleAt}
     hasBackdrop={true}
     backdropColor='black'
     backdropOpacity={0.5}
@@ -38,15 +37,15 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
               fontSize(24),
               paddingPosition(0, 0, 20, 0),
             ]}>
-            Logout
+            {HeaderName}
           </Text>
           <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
-<Text style={[styles.black,fontSize(20),styles.textCenter,padding(0,20,0),{fontWeight:'500'}]}> Are you Sure You Want to Log out ?</Text>
+<Text style={[styles.black,fontSize(20),styles.textCenter,padding(0,20,0),{fontWeight:'400'}]}>{question}</Text>
 </View>
 
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]}ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Yes. Logout'}  onPress={logOut} widthVal={{width:widthValue(2.5)}}  paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={option1} onPress={OnPress1}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]}ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={option2}  onPress={OnPress2} widthVal={{width:widthValue(2.5)}}  paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
         

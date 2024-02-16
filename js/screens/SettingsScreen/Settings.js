@@ -22,6 +22,9 @@ export const Settings = () => {
     navigation.navigate('signup')
     dispatch(setCurrentModal(0));
   }
+  const closeModal = ()=>{
+    dispatch(setCurrentModal(0))
+  }
 const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 
   return(
@@ -55,7 +58,7 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
       <SettingComponent  PreferanceName={'Privacy Policy'} leftIconType={Icons.MaterialIcons} IconLeft={'lock-person'}/>
       <SettingComponent  PreferanceName={'Terms of Services'} leftIconType={Icons.FontAwesome5} IconLeft={'file-signature'}/> */}
       <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'} onPress={()=>dispatch(setCurrentModal(13))}/>
-      {currentModal === 13 && <Logout currentModal={currentModal} logOut={logOut}/>} 
+      {currentModal === 13 && <Logout  VisibleAt={currentModal === 13} OnPress1={closeModal} OnPress2={logOut} HeaderName={'LogOut'} option1={'Cancel'} option2={'Yes, Logout'} question={'Are you sure you want to log out?'}/>} 
             </View>
     </View>
   )

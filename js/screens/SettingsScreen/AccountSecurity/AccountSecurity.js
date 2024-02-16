@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { PreferenceComponent } from '../Components/PreferenceComponent'
 import { Header } from '../../Manage/components/Header'
 import { Icons } from '../../../components/Icons'
+import ReactNativeBiometrics from 'react-native-biometrics'
 
 
 
@@ -19,6 +20,9 @@ import { Icons } from '../../../components/Icons'
     navigation.navigate('ChangePassword')
 
 }  
+
+const rnBiometrics = new ReactNativeBiometrics();
+
 return (
     <View style={[styles.bgWhite,flex(1),padding(0,0,20)]}>  
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
@@ -28,7 +32,6 @@ return (
       <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}  PreferanceName={'Face ID'} switchFunction={()=>console.log('hi')}/>
       <PreferenceComponent  showIcon={true}  showDetail={true}  PreferanceName={'Change Password'} detail2={''} onPress={changePassScreen} PreviousScreen={PreviousScreen}/>
       <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={''}  PreferanceName={'Delete Account'}/>
-
         </View>  
     </View>
   )
