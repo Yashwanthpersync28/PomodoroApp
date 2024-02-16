@@ -27,7 +27,7 @@ export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeho
                     maxLength={maxLength}
                     keyboardType={keyboardType}
                     onSubmitEditing={() => Keyboard.dismiss()}
-                    style={[ textColor(darkMode), fontSize(20), flex(1), padding(0, 6, 12)]}
+                    style={[ textColor(darkMode), fontSize(18), flex(1), padding(0, 6, 12)]}
                 />
                 {enableClear && <TouchableOpacity onPress={clearPressed}>
                     <IconComponent name={"close"} size={20}/>

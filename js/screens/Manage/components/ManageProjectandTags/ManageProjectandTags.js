@@ -72,7 +72,7 @@ export const ManageProjectandTags = ({ navigation }) => {
         <ToggleButtons title1={'Projects'} title2={'Tags'} onPressProject={() => setshowProjects(true)} showProjects={showProjects} onPressTags={() => setshowProjects(false)} />
       </View>
       <View style={[flex(0.2),styles.centerVertical]}>
-        <TouchableOpacity onPress={()=>{showProjects?navigation.navigate('addproject',{ProjectName:''}):navigation.navigate('addtags',{TagName:'',NavigationFrom:'manageTags'})}} style={[styles.row, styles.centerHorizontal]}>
+        <TouchableOpacity onPress={()=>{showProjects?navigation.navigate('addproject',{ProjectName:'',NavigationFrom:'manage'}):navigation.navigate('addtags',{TagName:'',NavigationFrom:'manageTags'})}} style={[styles.row, styles.centerHorizontal]}>
         <Icon name={'plus'} type={Icons.Feather} style={[styles.black, fontSize(25), marginPosition(0, 10)]} />
         <Text style={[styles.Orange, fontSize(20)]}>{showProjects?'Add Project':'Add Tags'}</Text>
         </TouchableOpacity>

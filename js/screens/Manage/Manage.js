@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView,StatusBar} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, paddingPosition, radius, styles, widthValue,  } from '../../styles/Styles';
@@ -21,10 +21,12 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const [index,setIndex]=useState(0)
     const [ShowPlus,setShowPlus]=useState(true)
     const [ShowManagebutton,setShowManagebutton]=useState(false)
+    
     //selectors
     const Projectslist=useSelector((state)=>state.user.userProjectList.UserProjects)
     const Taskdatas=useSelector((state)=>state.user.userTasks.userTask)
     const Trashdata=useSelector((state)=>state.user.usersTrashLists.TrashLists)
+    
     console.log('jbdfv',Taskdatas);
     //get user data based on days
     const CompletedTodayTasks=getCompletedTasksToday(Taskdatas);//to get completed tasks fo Today
@@ -41,6 +43,7 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     console.log('getTasksThisMonthdata',getTasksThisMonthdata);
     console.log('kncd',TodayTasks);
     console.log('fghvjk',Projectslist);
+    const [tempProject,setTempProject]=useState(Projectslist)
     //plus modal
     const handlePlusmodal=()=>{
       setShowPlus(false)
@@ -51,7 +54,20 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
 const onClose=()=>{
   setmodalVisible(false)
   setShowPlus(true)
+
 }
+useEffect(()=>{
+  // setTempProject(Projectslist)
+  if(Seachvalue.trim()===''){
+    setTempProject(Projectslist)
+  }
+  else{
+    const filteredTasks=Projectslist.filter(projects => projects.name.toLowerCase().includes(Seachvalue.toLowerCase()));
+    setTempProject(filteredTasks)
+  }
+},[Projectslist,Seachvalue])
+
+
 
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
@@ -82,7 +98,7 @@ const onClose=()=>{
             </View>
          </View>
         <View style={[styles.rowWrap, { justifyContent: 'flex-start'}]}>
-  {Projectslist.map((data, index) => {
+  {tempProject.map((data, index) => {
     return (
       <TouchableOpacity key={index}>
         <View style={[{ width: widthValue(2.5) }, borderColor(data.color), borderWidth(1), radius(10), styles.column,paddingPosition(10,5,20,14),marginPosition(0,4,10,12), { justifyContent: 'center' }]}>

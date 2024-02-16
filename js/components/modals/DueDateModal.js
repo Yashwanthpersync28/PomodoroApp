@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {View,Text,Modal,TouchableOpacity} from 'react-native';
-import { flex , widthValue , radius , paddingPosition , borderColor , borderWidth, styles , padding, fontSize, marginPosition ,} from '../../styles/Styles';
+import { flex , widthValue , radius , paddingPosition , borderColor , borderWidth, styles , padding, fontSize, marginPosition, heightValue ,} from '../../styles/Styles';
 
 import CustomizedButtons from '../../screens/auth/onboarding/component/CustomizedButtons';
 import { Header } from '../../screens/Manage/components/Header';
@@ -37,10 +37,10 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
     </TouchableOpacity>
     </View>
     <View style={[flex(0.8), { width: widthValue(1) }, styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
-      <View style={[styles.allCenter, flex(0.5), borderColor(Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
+      <View style={[styles.allCenter, {height:heightValue(12)}, borderColor(Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
         <Header headername={'Due Date'} bgcolor={styles.white} color={styles.black} showLeftIocn={true}/>
       </View>
-      <View style={[styles.spaceBetween, flex(0.6), styles.row,borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
+      <View style={[styles.spaceBetween, {height:heightValue(8)}, styles.row,borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
           {calendarheaderData.map((data,index)=>{
               return(
                   <View style={[styles.column,styles.allCenter]}>
@@ -55,14 +55,14 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
           })}
        
       </View>
-      <View style={[ flex(2.5),marginPosition(15,0,15)]}>
+      <View style={[marginPosition(15,0,15),{height:heightValue(2.4)}]}>
           <View style={[flex(1),borderWidth(1),borderColor(Colors.borderGray),radius(15),padding(5)]}>
            <DuedateCalendar OnpressDate={OnpressDate}/>
           {/* <ProgressCalendar/> */} 
         </View>
       </View>
 
-      <View style={[flex(0.6), styles.row, styles.allCenter,borderColor(Colors.borderGray),borderWidth(0,1)]}>
+      <View style={[{height:heightValue(7)}, styles.row, styles.allCenter,borderColor(Colors.borderGray),borderWidth(0,1)]}>
         <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
           <CustomizedButtons handlecontinue={GoToAddtask} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} />
           <CustomizedButtons name={'OK'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={GoToAddtask} />
@@ -72,5 +72,6 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
   </View>
   )
 }
+
 
 

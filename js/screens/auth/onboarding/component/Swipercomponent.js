@@ -8,6 +8,8 @@ import CustomizedButtons from './CustomizedButtons';
 import { useNavigation } from '@react-navigation/native';
 import { ButtonComponent } from '../../../../components';
 import { Colors } from '../../../../styles/Colors';
+import { setOnboarding } from '../../../../redux/ShowComponentReducer/ShowOnboardingReducer';
+import { useDispatch } from 'react-redux';
 
 export const Swipercomponent = ({handleIndex}) => {
   const swiper = useRef();
@@ -15,7 +17,8 @@ export const Swipercomponent = ({handleIndex}) => {
   const [index, setIndex] = useState(0);
   const [getStarted,setgetStarted]=useState(true);
   
-  
+  //selector
+  const dispatch=useDispatch()
   
   let handleSwipeIndexChange=(w)=>{
     console.log('w',w);
@@ -33,6 +36,7 @@ export const Swipercomponent = ({handleIndex}) => {
     swiper.current.scrollBy(1);
   };
   const handleit=()=>{
+    dispatch(setOnboarding(true))
       navigation.navigate('signup')
   }
   

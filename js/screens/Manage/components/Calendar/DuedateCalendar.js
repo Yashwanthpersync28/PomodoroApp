@@ -174,7 +174,9 @@ export const DuedateCalendar = ({OnpressDate}) => {
   
   const minDateString = minDate.toISOString().split('T')[0];
   return (
+    
     <Calendar
+    style={[{ minHeight: heightValue(3)}]}
         ref={calendarRef}
         onDayPress={handleDateChange}
         onMonthChange={handleMonthChange}
