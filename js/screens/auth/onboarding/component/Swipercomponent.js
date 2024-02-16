@@ -89,6 +89,7 @@ export const Swipercomponent = ({handleIndex}) => {
           ></View>
         }
       >
+        
         <Onboardingcomponent header={Onboaringdata[0].header} details={Onboaringdata[0].details}/>
         <Onboardingcomponent header={Onboaringdata[1].header} details={Onboaringdata[1].details}/>
         <Onboardingcomponent header={Onboaringdata[2].header} details={Onboaringdata[2].details}/>

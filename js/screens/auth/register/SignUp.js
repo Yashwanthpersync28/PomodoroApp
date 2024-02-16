@@ -50,8 +50,16 @@ console.log('dtfygvhub',userDatas);
 const handleEmailChange = (text) => {
   setEmail(text);
   // Validations
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
+
+  
+  const existingUser = userDatas.find(user => user.email === text);
+  if (existingUser) {
+    setEmailError('Email already exists');
+  } else {
+    setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
+  }
+
 };
 
 ////password validation

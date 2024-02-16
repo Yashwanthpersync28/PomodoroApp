@@ -82,6 +82,7 @@ useEffect(()=>{
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent bgColor={styles.bglgWhite   } placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather} showGray={true}/>
         </View>
+        {Seachvalue.length<1 && 
         <View style={[{height:heightValue(3.2)},styles.rowWrap,{ justifyContent: 'flex-start'}]}>
            <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
            <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.Feather} iconname={'sunrise'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})}/>
@@ -89,7 +90,7 @@ useEffect(()=>{
            <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-check'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:getTasksThisMonthdata,completedData: getCompletedtasksthisMonth})}/>
            <ManageButtons  color={'lightgreen'} heading={'Completed'} IconFamily={Icons.AntDesign} iconname={'checkcircleo'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Completed',data:Taskdatas,completedData:[]})}/>
            <ManageButtons  color={'red'} heading={'Trash'} IconFamily={Icons.Octicons} iconname={'trash'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Trash',data:Trashdata})}/>
-        </View>
+        </View>}
         <View style={[styles.column,marginPosition(10),styles.positionRelative]}>
          <View style={[styles.row,marginPosition(0,0,10)]}>
             <Text style={[styles.black,marginPosition(0,3,0,5)]}>Projects</Text>
