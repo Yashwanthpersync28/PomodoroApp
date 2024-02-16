@@ -69,7 +69,7 @@ useEffect(()=>{
      <View style={[flex(1),styles.column]}>
         {name==='Trash'? <TaskCardDetails data={tempTrashdatas} handleTask={(index)=>console.log(index)}/>:
         <>       
-         <Dayheadings headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday}/>
+         <Dayheadings navigation={navigation} headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday}/>
          <Dayheadings headingname={'Yesterday'} focusTime={focustimeYesterday} completed={completedTasksYesterday.length} name={name} data={completedTasksYesterday}/>
         </>
 

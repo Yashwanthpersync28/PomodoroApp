@@ -3,9 +3,9 @@ import {View,StatusBar,ScrollView,Text} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { HeaderSearch } from '../HeaderSearch'
 import { Header } from '../Header'
-import { borderColor, borderWidth, flex, heightValue, marginPosition, padding, styles, widthValue } from '../../../../styles/Styles'
+import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, radius, styles, widthValue } from '../../../../styles/Styles'
 import { Colors } from '../../../../styles/Colors'
-import { Icons } from '../../../../components/Icons'
+import Icon, { Icons } from '../../../../components/Icons'
 import { MiniCards } from './components/MiniCards'
 import { TextInputCompnent } from '../../../../components'
 import TaskCardDetails from '../TaskCardDetails'
@@ -14,6 +14,8 @@ import { Dayheadings } from '../Completed/components/Dayheadings'
 import { HeaderBorder } from '../../../../components/view/HeaderBorder'
 import { GetRecomendedTasks, calculateFocusTime, formatTime } from '../../../../constants/getCompletedTasksFunctions'
 import { AddTask } from '../AddTask/AddTask'
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
+// import { Icon } from 'react-native-paper'
 
 export const Tasklist = ({navigation,route}) => {
     const [showSearchHeader,setSearchHeader]=useState(false)
@@ -68,13 +70,21 @@ export const Tasklist = ({navigation,route}) => {
      </View>
      {/* addtask */}
      <View style={[{height:heightValue(14)}]}>
-     <TextInputCompnent
+     {/* <TextInputCompnent
        Iconname={'plus'}
        IconFamily={Icons.Feather}
        bgColor={styles.bgWhite}
        placeholder={'Add a Task...'}
        onKeyPress={()=>setModalVisible(true)}
-       />
+       /> */}
+       <TouchableWithoutFeedback onPress={()=>setModalVisible(true)}>
+      <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),borderColor(Colors.borderGray),borderWidth(1),styles.bgWhite,{height:heightValue(14)}]}>
+            <Icon name={'plus'} type={Icons.Feather} style={[fontSize(20),styles.black]}/>
+            <View style={[styles.row, flex(1.5), styles.centerHorizontal ]}>
+              <Text style={[styles.black,marginPosition(0,0,0,8)]}>Add Task</Text>
+            </View>     
+     </View>
+     </TouchableWithoutFeedback>
        {modalVisible && <AddTask visible={modalVisible} onClose={()=>setModalVisible(false)} count={0}/>}
      </View>
      {/* //tasks */}

@@ -71,7 +71,7 @@ export const Add = ({EditableColor , IconFamilyforInputIcon , IconnameForInputIc
               { height: 50, width: 50 },
               radius(50),
               item.colors,
-              marginPosition(10, 10),
+              marginPosition(10, 15),
               styles.allCenter,
             ]}
           >
@@ -83,24 +83,24 @@ export const Add = ({EditableColor , IconFamilyforInputIcon , IconnameForInputIc
   );
 
   return (
-    <SafeAreaView style={[flex(1), paddingPosition(0,20,0,20), styles.bgsmokewhite]}>
-      <View style={[flex(0.1),marginPosition(marginTop ? -30 : -10)]}>
+    <SafeAreaView style={[flex(1), styles.bgsmokewhite]}>
+      <View style={[flex(0.1),marginPosition(marginTop ? -30 : -10),paddingPosition(0,20,0,20)]}>
         <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), styles.bgWhite, flex(1)]}>
-        <View style={[flex(0.3)]}>
+        <View style={[flex(0.3),paddingPosition(0,20,0,20)]}>
           <Text style={[styles.black, marginPosition(0, 0, 10), { fontWeight: '500' }]}>{Textinputname}</Text>
           <TextInputCompnent Iconname={IconnameForInputIcon} IconFamily={IconFamilyforInputIcon} showGray={true} bgColor={styles.bglgWhite} placeholder={Textinputname} value={value} onChangeText={onChangeText} secureTextEntry={false} ShowPasswordIcon={false} name={'lock-open'} />
         </View>
-        <View style={[flex(3), marginPosition(0)]}>
-          <Text style={[styles.black, fontSize(20), { fontWeight: '500' },marginPosition(0,0,5)]}>{`Project Color Mark`}</Text>
+        <View style={[flex(3), marginPosition(0,0,0,0),{width:widthValue(1)}]}>
+          <Text style={[styles.black, fontSize(20), { fontWeight: '500' },marginPosition(0,0,5,20)]}>{`Project Color Mark`}</Text>
           {colorData.reduce((rows, item, index) => {
             if (index % itemsPerRow === 0) {
               rows.push(colorData.slice(index, index + itemsPerRow));
             }
             return rows;
           }, []).map((row, rowIndex) => (
-            <View key={rowIndex}>
+            <View key={rowIndex} style={[marginPosition(0,0,0,15)]}>
               {renderColorRow(row)}
             </View>
           ))}

@@ -11,22 +11,38 @@ import { addproject } from '../../../../redux/userReducer/UserProjectListReducer
 
 
 export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToProject,route}) => {
+
+  const [NavigationFrom,setNavigationName]=useState('')
+  
+
   // const [editName,setEditname]=useState('')
   useEffect(() => {
     if (!HandleToProject ) {
-      const {ProjectName} =route.params
+      
+      const {ProjectName,NavigationFrom} =route.params
+      setNavigationName(NavigationFrom)
       setproject(ProjectName);
+      if(NavigationFrom==='edit'){
+        
       setTempProjectName(ProjectName)
       const OriginalColor=userProjectDetails.filter(list=>{
         if(list.name===ProjectName){
           return list
         }
       })
-      console.log('OriginalColor',OriginalColor[0].color)
+      // console.log('OriginalColor',OriginalColor[0].color)
+
       setTempColor(OriginalColor[0].color)
+    }
+    if(NavigationFrom==='manage'){
+      setNavigationName(NavigationFrom)
+      setproject('')
+    }
     }
     else{
       setproject('')
+      
+
     }
   }, [HandleToProject]);
 
@@ -48,6 +64,7 @@ export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToP
   // navigation.navigate('project')
   if(!HandleToProject){
     //function for edit , to take already exist project and edit the name
+    if(NavigationFrom==='edit'){
     const EditedProject=userProjectDetails.map(Projectlist=>{
              if(Projectlist.name === TempProjectName){
               return {
@@ -61,6 +78,12 @@ export const AddProject = ({navigation,visible,onClose,handletoAddtask,HandleToP
     console.log('EditedProject',EditedProject);
     dispatch(addproject(EditedProject));
     navigation.navigate('manageProjectandTags')
+  }
+  if(NavigationFrom==='manage'){
+    dispatch(addproject([...userProjectDetails,projectData]))
+    navigation.navigate('manageProjectandTags')
+  }
+
   }
   else{
     console.log('not');

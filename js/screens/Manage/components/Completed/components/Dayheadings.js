@@ -4,7 +4,7 @@ import { borderColor, borderWidth, fontSize, fontWeight, heightValue, marginPosi
 import TaskCardDetails from '../../TaskCardDetails'
 import { HeaderBorder } from '../../../../../components/view/HeaderBorder'
 
-export const Dayheadings = ({headingname,focusTime,completed,taskdata,name,data}) => {
+export const Dayheadings = ({headingname,focusTime,completed,taskdata,name,data,navigation}) => {
   console.log('datacompleted',data);
     const [taskDetails,settaskDetails]=useState([])
   return (
@@ -16,7 +16,7 @@ export const Dayheadings = ({headingname,focusTime,completed,taskdata,name,data}
        </View>
        {/* notaskfound */}
        <View style={[marginPosition(10)]}>
-       <TaskCardDetails name={name} data={data} showLinethrough={true} handleTask={()=>console.log('vghbj')}/>
+       <TaskCardDetails name={name} data={data} showLinethrough={true} handleTask={(id)=>navigation.navigate('task',{id:id})}/>
        </View>
        </>
   )
