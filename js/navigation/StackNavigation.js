@@ -36,10 +36,10 @@ import { Notification } from "../screens/SettingsScreen/Notification/Notificatio
 import { AccountSecurity } from "../screens/SettingsScreen/AccountSecurity/AccountSecurity";
 import { AppApearance } from "../screens/SettingsScreen/AppApearance/AppApearance";
 import { HelpandSupport } from "../screens/SettingsScreen/Help/HelpandSupport";
-import { Terms } from "../screens/SettingsScreen/Help/Components/Terms";
-import { PrivacyPolicy } from "../screens/SettingsScreen/Help/Components/PrivacyPolicy";
-import { FAQ } from "../screens/SettingsScreen/Help/Components/FAQ";
-import { ContactSupport } from "../screens/SettingsScreen/Help/Components/ContactSupport";
+import { Terms } from "../screens/SettingsScreen/Help/Terms";
+import { PrivacyPolicy } from "../screens/SettingsScreen/Help/PrivacyPolicy";
+import { FAQ } from "../screens/SettingsScreen/Help/FAQ";
+import { ContactSupport } from "../screens/SettingsScreen/Help/ContactSupport";
 import { ChangePassword } from "../screens/SettingsScreen/changePassword/ChangePassword";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
@@ -50,7 +50,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="BottomTabNavigation">
+            <Stack.Navigator initialRouteName="FAQ">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}

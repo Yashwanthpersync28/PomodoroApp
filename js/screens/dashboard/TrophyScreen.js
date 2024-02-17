@@ -9,7 +9,8 @@ import { useDispatch } from 'react-redux'
 import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import Modal from 'react-native-modal'
 
- export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask}) => {
+ export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask,setSelectedTask,taskSelected,stopSound}) => {
+  console.log('selectedTask',selectedTask)
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
@@ -18,15 +19,19 @@ import Modal from 'react-native-modal'
     setCurrentButton(0)
     setDisplayTime(FocusTime)
     setTotalSessionTime(FocusTime)
-    // stopCompletionSound()
+    setSelectedTask(taskSelected)
+    stopSound();
   }
 
   const gotoReport = ()=>{
+    dispatch(setCurrentModal(0))
     navigation.navigate('Report')
     setCurrentButton(0)
     setDisplayTime(FocusTime)
     setTotalSessionTime(FocusTime)
-    // stopCompletionSound()
+    setTotalSessionTime(FocusTime)
+    setSelectedTask(taskSelected)
+    stopSound();
   }
   return (
     <Modal 
@@ -40,7 +45,7 @@ import Modal from 'react-native-modal'
         <View style={[{height:heightValue(8)},styles.centerVertical,]}>
       <Text style={[fontSize(40),styles.black,{fontWeight:'bold'},styles.textCenter]}>Congratulations!</Text>
       <Text style={[fontSize(24),{color:'#a5a5a6' },marginPosition(10),styles.textCenter]}>You've completed the Task</Text>
-      <Text style={[fontSize(24),{color:'#a5a5a6' },,styles.textCenter]}>{selectedTask}</Text>
+      <Text style={[fontSize(24),{color:'#a5a5a6' },,styles.textCenter]}>"{selectedTask}"</Text>
       </View>
       </View>
       <View style={[styles.row,styles.spaceAroundVertical,marginPosition(0,0,10,0)]}>

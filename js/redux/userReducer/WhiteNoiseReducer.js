@@ -5,6 +5,7 @@ const whiteNoiseSlice = createSlice({
     name:'whiteNoise',
     initialState:{
         selectedWhiteNoise:modalData.whiteNoiseMode[0].MusicName,     
+        whiteNoiseMode:modalData.whiteNoiseMode,
     },
     reducers:{
         setSelectedWhiteNoise(state,action){

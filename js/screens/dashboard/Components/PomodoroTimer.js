@@ -9,7 +9,7 @@ import { setLocalSession } from '../../../redux/userReducer/localSessionReducer'
 import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
 import { modalData } from '../../../constants/ModalsData';
 
-export const PomodoroTimer = ({handleSkipBreak,playSound,handleStart,totalfocusTime,isTimerActive,time,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime}) => {
+export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,}) => {
 
   const dispatch = useDispatch();
 
@@ -42,12 +42,11 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
   // const [displaSession,setDisplaSession] = useState('No Sessions')
 
   const [currentBreakTime,setCurrentBreakTime] = useState(BreakTime)
-const [CompletedTime,setCompletedTime]= useState(0)
+// const [CompletedTime,setCompletedTime]= useState(0)
   console.log(
     'currentBreak',currentBreakTime
   )
   // const [longBreak,setLongBreak] = useState(false)
-
 
   useEffect(()=>{
     setDisplayTime(FocusTime);
@@ -74,19 +73,14 @@ const [CompletedTime,setCompletedTime]= useState(0)
             // playSound();
             setCurrentTimer((prevTimer) => (prevTimer === 0 ? 1 : 0));
             setBarColor((prevColor) => (prevColor === 0 ? '#ff6347' : '#ff6347'))
-           
             
             if (localSession === longBreakNumber){
               console.log('mathcing',localSession === longBreakNumber)
               setBreakTime(longBreakTime)
             }
-            // if(currentTimer === 0){
-            //   completionSound()
-            // }
             if(currentTimer === 1 ){
               dispatch(setLocalSession(localSession + 1))
             }     
-            
             if(localSession === maxSession){
               completedPomodoro()
               setCurrentTimer(1)   
@@ -101,6 +95,7 @@ const [CompletedTime,setCompletedTime]= useState(0)
               setDisplayTime(FocusTime)
               setTotalSessionTime(FocusTime)
               dispatch(setLocalSession(localSession+ 1))
+
             } 
             else if(disableBreak === false) {
               if(currentTimer === 0){
@@ -110,6 +105,7 @@ const [CompletedTime,setCompletedTime]= useState(0)
                   setTotalSessionTime(longBreakTime)
                   setDisplayTime(longBreakTime)
                   setBarColor('#ff6347')
+                  
                 } else if(longBreakTime ===0){
               setCurrentBreakTime(BreakTime)
               setDisplayTime(BreakTime)
@@ -118,13 +114,15 @@ const [CompletedTime,setCompletedTime]= useState(0)
                 } else if (autoStartFocus ===true){
               setDisplayTime(BreakTime)
               setTotalSessionTime(BreakTime);
+              
                 }
                  else {
                   setCurrentBreakTime(BreakTime)
                   setDisplayTime(BreakTime)
                   setTotalSessionTime(BreakTime);
+                  
                  }
-              } else if(currentTimer ===1 ){
+              } else if(currentTimer === 1 ){
               setTotalSessionTime(FocusTime);
               }
           } 
@@ -182,18 +180,24 @@ const [CompletedTime,setCompletedTime]= useState(0)
               handleStart(0)
             },1000)
           }
+          console.log('Stopping sound...');
+          // stopSound();
             return newTotalSessionTime;
           }
           const newProgress = Math.max(0, Math.floor(((newTotalSessionTime - newTime) / newTotalSessionTime) * 100));
           setProgress(newProgress);
           setBarColor(currentTimer === 0 ? '#ff6347' : '#ff6347');
           setTime((prevTime) => prevTime - 1);
+          // stopSound();
           return newTime;
         });
       }
     };
     if (isTimerActive) {
       intervalId = setInterval(updateTimer, 1000);
+    } 
+    if(!isTimerActive){
+      stopSound();
     }
   
     return () => clearInterval(intervalId);

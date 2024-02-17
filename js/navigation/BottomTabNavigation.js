@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigation = () => {
   return (
     <Tab.Navigator 
-    initialRouteName='PomodoroScreen'
+    initialRouteName='Settings'
     screenOptions=
        {
         {

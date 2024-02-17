@@ -15,14 +15,31 @@ import { GenderModal } from './Components/GenderModal'
 import { CountryCodeModal } from './Components/CountryCodeModal'
 import { modalData } from '../../../constants/ModalsData'
 import { DarkModeMOdal } from '../Components/DarkModeModal'
+import { addUserData } from '../../../redux/userReducer/UserInformationReducer'
+import { Logout } from '../Logout/Logout'
 
 
 export const Profile = () => {
 
-    // const userDetails = useSelector((state)=>state.UserDetails.userList[0].email)
-    // const  email = userDetails.map(user=>user.email[0])
-    // const emailId = email.map(email=>ema
+    const userDetails = useSelector((state)=>state.user.Userinfo.UserInfo)
+    const  emailId = userDetails.email;
+    const passWord = userDetails.password;
+    console.log('emailId',emailId,'passWord',passWord)
 
+    const updateUserDetails = ()=>{
+       const userdata ={
+            ...userDetails,
+            email:email,
+            fullname:fullname,
+            username:username,
+            gender:selectedGender,
+            phoneNumber:number, 
+            profilePic:selectedImage,
+       }
+       dispatch(addUserData(userdata))
+       dispatch(setCurrentModal(21))
+    }
+   
 
 
     const gender = [
@@ -36,23 +53,23 @@ export const Profile = () => {
     const dispatch = useDispatch();
 
     const [showProfilePic, setShowProfilePic] = useState(false)
-    const [selectedImage, setSelectedImage] = useState(null)
+    const [selectedImage, setSelectedImage] = useState(userDetails.profilePic || null)
     const initialGender = gender[0].mode;
     console.log('initialGender', initialGender)
     const [selectedGender, setSelectedGender] = useState(initialGender)
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState(userDetails.email)
     const [emailError, setEmailError] = useState('')
     const [error, setError] = useState('')
-    const [fullname, setFullname] = useState('')
-    const [username, setUsername] = useState('')
-    const [number, setNumber] = useState('')
+    const [fullname, setFullname] = useState(userDetails.fullname || '')
+    const [username, setUsername] = useState(userDetails.username || '')
+    const [number, setNumber] = useState(userDetails.phoneNumber || '')
+    console.log('number',number)
 
     console.log('fullname', fullname)
 
     const handleFullname = (text) => {
         setFullname(text);
         const name = fullname.trim() === ''
-
         setError(name ? 'Please Enter your name' : '')
     }
 
@@ -63,7 +80,7 @@ export const Profile = () => {
     }
     const handleEmailChange = (text) => {
         setEmail(text)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
         setEmailError(emailRegex.test(text) ? '' : 'Invalid email format');
     }
 
@@ -200,7 +217,7 @@ export const Profile = () => {
                         </TouchableOpacity>
                         <View style={[styles.row, styles.centerHorizontal, radius(5)]}>
                             <Text style={[fontSize(20), { fontWeight: '500', marginLeft: 0 }, styles.black]}>{selectedCountry.dial_code}</Text>
-                            <TextInput style={[fontSize(20), { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} placeholder={'9876543210'} onChangeText={handlePhone} maxLength={10} keyboardType='number-pad' />
+                            <TextInput style={[fontSize(20), { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} placeholder={'9876543210'} value={number} onChangeText={(text)=>handlePhone(text)} maxLength={10} keyboardType='number-pad' />
                         </View>
                     </View>
                 </View>
@@ -216,10 +233,11 @@ export const Profile = () => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-            <Text style={[styles.tomotoRed, fontSize(15), styles.textCenter]}>{error}{emailError}</Text>
+            <Text style={[styles.tomotoRed, fontSize(15), styles.textCenter]}>{error && emailError}</Text>
             <View style={[styles.flexEnd, { width: widthValue(1) }, padding(0, 20, 0), styles.bgWhite, styles.centerHorizontal]}>
-                <ButtonComponent title={'Save'} />
+                <ButtonComponent title={'Save'} disabled={!(error==='' && emailError === '' && number.length >= 9 && fullname.trim() !== '' && username.trim() !== '')} onPress={updateUserDetails}/>
             </View>
+            {currentModal ===21 && <Logout VisibleAt={currentModal ===21} HeaderName={'Your Information'} question={'Your data updated succesfully'} option1={'Close'} option2={'Ok'} OnPress1={closeModal} OnPress2={closeModal}/>}
             {currentModal === 11 && <DarkModeMOdal selectedThing={selectedGender} closeModal={closeModal} visibleAt={currentModal === 11} handleFuntion={handleGenderModal} data={gender} />}
         </SafeAreaView>
 

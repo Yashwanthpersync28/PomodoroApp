@@ -25,15 +25,24 @@ import { Taskdata } from '../../constants/Taskdata';
 import { setTaskSession } from '../../redux/userReducer/taskSessionsReducer';
 import { setLocalSession } from '../../redux/userReducer/localSessionReducer';
 import { set } from 'react-native-reanimated';
+import { setCurrentModal } from '../../redux/userReducer/modalReducer';
+import { current } from '@reduxjs/toolkit';
+import { Logout } from '../../screens/SettingsScreen/Logout/Logout';
 
-export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata,setTaskColor}) => {
+export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata,setTaskColor,isTimerActive,currentModal}) => {
     console.log('priorityname',priorityname)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
 console.log('taskSessions',taskSessions)
     const dispatch = useDispatch();
+
+    const checkPrevTask = ()=>{
+        if(isTimerActive){
+            dispatch(setCurrentModal(22))
+        }
+    }
     return (
 <View>
-            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor)}} style={[styles.bgWhite]}>
+            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),checkPrevTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor)}} style={[styles.bgWhite]}>
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite
 ]}>
             <View style={[{ width: 4,height:132 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
@@ -89,6 +98,9 @@ console.log('taskSessions',taskSessions)
             </View>
         </View>
         </TouchableWithoutFeedback>
+
+    {/* {currentModal === 22 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 22} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>} */}
+        
         </View>
     )
 }

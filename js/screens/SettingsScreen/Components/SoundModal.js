@@ -93,8 +93,8 @@ import { Title } from 'react-native-paper';
 <FlatList data={data} renderItem={({item})=>renderTunes({item})} keyExtractor={item=>item.id} onPress={(item) => onPress(item)}/>
 </View>
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Cancel'} onPress={onPress2}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Ok'}  onPress={onPress3} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
 
         </View>
           </View>

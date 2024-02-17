@@ -41,7 +41,7 @@ import { Manage } from '../../Manage/Manage';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
-export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor,addTask}) => {
+export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor,addTask,isTimerActive}) => {
  const [modalVisible,setModalVisible]=useState(true)
     const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
@@ -141,7 +141,7 @@ console.log('id', taskDetails.map(data=>data.id))
                     <View>
                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
                        projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details} setTaskColor={setTaskColor}
-                        Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id}/> 
+                        Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id} isTimerActive={isTimerActive} currentModal={currentModal}/> 
                         </View>
                         ))} 
                         </View> }

@@ -49,5 +49,4 @@ export const userReducer = combineReducers({
     strictMode:StrictModeReducers,
     notifications:NotificationsReducer,
     Userinfo:userInformationReducer,
-   
 })

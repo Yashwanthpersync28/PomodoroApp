@@ -83,90 +83,98 @@ const vibrationOptions = [
     // const [selectedTune,setSelectedTune] = useState(initialTune)
 
     const [sound,setSound] = useState(null)
+    const [reminderTune,setReminderTune] = useState(null)
 
      const initialVibration = vibrationOptions[0].name ;
     const [vibration,setVibration] = useState(initialVibration)
-
 
     const handleVibration = (item)=>{
       setVibration(item.name)
       console.log('Vibration',vibration)
     }
-    const playSound = (song)=>{
-    if(sound){
-      sound.stop();
-      sound.release();
-    }
+  
+// ENd of play and stop Reminder tune//
+const playReminderTune = (reminderSong)=>{
+  if(reminderTune){
+    reminderTune.stop();
+    reminderTune.release();
+  } 
 
-    const newSound = new Sound(song, Sound.MAIN_BUNDLE, (error)=>{
-      if(error){
-        console.error('error while playing sound',error)
-      } else {
-        console.log('song is playing')
+  const newReminderSound = new Sound( reminderSong, Sound.MAIN_BUNDLE, (error)=>{
+    if(error){
+      console.error('an error occured :',error)
+    } else {
+      console.log('no error song will play')
 
-        newSound.play((success)=>{
-          if(success){
-            console.log('Sound played successfully');
-          } else {
-            console.error('Playback failed due to audio decoding errors');
-          }
-
-          setSound(newSound)
+      newReminderSound.play((success)=>{
+        if(success){
+        console.log('sound is playing ')
+        } else {
+        console.log('sound error occured ')
         }
-        )
-      }
-
+      })
+      setReminderTune(newReminderSound)
     }
-      )
+  }) 
+}
 
-    }
+const handleReminderSound = (tune)=>{
+  dispatch(setSelectedRingtone(tune.MusicName))
+  console.log('newReminderSound',selectedRingtone)
+  playReminderTune(tune.song)
+} 
 
+const stopReminderTune = ()=>{
+if(reminderTune){
+  reminderTune.stop();
+  reminderTune.release();
+}
+}
+
+
+
+    // STart of play and stop completion sound//
     const playCompletionSound = (tune)=>{
       if(sound){
         sound.stop();
         sound.release();
       }
-      const newSound = new Sound(tune, Sound.MAIN_BUNDLE, (error)=>{
+
+      const newCompletionSound = new Sound(tune, Sound.MAIN_BUNDLE, (error)=>{
         if(error){
-          console.error('error while playing sound',error)
+          console.error('failed to load sound',error);
         } else {
-          console.log('song is playing')
-  
-          newSound.play((success)=>{
-            if(success){
-              console.log('Sound played successfully');
-              setTimeout(()=>{
-                console.log('shall i end the song')
-              },5000)
-            } else {
-              console.error('Playback failed due to audio decoding errors');
-            }
-  
-            setSound(newSound)
-          }
-          )
+          console.log('sound started successfully');
+
+            newCompletionSound.play((success)=>{
+              if(success){
+                console.log('sound is playing');
+              } else {
+          console.log('sound IS NOT PLAYING');
+              }
+            })
+            setSound(newCompletionSound)
         }
-      }
-      )
+      })
     }
-const handleNoise = (item)=>{
-  stopSound()
-  dispatch(setSelectedWhiteNoise(item.MusicName))
-  console.log('selectedWhiteNoise',selectedWhiteNoise)
-  playSound(item.song)
+
+const handleCompletionSound = item=>{
+  dispatch(setSelectedCompletionSound(item.MusicName));
+  console.log(selectedCompletionSound,'selectedCompletionSound');
+  playCompletionSound(item.tune);
 }
 
-const handleCompletionSound = (item)=>{
-  dispatch(setSelectedCompletionSound(item.MusicName));
-  playCompletionSound(item.tune);
- 
-}
 const stopSound = ()=>{
 if(sound){
   sound.stop();
   sound.release();
 }
 }
+// ENd of play and stop completion sound//
+
+
+
+
 
 const closeModal = ()=>{
   dispatch(setCurrentModal(0))
@@ -203,10 +211,10 @@ const goBack = ()=>{
 {currentModal === 15 &&  <LongBreakSession currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 7 &&  <LongBreakModal currentModal={currentModal} closeModal={closeModal}/>}
 {currentModal === 8 &&  <SoundModal  isVisible={currentModal === 8} data={modalData.CompletionSounds} title={'Completion Sound'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>{handleCompletionSound(item),stopSound()}}  selectedSong={selectedCompletionSound} onPress2={()=>{closeModal(),stopSound()}} onPress3={()=>{closeModal(),stopSound()}}/>}
-{currentModal === 10 &&  <SoundModal isVisible={currentModal === 10} data={modalData.reminderRintones}  title={'Reminder Ringtone'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleRingtone(item)} selectedSong={selectedRingtone} onPress2={closeModal} onPress3={closeModal}/>}
+{currentModal === 10 &&  <SoundModal isVisible={currentModal === 10} data={modalData.reminderRintones}  title={'Reminder Ringtone'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleReminderSound(item)} selectedSong={selectedRingtone} onPress2={()=>{closeModal(),stopReminderTune()}} onPress3={()=>{closeModal(),stopReminderTune()}}/>}
 {/* {currentModal === 4 &&  <SoundModal isVisible={currentModal === 4} data={modalData.whiteNoiseMode}  title={'White Noise'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleNoise(item)} selectedSong={selectedWhiteNoise} onPress2={closeModal} onPress3={closeModal}/>} */}
 {currentModal === 4 && <WhiteNoiseModal />}
-{currentModal === 9 &&  <ReminderVibrate  currentModal={currentModal} handleNoise={handleNoise} closeModal={closeModal}  handleVibration={handleVibration} vibration={vibration} vibrationOptions={vibrationOptions}/>}
+{currentModal === 9 &&  <ReminderVibrate  currentModal={currentModal}  closeModal={closeModal}  handleVibration={handleVibration} vibration={vibration} vibrationOptions={vibrationOptions}/>}
     </View>
   )
 }

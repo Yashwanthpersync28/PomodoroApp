@@ -8,7 +8,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 
 
 
- export const Logout = ({currentModal,OnPress1,OnPress2,HeaderName,question,option1,option2,VisibleAt}) => {
+ export const Logout = ({OnPress1,OnPress2,HeaderName,question,option1,option2,VisibleAt}) => {
 
 
     const dispatch = useDispatch();

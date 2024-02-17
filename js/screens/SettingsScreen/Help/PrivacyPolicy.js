@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { Header } from '../../../Manage/components/Header'
+import { Header } from '../../Manage/components/Header'
 import { useNavigation } from '@react-navigation/native'
-import { styles,flex, heightValue, padding } from '../../../../styles/Styles'
-import { Icons } from '../../../../components/Icons'
+import { styles,flex, heightValue, padding } from '../../../styles/Styles'
+import { Icons } from '../../../components/Icons'
 
 
 export const PrivacyPolicy = () => {

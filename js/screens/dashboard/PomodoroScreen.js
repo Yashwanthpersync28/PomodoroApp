@@ -133,10 +133,9 @@ console.log(';completedSound',TrophySong)
 //   const completedDate = currentdate.toISOString().split('T')[0]
 
 
-useEffect(()=>{
-    
-})
 
+const music = modalData.CompletionSounds;
+console.log(music, 'totalmusic');
 
 const handleNoise = item => {
    dispatch(setSelectedWhiteNoise(item.MusicName))
@@ -170,26 +169,18 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
   };
 
   
-  // Usage
-  
-  
-  // const stopSoundAfterDelay = ()=>{
-
-  // }
-
+//completion of task  
 const completedPomodoro = () => {
   if (currentTimer === 0) {
     console.log('completed True');
     updateTaskAndValue();
     setDisplaySession('No Session');
-    setSelectedTask(taskSelected);
     console.log(totalfocusTime, 'totalfocusTime');
     dispatch(setCurrentModal(14));
     setCurrentTimer(1);
     setTaskColor('white');
-    stopSound()
     const selectedMusic = modalData.CompletionSounds.find(item => item.MusicName === TrophySong);
-    console.log(selectedMusic.tune, 'selectedMusic');
+    console.log(selectedMusic, 'selectedMusic');
     if (selectedMusic) {
       completionSound(selectedMusic.tune);
       console.log('completion sound started');
@@ -201,12 +192,9 @@ const completedPomodoro = () => {
     setTotalSessionTime(FocusTime);
   }
 };
+//completion sound playing 
 
-  //TIMER SETUP//
-
-  // const playCompletionSound = ()=>{
-
-  // }
+//WhiteNoise sound playing function
   const playSound = (song) => {
     // Stop the currently playing sound
     if (sound) {
@@ -245,10 +233,13 @@ const completedPomodoro = () => {
       sound.release();
     }
   }
-  let completionSong;
+//WhiteNoise sound playing function
+
+
 //completion sound section
   const completionSound = (completedSound) => {
-     completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
+    stopSound()
+    const completionSong = new Sound(completedSound, Sound.MAIN_BUNDLE, (error) => {
         if (error) {
             console.error("Sound can't play:", error);
         } else {
@@ -259,14 +250,7 @@ const completedPomodoro = () => {
     });
 };
 
-  
 
-  
-
- 
- 
- 
- 
   const handleStart = (timerType) => {
     if(selectedTask === taskSelected){
         // dispatch(setTimerMode(20))
@@ -280,36 +264,42 @@ const completedPomodoro = () => {
     setIsTimerActive(true);
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
-    if(selectedTune !=='None'){
-    const selectedMusic = modalData.whiteNoiseMode.find(item =>item.MusicName === selectedTune);
-
-      if(selectedMusic){
-        playSound(selectedMusic.song)
-        // console.log(selectedMusic.song,'selectedMusic')
-        if(localSession === maxSession){
-          stopSound();
-          console.log('song fyhgjgjgjghj')
-        }
-        setTimeout(()=>{
-          stopSound();
-          console.log('song stopped')
-        })
-      } else {
-        console.error('the selected music dont have song')
-      }
-    }else {
-      console.log('No Music selected')
-    }
+      playWhiteNoise()
     }
   };
 
+  const playWhiteNoise = ()=>{
+    if(selectedTune !=='None'){
+      const selectedMusic = modalData.whiteNoiseMode.find(item =>item.MusicName === selectedTune);
+  
+        if(selectedMusic){
+          playSound(selectedMusic.song)
+          // console.log(selectedMusic.song,'selectedMusic')
+          if(localSession === maxSession){
+            stopSound();
+            console.log('song fyhgjgjgjghj')
+          }
+          setTimeout(()=>{
+            stopSound();
+            console.log('song stopped')
+          })
+        } else {
+          console.error('the selected music dont have song')
+        }
+      }else {
+        console.log('No Music selected')
+      }
+  }
 
   const handlepause = ()=>{
     {timerMode === 0 ? 
     (setIsTimerActive(false),
     console.log('timer is not active now'),
     setCurrentButton(2),
-    setBarColor('#1c97f0')) : (setIsTimerActive(false),setCurrentButton(2),setBarColor('#1c97f0'))}
+    setBarColor('#1c97f0'),
+    stopSound()
+    ) : (setIsTimerActive(false),setCurrentButton(2),setBarColor('#1c97f0'))}
+
   }
 
   const handleStop = () => {
@@ -324,6 +314,8 @@ const completedPomodoro = () => {
     console.log('timer is active now')
     setCurrentButton(1)
     setBarColor('#ff6347')
+    playWhiteNoise()
+   
   }
   const handleSkipBreak = ()=>{
     setIsTimerActive(false)
@@ -455,6 +447,12 @@ const completedPomodoro = () => {
   }
   const updateNoise = ()=>{
   dispatch(setCurrentModal(0))
+  if(isTimerActive){
+    playWhiteNoise();
+  } else{
+  dispatch(setCurrentModal(0))
+    stopSound();
+  }
   }
 
   //  end of WhiteNoise modal functions
@@ -483,6 +481,15 @@ if(isTimerActive){
 const addTask = ()=>{
   dispatch(setCurrentModal(18))
 }
+
+const WhiteNoiseCancelFunc = ()=>{
+  if(isTimerActive){
+    closeModal();
+  } else {
+    closeModal()
+    stopSound()
+  }
+ }
 return (
   <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
     <StatusBar backgroundColor = "#ff6347" barStyle = "dark-content"/>
@@ -537,14 +544,15 @@ return (
   setCurrentButton={setCurrentButton}
   handleSkipBreak={handleSkipBreak}
   maxSession={maxSession}
-  playSound={playSound}
   setTotalSessionTime={setTotalSessionTime}
   totalSessionTime={totalSessionTime}
   displaySession={displaySession}
   completedPomodoro={completedPomodoro}
-  // completionSound={()=>completionSound()}
   setTotalFocusTime={setTotalFocusTime}
   totalfocusTime={totalfocusTime}
+  playWhiteNoise={playWhiteNoise}
+  stopSound={stopSound}
+  sound={sound}
   />
         }
       </View>
@@ -552,20 +560,16 @@ return (
     <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal} displayTimerMode={displayTimerMode}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask} isTimerActive={isTimerActive}/>}
     {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray} />}
    
-    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} stopSound={stopSound}/>}
-    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} />}
-    {currentModal ===18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
+    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} WhiteNoiseCancelFunc={WhiteNoiseCancelFunc} isTimerActive={isTimerActive}/>}
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} stopSound={stopSound}/>}
+    {currentModal === 18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
     {currentModal === 19 && <Logout HeaderName={'Cancel Task'} VisibleAt={currentModal === 19} question={'Are you sure youy want to cancel task?'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
     {currentModal === 20 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 20} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
-
-
   </SafeAreaView>
-
-
 
 );
 };
