@@ -15,15 +15,28 @@ import { ProgressCalendar } from './components/ProgressCalendar'
 import { PomodoroRecords } from './components/PomodoroRecords'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { DropDown } from './components/DropDown'
+import { getTasksToday } from '../../constants/getCompletedTasksFunctions'
+import { useSelector } from 'react-redux'
 
 
 export const Report = ({navigation}) => {
-
+  const tasks=useSelector((state)=>state.user.userTasks.userTask)
   const [showpomodoro,setShowPomodoro]=useState(true)
   const [clickedDropdown,setClickedDropdown]=useState(true)
   const pomodoroOptions=['Weekly','Mon','Biweekly']
   const TasksOptions=['Task','Weekly','Biweekly']
   const [name,setname]=useState(showpomodoro?'Weekly':'Task')
+  //focus time
+  // const focusTimeToday=getTasksToday(tasks);
+  // const focusTimethisWeek=
+  // const focustimethisTwoWeek=;
+  // const focusTimethisMonth=;
+  // //completed tasks
+  // const completedToday=;
+  // const CompletedthisWeek=;
+  // const CompletedthisTwoWeek=;
+  // const CompletedThisMonth=;
+
   console.log('name',name);
  
   return (
@@ -51,7 +64,7 @@ export const Report = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[{height:heightValue(4.2)}]}>
           <View style={[styles.rowWrap,styles.spaceBetween,styles.centerHorizontal]}>
-            <MiniCards number={'3'} name={showpomodoro?'Focus Time Today':'Task Completed today'}/>
+            <MiniCards number={showpomodoro?'3h:30m':'5'} name={showpomodoro?'Focus Time Today':'Task Completed today'}/>
             <MiniCards number={'02:05'} name={showpomodoro?'Focus Time This Week':'Task Completed this week'}/>
             <MiniCards number={'3r4'} name={showpomodoro?'Focus Time This Two Week':'Task completed this two weeks'}/>
             <MiniCards number={'124'} name={showpomodoro?'Focus Time This Month':'Task completed this month'}/>
@@ -68,9 +81,9 @@ export const Report = ({navigation}) => {
             <View style={[zIndex(0)]}>
                 <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
                  {name==='Weekly' &&  <FocusTime/> }
-              {name==='Monthly' && <PomodoroRecords/>}
-             {name==='Biweekly' && <ProgressCalendar/>}
-               {/* <PomodoroRecords/> */}
+                 {name==='Monthly' && <PomodoroRecords/>}
+                  {name==='Biweekly' && <ProgressCalendar/>}
+               {/* <PomodoroRecords/> */} 
                </TouchableWithoutFeedback>
                </View>
           </View>

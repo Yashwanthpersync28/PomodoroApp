@@ -159,11 +159,11 @@ const getProjectDetails=(name,color)=>{
       <View style={[flex(0.6)]}>
           <TouchableOpacity onPress={onClose} style={[flex(1)]}></TouchableOpacity>
       </View>
-    <View style={[flex(0.4),{width:widthValue(1)},styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
+    <View style={[flex(0.5),{width:widthValue(1)},styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
       {/* //addText  */}
       <View style={[flex(1),paddingPosition(0,20,0,20),styles.selfStart]}>
-           <TextInput value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black]} 
-                  placeholderTextColor={Colors.iconGray}/>
+           <TextInput multiline={true}  value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black,fontSize(22)]} 
+                  placeholderTextColor={Colors.iconGray}  />
       </View>
       {/*  */}
       {/* //sessons */}

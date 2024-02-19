@@ -78,3 +78,10 @@ export const getCompletedTasksTomorrow = (data) => {
 export const getCompletedTasks = (data) => {
   return data.filter(item => item.completed);
 };
+
+export const getTodayCompletedfocusTime=(data)=>{
+    const focustime=calculateFocusTime(data)
+    const finalfocustime=formatTime(focustime)
+    return finalfocustime
+
+}

@@ -9,7 +9,7 @@ import { Colors } from '../../../../styles/Colors'
 import {Dayheadings} from './components/Dayheadings'
 import TaskCardDetails from '../TaskCardDetails'
 import { useSelector } from 'react-redux'
-import { GetRecomendedTasks, calculateFocusTime, formatTime, getCompletedTasksToday, getCompletedTasksYesterday } from '../../../../constants/getCompletedTasksFunctions'
+import { GetRecomendedTasks, calculateFocusTime, formatTime, getCompletedTasks, getCompletedTasksToday, getCompletedTasksYesterday } from '../../../../constants/getCompletedTasksFunctions'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 
@@ -20,7 +20,8 @@ const Completedtask = ({navigation,route}) => {
    const [tempTrashdatas,setTempTrash]=useState(Trashdatas)
    const [InputText,setInputText]=useState('')
    const [showOptionsIndex, setShowOptionsIndex] = useState(null);
-
+   const [SearchedTask,setSearchedTask]=useState(true)
+   const [updatedSearchTasks,SetupdatedSearchCompletedtasks]=useState('')
     console.log('Trashdatas',Trashdatas);
 
     ///to filter data based on completed and which is completed today
@@ -36,11 +37,21 @@ const Completedtask = ({navigation,route}) => {
 ///search functionality
 useEffect(()=>{
   if(InputText.trim()===''){
-    setTempTrash(data)
+    setTempTrash(data) 
+    setSearchedTask(true)                       
   }
   else{
-    const filteredTrashTasks=GetRecomendedTasks(data,InputText)
-    setTempTrash(filteredTrashTasks)
+    if(name==='Trash'){
+      const filteredTrashTasks=GetRecomendedTasks(data,InputText)
+      setTempTrash(filteredTrashTasks)
+    }
+    else{
+      setSearchedTask(false)
+      const filteredCompletedTask=getCompletedTasks(data)
+      const filtredCompletedtasks=GetRecomendedTasks(filteredCompletedTask,InputText)
+       SetupdatedSearchCompletedtasks(filtredCompletedtasks)
+    }
+   
   }
 },[data,InputText])
 
@@ -48,7 +59,7 @@ useEffect(()=>{
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
     <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
      <View style={[{height:heightValue(15)}]}>
-        {showSearchHeader?<HeaderSearch handleBacktoHeader={()=>{setSearchHeader(false),setInputText('')}} onChangeText={(val)=>setInputText(val)}/>:
+        {showSearchHeader?<HeaderSearch handleBacktoHeader={()=>{setSearchHeader(false),setInputText('')}} onChangeText={(val)=>{setInputText(val)}} handleX={()=>setInputText('')} value={InputText}/>:
         <Header
          headername={name}
          IconfamilyRight={Icons.Entypo}
@@ -67,13 +78,18 @@ useEffect(()=>{
      </View>
      <ScrollView showsVerticalScrollIndicator={false}>
      <View style={[flex(1),styles.column]}>
+      {SearchedTask ? 
+     <>
         {name==='Trash'? <TaskCardDetails data={tempTrashdatas} handleTask={(index)=>console.log(index)}/>:
-        <>       
+       
+        <View>
          <Dayheadings navigation={navigation} headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday}/>
          <Dayheadings headingname={'Yesterday'} focusTime={focustimeYesterday} completed={completedTasksYesterday.length} name={name} data={completedTasksYesterday}/>
+         </View>
+        }
         </>
-
-  }
+        :<TaskCardDetails data={updatedSearchTasks} handleTask={(index)=>console.log(index)} showLinethrough={true} name={'Completed'}/>
+        }
      </View>
      </ScrollView>
 

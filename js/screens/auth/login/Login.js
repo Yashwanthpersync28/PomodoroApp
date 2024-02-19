@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { HeadingComponent } from "../../../components/view/HeadingComponent";
 import Icon, { Icons } from "../../../components/Icons";
 import LoaderModalComponent from "../../../components/modals/LoaderModalComponent";
-import { setOnboarding } from "../../../redux/ShowComponentReducer/ShowOnboardingReducer";
+import { setDashboard, setOnboarding } from "../../../redux/ShowComponentReducer/ShowOnboardingReducer";
 import { setRememberMe } from "../../../redux/rememberReducer/RemembermeReducer";
 import { handlePasswordvalidation } from "../../../constants/PasswordValidaton";
 import { addUserData } from "../../../redux/userReducer/UserInformationReducer";
@@ -59,7 +59,7 @@ export const LoginScreen = ({navigation}) => {
       console.log('hope',user);
 
      if(user){
-      dispatch(setOnboarding(true))
+      dispatch(setDashboard(true))
       navigation.navigate('BottomTabNavigation')
       dispatch(addUserData({
         email:Email,
