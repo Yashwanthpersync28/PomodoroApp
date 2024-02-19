@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { deleteUserTask } from '../../redux/userReducer/UserTaskDetails';
 
 
-export const DeleteTaskModal = ({headername, visible, onClose , getPriorityDetails,handletoTaskDeleted,Taskname}) => {
+export const DeleteTaskModal = ({headername, visible, onClose , getPriorityDetails,handletoTaskDeleted,Taskname,name}) => {
 const dispatch=useDispatch()
 
 // const handledelete=()=>{
@@ -18,12 +18,26 @@ const dispatch=useDispatch()
 //     dispatch(addTrashtasks(DeleteTaskData))
 // }
 
+
+
+
+
   return (
+
     <Modal
-      animationType="slide"
+      // animationType="slide"
       transparent={true}
-      visible={visible}
-      onRequestClose={onClose}>
+      // visible={visible}
+      // onRequestClose={onClose}
+      animationIn={'slideInUp'}
+    animationOut={'slideOutDown'}
+    isVisible={visible}
+    hasBackdrop={true}
+    backdropColor='black'
+    backdropOpacity={0.5}
+    onBackdropPress={onClose}
+      
+      >
       <View style={[flex(1),styles.column, { backgroundColor: 'rgba(0, 0, 0, 0.6)'}]}>
       <View style={[flex(0.6)]}>
       <TouchableOpacity onPress={onClose} style={[flex(1)]}>
@@ -37,7 +51,7 @@ const dispatch=useDispatch()
           </View>
           {/*  */}
           <View style={[flex(0.8),padding(20),styles.allCenter,]}>
-            <Text style={[styles.textCenter,styles.black,fontWeight('bold'),fontSize(18)]}>{`Are you sure you want to delete the "${Taskname}" task?`}</Text>
+            <Text style={[styles.textCenter,styles.black,fontWeight('bold'),fontSize(18)]}>{`Are you sure you want to delete the "${Taskname}" ${name}?`}</Text>
           </View>
           {/* footer */}
           <View style={[flex(0.5), styles.row, styles.allCenter,borderColor('#e3e1e1'), borderWidth(0,1)]}>

@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logout } from './Logout/Logout'
 import { setCurrentModal } from '../../redux/userReducer/modalReducer'
+import { setDashboard } from '../../redux/ShowComponentReducer/ShowOnboardingReducer'
 
 
 export const Settings = () => {
@@ -19,7 +20,8 @@ export const Settings = () => {
   const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
   
   const logOut = ()=>{
-    navigation.navigate('signup')
+   dispatch(setDashboard(false))
+   navigation.navigate('login')
     dispatch(setCurrentModal(0));
   }
   const closeModal = ()=>{

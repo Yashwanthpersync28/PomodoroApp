@@ -120,8 +120,9 @@ const updatedEvents = Taskdetails.map(event => {
     };
     ////delete folder
     const handleDelete=()=>{
-      setDeleteModalVisible(false);
-
+      setAttachedFileUri('')
+      setisDeleteFolder(false);
+     
       const DeletedFile = Taskdetails.map(event => {
         if (event.id === id) {
             return {
@@ -168,8 +169,9 @@ const updatedEvents = Taskdetails.map(event => {
     },[completedTask])
 
 const handleDeletedtasks=()=>{
+  setDeleteModalVisible(false)
   setTaskdeletedModalVisible(true)
-  onClose()
+  // onClose()
   dispatch(deleteUserTask(id))
   dispatch(addTrashtasks(CurrentTask))
 }
@@ -193,8 +195,8 @@ const handleDeletedtasks=()=>{
         />
     </View>
     {/* render deletemodal */}
-    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>handleDeletedtasks()}  Taskname={CurrentTask.Taskname} headername={'Delete Task'}/>}
-    {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}}/>}
+    {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>handleDeletedtasks()}  Taskname={CurrentTask.Taskname} headername={'Delete Task'} name={'Task'}/>}
+    {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}} />}
     {/* option's */}
     {showOptions ? 
     <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},paddingPosition(5,15,5,15),radius(10),styles.column,styles.bgWhite]}>
@@ -288,7 +290,7 @@ const handleDeletedtasks=()=>{
          </View>
     </View>
     {/* for uploading Attachment */}
-    {isDeleteFolder && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>handleDelete()}  Taskname={attachedFileUri} headername={'Delete file'}/>}
+    {isDeleteFolder && <DeleteTaskModal onClose={() => setisDeleteFolder(false)} handletoTaskDeleted={()=>handleDelete()}  Taskname={attachedFileUri} headername={'Delete file'} name={'file'}/>}
 
     <View style={[marginPosition(15,0,15)]}>
          <Text style={[styles.black,fontWeight('800')]}>Add attachement</Text>
@@ -302,7 +304,7 @@ const handleDeletedtasks=()=>{
              <Text style={[styles.black,fontSize(18)]}>Desig-{attachedFileUri}</Text>
              </View>
              </TouchableOpacity>
-             <TouchableOpacity onPress={()=>{setisDeleteFolder(true),setAttachedFileUri('')}} style={[{width:widthValue(10)}]}>
+             <TouchableOpacity onPress={()=>{setisDeleteFolder(true)}} style={[{width:widthValue(10)}]}>
              <View style={[styles.flexEnd]}>
               <Icon name={'trash'} type={Icons.Octicons} style={[styles.Orange,fontSize(25)]}/>
             </View>

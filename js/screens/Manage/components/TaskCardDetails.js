@@ -34,7 +34,7 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
     {data.map((dataitem,index)=>{
         return(
             
-     <View  key={index} style={[styles.bgMilkyWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(10),styles.row,,marginPosition(10,0,10)]}>  
+     <View  key={index} style={[styles.bgMilkyWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(15),styles.row,,marginPosition(10,0,10)]}>  
         <View style={[flex(0.2),styles.selfStart]}>
             <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(22)]}/>
         </View>

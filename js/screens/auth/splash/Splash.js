@@ -12,13 +12,16 @@ export const Splash = ({navigation}) => {
 
   //selectors//
   const showonboarding = useSelector((state)=>state.showcomponent.ShowOnboarding)
-
+  const showDashboard=useSelector((state)=>state.showcomponent.ShowDashboard)
   ///for handling onboarding and signup
   useEffect(()=>{
     setTimeout(() => {
       if(showonboarding){
+        if(showDashboard){
         navigation.navigate('BottomTabNavigation') ;
         console.log('showcomp',showonboarding);
+        }
+        else{ navigation.navigate('signup')}
       }
       else{
         navigation.navigate('onboarding')

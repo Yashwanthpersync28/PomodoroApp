@@ -1,7 +1,7 @@
 import React, { useRef ,useState} from 'react';
 import Swiper from 'react-native-swiper';
-import { View, Text , TouchableOpacity} from 'react-native';
-import { heightValue, marginPosition, styles , screenHeight,flex,fontSize, widthValue, radius, borderColor, borderWidth, padding} from '../../../../styles/Styles';
+import { View, Text , TouchableOpacity , Dimensions} from 'react-native';
+import { heightValue, marginPosition, styles , screenHeight,flex,fontSize, widthValue, radius, borderColor, borderWidth, padding, paddingPosition} from '../../../../styles/Styles';
 import { Onboardingcomponent } from './Onboardingcomponent';
 import { Onboaringdata } from '../../../../constants/Onboardingdata';
 import CustomizedButtons from './CustomizedButtons';
@@ -10,10 +10,14 @@ import { ButtonComponent } from '../../../../components';
 import { Colors } from '../../../../styles/Colors';
 import { setOnboarding } from '../../../../redux/ShowComponentReducer/ShowOnboardingReducer';
 import { useDispatch } from 'react-redux';
+import { Svg , Path } from 'react-native-svg';
+
 
 export const Swipercomponent = ({handleIndex}) => {
   const swiper = useRef();
   const navigation=useNavigation()
+  const { width, height } = Dimensions.get('window');
+  const controlX=width/2
   const [index, setIndex] = useState(0);
   const [getStarted,setgetStarted]=useState(true);
   
@@ -42,7 +46,16 @@ export const Swipercomponent = ({handleIndex}) => {
   
   return (
     <View style={[flex(1)]}>
-    <View style={[flex(1),styles.bgsmokewhite]}>
+    <View style={[flex(1),paddingPosition(0,20,0,20)]}>
+      
+           {/* <Svg style={{position:'absolute',bottom:210}} width={widthValue(1)} height={100}>
+                         <Path 
+                            d={`M 0 20 Q ${controlX} 130 ${width}
+                             20 L ${width} 100 L 0 100 Z
+                                `}
+                           fill={Colors.Brown}/>
+                      </Svg> */}
+                 
       <Swiper
         ref={swiper}
         loop={false}

@@ -10,7 +10,7 @@ import { AddTask } from './components/AddTask/AddTask';
 import { TextInputCompnent } from '../../components';
 import { useSelector } from 'react-redux';
 import { Header } from './components/Header';
-import { getCompletedTasks, getCompletedTasksToday, getCompletedTasksTomorrow, getTasksThisWeek, getTasksToday, getTasksTomorrow } from '../../constants/getCompletedTasksFunctions';
+import { getCompletedTasks, getCompletedTasksToday, getCompletedTasksTomorrow, getTasksThisWeek, getTasksToday, getTasksTomorrow, getTodayCompletedfocusTime } from '../../constants/getCompletedTasksFunctions';
 
 
 export const Manage = ({navigation,countvalue,modalVisibleval}) => {
@@ -32,13 +32,20 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const CompletedTodayTasks=getCompletedTasksToday(Taskdatas);//to get completed tasks fo Today
     const TodayTasks=getTasksToday(Taskdatas)
     console.log('TodayTaskssbcs j',TodayTasks);
+    const GetTodayFocusTime=getTodayCompletedfocusTime(TodayTasks)
     const TomorrowTasks=getTasksTomorrow(Taskdatas)
     const CompletedTasksTomorrow=getCompletedTasksTomorrow(Taskdatas)
     const getTasksThisWeekdata=getTasksThisWeek(Taskdatas,true);
     const getTasksThisMonthdata=getTasksThisWeek(Taskdatas,false);
     const getCompletedtasksThisWeek=getCompletedTasks(getTasksThisWeekdata)
     const getCompletedtasksthisMonth=getCompletedTasks(getTasksThisMonthdata)
+    const GetTodayFocustime=getTodayCompletedfocusTime(CompletedTodayTasks)
+    const GetTomorrowFocustime=getTodayCompletedfocusTime(CompletedTasksTomorrow)
+    const GetThisWeekFocustime=getTodayCompletedfocusTime(getCompletedtasksThisWeek)
+    const GetThisMonthFocustime=getTodayCompletedfocusTime(getCompletedtasksthisMonth)
+    
 
+    console.log('GetTodayFocustime',GetTodayFocustime);
     console.log('getTasksThisWeekdata',getTasksThisWeekdata);
     console.log('getTasksThisMonthdata',getTasksThisMonthdata);
     console.log('kncd',TodayTasks);
@@ -63,12 +70,16 @@ useEffect(()=>{
   }
   else{
     const filteredTasks=Projectslist.filter(projects => projects.name.toLowerCase().includes(Seachvalue.toLowerCase()));
+   
     setTempProject(filteredTasks)
   }
 },[Projectslist,Seachvalue])
 
 
+///to get focus time for projects
+const handleFocusTime=()=>{
 
+}
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
     <StatusBar backgroundColor = "white" barStyle = "dark-content"/>
@@ -84,10 +95,10 @@ useEffect(()=>{
         </View>
         {Seachvalue.length<1 && 
         <View style={[{height:heightValue(3.2)},styles.rowWrap,{ justifyContent: 'flex-start'}]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
-           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.Feather} iconname={'sunrise'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})}/>
-           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-week'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:getTasksThisWeekdata,completedData:getCompletedtasksThisWeek})}/>
-           <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-check'} hours={'13h 20m (10s)'} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:getTasksThisMonthdata,completedData: getCompletedtasksthisMonth})}/>
+           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={GetTodayFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
+           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.Feather} iconname={'sunrise'} hours={GetTomorrowFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})}/>
+           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-week'} hours={GetThisWeekFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:getTasksThisWeekdata,completedData:getCompletedtasksThisWeek})}/>
+           <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-check'} hours={GetThisMonthFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:getTasksThisMonthdata,completedData: getCompletedtasksthisMonth})}/>
            <ManageButtons  color={'lightgreen'} heading={'Completed'} IconFamily={Icons.AntDesign} iconname={'checkcircleo'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Completed',data:Taskdatas,completedData:[]})}/>
            <ManageButtons  color={'red'} heading={'Trash'} IconFamily={Icons.Octicons} iconname={'trash'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Trash',data:Trashdata})}/>
         </View>}
@@ -100,6 +111,12 @@ useEffect(()=>{
          </View>
         <View style={[styles.rowWrap, { justifyContent: 'flex-start'}]}>
   {tempProject.map((data, index) => {
+    const getTasksWithSameProjectName=Taskdatas.filter((item,index)=>{
+      return item.Project.Projectname===data.name
+    })
+    const CompletedTask=getCompletedTasks(getTasksWithSameProjectName)
+    const getFocusTimeProject=getTodayCompletedfocusTime(CompletedTask)
+    console.log('hvcbkjbdf', getTasksWithSameProjectName)
     return (
       <TouchableOpacity key={index}>
         <View style={[{ width: widthValue(2.5) }, borderColor(data.color), borderWidth(1), radius(10), styles.column,paddingPosition(10,5,20,14),marginPosition(0,4,10,12), { justifyContent: 'center' }]}>
@@ -110,7 +127,7 @@ useEffect(()=>{
             </View>
           </View>
           <View>
-            <Text style={[{ fontWeight: '800' }, styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>12h 20m(5s)</Text>
+            <Text style={[{ fontWeight: '800' }, styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>{getFocusTimeProject}</Text>
           </View>
         </View>
       </TouchableOpacity>
