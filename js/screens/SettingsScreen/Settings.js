@@ -28,7 +28,7 @@ export const Settings = () => {
 const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 
   return(
-  <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,25,10)]} onPress={onPress} >
+  <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,20,10)]} onPress={onPress} >
     <View style={[styles.row]}>
      <Icon name={IconLeft} type={leftIconType}  style={[styles.black,fontSize(25)]} /> 
      <Text style={[fontSize(18),styles.black,{fontWeight:"500"},marginPosition(0,0,0,30)]}>{PreferanceName}</Text>
@@ -45,7 +45,7 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
     <View style={[{height:heightValue(15)}]}> 
       <Header color={styles.black} headername={'Settings'} />
       </View> 
-    <View  style={[paddingPosition(10,0,0,10),{height:heightValue(1.3)}]}>
+    <View  style={[paddingPosition(10,0,0,10)]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />
       <SettingComponent  PreferanceName={'Pomodoro Preference'} leftIconType={Icons.Entypo} IconLeft={'stopwatch'} onPress={()=>navigation.navigate('PomodoroPreference')}/>
       {/* <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/> */}

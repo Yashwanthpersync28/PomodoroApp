@@ -40,6 +40,7 @@ export const Profile = () => {
        dispatch(setCurrentModal(21))
     }
    
+    console.log('selectedImage',selectedImage)
 
 
     const gender = [
@@ -53,7 +54,7 @@ export const Profile = () => {
     const dispatch = useDispatch();
 
     const [showProfilePic, setShowProfilePic] = useState(false)
-    const [selectedImage, setSelectedImage] = useState(userDetails.profilePic || null)
+    const [selectedImage, setSelectedImage] = useState(userDetails.profilePic || profile)
     const initialGender = gender[0].mode;
     console.log('initialGender', initialGender)
     const [selectedGender, setSelectedGender] = useState(initialGender)
@@ -91,7 +92,6 @@ export const Profile = () => {
         setError(numberval ? 'Please enter Your Phone Number' : '')
     }
     console.log('selectedGender', selectedGender)
-
     const InitialCountry = modalData.countryCode[0]
     const [selectedCountry, setSelectedCountry] = useState(InitialCountry)
 

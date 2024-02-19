@@ -7,7 +7,7 @@ import { SwitchComponent } from '../../../components/touchables/SwitchComponent'
  export const PreferenceComponent = ({PreferanceName,showDetail,showIcon,name,Icontype,detail1,detail2,onPress,onValueChange,value,thumbColor,isEnabled,switchFunction}) => {
 
   return (
-    <TouchableOpacity style={[{height:heightValue(14)},styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10),marginPosition(0,0,8,0)]} onPress={onPress} >
+    <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10)]} onPress={onPress} >
         <Text style={[fontSize(18),styles.black,{fontWeight:"500"}]}>{PreferanceName}</Text>
         <View style={[styles.row,styles.centerHorizontal]}>
 

@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import React from 'react'
 import { PreferenceComponent } from '../Components/PreferenceComponent'
 import { Header } from '../../Manage/components/Header'
@@ -7,11 +7,24 @@ import { Icons } from '../../../components/Icons'
 import { ButtonComponent, TextInputCompnent } from '../../../components'
 import { useState } from 'react'
 import { handlePasswordvalidation } from '../../../constants/PasswordValidaton'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import LoaderModalComponent from '../../../components/modals/LoaderModalComponent'
+import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
+import { PasswordModal } from '../AccountSecurity/Components/passwordModal'
+import { ChangePassModal } from '../AccountSecurity/Components/ChangePassModal'
+import { sucess } from '../../../constants/LottieConstants'
+import { addUserData } from '../../../redux/userReducer/UserInformationReducer'
+import { Logout } from '../Logout/Logout'
 
- export const ChangePassword = ({}) => {
-  const userDetails = useSelector(state=>state.UserDetails.userList)
+ export const ChangePassword = () => {
+  const userDetails = useSelector((state)=>state.user.Userinfo.UserInfo)
+  const InitialPassword =userDetails.password;
+
+const currentModal = useSelector(state=>state.user.currentModal);
+console.log(currentModal)
+
+  const dispatch = useDispatch();
   console.log('userDetails',userDetails)
 
   const navigation = useNavigation();
@@ -19,9 +32,13 @@ import { useNavigation } from '@react-navigation/native'
   const PreviousScreen = ()=>{
     navigation.goBack();
   }
+  const closeModal = ()=>{
+    dispatch(setCurrentModal(0))
+  }
   // setUserId(userDetails.map(user=>user.id))
 
   // console.log(userId,'useridjkbhbjh')
+  const [modalVisible,setModalVisible] = useState(false)
   const [password,setPassword] = useState('')
   const [conPassword,setConPassword] = useState('')
   const [securedpass,setSecuredPass] = useState(true)
@@ -48,10 +65,20 @@ import { useNavigation } from '@react-navigation/native'
       setConError('Password does not match')
     }
   }
-
-//  const UpdatePassword = ()=>{
-// alert('password changed succesfully')
-//  }
+  
+ const UpdatePassword = ()=>{
+  if(InitialPassword ===conPassword){
+    setConError('New password cannot be same as old password')
+  } else  {
+    const userData = {
+      ...userDetails,
+      password:conPassword,
+    }
+    dispatch(addUserData(userData))
+    setModalVisible(true)
+    dispatch(setCurrentModal(30));
+  }
+ }
   return (
      <View style={[styles.bgWhite,flex(1),padding(0,0,20)]}>  
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
@@ -89,9 +116,11 @@ import { useNavigation } from '@react-navigation/native'
 
             </View>
             <View style={[styles.centerHorizontal]}>
-        <ButtonComponent  title={'Update New Password'}  disabled={!(conError==='' && password.length>6 && conPassword.length>6)}/>
+        <ButtonComponent  title={'Update New Password'} onPress={UpdatePassword}  disabled={!(conError==='' && password.length>6 && conPassword.length>6)}/>
         </View>
-        </View>  
+    {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setModalVisible(false)} name={'Updating your Pasword'} handleLogin={()=>dispatch(setCurrentModal(30))}/> : null}
+    {currentModal === 30 && <Logout  VisibleAt={currentModal === 30}/>}
+        </View>
     </View>
   )
 }

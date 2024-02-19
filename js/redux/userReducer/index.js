@@ -22,6 +22,7 @@ import { LongBreakSessionReducer } from './LongBreakSessionReducer';
 import { StrictModeReducers } from './StrictModeReducers';
 import { NotificationsReducer } from './NotifricationsReducer';
 import { userInformationReducer } from './UserInformationReducer';
+import { FaqDataReducer } from './FaqData';
 
 
 
@@ -49,4 +50,5 @@ export const userReducer = combineReducers({
     strictMode:StrictModeReducers,
     notifications:NotificationsReducer,
     Userinfo:userInformationReducer,
+    faqData:FaqDataReducer,
 })

@@ -6,11 +6,15 @@ import { PreferenceComponent } from '../Components/PreferenceComponent'
 import { Header } from '../../Manage/components/Header'
 import { Icons } from '../../../components/Icons'
 import ReactNativeBiometrics from 'react-native-biometrics'
+import { useDispatch, useSelector } from 'react-redux'
+import { Logout } from '../Logout/Logout'
+import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 
 
 
  export const AccountSecurity = () => {
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const PreviousScreen = ()=>{
@@ -18,10 +22,21 @@ import ReactNativeBiometrics from 'react-native-biometrics'
   }
   const changePassScreen = ()=>{
     navigation.navigate('ChangePassword')
-
 }  
 
-const rnBiometrics = new ReactNativeBiometrics();
+
+const currentModal = useSelector(state=>state.user.currentModal);
+
+const deleteAcc = ()=>{
+ dispatch(setCurrentModal(24))
+ console.warn('hi')
+}
+// const rnBiometrics = new ReactNativeBiometrics();
+// const {biometryType} = await rnBiometrics.isSensorAvailable();
+
+// if (biometryType === BiometryTypes.Biometrics) {
+//   //do something face id specific
+// }
 
 return (
     <View style={[styles.bgWhite,flex(1),padding(0,0,20)]}>  
@@ -30,9 +45,10 @@ return (
       <View  showsVerticalScrollIndicator={false} style={[{height:heightValue(2)}]}>
       <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}  PreferanceName={'Biometric ID'} switchFunction={()=>console.log('hi')}/>
       <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}  PreferanceName={'Face ID'} switchFunction={()=>console.log('hi')}/>
-      <PreferenceComponent  showIcon={true}  showDetail={true}  PreferanceName={'Change Password'} detail2={''} onPress={changePassScreen} PreviousScreen={PreviousScreen}/>
-      <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={''}  PreferanceName={'Delete Account'}/>
-        </View>  
+      <PreferenceComponent  showIcon={true}  showDetail={true}  PreferanceName={'Change Password'} detail2={''} onPress={changePassScreen} PreviousScreen={PreviousScreen} />
+      <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={''}  PreferanceName={'Delete Account'} onPress={deleteAcc}/>
+        </View> 
+        {currentModal ===24 &&  <Logout visibleAt={currentModal ===24 }/>}
     </View>
   )
 }
