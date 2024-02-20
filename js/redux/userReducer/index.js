@@ -23,6 +23,8 @@ import { StrictModeReducers } from './StrictModeReducers';
 import { NotificationsReducer } from './NotifricationsReducer';
 import { userInformationReducer } from './UserInformationReducer';
 import { FaqDataReducer } from './FaqData';
+import { ReminderVibrateReducer } from './ReminderVibrateReducer';
+import { BiometricReducer } from './BiometricsReducer';
 
 
 
@@ -51,4 +53,5 @@ export const userReducer = combineReducers({
     notifications:NotificationsReducer,
     Userinfo:userInformationReducer,
     faqData:FaqDataReducer,
+    reminderVibrate:ReminderVibrateReducer,
 })

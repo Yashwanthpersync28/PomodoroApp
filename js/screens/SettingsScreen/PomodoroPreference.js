@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView,Vibration,Platform, } from 'react-native'
 import React, { useState } from 'react'
 import { Header } from '../Manage/components/Header'
 import { styles, widthValue,flex, padding, heightValue } from '../../styles/Styles'
@@ -23,14 +23,11 @@ import { setSelectedCompletionSound } from '../../redux/userReducer/CompletionSo
 import { setSelectedWhiteNoise } from '../../redux/userReducer/WhiteNoiseReducer'
 import { useNavigation } from '@react-navigation/native'
 import { LongBreakSession } from './Components/LongBreakSession'
+import { setSelectedVibrationMode } from '../../redux/userReducer/ReminderVibrateReducer'
 
 export const PomodoroPreference = () => {
 
-const vibrationOptions = [
-  { id: '1', name: 'Enable' },
-  { id: '2', name: 'Disable' },
-];
-
+// console.log(modalData.vibrationOptions[0].name,'vibration')
 
     const focusTime = useSelector((state)=>state.user.focusTime.focusTime,)
     // console.log("Focus Time State:", state.user.focusTime); 
@@ -50,11 +47,14 @@ const vibrationOptions = [
 
     const [showDetail,setShowDetail] = useState(false)
     const [showIcon,setShowIcon] = useState(false)
+    const [enableVibrate,setEnableVibrate] = useState(false)
 
     const breakSwitch = useSelector((state)=>state.user.breakSwitch.disableBreak)
     const autoBreak = useSelector((state)=>state.user.autoBreak.autoBreak)
     const autoFocusStart = useSelector((state)=>state.user.autoFocus.focusStart)
     const selectedRingtone = useSelector((state)=>state.user.reminderRingtone.selectedRingtone)
+    const selectedVibrationMode = useSelector(state=>state.user.reminderVibrate.selectedVibrationMode)
+    console.log('selected Vibrate mode ',selectedVibrationMode)
     const selectedWhiteNoise = useSelector((state)=>state.user.whiteNoise.selectedWhiteNoise)
     const selectedCompletionSound = useSelector((state)=>state.user.completionSound.selectedCompletionSound)
     const longBreakSession = useSelector((state)=>state.user.longBreakSession.longBreakSession)
@@ -79,19 +79,11 @@ const vibrationOptions = [
     }
     const currentModal = useSelector((state)=>state.user.currentModal.currentModal)
 
-    // const initialTune = modalData.whiteNoiseMode[0].MusicName
-    // const [selectedTune,setSelectedTune] = useState(initialTune)
 
     const [sound,setSound] = useState(null)
     const [reminderTune,setReminderTune] = useState(null)
 
-     const initialVibration = vibrationOptions[0].name ;
-    const [vibration,setVibration] = useState(initialVibration)
-
-    const handleVibration = (item)=>{
-      setVibration(item.name)
-      console.log('Vibration',vibration)
-    }
+  
   
 // ENd of play and stop Reminder tune//
 const playReminderTune = (reminderSong)=>{
@@ -172,8 +164,37 @@ if(sound){
 }
 // ENd of play and stop completion sound//
 
+// Vibration starts
+// const handleVibration = ()=>{
+//   ReminderVibrate
+// }
 
 
+
+
+const handleVibration = (item)=>{
+  dispatch(setSelectedVibrationMode(item.name))
+}
+
+const VibrationChange = ()=>{
+  if(selectedVibrationMode === 'Enable'){
+  if(Platform.OS === 'android'){
+    Vibration.vibrate(1000)
+    setTimeout(()=>{
+      console.log('succesfully vibrated ')
+    },1000)
+  } else{
+    const pattern = [0,1000] ;
+  Vibration.vibrate(pattern)
+  }
+  closeModal();
+} else {
+  console.log('vibratioon is disabled')
+  closeModal();
+}
+}
+
+// Vibration Ends
 
 
 const closeModal = ()=>{
@@ -188,7 +209,7 @@ const goBack = ()=>{
     <View style={[styles.bgWhite,flex(1),padding(0,0,10)]}>  
     <View style={[{height:heightValue(10)},{width:widthValue(1)}]}>
       <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'} goBack={goBack}/></View> 
-
+<Text>Vibrate Update</Text>
       <ScrollView  showsVerticalScrollIndicator={false} style={[{height:heightValue(10)}]}>
         <PreferenceComponent  showIcon={true}  showDetail={false}  PreferanceName={'Strict Mode'} onPress={()=>dispatch(setCurrentModal(2))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail1={formatTime(focusTime)} detail2={ '00:00'} name={'arrowright'} Icontype={Icons.AntDesign} PreferanceName={'Timer Mode'} onPress={()=>dispatch(setCurrentModal(3))}/>
@@ -201,7 +222,7 @@ const goBack = ()=>{
         <PreferenceComponent  showIcon={false} showDetail={false} isEnabled={autoBreak} switchFunction={autoStartBreak}  PreferanceName={'AutoStart Break'}/>
         <PreferenceComponent  showIcon={false} showDetail={false} isEnabled={autoFocusStart} switchFunction={autoStartFocus}  PreferanceName={'Auto Start Next Pomodoro'}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Reminder Ringtone'} detail2={selectedRingtone} onPress={()=>dispatch(setCurrentModal(10))}/>
-        <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Reminder Vibrate'} detail2={vibration} onPress={()=>dispatch(setCurrentModal(9))}/>
+        <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Reminder Vibrate'} detail2={selectedVibrationMode} onPress={()=>dispatch(setCurrentModal(9))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} PreferanceName={'Completion Sound'} detail2={selectedCompletionSound} onPress={()=>dispatch(setCurrentModal(8))} />
         </ScrollView>  
 {currentModal === 3 &&  <TimerModeModal  closeModal={closeModal}/>}
@@ -214,7 +235,7 @@ const goBack = ()=>{
 {currentModal === 10 &&  <SoundModal isVisible={currentModal === 10} data={modalData.reminderRintones}  title={'Reminder Ringtone'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleReminderSound(item)} selectedSong={selectedRingtone} onPress2={()=>{closeModal(),stopReminderTune()}} onPress3={()=>{closeModal(),stopReminderTune()}}/>}
 {/* {currentModal === 4 &&  <SoundModal isVisible={currentModal === 4} data={modalData.whiteNoiseMode}  title={'White Noise'} closeModal={closeModal} stopSound={stopSound} onPress={(item)=>handleNoise(item)} selectedSong={selectedWhiteNoise} onPress2={closeModal} onPress3={closeModal}/>} */}
 {currentModal === 4 && <WhiteNoiseModal />}
-{currentModal === 9 &&  <ReminderVibrate  currentModal={currentModal}  closeModal={closeModal}  handleVibration={handleVibration} vibration={vibration} vibrationOptions={vibrationOptions}/>}
+{currentModal === 9 &&  <ReminderVibrate  currentModal={currentModal} VibrationChange={VibrationChange} closeModal={closeModal}  handleVibration={handleVibration} selectedVibrationMode={selectedVibrationMode} />}
     </View>
   )
 }

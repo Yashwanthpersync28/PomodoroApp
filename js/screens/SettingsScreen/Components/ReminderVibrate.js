@@ -13,12 +13,13 @@ import {styles,
 } from '../../../styles/Styles'
 import { TimerButton } from '../../dashboard/Components/TimerButton'
 import Icon, { Icons } from '../../../components/Icons'
+import { modalData } from '../../../constants/ModalsData'
 
-const ReminderVibrate = ({closeModal,currentModal,vibrationOptions,handleVibration,vibration}) => {
+const ReminderVibrate = ({closeModal,currentModal,VibrationChange,handleVibration,selectedVibrationMode}) => {
 
 
     const renderOptions = ({item})=>{
-        const isSelected = vibration === item.name
+        const isSelected = selectedVibrationMode === item.name
       return(
         <TouchableOpacity onPress={()=>handleVibration(item)}>
         <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
@@ -44,9 +45,6 @@ const ReminderVibrate = ({closeModal,currentModal,vibrationOptions,handleVibrati
       )
 
     }
-
-
-
 
   return (
     <View style={[{width:widthValue(1)},styles.centerHorizontal]}>
@@ -87,11 +85,11 @@ const ReminderVibrate = ({closeModal,currentModal,vibrationOptions,handleVibrati
               Reminder Vibrate
             </Text>
 
-<FlatList data={vibrationOptions} renderItem={renderOptions} keyExtractor={item=>item.name}/>
+<FlatList data={modalData.vibrationOptions} renderItem={renderOptions} keyExtractor={item=>item.name}/>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
         <TimerButton buttonText={'Cancel'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-        <TimerButton buttonText={'Ok'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+        <TimerButton buttonText={'Ok'} onPress={VibrationChange}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>
       </Modal>

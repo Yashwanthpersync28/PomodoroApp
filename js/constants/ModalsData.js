@@ -135,5 +135,10 @@ CompletionSounds : [
     ],     
         }
 
-    ]
+    ],
+ vibrationOptions :[
+        { id: '1', name: 'Disable' },
+        { id: '2', name: 'Enable' },
+      ],
+      
  }

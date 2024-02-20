@@ -18,6 +18,5 @@ const StrictModeSlice = createSlice({
         }
     }
 })
-
 export const {setStrictModePreference} = StrictModeSlice.actions;
 export const StrictModeReducers = StrictModeSlice.reducer

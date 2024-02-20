@@ -4,7 +4,7 @@ import { modalData } from "../../constants/ModalsData";
 const reminderRingtoneSlice = createSlice({
     name:'ReminderRingtomne',
     initialState:{
-        selectedRingtone:modalData.reminderRintones[0].MusicName
+       selectedRingtone:modalData.reminderRintones[0].MusicName
     },
     reducers:{
         setSelectedRingtone(state,action){

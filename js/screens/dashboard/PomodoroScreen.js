@@ -168,7 +168,22 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
     }
   };
 
-  
+  const StopedTime = () => {
+    if (data.id) {
+      const updatedTask = {
+        id: data.id,
+        ...data,
+        focusTime:FocusTime * localSession,
+        totalTimeCompleted:totalfocusTime,
+      };
+
+      dispatch(replaceStatus(updatedTask));
+      setdata((prevData) => ({
+        ...prevData,
+        completed: true,
+      }));
+    }
+  };
 //completion of task  
 const completedPomodoro = () => {
   if (currentTimer === 0) {
@@ -234,7 +249,6 @@ const completedPomodoro = () => {
     }
   }
 //WhiteNoise sound playing function
-
 
 //completion sound section
   const completionSound = (completedSound) => {
@@ -302,13 +316,21 @@ const completedPomodoro = () => {
 
   }
 
-  const handleStop = () => {
+  const stopTheTask = ()=>{
     {timerMode === 0 ? 
-      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'))
-      
+      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),clearTask(),StopedTime()) 
        :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
       }
-  };
+  }
+  const completedtask = ()=>{
+    {timerMode === 0 ? 
+      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),clearTask()) 
+       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
+      }
+  }
+  const handleStop = () => {
+    dispatch(setCurrentModal(25))   
+}
   const handleContinue = ()=>{
     setIsTimerActive(true)
     console.log('timer is active now')
@@ -330,7 +352,6 @@ const completedPomodoro = () => {
     setTotalSessionTime(FocusTime)
     setBarColor('#ff6347')
   }
-
 
   const handleSecondStart = ()=>{
     if(selectedTask === taskSelected){
@@ -569,6 +590,7 @@ return (
     {currentModal === 18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
     {currentModal === 19 && <Logout HeaderName={'Cancel Task'} VisibleAt={currentModal === 19} question={'Are you sure youy want to cancel task?'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
     {currentModal === 20 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 20} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
+    {currentModal === 25 && <Logout HeaderName={'Stop Task'} VisibleAt={currentModal === 25} question={'Is your task completed Priorly '} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeModal(),stopTheTask()}}/>}
   </SafeAreaView>
 
 );
