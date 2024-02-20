@@ -23,6 +23,7 @@ import { StrictModeReducers } from './StrictModeReducers';
 import { NotificationsReducer } from './NotifricationsReducer';
 import { userInformationReducer } from './UserInformationReducer';
 import { FaqDataReducer } from './FaqData';
+import { ShowName } from './ShowPomdoroReducer';
 
 
 
@@ -51,4 +52,5 @@ export const userReducer = combineReducers({
     notifications:NotificationsReducer,
     Userinfo:userInformationReducer,
     faqData:FaqDataReducer,
+    ReportToggle:ShowName,
 })

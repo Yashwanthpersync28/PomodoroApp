@@ -18,7 +18,7 @@ export const getTasksTomorrow=(data)=>{
 //to get completed tasks tomorrow but completed today only
 export const getCompletedTasksTomorrow = (data) => {
   const Tomorrow=new Date()
-  Tomorrow.setDate(Tomorrow.getDate() - 1);
+  Tomorrow.setDate(Tomorrow.getDate() + 1);
   return data.filter((item)=>item.completed && item.completedDate===Tomorrow.toISOString().split('T')[0])
 };
 //to get completed tasks from yesterday
@@ -70,7 +70,7 @@ export const getCompletedTasksTomorrow = (data) => {
         else{
         return data.filter(item => {
           const itemDueDate = new Date(item.Duedate);
-          return itemDueDate >= today || itemDueDate > endOfWeek || item.completed;
+          return  itemDueDate > endOfWeek && !item.completed;
         })
       }
       };
@@ -85,3 +85,47 @@ export const getTodayCompletedfocusTime=(data)=>{
     return finalfocustime
 
 }
+
+export const getCompletedTasksThisWeekOrTwoWeeks = (data, weeks) => {
+  const today = new Date();
+  const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+  const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (6 - today.getDay()));
+  const endOfTwoWeeks = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (13 - today.getDay()));
+
+  let endDate;
+  if (weeks === 1) {
+      endDate = endOfWeek;
+  } else if (weeks === 2) {
+      endDate = endOfTwoWeeks;
+  } else {
+      throw new Error('Unsupported number of weeks. Supported values are 1 and 2.');
+  }
+
+  return data.filter(item => {
+      const completedDate = new Date(item.completedDate);
+      return item.completed && completedDate >= startOfWeek && completedDate <= endDate;
+  });
+};
+
+
+// export const getCompletedTasksThisMonth = (data) => {
+//   const today = new Date();
+//   const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+//   const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1);
+
+//   return data.filter(item => {
+//       const completedDate = new Date(item.completedDate);
+//       return item.completed && completedDate >= startOfMonth && completedDate <= endOfMonth;
+//   });
+// };
+
+export const getCompletedTasksThisMonth = (data) => {
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+
+  return data.filter(item => {
+      const completedDate = new Date(item.completedDate);
+      return item.completed && completedDate.getMonth() === currentMonth && completedDate.getFullYear() === currentYear;
+  });
+};

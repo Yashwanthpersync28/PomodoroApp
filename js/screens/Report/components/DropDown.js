@@ -41,7 +41,7 @@ console.log('headerData',headerData);
             <Text style={[ styles.black ,items.selected && fontWeight('600')]}>{items.name}</Text>
             </View>
             <View style={[styles.flexEnd,flex(1)]}>
-               <Icon name={items.selected ? 'chevron-up':'chevron-down'} type={Icons.Feather} style={[styles.black , items.selected && fontWeight('600'),fontSize(25),marginPosition(0,0,0,5)]}/>
+              {items.selected ? null : <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.black , items.selected && fontWeight('600'),fontSize(25),marginPosition(0,0,0,5)]}/>}
             </View>
         </View>
         </TouchableOpacity>
