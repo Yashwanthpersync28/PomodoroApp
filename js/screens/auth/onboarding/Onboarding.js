@@ -21,7 +21,7 @@ const OnboardingImageData=[{id:1,image:require('../../../assets/Images/Lottiemob
 
   return (
   <SafeAreaView style={[{height:heightValue(1),width:widthValue(1)}]}>
-   <StatusBar backgroundColor={Colors.white} barStyle="dark-content"/>
+   <StatusBar backgroundColor={Colors.Orange} barStyle="dark-content"/>
    {/* <View style={[flex(1.4),styles.bgsmokewhite,]}>
           <TvScreen/> 
        </View>
@@ -29,14 +29,9 @@ const OnboardingImageData=[{id:1,image:require('../../../assets/Images/Lottiemob
            <Swipercomponent />
        </View> */}
     <View style={[flex(1)]}>
-        {/* <View style={[flex(1.5),styles.bgyellow]}></View> */}
-              {/* //screenshotlist */}
-                <View style={[flex(2.2)]}>
-                     {/* <View style={[styles.centerHorizontal,paddingPosition(0,10,0,10)]}>
-                        {index ===0 && <Image source={require('../../../assets/Images/Lottiemobileone.png')} style={[marginPosition(-190),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-                        {index === 1 &&  <Image source={require('../../../assets/Images/Lottiemobiletwo.png')} style={[marginPosition(-190),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-                       {index ===2 &&   <Image source={require('../../../assets/Images/lottiemobilethree.png')} style={[marginPosition(-180),{ width: 290 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-                     </View> */}
+       
+                {/* <View style={[flex(2.2)]}>
+                    
                      <FlatList 
                      horizontal
                      pagingEnabled
@@ -65,9 +60,9 @@ const OnboardingImageData=[{id:1,image:require('../../../assets/Images/Lottiemob
                                 `}
                            fill={Colors.white}/>
                       </Svg>
-                  </View>
+                  </View> */}
         {/* //title and description */}
-        <View style={[flex(1.5),styles.bgsmokewhite]}>
+        <View style={[flex(1),styles.bgWhite]}>
                <Swipercomponent handleIndex={(i)=>setindex(i)}/>
 
         </View>

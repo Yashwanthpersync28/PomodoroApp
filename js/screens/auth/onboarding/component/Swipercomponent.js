@@ -46,7 +46,7 @@ export const Swipercomponent = ({handleIndex}) => {
   
   return (
     <View style={[flex(1)]}>
-    <View style={[flex(1),paddingPosition(0,20,0,20)]}>
+    <View style={[flex(1)]}>
       
            {/* <Svg style={{position:'absolute',bottom:210}} width={widthValue(1)} height={100}>
                          <Path 
@@ -103,9 +103,9 @@ export const Swipercomponent = ({handleIndex}) => {
         }
       >
         
-        <Onboardingcomponent header={Onboaringdata[0].header} details={Onboaringdata[0].details}/>
-        <Onboardingcomponent header={Onboaringdata[1].header} details={Onboaringdata[1].details}/>
-        <Onboardingcomponent header={Onboaringdata[2].header} details={Onboaringdata[2].details}/>
+        <Onboardingcomponent header={Onboaringdata[0].header} details={Onboaringdata[0].details} index={0}/>
+        <Onboardingcomponent header={Onboaringdata[1].header} details={Onboaringdata[1].details} index={1}/>
+        <Onboardingcomponent header={Onboaringdata[2].header} details={Onboaringdata[2].details} index={2}/>
 
       </Swiper>
       </View>

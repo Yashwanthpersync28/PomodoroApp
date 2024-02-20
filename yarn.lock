@@ -7005,6 +7005,10 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
+"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.0", "prop-types@^15.8.1", "prop-types@15.8.1":
+  "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
+  "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
+  "version" "15.8.1"
 prop-types@*, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.0, prop-types@^15.8.1, prop-types@15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
@@ -7223,15 +7227,22 @@ react-native-colored-scrollbar@^1.0.0:
   dependencies:
     prop-types "^15.8.0"
 
-react-native-countdown-circle-timer@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.npmjs.org/react-native-countdown-circle-timer/-/react-native-countdown-circle-timer-3.2.1.tgz"
-  integrity sha512-iHiOgipG0hMprerswqUCUfjGo9hL0UhKNS0BGh4o6yY9Lu7f3VXQ7EJt757Obwn74AiF5MOHURIdqldoGnVrDw==
+"react-native-colored-scrollbar@^1.0.0":
+  "integrity" "sha512-P4s1PZgkuJu8T2fvB93RaS4GPn1YRzekYQvDBtLvgDkWrBbLaHMZzle8BODmC02OaqfsIYGqJ2aav3Zx1vrBgA=="
+  "resolved" "https://registry.npmjs.org/react-native-colored-scrollbar/-/react-native-colored-scrollbar-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "prop-types" "^15.8.0"
 
-react-native-document-picker@^8.2.2:
-  version "8.2.2"
-  resolved "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-8.2.2.tgz"
-  integrity sha512-5xYoueCDaeU+eZLJM4AxGPedublk4w3YzpdoQR9ayd4E5AdLt1uY1ruK8HoZ/+G4v97o2cFlxfYcuw9QWVMUDA==
+"react-native-countdown-circle-timer@^3.2.1":
+  "integrity" "sha512-iHiOgipG0hMprerswqUCUfjGo9hL0UhKNS0BGh4o6yY9Lu7f3VXQ7EJt757Obwn74AiF5MOHURIdqldoGnVrDw=="
+  "resolved" "https://registry.npmjs.org/react-native-countdown-circle-timer/-/react-native-countdown-circle-timer-3.2.1.tgz"
+  "version" "3.2.1"
+
+"react-native-document-picker@^8.2.2":
+  "integrity" "sha512-5xYoueCDaeU+eZLJM4AxGPedublk4w3YzpdoQR9ayd4E5AdLt1uY1ruK8HoZ/+G4v97o2cFlxfYcuw9QWVMUDA=="
+  "resolved" "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-8.2.2.tgz"
+  "version" "8.2.2"
   dependencies:
     invariant "^2.2.4"
 
