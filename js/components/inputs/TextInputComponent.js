@@ -11,11 +11,12 @@ import Icon, { Icons } from "../Icons";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor , showGray,ShowXbbutton,handleX}) => {
+    const Darkmode=useSelector((state)=>state.system.darkMode);
 
     const { darkMode } = useSelector(state => state.system)
     return(
         <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),bgColor]}>
-            <Icon name={Iconname} type={IconFamily} style={[showFontsize?fontSize(30):fontSize(20),styles.black]}/>
+            <Icon name={Iconname} type={IconFamily} style={[showFontsize?fontSize(30):fontSize(20),Darkmode?styles.DarkmodeText:styles.black]}/>
             <View style={[styles.row, flex(1.5), value == "" && opacity(0.7), styles.centerHorizontal ]}>
                 <TextInput
                     placeholderTextColor={showGray ? Colors.lightGray : Colors.black}
@@ -35,7 +36,7 @@ export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeho
                 </TouchableOpacity> }
             </View>
             {ShowPasswordIcon ? 
-           <Feather name={ secureTextEntry? 'eye-off' : 'eye'} style={[fontSize(20),styles.black]} onPress={showText}/>
+           <Feather name={ secureTextEntry? 'eye-off' : 'eye'} style={[fontSize(20),Darkmode?styles.DarkmodeText:styles.black]} onPress={showText}/>
        :null}
        <TouchableWithoutFeedback onPress={handleX}>
        {ShowXbbutton ? 

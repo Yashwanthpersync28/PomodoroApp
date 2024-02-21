@@ -62,7 +62,7 @@ const OnboardingImageData=[{id:1,image:require('../../../assets/Images/Lottiemob
                       </Svg>
                   </View> */}
         {/* //title and description */}
-        <View style={[flex(1),styles.bgWhite]}>
+        <View style={[flex(1)]}>
                <Swipercomponent handleIndex={(i)=>setindex(i)}/>
 
         </View>

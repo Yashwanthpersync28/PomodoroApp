@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { flex, padding, styles, marginPosition, heightValue, widthValue, radius, fontSize, fontWeight, lineHeight } from '../../../styles/Styles';
 import { BackButtonComponent, ButtonComponent, TextInputCompnent } from '../../../components';
-import { View, Text , Alert,ScrollView ,Image} from 'react-native';
+import { View, Text , Alert,ScrollView ,Image,StatusBar} from 'react-native';
 import { HeadingComponent } from '../../../components/view/HeadingComponent';
 import { OtpTextInput } from './Components/OtpTextInput';
 import { OtpTimer } from './Components/OtpTimer';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 import { Icons } from '../../../components/Icons';
 import { handlePasswordvalidation } from '../../../constants/PasswordValidaton';
+import { Colors } from '../../../styles/Colors';
 
 export const Forgotpassword = ({navigation}) => {
   //refs
@@ -39,6 +40,8 @@ export const Forgotpassword = ({navigation}) => {
   const [passwordError,setPasswordError]=useState('')
 ///selectors
 const userDetails=useSelector((state)=>state.UserDetails.userList)
+const Darkmode=useSelector((state)=>state.system.darkMode);
+
 const dispatch=useDispatch()
   // handling screens based on count value
   const handleCount = () => {
@@ -131,11 +134,13 @@ const handlepass=(val)=>{
     setPasswordError(PasswordvalidationResult)
 }
   return (
-    <SafeAreaView style={[flex(1), styles.bgWhite, padding(20)]}>
+    <SafeAreaView style={[flex(1), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, padding(20)]}>
+<StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
-        style={[padding(0), styles.bgWhite, flex(1)]}
+        style={[padding(0), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}
       >
       <View style={[flex(0.3)]}>
         {count === 0 ? <BackButtonComponent onPress={()=>navigation.navigate('login')}/>:null}
@@ -158,7 +163,7 @@ const handlepass=(val)=>{
       <View style={[flex(2)]}>
         {count === 0 ? (
           <>
-            <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>Your Registered Email</Text>
+            <Text style={[padding(0, 10, 0, 10, 0), Darkmode?styles.inputColor:styles.black, { fontWeight: '600' }]}>Your Registered Email</Text>
             <TextInputCompnent
               placeholder={'Email'}
               value={Email}
@@ -166,7 +171,8 @@ const handlepass=(val)=>{
               keyboardType="email-address"
               IconFamily ={Icons.MaterialCommunityIcons}
               Iconname={'email'}
-              bgColor={styles.bglgWhite}
+              bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+              showGray={true}
             />
           {EmailError===''?null:
             <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -174,7 +180,7 @@ const handlepass=(val)=>{
         ) : null}
         {count === 2 ? (
           <>
-            <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>New Password</Text>
+            <Text style={[padding(0, 10, 0, 10, 0), Darkmode?styles.inputColor:styles.black, { fontWeight: '600' }]}>New Password</Text>
             <TextInputCompnent
               placeholder={'Password'}
               value={Password}
@@ -184,11 +190,12 @@ const handlepass=(val)=>{
               IconFamily ={Icons.SimpleLineIcons}
               Iconname={secureTextEntryPassword ? 'lock' : 'lock-open'}
               ShowPasswordIcon={true}
-              bgColor={styles.bglgWhite}
+              bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+             showGray={Darkmode?true:false}
             />
             {passwordError===''?null:
           <Text style={[styles.Orange]}>{passwordError}</Text>}
-            <Text style={[padding(0, 10, 0, 10, 0), styles.black, { fontWeight: '600' }]}>Confirm Password</Text>
+            <Text style={[padding(0, 10, 0, 10, 0),Darkmode?styles.inputColor:styles.black, { fontWeight: '600' }]}>Confirm Password</Text>
             <TextInputCompnent
               placeholder={'Confirm Password'}
               value={confirmPass}
@@ -198,7 +205,10 @@ const handlepass=(val)=>{
               IconFamily ={Icons.SimpleLineIcons}
               Iconname={secureTextEntryConfirmPassword ? 'lock' : 'lock-open'}
               ShowPasswordIcon={true}
-              bgColor={styles.bglgWhite}
+              bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+              showGray={Darkmode?true:false}
+
+
             />
              {ConfirmError===''?null:
           <Text style={[styles.Orange]}>{ConfirmError}</Text>}

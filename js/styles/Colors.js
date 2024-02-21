@@ -46,5 +46,10 @@ export const Colors =  {
     TextBlack:'#242424',
     MilkyWhite:'#fdfdfd',
     darkmodeBlack:'#181a21',
-    taskCardDblack:'#20222a'
+    taskCardDblack:'#20222a',
+    Darkmodebutton:'#35383f',
+    DarkmodeText:'#b8b8b8',
+    inputColor:'#d3d3d4',
+    modalColor:'#262a35',
+    darkmodeBorderColor:'#262830',
 }

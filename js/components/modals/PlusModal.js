@@ -6,8 +6,12 @@ import {TriangleBottomRadius} from '../../screens/Manage/components/TriangleBott
 import Icon, { Icons } from '../Icons';
 
 import { ModalButtons } from '../../screens/Manage/components/ModalButtons';
+import { useSelector } from 'react-redux';
+import { Colors } from '../../styles/Colors';
 
 export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
   const handletags = () => {
     console.log('hbjcn');
     handleCount(1)
@@ -47,7 +51,7 @@ export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
             style={[
               
               styles.column,
-              styles.bgWhite,
+              Darkmode?styles.bgmodalColor:styles.bgWhite,
               radius(5),
               { marginRight: 0, marginBottom: 0 , width:widthValue(3)}
             ]}>
@@ -55,7 +59,7 @@ export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
             <ModalButtons name={'Project'} icon={'briefcase'} iconfamily={Icons.Feather} onPress={handleproject}/>
             <ModalButtons name={'Tags'} icon={'tag'} iconfamily={Icons.Feather} onPress={handletags}/>
           </View>
-          <TriangleBottomRadius/>
+          <TriangleBottomRadius bgColor={Darkmode?Colors.modalColor:Colors.white}/>
           <TouchableOpacity
             style={[
               {

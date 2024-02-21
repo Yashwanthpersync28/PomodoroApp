@@ -17,7 +17,7 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture
 import { DropDown } from './components/DropDown'
 import { getCompletedTasks, getCompletedTasksThisMonth, getCompletedTasksThisWeek, getCompletedTasksThisWeekOrTwoWeeks, getCompletedTasksToday, getTasksThisWeek, getTasksToday, getTodayCompletedfocusTime } from '../../constants/getCompletedTasksFunctions'
 import { useDispatch, useSelector } from 'react-redux'
-import { setName } from '../../redux/userReducer/ShowPomdoroReducer'
+import { setName, setTempToggleNames, setToggleNames } from '../../redux/userReducer/ShowPomdoroReducer'
 
 
 export const Report = ({navigation}) => {
@@ -26,9 +26,15 @@ export const Report = ({navigation}) => {
   const [clickedDropdown,setClickedDropdown]=useState(true)
   const pomodoroOptions=['Weekly','Mon','Biweekly']
   const TasksOptions=['Task','Weekly','Biweekly']
+  const [count,setcount]=useState(0)
   ///selectors
-const Name=useSelector((state)=>state.user.ReportToggle.name);
+const Name=useSelector((state)=>state.user.ReportToggle.name)
+const Togglenames=useSelector((state)=>state.user.ReportToggle.togglenames)
+const TempTogglenames=useSelector((state)=>state.user.ReportToggle.temptogglenames)
+
+console.log('Togglenames',Togglenames);
   const [name,setname]=useState(Name)
+  const [headerName,setHeaderName]=useState('')
   const dispatch=useDispatch()
   // focus time
   const getTasksTodayData = getCompletedTasksToday(tasks)//get completed tasks today
@@ -42,40 +48,64 @@ const Name=useSelector((state)=>state.user.ReportToggle.name);
    
   console.log('CompletedtasksThismonth',completedTasksThisWeek);
   
-
-console.log('Name',Name);
-  console.log('name',name);
-  const [headerData, setHeaderData] = useState([
-    { name:'Task', selected: true },
-    { name:'Weekly', selected: false },
-    { name:'Biweekly', selected: false }
-  ]);
-   const [tempData,setTempData]=useState(headerData)
-
 useEffect(()=>{
-  const updatedDropdown=headerData.filter((data,index)=>{
-    return data.name !=name
-})
-setTempData(updatedDropdown)
-if(!showpomodoro){
-  //  setname('Task')
- dispatch(setName('Task'))
-  setHeaderData([
-    { name:'Task', selected: true },
-    { name:'Weekly', selected: false },
-    { name:'Biweekly', selected: false }
-  ]);
-}
-else{
-  dispatch(setName('Weekly'))
-  setHeaderData([
-    { name:'Weekly', selected: true },
-    { name:'Monthly', selected: false },
-    { name:'Biweekly', selected: false }
-  ])
-}
+  if(showpomodoro){
+    if(Name==='Weekly'){
+         setHeaderName('Pomodoro Records')
+    }
+    if(Name==='Monthly'){
+      setHeaderName('Focus Time Goal')
+    }
+    if(Name==='Biweekly'){
+       setHeaderName('Focus Time Chart')
+     }
+  }
+  else{
+    if(Name==='Weekly'){
+      setHeaderName('Project Time Distribution')
+ }
+ if(Name==='Task'){
+   setHeaderName('Focus Time')
+ }
+ if(Name==='Biweekly'){
+    setHeaderName('Task Chart')
+  }
+  }
+},[showpomodoro,Name])
+console.log('Namee',Name);
+  console.log('name',name);
+  const [headerData, setHeaderData] = useState(Togglenames);
  
-},[name,showpomodoro])
+   
+
+useEffect(() => {
+  if (!showpomodoro) {
+    console.log('Nameeeee',Name);
+    dispatch(setName('Task'));
+    const arrone=[
+      { name:'Task', selected: true },
+      { name:'Weekly', selected: false },
+     { name:'Biweekly', selected: false }
+    ]
+   dispatch(setToggleNames(arrone))
+    console.log('headerDatat',headerData);
+  }
+  else{
+    dispatch(setName('Weekly'));
+    console.log('Nameeeee',Name);
+
+    const arr =[
+      { name:'Weekly', selected: true },
+      { name:'Monthly', selected: false },
+     { name:'Biweekly', selected: false }
+    ]
+   dispatch(setToggleNames(arr))
+    console.log('headerDatat',headerData);
+  }
+  
+}, [showpomodoro]);
+
+
  
 
 
@@ -129,43 +159,49 @@ else{
         </TouchableOpacity> :
         <>
         <TouchableOpacity onPress={()=>setClickedDropdown(!clickedDropdown)}>
-        <View style={[styles.row,borderColor('#f2f0f0'),borderWidth(0,0,0,1),paddingPosition(5,0,5,0)]}>
+        <View style={[styles.row,paddingPosition(5,0,5,0)]}>
             <Text style={[styles.Orange,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{Name}</Text>
         </View>
     </TouchableOpacity>
-        {tempData.map((headerItem, index) => {
-            return (
-              <TouchableOpacity onPress={()=>{setClickedDropdown(!clickedDropdown), dispatch(setName(headerItem.name))}}>
-                <View key={index} style={[styles.row,borderColor('#f2f0f0'),borderWidth(0,0,0,1),paddingPosition(5,0,5,0),styles.selfStart]}>
-                    <View style={[styles.bgWhite]}>
-                    <Text style={[styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{headerItem.name}</Text>
-                    </View>
-                    <View>
-                        <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.black,fontSize(20),styles.textAlignVertical]}/>
-                    </View>
-                </View>
-                </TouchableOpacity>
-            );
-        })
-    }
+    {Togglenames
+  .filter((headerItem) => headerItem.name !== Name)
+  .map((headerItem, index) => (
+    <TouchableOpacity
+      onPress={() => {
+        setClickedDropdown(!clickedDropdown);
+        dispatch(setName(headerItem.name));
+      }}
+      key={index}
+    >
+      <View style={[styles.row, index===2 ? borderColor('white'):borderColor('#f2f0f0'), index===2 ? borderWidth(0,1): borderWidth(0, 1), paddingPosition(5, 0, 5, 0), styles.selfStart]}>
+        <View style={[styles.bgWhite]}>
+          <Text style={[styles.black, fontSize(18), fontWeight('bold'), marginPosition(0, 0, 0, 5)]}>{headerItem.name}</Text>
+        </View>
+        <View>
+          <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.black, fontSize(20), styles.textAlignVertical]} />
+        </View>
+      </View>
+    </TouchableOpacity>
+  ))}
+
       </>}
 </View>
 
       {/* header */}
                <View style={[{height:heightValue(12)},styles.centerVertical,borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
-                   <Text style={[styles.black,fontSize(22),fontWeight('bold')]}>Pomodoro Records</Text>
+                   <Text style={[styles.black,fontSize(22),fontWeight('bold')]}>{headerName}</Text>
                </View>
     {/* //pomodoro records */}
               <View style={[zIndex(0)]}>
                      <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
                      {showpomodoro ? 
-                         (name === 'Weekly' && <PomodoroRecords />) ||
-                         (name === 'Monthly' && <ProgressCalendar />) ||
-                         (name === 'Biweekly' && <PomodoroRecords />)
+                         (Name === 'Weekly' && <PomodoroRecords />) ||
+                         (Name === 'Monthly' && <ProgressCalendar />) ||
+                         (Name === 'Biweekly' && <PomodoroRecords />)
                            : 
-                         (name === 'Task' && <FocusTime />) ||
-                         (name === 'Weekly' && <ProjectTimeDistribution />) ||
-                         (name === 'Biweekly' && <FocusTime />)
+                         (Name === 'Task' && <FocusTime />) ||
+                         (Name === 'Weekly' && <ProjectTimeDistribution />) ||
+                         (Name === 'Biweekly' && <FocusTime />)
                       }
 
                      </TouchableWithoutFeedback>
@@ -182,24 +218,3 @@ else{
     </SafeAreaView>
   )
 }
-
-
-
-
-// <View>   
-//          <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
-//           <View style={[zIndex(100)]}>
-//           <DropDown showPomodoro={showpomodoro}  ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/>
-
-//           {/* <ReportHeader showPomodoro={showpomodoro} headername={'Focus Time'} options={'Tasks'} ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/> */}
-//           </View>
-//           <View style={[zIndex(0),styles.bgOrange]}>
-//              <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
-//               {name==='Weekly' &&  <FocusTime/> }
-//              {name==='Monthly' && <ProjectTimeDistribution/>}
-//              {name==='Biweekly' && <ProgressCalendar/>}
-//               {/* <PomodoroRecords/> */}
-//               </TouchableWithoutFeedback>
-//               </View>
-//          </View>
-//      </View>

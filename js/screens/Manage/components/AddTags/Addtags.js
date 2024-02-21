@@ -1,5 +1,5 @@
 import React, { useState , useEffect} from 'react'
-import {View , Modal} from 'react-native'
+import {View , StatusBar} from 'react-native'
 import { borderColor, borderWidth, flex,heightValue,styles, widthValue } from '../../../../styles/Styles'
 import { Add } from '../Add'
 import { Icons } from '../../../../components/Icons'
@@ -7,6 +7,7 @@ import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButt
 import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../../../redux/userReducer/userTaglistReducer'
 import { addUserTasks } from '../../../../redux/userReducer/UserTaskDetails'
+import { Colors } from '../../../../styles/Colors'
 // import { addTags } from '../../../../redux/userTagsReducer/userTaglistReducer'
 
 export const Addtags = ({visible,onClose,navigation,handletoTags,HandleBack,route}) => {
@@ -18,11 +19,14 @@ export const Addtags = ({visible,onClose,navigation,handletoTags,HandleBack,rout
     const [TempColor,settempcolor]=useState('')
     const [NavigationName,setNavigationName]=useState('')
     const [Tagid,setTagid]=useState('')
+    const [error,setError]=useState('')
 ///selectors
     const dispatch=useDispatch()
     const Tags=useSelector((state => state.user.userTaglist.UserTags))
     const [id,setid]=useState(Tags.length+1)
   const Taskdetails=useSelector((state)=>state.user.userTasks.userTask)
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
 
 
 //used useeffect for edit and displaying tag name and color
@@ -118,7 +122,7 @@ addUserTagsHandler(tagsData);
 }
 ///for button disable
 useEffect(()=>{
-  if(tag.length>1 && selectedColor.length>3){
+  if(tag.length>1 && selectedColor.length>3 && !error){
    setbuttonColor(styles.bgOrange)
   }
   else{
@@ -135,19 +139,31 @@ const handleMenu=()=>{
 
  console.log('fghjk');
 }
+const handleChangeText = (val) => {
+  settag(val);
+  setError('');
+  const TagExists = Tags.some((Tags) => Tags.name.trim().toLowerCase() === val.trim().toLowerCase());
+  if (TagExists) {
+    setError('Tag already exists');
+  }
+};
   return (
-    <View style={[flex(1),styles.bgsmokewhite]}>
+    <View style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+
     <Add
+    Darkmode={Darkmode}
+    error={error}
     marginTop={HandleBack ? true : false}
      IconnameForInputIcon={'tag'}
      IconFamilyforInputIcon={Icons.Feather}
-    ColorSelected={(val)=>setSelectedColor(val)} onChangeText={(val)=>settag(val)} Textinputname={'Tag Name'} value={tag} headerName={'Add New Tag'} IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={styles.bgsmokewhite} color={styles.black}  onPress={handleMenu}
+    ColorSelected={(val)=>setSelectedColor(val)} onChangeText={(val)=>handleChangeText(val)} Textinputname={'Tag Name'} value={tag} headerName={'Add New Tag'} IconFamily={Icons.Entypo} name={'dots-three-vertical'} bgcolor={Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite} color={Darkmode?styles.white:styles.black}  onPress={handleMenu}
     goBack={()=>{HandleBack ? handletoTags(3):NavigationName==='task' ? navigation.navigate('task',{id:Tagid}):navigation.navigate('manageProjectandTags')}}
     EditableColor={TempColor}
     />
     <View style={[styles.allCenter]}>
-          <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.bgGray, styles.allCenter, styles.row, styles.spaceBetweenVertical, styles.bgsmokewhite, borderColor('#f7f7f7'), borderWidth(0, 1)]}>
-               <CustomizedButtons handlecontinue={()=>{HandleBack?handletoTags(3): NavigationName==='task' ? navigation.navigate('task',{id:Tagid}):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(3) }]} />
+          <View style={[{ height: heightValue(10) ,width:widthValue(1.1)}, styles.allCenter, styles.row, styles.spaceBetweenVertical, Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite, borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray), borderWidth(0, 1)]}>
+               <CustomizedButtons handlecontinue={()=>{HandleBack?handletoTags(3): NavigationName==='task' ? navigation.navigate('task',{id:Tagid}):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{ width: widthValue(3) }]} />
                <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(3) }]} />
           </View>
      </View>

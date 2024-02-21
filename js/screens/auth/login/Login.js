@@ -14,6 +14,7 @@ import { setDashboard, setOnboarding } from "../../../redux/ShowComponentReducer
 import { setRememberMe } from "../../../redux/rememberReducer/RemembermeReducer";
 import { handlePasswordvalidation } from "../../../constants/PasswordValidaton";
 import { addUserData } from "../../../redux/userReducer/UserInformationReducer";
+import { Colors } from "../../../styles/Colors";
 
 
 export const LoginScreen = ({navigation}) => {
@@ -34,6 +35,8 @@ export const LoginScreen = ({navigation}) => {
 
     // - - - Selector - - - //
     const dispatch = useDispatch()
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
     const { userVerify, user } = useSelector(state => state.auth)
     const userDetails=useSelector((state)=>state.UserDetails.userList)
     // const RememberMe=useSelector((state)=>state.RememberMe.RememberMe);
@@ -134,12 +137,12 @@ useEffect(()=>{
 },[Email,Password])
 
     return(   
-<SafeAreaView style={[flex(1), padding(20),styles.bgsmokewhite]}>
-<StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
+<SafeAreaView style={[flex(1), padding(20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+<StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
 <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
-        style={[padding(0), styles.bgWhite, flex(1)]}
+        style={[padding(0), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}
       >
 
   
@@ -150,7 +153,7 @@ useEffect(()=>{
     <HeadingComponent name={'Welcome Back '} details={'Let\'s Get Back to Productivity'} icon={'👋'}/>
   </View>
   <View style={[flex(0.3)]}>
-    <Text style={[padding(0, 10, 0, 10, 0), styles.black,fontWeight('bold')]}>Email</Text>
+    <Text style={[padding(0, 10, 0, 10, 0), Darkmode?styles.inputColor:styles.black,fontWeight('bold')]}>Email</Text>
     <TextInputCompnent
       placeholder={'Email'}
       value={Email}
@@ -158,11 +161,13 @@ useEffect(()=>{
       keyboardType="email-address"
       IconFamily ={Icons.MaterialCommunityIcons}
       Iconname={'email'}
-      bgColor={styles.bglgWhite}
+      bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+      showGray={Darkmode?true:false}
+
     />
     {EmailError===''?null:
           <Text style={[styles.Orange]}>{EmailError}</Text>}
-    <Text style={[padding(0, 10, 0, 10, 0), styles.black,fontWeight('bold')]}>Password</Text>
+    <Text style={[padding(0, 10, 0, 10, 0), Darkmode?styles.inputColor:styles.black,fontWeight('bold')]}>Password</Text>
     <TextInputCompnent
       placeholder={'Password'}
       value={Password}
@@ -172,7 +177,10 @@ useEffect(()=>{
       IconFamily ={Icons.SimpleLineIcons}
       Iconname={'lock'}
       ShowPasswordIcon={true}
-      bgColor={styles.bglgWhite}
+      bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+      showGray={Darkmode?true:false}
+
+
     />
     {PasswordError===''?null:
           <Text style={[styles.Orange,fontSize(16.5)]}>{PasswordError}</Text>}
@@ -183,12 +191,12 @@ useEffect(()=>{
       <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
     </TouchableOpacity>
     <View style={[styles.allCenter]}>
-      <Text style={[styles.black, marginPosition(0, 0, 0, 10), fontSize(17),fontWeight('bold')]}>Remember Me</Text>
+      <Text style={[Darkmode?styles.inputColor:styles.black, marginPosition(0, 0, 0, 10), fontSize(17),fontWeight('bold')]}>Remember Me</Text>
     </View>
   </View>
   <View style={[flex(1.5), styles.centerHorizontal, { alignItems: 'flex-end' }]}>
     <TouchableOpacity onPress={handleforgotPassword}>
-      <Text style={[styles.Orange, fontSize(17)]}>Forgot password?</Text>
+      <Text style={[Darkmode?styles.inputColor:styles.Orange, fontSize(17)]}>Forgot password?</Text>
     </TouchableOpacity>
   </View>
 </View>

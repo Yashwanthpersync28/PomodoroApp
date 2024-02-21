@@ -162,6 +162,9 @@ export const styles = StyleSheet.create({
     TextBlack:{color:Colors.TextBlack},
     MilkyWhite:{color:Colors.MilkyWhite},
     darkmodeBlack:{color:Colors.darkmodeBlack},
+    DarkmodeText:{color:Colors.DarkmodeText},
+    taskCardDblack:{color:Colors.taskCardDblack},
+    inputColor:{color:Colors.inputColor},
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
     bgBlack: { backgroundColor: Colors.black },
@@ -207,8 +210,8 @@ export const styles = StyleSheet.create({
     bgMilkyWhite :{backgroundColor:Colors.MilkyWhite},
     bgdarkmodeBlack:{backgroundColor:Colors.darkmodeBlack},
     bgtaskCardDblack:{backgroundColor:Colors.taskCardDblack},
-
-    
+    bgDarkmodebutton:{backgroundColor:Colors.Darkmodebutton},
+    bgmodalColor:{backgroundColor:Colors.modalColor},
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderOrange: { borderColor: Colors.Orange },
@@ -219,7 +222,8 @@ export const styles = StyleSheet.create({
     borderLightBlue: { borderColor: Colors.lightBlue },
     borderLightWhite: { borderColor: Colors.lightWhite },
     borderLightblack:{borderColor:Colors.taskCardDblack},
-
+    borderDarkmode:{borderColor:Colors.darkmodeBorderColor},
+    borderWhitemode:{borderColor:Colors.borderGray},
 // - - - - - FLEX PROPERTIES - - - - - // 
     // - - -  Flex Align - - -  // 
     allCenter: { justifyContent: 'center', alignItems: 'center' },

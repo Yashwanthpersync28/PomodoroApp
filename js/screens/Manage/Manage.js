@@ -11,6 +11,7 @@ import { TextInputCompnent } from '../../components';
 import { useSelector } from 'react-redux';
 import { Header } from './components/Header';
 import { getCompletedTasks, getCompletedTasksToday, getCompletedTasksTomorrow, getTasksThisWeek, getTasksToday, getTasksTomorrow, getTodayCompletedfocusTime } from '../../constants/getCompletedTasksFunctions';
+import { Colors } from '../../styles/Colors';
 
 
 export const Manage = ({navigation,countvalue,modalVisibleval}) => {
@@ -26,6 +27,7 @@ export const Manage = ({navigation,countvalue,modalVisibleval}) => {
     const Projectslist=useSelector((state)=>state.user.userProjectList.UserProjects)
     const Taskdatas=useSelector((state)=>state.user.userTasks.userTask)
     const Trashdata=useSelector((state)=>state.user.usersTrashLists.TrashLists)
+    const Darkmode=useSelector((state)=>state.system.darkMode);
     
     console.log('jbdfv',Taskdatas);
     //get user data based on days
@@ -81,17 +83,19 @@ const handleFocusTime=()=>{
 
 }
   return (
-    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bgWhite]}>
-    <StatusBar backgroundColor = "white" barStyle = "dark-content"/>
+    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
       <View style={[flex(0.2)]}>
-           <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
+           <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={Darkmode?styles.white:styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
       </View>
       <View style={[flex(2)]}>
        {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={onClose} handleCount={(val)=>setcount(val)} handleIndex={(val)=>setIndex(val)}/> :null:null}
        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={onClose} count={index} navigation={navigation}/> :null:null}
-      <ScrollView style={[flex(1),{zIndex: 0 },styles.bgWhite]} showsVerticalScrollIndicator={false}>
+      <ScrollView style={[flex(1),{zIndex: 0 },Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]} showsVerticalScrollIndicator={false}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
-           <TextInputCompnent bgColor={styles.bglgWhite   } placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather} showGray={true}/>
+           <TextInputCompnent 
+            bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+            placeholder={'Search'} value={Seachvalue} onChangeText={(val)=>setSearchvalue(val)} secureTextEntry={false} Iconname={'search'} IconFamily={Icons.Feather} showGray={true}/>
         </View>
         {Seachvalue.length<1 && 
         <View style={[{height:heightValue(3.2)},styles.rowWrap,{ justifyContent: 'flex-start'}]}>
@@ -104,9 +108,9 @@ const handleFocusTime=()=>{
         </View>}
         <View style={[styles.column,marginPosition(10),styles.positionRelative]}>
          <View style={[styles.row,marginPosition(0,0,10)]}>
-            <Text style={[styles.black,marginPosition(0,3,0,5)]}>Projects</Text>
+            <Text style={[Darkmode?styles.DarkmodeText:styles.black,marginPosition(0,3,0,5)]}>Projects</Text>
             <View style={[styles.allCenter]}>
-            <View style={[borderColor('#f2f0f0'),borderWidth(0,0,0,0.7,0),{width:widthValue(1.3)}]}></View>
+            <View style={[borderColor(Darkmode?'#262830':Colors.borderGray),borderWidth(0,0,0,1,0),{width:widthValue(1.3)}]}></View>
             </View>
          </View>
         <View style={[styles.rowWrap, { justifyContent: 'flex-start'}]}>
@@ -123,11 +127,11 @@ const handleFocusTime=()=>{
           <View style={[styles.row]}>
             <Icon name={'briefcase'} type={Icons.Entypo} style={[{ color: data.color }, fontSize(20),styles.textAlignVertical]} />
             <View style={[{ width: widthValue(4.2) }]}>
-              <Text style={[styles.black,styles.textAlignVertical, fontSize(17), marginPosition(0, 0, 0, 5)]} numberOfLines={2} ellipsizeMode="tail">{data.name}</Text>
+              <Text style={[Darkmode?styles.white:styles.black,styles.textAlignVertical, fontSize(17), marginPosition(0, 0, 0, 5)]} numberOfLines={2} ellipsizeMode="tail">{data.name}</Text>
             </View>
           </View>
           <View>
-            <Text style={[{ fontWeight: '800' }, styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>{getFocusTimeProject}</Text>
+            <Text style={[{ fontWeight: '800' }, Darkmode?styles.white:styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>{getFocusTimeProject}</Text>
           </View>
         </View>
       </TouchableOpacity>

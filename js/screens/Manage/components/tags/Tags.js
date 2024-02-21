@@ -7,8 +7,11 @@ import { Header } from '../Header'
 import { Items } from '../Items'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { Colors } from '../../../../styles/Colors'
 
 const Tags = ({ visible, onClose ,getTagDetails,handleCounter}) => {
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
     const updatedTags=useSelector((state => state.user.userTaglist.UserTags))
     const [Tagsdata,setTagsData]=useState(updatedTags);
     const [color,setcolor]=useState('')
@@ -59,9 +62,9 @@ const Tags = ({ visible, onClose ,getTagDetails,handleCounter}) => {
   <TouchableOpacity onPress={onClose} style={[flex(1)]}>
   </TouchableOpacity>
   </View>
-      <View style={[flex(0.8),{width:widthValue(1)},styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
+      <View style={[flex(0.8),{width:widthValue(1)},Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
         <View style={[flex(0.6)]}>
-         <Header headername={'Tags'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} color={styles.black} onPress={handleTags}  showLeftIocn={true}/>
+         <Header headername={'Tags'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} color={Darkmode?styles.white:styles.black} onPress={handleTags}  showLeftIocn={true}/>
         </View>
          <View style={[flex(4)]}>
          <ScrollView >
@@ -70,8 +73,8 @@ const Tags = ({ visible, onClose ,getTagDetails,handleCounter}) => {
             </View>
             </ScrollView>
          </View>
-         <View style={[flex(0.7),styles.row,styles.allCenter,styles.spaceBetweenVertical,borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(0,10,0,10)]}>
-         <CustomizedButtons handlecontinue={handleCancel} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} />
+         <View style={[flex(0.7),styles.row,styles.allCenter,styles.spaceBetweenVertical,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,1),paddingPosition(0,10,0,10)]}>
+         <CustomizedButtons handlecontinue={handleCancel} name={'Cancel'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{ width: widthValue(2.5) }]} />
                <CustomizedButtons disable={checkedItem.length<1} handlecontinue={handleAdd} name={'OK'} bgcolor={checkedItem.length<1 ? styles.bgdarkOrange :styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} />
          </View>
       </View>
