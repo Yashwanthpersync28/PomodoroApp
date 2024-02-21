@@ -55,10 +55,11 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
           })}
        
       </View>
-      <View style={[marginPosition(15,0,15),{height:heightValue(2.4)}]}>
+      <View style={[marginPosition(15,0,15),flex(1)]}>
           <View style={[flex(1),borderWidth(1),borderColor(Colors.borderGray),radius(15),padding(5)]}>
            <DuedateCalendar OnpressDate={OnpressDate}/>
-          {/* <ProgressCalendar/> */} 
+           {/* <ProgressCalendar/> */}
+          
         </View>
       </View>
 
