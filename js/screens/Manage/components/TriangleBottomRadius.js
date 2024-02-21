@@ -1,12 +1,18 @@
 import React from 'react';
 import { View, Modal, TouchableOpacity , StyleSheet} from 'react-native';
+import { Colors } from '../../../styles/Colors';
+import { useSelector } from 'react-redux';
 
 
-export const TriangleBottomRadius = () => {
-  return <View style={[styles.triangleCorner]} />;
+export const TriangleBottomRadius = ({bgColor}) => {
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
+  return <View style={[styles.triangleCorner,{ borderTopColor: bgColor }]} />;
 };
 
 const styles=StyleSheet.create({
+ 
+
   triangleCorner: {
     marginTop:-10,
     width: 0,
@@ -16,7 +22,7 @@ const styles=StyleSheet.create({
     borderRightWidth: 25,
     borderTopWidth: 25,
     borderRightColor: "transparent",
-    borderTopColor: "#ffffff",
+    // borderTopColor: "#ffffff",
     transform: [{ rotate: "90deg" }],
   },
 });

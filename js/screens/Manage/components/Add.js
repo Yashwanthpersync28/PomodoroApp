@@ -20,7 +20,7 @@ import CustomizedButtons from '../../auth/onboarding/component/CustomizedButtons
 import Icon, { Icons } from '../../../components/Icons';
 import { Header } from './Header';
 
-export const Add = ({EditableColor , IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack , marginTop}) => {
+export const Add = ({error,Darkmode,EditableColor , IconFamilyforInputIcon , IconnameForInputIcon, onChangeText, Textinputname, value, headerName, IconFamily, name, bgcolor, color , ColorSelected,onPress,goBack , marginTop}) => {
   useEffect(() => {
     if (EditableColor) {
       setSelectedColor(EditableColor);
@@ -83,17 +83,20 @@ export const Add = ({EditableColor , IconFamilyforInputIcon , IconnameForInputIc
   );
 
   return (
-    <SafeAreaView style={[flex(1), styles.bgsmokewhite]}>
+    <SafeAreaView style={[flex(1), Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}>
       <View style={[flex(0.1),marginPosition(marginTop ? -30 : -10),paddingPosition(0,20,0,20)]}>
         <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), styles.bgWhite, flex(1)]}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}>
         <View style={[flex(0.3),paddingPosition(0,20,0,20)]}>
-          <Text style={[styles.black, marginPosition(0, 0, 10), { fontWeight: '500' }]}>{Textinputname}</Text>
-          <TextInputCompnent Iconname={IconnameForInputIcon} IconFamily={IconFamilyforInputIcon} showGray={true} bgColor={styles.bglgWhite} placeholder={Textinputname} value={value} onChangeText={onChangeText} secureTextEntry={false} ShowPasswordIcon={false} name={'lock-open'} />
+          <Text style={[Darkmode?styles.white:styles.black, marginPosition(0, 0, 10), { fontWeight: '500' }]}>{Textinputname}</Text>
+          <TextInputCompnent Iconname={IconnameForInputIcon} IconFamily={IconFamilyforInputIcon} showGray={true} 
+            bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+          placeholder={Textinputname} value={value} onChangeText={onChangeText} secureTextEntry={false} ShowPasswordIcon={false} name={'lock-open'} />
+          <Text style={[styles.Orange,fontSize(18)]}>{error}</Text>
         </View>
         <View style={[flex(3), marginPosition(0,0,0,0),{width:widthValue(1)}]}>
-          <Text style={[styles.black, fontSize(20), { fontWeight: '500' },marginPosition(0,0,5,20)]}>{`Project Color Mark`}</Text>
+          <Text style={[Darkmode?styles.white:styles.black, fontSize(20), { fontWeight: '500' },marginPosition(0,0,5,20)]}>{`Project Color Mark`}</Text>
           {colorData.reduce((rows, item, index) => {
             if (index % itemsPerRow === 0) {
               rows.push(colorData.slice(index, index + itemsPerRow));

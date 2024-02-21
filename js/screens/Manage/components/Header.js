@@ -32,7 +32,7 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
        </TouchableOpacity>
         <TouchableOpacity onPress={onPress} style={[styles.row,{justifyContent:'center',alignItems:'flex-end'}]}>
        
-     <Icon name={IconNameRight} type={IconfamilyRight} style={[styles.black,fontSize(26)]} />
+     <Icon name={IconNameRight} type={IconfamilyRight} style={[darkMode?styles.white:styles.black,fontSize(26)]} />
      </TouchableOpacity>
     </View>
    </View>

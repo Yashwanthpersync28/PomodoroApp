@@ -12,11 +12,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 import { Icons } from '../../../components/Icons';
 import { handlePasswordvalidation } from '../../../constants/PasswordValidaton';
+import { Colors } from '../../../styles/Colors';
 
 export const SignUp = ({ navigation }) => {
   //selectors
   const dispatch=useDispatch();
   const userDatas=useSelector((state)=>state.UserDetails.userList)
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
   console.log('fcgvhbjkn',userDatas);
   //states
   const [Email, setEmail] = useState('');
@@ -87,11 +90,11 @@ else{
   return (
    
     <SafeAreaView style={[flex(1)]}>
-       <StatusBar backgroundColor = "#ffffff" barStyle = "dark-content"/>
+       <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
-        style={[padding(20), styles.bgWhite, flex(1)]}
+        style={[padding(20), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}
       >
         <View style={[styles.centerVertical, flex(0.3)]}>
           <BackButtonComponent onPress={() => navigation.navigate('onboarding')} />
@@ -100,7 +103,7 @@ else{
           <HeadingComponent name={'Join Focusify Today'} details={'Unlock Your Productivity Potential!'} icon={'👤'}/>
         </View>
         <View style={[flex(0.3)]}>
-          <Text style={[padding(0, 10, 0, 10, 0), styles.black,fontWeight('bold')]}>Email</Text>
+          <Text style={[padding(0, 10, 0, 10, 0), Darkmode?styles.inputColor:styles.black,fontWeight('bold')]}>Email</Text>
           <TextInputCompnent
             placeholder={'Email'}
             value={Email}
@@ -108,12 +111,14 @@ else{
             keyboardType="email-address"
             IconFamily ={Icons.MaterialCommunityIcons}
             Iconname={'email'}
-            bgColor={styles.bglgWhite}
+            bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+            showGray={Darkmode?true:false}
+
             // fontsize={20}
           />
           {EmailError===''?null:
           <Text style={[styles.Orange,fontSize(16.5)]}>{EmailError}</Text>}
-          <Text style={[padding(0, 10, 0, 10, 0), styles.black, fontWeight('bold')]}>Password</Text>
+          <Text style={[padding(0, 10, 0, 10, 0), Darkmode?styles.inputColor:styles.black, fontWeight('bold')]}>Password</Text>
           <TextInputCompnent
             placeholder={'Password'}
             value={Password}
@@ -123,16 +128,19 @@ else{
             IconFamily ={Icons.SimpleLineIcons}
             Iconname={'lock'}
             ShowPasswordIcon={true}
-            bgColor={styles.bglgWhite}
+            bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
+            showGray={Darkmode?true:false}
+
+
           />
           {PasswordError===''?null:
           <Text style={[styles.Orange,fontSize(16.5)]}>{PasswordError}</Text>}
         </View>
         <View style={[styles.column, styles.centerVertical, padding(10), flex(0.3)]}>
           <View style={[styles.row,styles.centerVertical]}>
-          <Text style={[styles.black,fontSize(20)]}>Already have an account ?</Text>
+          <Text style={[Darkmode?styles.DarkmodeText:styles.black,fontSize(20)]}>Already have an account ?</Text>
           <TouchableOpacity onPress={()=>navigation.navigate('login')}>
-            <Text style={[styles.Orange, marginPosition(0, 0, 0, 5),fontSize(20),fontWeight('bold')]}>Log in</Text>
+            <Text style={[styles.Orange, marginPosition(0, 0, 0, 5),fontSize(20)]}>Log in</Text>
           </TouchableOpacity>
           </View>
         </View>

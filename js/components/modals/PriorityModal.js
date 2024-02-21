@@ -6,8 +6,11 @@ import Icon, { Icons } from '../Icons';
 import { Header } from '../../screens/Manage/components/Header';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { Colors } from '../../styles/Colors';
 
 export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAddtask}) => {
+ const Darkmode=useSelector((state)=>state.system.darkMode);
+
   const navigation=useNavigation()
   const [prioritylist, setPriorityList] = useState([
     { name: 'High Priority', color: '#df5941', showCheck: false },
@@ -88,19 +91,19 @@ export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAd
       <TouchableOpacity onPress={onClose} style={[flex(1)]}>
       </TouchableOpacity>
       </View>
-        <View style={[flex(0.6), { width: widthValue(1) }, styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
-          <View style={[styles.allCenter, flex(0.7), borderColor('#e3e1e1'), borderWidth(0, 0, 0, 1)]}>
-            <Header headername={'Priority'} bgcolor={styles.white} color={styles.black} showLeftIocn={true}/>
+        <View style={[flex(0.6), { width: widthValue(1) }, Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
+          <View style={[styles.allCenter, flex(0.7), borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
+            <Header headername={'Priority'} bgcolor={styles.white} color={Darkmode?styles.white:styles.black} showLeftIocn={true}/>
             {/* <Text style={[styles.black]}>{selectedItem}</Text> */}
           </View>
           <View style={[styles.allCenter, flex(3), styles.column]}>
             {prioritylist.map((list, index) => (
-              <TouchableOpacity key={index} onPress={() => handleCheck(list.name)} style={[flex(1), styles.row, borderColor('#e3e1e1'), borderWidth(0, 0, 0, 0.6), { width: widthValue(1.2), alignItems: 'center' }]}>
+              <TouchableOpacity key={index} onPress={() => handleCheck(list.name)} style={[flex(1), styles.row, borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray), borderWidth(0, 0, 0, 0.6), { width: widthValue(1.2), alignItems: 'center' }]}>
                 <View style={[{ height: 35, width: 35 }, radius(30), { backgroundColor: list.color }, styles.allCenter]}>
                   <Icon name={'flag'} type={Icons.Ionicons} style={[styles.white, { fontSize: 20 }]} />
                 </View>
                 <View style={[styles.allCenter]}>
-                  <Text style={[styles.black, marginPosition(0, 0, 0, 10),fontWeight('bold')]}>{list.name}</Text>
+                  <Text style={[Darkmode?styles.white:styles.black, marginPosition(0, 0, 0, 10),fontWeight('bold')]}>{list.name}</Text>
                 </View>
                 <View style={[flex(1), { justifyContent: 'flex-end', alignItems: 'flex-end' }]}>
                   {list.showCheck && <Icon name={'check'} type={Icons.Feather} style={[styles.Orange, { fontSize: 25 }]} />}
@@ -111,7 +114,7 @@ export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAd
 
           <View style={[flex(1), styles.row, styles.allCenter]}>
             <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
-              <CustomizedButtons name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} handlecontinue={()=>handletoAddtask(0)}/>
+              <CustomizedButtons name={'Cancel'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{ width: widthValue(2.5) }]} handlecontinue={()=>handletoAddtask(0)}/>
               <CustomizedButtons disable={selectedItem===null} name={'OK'} bgcolor={selectedItem===null?styles.bgdarkOrange:styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={GoToAddtask} />
             </View>
           </View>

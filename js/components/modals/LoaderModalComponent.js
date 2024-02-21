@@ -3,10 +3,12 @@ import { View, Modal, Text, TextInput, Button, TouchableOpacity } from 'react-na
 import LottieView from 'lottie-react-native';
 import { flex, fontSize, padding, radius, styles, widthValue } from '../../styles/Styles';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 
 const LoaderModalComponent = ({ visible, onClose , name,handleLogin}) => {
   const navigation = useNavigation();
+  const Darkmode=useSelector((state)=>state.system.darkMode);
 
   useEffect(() => {
     // Use setTimeout to delay the navigation after 3 seconds
@@ -30,7 +32,7 @@ const LoaderModalComponent = ({ visible, onClose , name,handleLogin}) => {
       visible={visible}
       onRequestClose={onClose}>
       <View style={[flex(1), styles.allCenter, { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}>
-        <View style={[{ backgroundColor: 'white', width: widthValue(1.3) }, radius(10), padding(40), styles.allCenter]}>
+        <View style={[{ width: widthValue(1.3) }, radius(10), padding(40), styles.allCenter,Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
           <LottieView
             source={require('../../assets/Lottieview/loadingOrange.json')}
             autoPlay
@@ -38,7 +40,7 @@ const LoaderModalComponent = ({ visible, onClose , name,handleLogin}) => {
             style={[{ height: 70, width: 70 }, styles.black]}
           />
           <TouchableOpacity>
-            <Text style={[styles.black, fontSize(20)]}>{name}</Text>
+            <Text style={[Darkmode?styles.white:styles.black, fontSize(20)]}>{name}</Text>
           </TouchableOpacity>
         </View>
       </View>

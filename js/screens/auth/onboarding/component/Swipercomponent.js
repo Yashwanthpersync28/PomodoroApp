@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ButtonComponent } from '../../../../components';
 import { Colors } from '../../../../styles/Colors';
 import { setOnboarding } from '../../../../redux/ShowComponentReducer/ShowOnboardingReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Svg , Path } from 'react-native-svg';
 
 
@@ -23,6 +23,8 @@ export const Swipercomponent = ({handleIndex}) => {
   
   //selector
   const dispatch=useDispatch()
+  const Darkmode=useSelector((state)=>state.system.darkMode);
+
   
   let handleSwipeIndexChange=(w)=>{
     console.log('w',w);
@@ -80,7 +82,7 @@ export const Swipercomponent = ({handleIndex}) => {
               height: 9,
               borderRadius: 4,
               margin: 3,
-              backgroundColor: '#eeeeef',
+              backgroundColor: Darkmode?Colors.Darkmodebutton:'#eeeeef',
               bottom: 0,
               top:10,
               position: 'relative',
@@ -109,10 +111,10 @@ export const Swipercomponent = ({handleIndex}) => {
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),styles.bgWhite,{height:heightValue(7)},borderColor(Colors.borderGray),borderWidth(1)]}>
+      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,{height:heightValue(7)},borderColor(Darkmode?'#262830':Colors.borderGray),borderWidth(0,0.8)]}>
        
        {getStarted? <> 
-                <CustomizedButtons name={'Skip'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{width:widthValue(2.4)},marginPosition(0)]} handlecontinue={handleit}/>
+                <CustomizedButtons name={'Skip'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{width:widthValue(2.4)},marginPosition(0)]} handlecontinue={handleit}/>
                  <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(2.4)},marginPosition(0)]}/>
           
            </>:

@@ -27,7 +27,7 @@ export const AddTask = ({ visible, onClose ,count }) => {
   console.log('receivedProjectname',receivedProjectname);
   const [counter,setCounter]=useState(count);
  const TextInputFocus=useRef();
- const { darkMode } = useSelector(state => state.system)
+//  const { darkMode } = useSelector(state => state.system)
  const [Disablebutton,setDisablebutton]=useState(true)
  const today = new Date();
  const currentDate = today.toISOString().split('T')[0];
@@ -42,6 +42,8 @@ export const AddTask = ({ visible, onClose ,count }) => {
 
  ///selectors
  const userDatasSelector=useSelector((state)=>state.user.userTasks.userTask)
+ const Darkmode=useSelector((state)=>state.system.darkMode);
+
  const [id,setid]=useState(userDatasSelector.length+1)
  console.log('userDatasSelector',userDatasSelector);
  const [userDatas, setUserDatas] = useState(userDatasSelector)
@@ -63,7 +65,7 @@ export const AddTask = ({ visible, onClose ,count }) => {
   // setDisablebutton(taskname.length <= 2);
 }, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate]);
 
-const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || 'black'},{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
+const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || 'black' },{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
 
 
 
@@ -159,26 +161,26 @@ const getProjectDetails=(name,color)=>{
       <View style={[flex(0.6)]}>
           <TouchableOpacity onPress={onClose} style={[flex(1)]}></TouchableOpacity>
       </View>
-    <View style={[flex(0.5),{width:widthValue(1)},styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
+    <View style={[flex(0.5),{width:widthValue(1)},Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
       {/* //addText  */}
       <View style={[flex(1),paddingPosition(0,20,0,20),styles.selfStart]}>
            <TextInput multiline={true}  value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black,fontSize(22)]} 
-                  placeholderTextColor={Colors.iconGray}  />
+                  placeholderTextColor={Darkmode?Colors.DarkmodeText:Colors.iconGray}  />
       </View>
       {/*  */}
       {/* //sessons */}
-      <View style={[flex(1.3),paddingPosition(0,20,0,20),borderColor('#f7f7f7'),borderWidth(0,1),paddingPosition(10),{width:widthValue(1.1)}]}>
-        <Text style={[styles.black]}>Estimated Pomodoros</Text>
+      <View style={[flex(1.3),paddingPosition(0,20,0,20),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,1),paddingPosition(10),{width:widthValue(1.1)}]}>
+        <Text style={[Darkmode?styles.white:styles.black]}>Estimated Pomodoros</Text>
         <Sessions onPress={(val)=>setsession(val)} sessions={session}/>
       </View>
       {/*  */}
       {/* //footer */}
-      <View style={[flex(1.3),{width:widthValue(1.1)},styles.row,borderColor('#f7f7f7'),borderWidth(0,1)]}>
+      <View style={[flex(1.3),{width:widthValue(1.1)},styles.row,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,1)]}>
            <View style={[styles.row,flex(1),styles.allCenter,marginPosition(0,0,0,10)]}>
                  {
                    iconData.map((icon,index)=>
                       <TouchableOpacity key={index} onPress={()=>handleAddTaskButtons(icon.name)}>
-                          <Icon  name={icon.name} type={index==0 ? icon.name==='sun'||icon.name==='sunrise'? Icons.Feather:Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black,fontSize(25),marginPosition(0,20),{color:icon.color}]}/> 
+                          <Icon  name={icon.name} type={index==0 ? icon.name==='sun'||icon.name==='sunrise'? Icons.Feather:Icons.MaterialCommunityIcons:Icons.Feather} style={[Darkmode?styles.white:styles.black,fontSize(25),marginPosition(0,20),{color:icon.color}]}/> 
                       </TouchableOpacity> 
                      )}
                     <View style={[radius(30),flex(1),{justifyContent:'center',alignItems:'flex-end'}]}>
