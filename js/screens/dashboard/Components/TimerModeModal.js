@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectedTimerDetailsArray } from '../../../redux/userReducer/TimerModeReducer';
 
 export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTimerMode,selectedMode,handleTimerMode,timerModeArray}) => {
+  const darkMode = useSelector(state=>state.system.darkMode)
 
   const formatTime = (seconds)=>{
     const  minutes = Math.floor(seconds/60);
@@ -26,15 +27,15 @@ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTim
     <View style={[padding(0, 20, 5),styles.spaceBetweenVertical,styles.row]}>
       <View>
       <View style={[styles.row, styles.centerHorizontal]}>
-        <Text style={[styles.black, fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
+        <Text style={[ darkMode?styles.lightWhite:styles.black,fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
         {formatTime(item.start)}
         </Text>
-        <Icon name={"arrow-right-l"} type={Icons.Fontisto} style={[styles.black, fontSize(20), marginPosition(0, 5)]} />
-        <Text style={[styles.black, fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
+        <Icon name={"arrow-right-l"} type={Icons.Fontisto} style={[ darkMode?styles.lightWhite:styles.black, fontSize(20), marginPosition(0, 5)]} />
+        <Text style={[ darkMode?styles.lightWhite:styles.black,fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
           {item.end}
         </Text>
       </View>
-      <Text style={[styles.black, fontSize(16), { fontWeight: '300' }, marginPosition(5)]}>
+      <Text style={[ darkMode?styles.lightWhite:styles.black, fontSize(16), { fontWeight: '300' }, marginPosition(5)]}>
         {item.desc}</Text>
       </View>
       <View>
@@ -60,14 +61,14 @@ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTim
       onBackdropPress={closeModal}
       style={[{width:widthValue(1),margin:0,height:heightValue(3)}]}
       >
-        <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),radius(0,15,0,0,15)]}>
+        <View style={[{width:widthValue(1),position:'absolute',bottom:0},darkMode?styles.bgdarkmodeBlack:styles.bgWhite,padding(20),radius(0,15,0,0,15)]}>
         <View style={[styles.centerHorizontal,marginPosition(-5,0,12,0)]}>
         <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
 
         <Text
             style={[
-              styles.black,
+              darkMode?styles.lightWhite:styles.black,
               styles.textCenter,
               { fontWeight: '500' },
               fontSize(22),

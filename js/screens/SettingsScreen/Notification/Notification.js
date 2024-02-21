@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setNotificationsPreference } from '../../../redux/userReducer/NotifricationsReducer'
 
 export const Notification = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
@@ -57,9 +59,9 @@ export const Notification = () => {
       dispatch(setNotificationsPreference({...userNotifications,FeedBacksandUpdates:!FeedBacksandUpdates}))
     }
   return (
-    <View style={[styles.bgWhite,flex(1),padding(0,0,10)]}>  
+    <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,flex(1),padding(0,0,10)]}>  
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
-      <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Notification'} goBack={PreviousScreen}/>
+      <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Notification'} goBack={PreviousScreen}/>
       </View> 
       <View  showsVerticalScrollIndicator={false} style={[{height:heightValue(1)}]}>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}    PreferanceName={'Pomodoro Alerts'} isEnabled={PomodoroAlerts}  switchFunction={switchPomoAlerts}/>

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView,TouchableOpacity, Button } from 'react-native'
 import React from 'react'
 import { flex ,fontSize,marginPosition,padding,paddingPosition,styles,widthValue,margin, heightValue} from '../../styles/Styles'
 import {PomodoroPreference} from './PomodoroPreference'
@@ -49,7 +49,7 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
     <View style={[{height:heightValue(15)}]}> 
       <Header color={darkMode?styles.white:styles.black} headername={'Settings'} />
       </View> 
-    <View  style={[paddingPosition(10,0,0,10)]}>
+          <View  style={[paddingPosition(10,0,0,10)]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />
       <SettingComponent  PreferanceName={'Pomodoro Preference'} leftIconType={Icons.Entypo} IconLeft={'stopwatch'} onPress={()=>navigation.navigate('PomodoroPreference')}/>
       {/* <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/> */}

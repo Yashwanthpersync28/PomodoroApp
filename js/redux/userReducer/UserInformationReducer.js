@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { profile } from "../../constants/imageConstant";
+import { modalData } from "../../constants/ModalsData";
 
 const UserInformation = createSlice({
   name: "UserInformation",
   initialState: {
-    UserInfo: [],
+    email:'',
+    password:'',
+    profilePic:profile,
   },
   reducers: {
     addUserData(state, action) {

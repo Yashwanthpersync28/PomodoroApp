@@ -5,8 +5,10 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { duration } from 'moment'
 import { useState } from 'react'
 import { SwitchComponent } from '../../../components/touchables/SwitchComponent'
+import { useSelector } from 'react-redux'
 
 export const ModeComponent = ({title,isEnabled,switchFunction}) => {
+  const darkMode = useSelector(state=>state.system.darkMode)
 
 return (
     <View
@@ -15,7 +17,7 @@ return (
         styles.spaceBetweenVertical,
         paddingPosition(15, 0, 20, 0),
       ]}>
-      <Text style={[styles.black, fontSize(18), { fontWeight: '500' }]}>
+      <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(18), { fontWeight: '500' }]}>
       {title}
       </Text>
       <View>

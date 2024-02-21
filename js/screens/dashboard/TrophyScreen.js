@@ -12,6 +12,8 @@ import Modal from 'react-native-modal'
  export const TrophyScreen = ({currentModal,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask,setSelectedTask,taskSelected,stopSound}) => {
   console.log('selectedTask',selectedTask)
   const navigation = useNavigation();
+  const darkMode = useSelector(state=>state.system.darkMode)
+
 
   const dispatch = useDispatch();
   const goback = ()=>{
@@ -22,7 +24,6 @@ import Modal from 'react-native-modal'
     setSelectedTask(taskSelected)
     stopSound();
   }
-
   const gotoReport = ()=>{
     dispatch(setCurrentModal(0))
     navigation.navigate('Report')
@@ -39,7 +40,7 @@ import Modal from 'react-native-modal'
     hasBackdrop={true}
     animationIn={'slideInUp'}
     animationOut={'slideOutDown'}
-    style={[styles.bgWhite,{heighgt:heightValue(1),margin:0},styles.spaceBetweenVertical]}>
+    style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,{heighgt:heightValue(1),margin:0},styles.spaceBetweenVertical]}>
       <View style={[styles.centerHorizontal]}>
         <LottieView  source={require('../../assets/Lottieview/Trophy1.json')} autoPlay={true} loop={false} style={[{width:widthValue(.8),height:heightValue(1.7)}]}/>
         <View style={[{height:heightValue(8)},styles.centerVertical,]}>

@@ -11,14 +11,16 @@ import { Header } from '../../Manage/components/Header'
 import { Icons } from '../../../components/Icons'
 
  export const HelpandSupport = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
   const navigation = useNavigation();
   const PreviousScreen = ()=>{
     navigation.goBack();
   }
   return (
-    <View style={[styles.bgWhite,flex(1),padding(0,0,10)]}>  
+    <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,flex(1),padding(0,0,10)]}>  
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
-      <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Help & Support'} goBack={PreviousScreen}/></View> 
+      <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Help & Support'} goBack={PreviousScreen}/></View> 
       <View  style={[{height:heightValue(1)}]}>
         <PreferenceComponent showIcon={true}  showDetail={true}  PreferanceName={'FAQ'} detail2={''}  onPress={()=>navigation.navigate('FAQ')} PreviousScreen={PreviousScreen}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={''}  PreferanceName={'Contact Support'} onPress={()=>navigation.navigate('ContactSupport')} PreviousScreen={PreviousScreen}/>

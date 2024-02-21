@@ -16,5 +16,11 @@ export const reducer = combineReducers({
     showcomponent:showComponent,
     UserDetails:Userdetails,
     RememberMe:Rememberme,
-    
 })
+
+export const resetReducer = (state,action)=>{
+    if (action.type === 'RESET_STATE') {
+        return reducer(undefined, action)
+      }
+      return reducer(state, action)
+    }

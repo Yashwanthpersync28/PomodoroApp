@@ -127,13 +127,13 @@ console.log('id', taskDetails.map(data=>data.id))
                         </View>
                         <View style={[styles.row, styles.centerHorizontal, margin(0, 20)]}>
                             <Text style={[marginPosition(0, 10), styles.gray, { fontWeight: '500' }]}>Today Tasks</Text>
-                            <View style={[borderWidth(0, 1), styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
+                            <View style={[borderWidth(0, 1),darkMode?styles.borderLightblack: styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
                         </View>
                         
                         <View>
                 {filteredTasks.length === 0 ?
                        <View style={[styles.centerHorizontal]}>
-                            <Text style={[styles.black,{fontWeight:'500'},fontSize(18),padding(0,20),{fontWeight:'600'}]}>You don't have any tasks</Text>
+                            <Text style={[darkMode?styles.lightWhite:styles.black,{fontWeight:'500'},fontSize(18),padding(0,20),{fontWeight:'600'}]}>You don't have any tasks</Text>
                         </View>  :
                         <View> 
 

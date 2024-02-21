@@ -21,8 +21,11 @@ import {
 import { TimerButton } from './TimerButton';
 import { modalData } from '../../../constants/ModalsData';
 import Icon, { Icons } from '../../../components/Icons';
+import { useSelector } from 'react-redux';
   
   export const WhiteNoiseModal = ({closeModal,currentModal,selectedTune,handleNoise,updateNoise,WhiteNoiseCancelFunc}) => {
+
+  const darkMode = useSelector(state=>state.system.darkMode)
 
      const renderTunes=({item})=>{
       const isSelected = selectedTune === item.MusicName
@@ -37,7 +40,7 @@ import Icon, { Icons } from '../../../components/Icons';
                     styles.spaceBetweenVertical,
                     paddingPosition(15, 0, 20, 0),
                   ]}>
-                  <Text style={[styles.black, fontSize(18), { fontWeight: '500' }]}>
+                  <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(18), { fontWeight: '500' }]}>
                     {item.MusicName}
                   </Text>
                 </View>
@@ -49,7 +52,6 @@ import Icon, { Icons } from '../../../components/Icons';
             </View> 
             </TouchableOpacity>
             </View>
-
       )
      } 
     return (
@@ -65,7 +67,7 @@ import Icon, { Icons } from '../../../components/Icons';
           style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}>
           <View
             style={[
-              styles.bgWhite,
+              darkMode?styles.bgdarkmodeBlack:styles.bgWhite,
               {
                 position: 'absolute',
                 bottom: 0,
@@ -77,11 +79,11 @@ import Icon, { Icons } from '../../../components/Icons';
               styles.spaceBetweenVertical,
             ]}>
               <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
-        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
+        <View style={[{ width: 35,height:4  },darkMode?styles.borderLightblack:styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
             <Text
               style={[
-                styles.black,
+                darkMode?styles.lightWhite:styles.black,
                 styles.textCenter,
                 { fontWeight: '500' },
                 fontSize(22),

@@ -21,7 +21,7 @@ import { Logout } from '../Logout/Logout'
   const userDetails = useSelector((state)=>state.user.Userinfo.UserInfo)
   const InitialPassword =userDetails.password;
 
-const currentModal = useSelector(state=>state.user.currentModal);
+const currentModal = useSelector(state=>state.user.currentModal.currentModal);
 console.log(currentModal)
 
   const dispatch = useDispatch();
@@ -66,18 +66,20 @@ console.log(currentModal)
     }
   }
   
+  const checkPass = ()=>{
+    if(InitialPassword ===conPassword){
+      setConError('New password cannot be same as old password')
+    }  else {
+setModalVisible(true)
+    }
+  }
  const UpdatePassword = ()=>{
-  if(InitialPassword ===conPassword){
-    setConError('New password cannot be same as old password')
-  } else  {
     const userData = {
       ...userDetails,
       password:conPassword,
     }
     dispatch(addUserData(userData))
-    setModalVisible(true)
-    dispatch(setCurrentModal(30));
-  }
+    navigation.goBack();
  }
   return (
      <View style={[styles.bgWhite,flex(1),padding(0,0,20)]}>  
@@ -116,10 +118,10 @@ console.log(currentModal)
 
             </View>
             <View style={[styles.centerHorizontal]}>
-        <ButtonComponent  title={'Update New Password'} onPress={UpdatePassword}  disabled={!(conError==='' && password.length>6 && conPassword.length>6)}/>
+        <ButtonComponent  title={'Update New Password'} onPress={checkPass}  disabled={!(conError==='' && password.length>6 && conPassword.length>6)}/>
         </View>
-    {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setModalVisible(false)} name={'Updating your Pasword'} handleLogin={()=>dispatch(setCurrentModal(30))}/> : null}
-    {currentModal === 30 && <Logout  VisibleAt={currentModal === 30}/>}
+    {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setModalVisible(false)} name={'Updating your Pasword'} handleLogin={()=>dispatch(setCurrentModal(27))}/> : null}
+    {currentModal === 27 && <Logout  VisibleAt={currentModal === 27} HeaderName={'Update Password'} question={'Are you sure you want to update your password?'} OnPress1={closeModal} OnPress2={()=>{UpdatePassword(),closeModal()}} option1={'No'} option2={'Update'}/>}
         </View>
     </View>
   )

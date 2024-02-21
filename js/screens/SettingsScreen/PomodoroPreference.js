@@ -26,6 +26,8 @@ import { LongBreakSession } from './Components/LongBreakSession'
 import { setSelectedVibrationMode } from '../../redux/userReducer/ReminderVibrateReducer'
 
 export const PomodoroPreference = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
 
 // console.log(modalData.vibrationOptions[0].name,'vibration')
 
@@ -206,10 +208,9 @@ const goBack = ()=>{
 }
 
   return (
-    <View style={[styles.bgWhite,flex(1),padding(0,0,10)]}>  
+    <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,flex(1),padding(0,0,10)]}>  
     <View style={[{height:heightValue(10)},{width:widthValue(1)}]}>
-      <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'} goBack={goBack}/></View> 
-<Text>Vibrate Update</Text>
+      <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Pomodoro Preferences'} goBack={goBack}/></View> 
       <ScrollView  showsVerticalScrollIndicator={false} style={[{height:heightValue(10)}]}>
         <PreferenceComponent  showIcon={true}  showDetail={false}  PreferanceName={'Strict Mode'} onPress={()=>dispatch(setCurrentModal(2))}/>
         <PreferenceComponent  showIcon={true}  showDetail={true} detail1={formatTime(focusTime)} detail2={ '00:00'} name={'arrowright'} Icontype={Icons.AntDesign} PreferanceName={'Timer Mode'} onPress={()=>dispatch(setCurrentModal(3))}/>

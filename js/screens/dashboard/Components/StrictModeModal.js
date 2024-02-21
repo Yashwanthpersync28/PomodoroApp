@@ -36,6 +36,8 @@ import { ModeComponent } from './ModeComponent';
 
 export const StrictModeModal = ({ closeModal, currentModal, updateStrictMode }) => {
 
+  const darkMode = useSelector(state=>state.system.darkMode)
+
   const dispatch = useDispatch();
   const userPreference = useSelector(state=>state.user.strictMode)
   const BlockAllNotifications = userPreference.BlockAllNotifications;
@@ -77,7 +79,7 @@ console.log(BlockAllNotifications,'blocjNOdjbdjbhhjhvgh');
 
         <View
           style={[
-            styles.bgWhite,
+            darkMode?styles.bgdarkmodeBlack:styles.bgWhite,
             {
               position: 'absolute',
               bottom: 0,
@@ -93,7 +95,7 @@ console.log(BlockAllNotifications,'blocjNOdjbdjbhhjhvgh');
           </View>
           <Text
             style={[
-              styles.black,
+             darkMode?styles.lightWhite: styles.black,
               styles.textCenter,
               { fontWeight: '500' },
               fontSize(22),

@@ -40,7 +40,9 @@ import { Terms } from "../screens/SettingsScreen/Help/Terms";
 import { PrivacyPolicy } from "../screens/SettingsScreen/Help/PrivacyPolicy";
 import { FAQ } from "../screens/SettingsScreen/Help/FAQ";
 import { ContactSupport } from "../screens/SettingsScreen/Help/ContactSupport";
-import { ChangePassword } from "../screens/SettingsScreen/changePassword/ChangePassword";
+import { ChangePassword, ChangePasswordModal } from "../screens/SettingsScreen/changePassword/ChangePassword";
+import { CreatePassword } from "../screens/SettingsScreen/AccountSecurity/Components/CreatePassword";
+import { PasscodeScreen } from "../screens/auth/forgotPassword/Components/PasscodeScreen";
 // import SingUp from "../screens/auth/register/SignUp";
 // Navigation Types
 const Stack = createStackNavigator();
@@ -50,7 +52,7 @@ export const AppNavigationContainer = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="splash">
+            <Stack.Navigator initialRouteName="BottomTabNavigation">
                  <Stack.Screen
                     name={'splash'}
                     component={Splash}
@@ -266,6 +268,20 @@ export const AppNavigationContainer = () => {
                  <Stack.Screen
                     name={'ChangePassword'}
                     component={ChangePassword}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'CreatePassword'}
+                    component={CreatePassword}
+                    options={{
+                        header: () => null,
+                    }}
+                />
+                 <Stack.Screen
+                    name={'PasscodeScreen'}
+                    component={PasscodeScreen}
                     options={{
                         header: () => null,
                     }}

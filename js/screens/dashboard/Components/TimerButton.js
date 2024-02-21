@@ -18,7 +18,9 @@ import {
     padding,  
   } from '../../../styles/Styles';
 import Icon,{Icons} from '../../../components/Icons';
+import { useSelector } from 'react-redux';
  export const TimerButton = ({onPress,buttonText,ButtonIcon,widthVal,BgColor,textColor,borderWidth,heightval,paddingval}) => {
+  const darkMode = useSelector(state=>state.system.darkMode)
   return (
     <View
         style={[

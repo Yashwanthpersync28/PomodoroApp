@@ -27,6 +27,7 @@ import { SwitchComponent } from '../../components/touchables/SwitchComponent';
 import { AddTask } from '../Manage/components/AddTask/AddTask';
 import { CancelModal } from './Components/CancelModal';
 import { Logout } from '../SettingsScreen/Logout/Logout';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 export const PomodoroScreen = () => {
 
   const dispatch = useDispatch();
@@ -126,7 +127,7 @@ export const PomodoroScreen = () => {
   const [displaySession,setDisplaySession] = useState('No Sessions')
   const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
-const [taskColor,setTaskColor] = useState('white') 
+const [taskColor,setTaskColor] = useState(darkMode?styles.bgdarkmodeBlack:styles.bgWhite) 
 console.log(totalfocusTime,'totaltime completed')
 console.log('taskColor',taskColor)
 const TrophySong = useSelector((state)=>state.user.completionSound.selectedCompletionSound) 

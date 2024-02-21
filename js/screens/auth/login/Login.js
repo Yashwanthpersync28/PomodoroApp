@@ -61,10 +61,17 @@ export const LoginScreen = ({navigation}) => {
      if(user){
       dispatch(setDashboard(true))
       navigation.navigate('BottomTabNavigation')
-      dispatch(addUserData({
+        const userInfo = {
+          ...userInfo,
         email:Email,
-        password:Password
-      }))
+        password:Password,
+        fullname:Email,
+        username:Email,
+        gender:'',
+        phoneNumber:'',
+        }
+        dispatch(addUserData(userInfo))
+      
       if (remember) {
         // Dispatch the setRememberMe action with email, password, and rememberMe values
         dispatch(

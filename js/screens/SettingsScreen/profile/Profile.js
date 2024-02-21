@@ -25,22 +25,9 @@ export const Profile = () => {
     const  emailId = userDetails.email;
     const passWord = userDetails.password;
     console.log('emailId',emailId,'passWord',passWord)
+    const darkMode = useSelector(state=>state.system.darkMode)
+    console.log('darkmmsndnd',darkMode)
 
-    const updateUserDetails = ()=>{
-       const userdata ={
-            ...userDetails,
-            email:email,
-            fullname:fullname,
-            username:username,
-            gender:selectedGender,
-            phoneNumber:number, 
-            profilePic:selectedImage,
-       }
-       dispatch(addUserData(userdata))
-       dispatch(setCurrentModal(21))
-    }
-   
-    console.log('selectedImage',selectedImage)
 
 
     const gender = [
@@ -115,6 +102,23 @@ export const Profile = () => {
     const PreviousScreen = () => {
         navigation.goBack();
     }
+
+    const updateUserDetails = ()=>{
+        const userdata ={
+             ...userDetails,
+             email:email,
+             fullname:fullname,
+             username:username,
+             gender:selectedGender,
+             phoneNumber:number, 
+             profilePic:selectedImage,
+        }
+        dispatch(addUserData(userdata))
+        dispatch(setCurrentModal(21))
+     }
+    
+     console.log('selectedImage',selectedImage)
+ 
     const handleImage = () => {
         Alert.alert('Select Image', 'Choose an Option to Update Image.', [
             { text: 'CANCEL' },
