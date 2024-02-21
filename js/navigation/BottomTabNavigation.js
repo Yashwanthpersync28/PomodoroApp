@@ -8,9 +8,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import { BottomTabs } from '../constants/BottomTabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon,{Icons} from '../components/Icons';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 const BottomTabNavigation = () => {
+    const darkmode = useSelector(state=>state.system.darkMode)
   return (
     <Tab.Navigator 
     initialRouteName='Settings'
@@ -18,10 +20,10 @@ const BottomTabNavigation = () => {
        {
         {
             headerShown:false,
-            tabBarInactiveTintColor:'black',
+            tabBarInactiveTintColor:darkmode?'gray':'black',
             tabBarActiveTintColor:'#ff6347',
             tabBarStyle:{
-                backgroundColor:'white',
+                backgroundColor:darkmode?'#181a21':'white',
                 borderTopWidth:0,
                 shadowOpacity:0,
                 elevation:0,

@@ -13,7 +13,7 @@ import { modalData } from '../../../constants/ModalsData'
 
 
 
- export const DarkModeMOdal = ({currentModal,selectedThing,handleDarkMode,closeModal,visibleAt,handleFuntion,data}) => {
+ export const DarkModeMOdal = ({currentModal,selectedThing,handleDarkMode,closeModal,visibleAt,handleFuntion,data,onPress}) => {
 
     
     const renderItems =({item})=>{
@@ -70,7 +70,7 @@ import { modalData } from '../../../constants/ModalsData'
 </View>
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
       <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
-      <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]}  ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
+      <TimerButton buttonText={'Ok'}  onPress={onPress} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]}  ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>
         {currentModal === 16 && <DarkModeMOdal />}

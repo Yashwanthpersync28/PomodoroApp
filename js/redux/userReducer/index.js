@@ -27,8 +27,6 @@ import { ShowName } from './ShowPomdoroReducer';
 import { ReminderVibrateReducer } from './ReminderVibrateReducer';
 import { BiometricReducer } from './BiometricsReducer';
 
-
-
 export const userReducer = combineReducers({
     focusTime:focusTimeReducer,
     breakTime:breakTimeReducer,

@@ -34,6 +34,7 @@ export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
 console.log('taskSessions',taskSessions)
     const dispatch = useDispatch();
+    const darkMode = useSelector(state=>state.system.darkMode)
 
     const checkPrevTask = ()=>{
         if(isTimerActive){
@@ -42,8 +43,8 @@ console.log('taskSessions',taskSessions)
     }
     return (
 <View>
-            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),checkPrevTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor)}} style={[styles.bgWhite]}>
-        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:styles.bgWhite
+            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),checkPrevTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor)}} style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:darkMode?styles.bgdarkmodeBlack:styles.bgWhite
 ]}>
             <View style={[{ width: 4,height:132 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             {/* <View style={[{ width: 3,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View> */}
@@ -52,7 +53,7 @@ console.log('taskSessions',taskSessions)
                     styles.row,
                     paddingPosition(15, 15, 5, 15),
                     borderWidth(1),
-                    styles.borderLightWhite,
+                    darkMode?styles.bgtaskCardDblack:styles.borderLightWhite,
                     radius(0, 5, 5, 0,0),
                     completed?{backgroundColor:'#ffffff50'}:styles.bgWhite
                 ]}>

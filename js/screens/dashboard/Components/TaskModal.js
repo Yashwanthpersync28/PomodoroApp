@@ -42,6 +42,8 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
 
 export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor,addTask,isTimerActive}) => {
+    const darkMode = useSelector(state=>state.system.darkMode)
+
  const [modalVisible,setModalVisible]=useState(true)
     const dispatch = useDispatch();
   const taskDetails = useSelector((state) => state.user.userTasks.userTask);
@@ -80,7 +82,7 @@ console.log('id', taskDetails.map(data=>data.id))
                 style={[{ margin: 0, width: widthValue(1), height: heightValue(2),}]}>
                 <View
                     style={[
-                        styles.bgWhite,
+                        darkMode?styles.bgdarkmodeBlack: styles.bgWhite,
                         {
                             position: 'absolute',
                             bottom: 0,
@@ -91,13 +93,13 @@ console.log('id', taskDetails.map(data=>data.id))
                         styles.spaceBetweenVertical,
                     ]}>
                          <View style={[styles.centerHorizontal,marginPosition(-5,0,12,0)]}>
-        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
+        <View style={[{ width: 35,height:4  },darkMode?styles.bgdarkmodeBlack:styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
                     <View style={[styles.row, styles.allCenter, styles.selfEnd]}>
                         <View>
                             <Text
                                 style={[
-                                    styles.black,
+                                    darkMode?styles.lightWhite: styles.black,
                                     styles.textCenter,
                                     { fontWeight: '500', marginRight: 115 },
                                     fontSize(24),
@@ -111,9 +113,9 @@ console.log('id', taskDetails.map(data=>data.id))
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
                         </TouchableOpacity>
                     </View>
-                    <View style={[borderWidth(0, 1, 0, 1, 0), styles.borderLightWhite,]}>
+                    <View style={[borderWidth(0, 1, 0, 1, 0),darkMode?styles.borderLightblack: styles.borderLightWhite,]}>
 
-                        <View style={[styles.row, styles.centerHorizontal, padding(0, 2, 15), radius(8), { backgroundColor: '#fafafa' }, marginPosition(20)]}>
+                        <View style={[styles.row, styles.centerHorizontal, padding(0, 2, 15), radius(8), { backgroundColor:darkMode?'#20222a': '#fafafa' }, marginPosition(20)]}>
                             <Icon name={"search"} type={Icons.EvilIcons} style={[styles.lightGray, fontSize(35), marginPosition(0, 10)]} />  
                             <TextInput
                              placeholder='Search task' 

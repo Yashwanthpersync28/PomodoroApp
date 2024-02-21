@@ -13,6 +13,8 @@ import { setDashboard } from '../../redux/ShowComponentReducer/ShowOnboardingRed
 
 
 export const Settings = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -32,20 +34,20 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
   return(
   <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,20,10)]} onPress={onPress} >
     <View style={[styles.row]}>
-     <Icon name={IconLeft} type={leftIconType}  style={[styles.black,fontSize(25)]} /> 
-     <Text style={[fontSize(18),styles.black,{fontWeight:"500"},marginPosition(0,0,0,30)]}>{PreferanceName}</Text>
+     <Icon name={IconLeft} type={leftIconType}  style={[darkMode?styles.white:styles.black,fontSize(25)]} /> 
+     <Text style={[fontSize(18),darkMode?styles.white:styles.black,{fontWeight:"500"},marginPosition(0,0,0,30)]}>{PreferanceName}</Text>
      </View>
         <View style={[styles.row,styles.centerHorizontal]}>
-      <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[styles.black,fontSize(25)]} /> 
+      <Icon name={"chevron-small-right"} type={Icons.Entypo}  style={[darkMode?styles.white:styles.black,fontSize(25)]} /> 
       </View>
      </TouchableOpacity>
   )
 }
 
   return (
-    <View style={[flex(1),styles.bgWhite,paddingPosition(10,20,0,10),{width:widthValue(1)}]}>
+    <View style={[flex(1),darkMode?styles.bgdarkmodeBlack:styles.bgWhite,paddingPosition(10,20,0,10),{width:widthValue(1)}]}>
     <View style={[{height:heightValue(15)}]}> 
-      <Header color={styles.black} headername={'Settings'} />
+      <Header color={darkMode?styles.white:styles.black} headername={'Settings'} />
       </View> 
     <View  style={[paddingPosition(10,0,0,10)]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />

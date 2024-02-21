@@ -34,6 +34,8 @@ export const PomodoroScreen = () => {
   const localSession = useSelector((state)=>state.user.localSession.localSession);
   
   console.log('sessionNumber',sessionNumber,'localSession',localSession)
+  const darkMode = useSelector(state=>state.system.darkMode)
+  console.log('darkMode',darkMode)
 
   const FocusTime = useSelector((state)=>state.user.focusTime.focusTime)
   // const FocusTime = useSelector((state)=>state.user.TimerMode.timerDeatilsArray[0].focusTime)
@@ -512,8 +514,8 @@ const WhiteNoiseCancelFunc = ()=>{
   }
  }
 return (
-  <SafeAreaView style={[styles.centerHorizontal, styles.bgWhite, flex(1), styles.positionRelative]}>
-    <StatusBar backgroundColor = "#ff6347" barStyle = "dark-content"/>
+  <SafeAreaView style={[styles.centerHorizontal,darkMode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1), styles.positionRelative]}>
+    <StatusBar backgroundColor="#ff6347" barStyle= "dark-content"/>
     <View style={[styles.bgOrange, { height: heightValue(2), width: widthValue(1) }, styles.centerHorizontal]}>
       <View>
         <View style={[marginPosition(0,0,0,20)]}>
@@ -521,7 +523,7 @@ return (
         </View>
         <TaskComponent handleTasks={handleTasks} selectedTask={selectedTask}  setCurrentModal={setCurrentModal} clearTask={clearTask} taskSelected={taskSelected} taskColor={taskColor}/>
       </View>
-      <View style={[{ backgroundColor: 'white', height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
+      <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,{ height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
       </View>
       <View style={[styles.positionAbsolute, { bottom: -190 }]}>
         {timerMode ===1 &&
@@ -592,7 +594,6 @@ return (
     {currentModal === 20 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 20} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
     {currentModal === 25 && <Logout HeaderName={'Stop Task'} VisibleAt={currentModal === 25} question={'Is your task completed Priorly '} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeModal(),stopTheTask()}}/>}
   </SafeAreaView>
-
 );
 };
 

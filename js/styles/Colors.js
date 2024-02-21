@@ -45,4 +45,6 @@ export const Colors =  {
     iconGray:'#65656a',
     TextBlack:'#242424',
     MilkyWhite:'#fdfdfd',
+    darkmodeBlack:'#181a21',
+    taskCardDblack:'#20222a'
 }

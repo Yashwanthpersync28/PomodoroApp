@@ -12,6 +12,7 @@ import { modalData } from '../../../constants/ModalsData';
 export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,}) => {
 
   const dispatch = useDispatch();
+  const darkMode = useSelector(state=>state.system.darkMode)
 
   const selectedCompletionSound = useSelector(state=>state.user.completionSound.selectedCompletionSound)
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
@@ -210,22 +211,22 @@ const addsession= ()=>{
 
   return (
     <View style={[styles.centerHorizontal]}>
-    <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)), styles.bgWhite, shadow(10), styles.allCenter]}>
+    <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)),darkMode?styles.bgdarkmodeBlack: styles.bgWhite, shadow(10), styles.allCenter]}>
         <AnimatedCircularProgress
           size={widthValue(1.6)}
           width={18}
           fill={(displayTime/totalSessionTime)*100}
           tintColor={barColor}
-          backgroundColor="#efefef"
+          backgroundColor={darkMode?'#20222a':"#efefef"}
           rotation={0}
           lineCap='round'
         >
           {() => (
             <View style={[styles.allCenter,{marginTop:-25}]}>
-            <Text style={[{fontSize:55,fontWeight:'500'},styles.black]}>
+            <Text style={[{fontSize:55,fontWeight:'500'},darkMode?styles.white:styles.black]}>
               {`${Math.floor(displayTime / 60)}:${(displayTime % 60).toString().padStart(2, '0')}`}
             </Text>
-            <Text style={[styles.black]}>{displaySession}</Text>
+            <Text style={[darkMode?styles.white:styles.black]}>{displaySession}</Text>
             {/* <Text style={[styles.black]}>{currentBreakTime}</Text> */}
             {/* <Text style={[styles.black]}>{(displayTime / totalSessionTime) * 100)}</Text> */}
             {console.log('Display Time:',currentBreakTime )}

@@ -161,6 +161,7 @@ export const styles = StyleSheet.create({
     iconGray:{color:Colors.iconGray},
     TextBlack:{color:Colors.TextBlack},
     MilkyWhite:{color:Colors.MilkyWhite},
+    darkmodeBlack:{color:Colors.darkmodeBlack},
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
     bgBlack: { backgroundColor: Colors.black },
@@ -204,6 +205,8 @@ export const styles = StyleSheet.create({
     bgtoggleWhite:{backgroundColor:Colors.toggleWhite},
     bgiconGray :{backgroundColor:Colors.iconGray},
     bgMilkyWhite :{backgroundColor:Colors.MilkyWhite},
+    bgdarkmodeBlack:{backgroundColor:Colors.darkmodeBlack},
+    bgtaskCardDblack:{backgroundColor:Colors.taskCardDblack},
 
     
 // - - - - - BORDER COLORS - - - - - //
@@ -215,6 +218,7 @@ export const styles = StyleSheet.create({
     borderBlue: { borderColor: Colors.blue },
     borderLightBlue: { borderColor: Colors.lightBlue },
     borderLightWhite: { borderColor: Colors.lightWhite },
+    borderLightblack:{borderColor:Colors.taskCardDblack},
 
 // - - - - - FLEX PROPERTIES - - - - - // 
     // - - -  Flex Align - - -  // 
