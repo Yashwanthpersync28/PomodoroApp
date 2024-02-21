@@ -86,8 +86,8 @@ const App = () => {
     return(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                {/* <AppContainer/>  */}
-                <AppNavigationContainer/>
+                <AppContainer/> 
+                {/* <AppNavigationContainer/> */}
             </PersistGate>
         </Provider>
     )
