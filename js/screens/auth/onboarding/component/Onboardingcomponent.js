@@ -16,7 +16,7 @@ export const Onboardingcomponent = ({header,details,index}) => {
                  {index === 1 &&  <Image source={require('../../../../assets/Images/Lottiemobiletwo.png')} style={[marginPosition(0),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
                 {index ===2 &&   <Image source={require('../../../../assets/Images/lottiemobilethree.png')} style={[marginPosition(0),{ width: 290 ,alignSelf: 'center'}]} resizeMode="contain"/>}
         </View>
-        <Svg style={{position:'absolute',bottom:0}} width={widthValue(1)} height={100}>
+        <Svg style={{position:'absolute',bottom:0}} width={widthValue(0.9)} height={100}>
            <Path 
               d={`M 0 20 Q ${controlX} 130 ${width}
                20 L ${width} 100 L 0 100 Z

@@ -11,7 +11,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
   const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleDateString('default', { month: 'long' }));
   const [selectedColor,setSelectedcolor]=useState('')
   const calendarRef = useRef(null);
-
+  
   const today = new Date();
   const minDate = new Date(today-1);
   minDate.setDate(today.getDate()); // Set minimum date to yesterday
@@ -85,7 +85,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
     }
   }, [selectedColor,selectedDate]);
   
-
+ 
 
   const dayComponent = ({ date, state }) => {
     const isToday = date.dateString === today.toISOString().split('T')[0];
@@ -176,6 +176,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
   return (
     
     <Calendar
+    
     style={[{ minHeight: heightValue(3)}]}
         ref={calendarRef}
         onDayPress={handleDateChange}

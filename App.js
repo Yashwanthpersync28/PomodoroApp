@@ -13,6 +13,7 @@ import {Splash} from "./js/screens/auth/splash/Splash";
 import PomodoroScreen from "./js/screens/dashboard/PomodoroScreen";
 import BottomTabNavigation from "./js/navigation/BottomTabNavigation";
 import TimerComponent from "./js/screens/dashboard/Components/TimerComponent";
+import { AppNavigationContainer } from "./js/navigation/StackNavigation";
 // let codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL };
 const App = () => {
     // const [progress, setProgress] = useState("")
@@ -86,6 +87,7 @@ const App = () => {
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <AppContainer/> 
+                {/* <AppNavigationContainer/> */}
             </PersistGate>
         </Provider>
     )
