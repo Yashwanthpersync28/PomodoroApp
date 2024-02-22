@@ -4,15 +4,15 @@ import { borderColor, borderWidth, fontSize, fontWeight, heightValue, marginPosi
 import TaskCardDetails from '../../TaskCardDetails'
 import { HeaderBorder } from '../../../../../components/view/HeaderBorder'
 
-export const Dayheadings = ({headingname,focusTime,completed,taskdata,name,data,navigation}) => {
+export const Dayheadings = ({headingname,focusTime,completed,taskdata,name,data,navigation, darkMode}) => {
   console.log('datacompleted',data);
     const [taskDetails,settaskDetails]=useState([])
   return (
     <>
-    <HeaderBorder name={headingname}/>
+    <HeaderBorder name={headingname} darkMode={darkMode}/>
        <View style={[styles.row,marginPosition(5)]}>
-           <Text style={[styles.gray]}>{`Focus : ${focusTime}`}</Text>
-           <Text style={[styles.gray,marginPosition(0,0,0,10)]}>{`Completed: ${completed} tasks`}</Text>
+           <Text style={[darkMode?styles.smokeGray:styles.gray]}>{`Focus : ${focusTime}`}</Text>
+           <Text style={[darkMode?styles.smokeGray:styles.gray,marginPosition(0,0,0,10)]}>{`Completed: ${completed} tasks`}</Text>
        </View>
        {/* notaskfound */}
        <View style={[marginPosition(10)]}>

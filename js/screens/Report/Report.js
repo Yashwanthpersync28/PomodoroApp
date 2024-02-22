@@ -31,6 +31,7 @@ export const Report = ({navigation}) => {
 const Name=useSelector((state)=>state.user.ReportToggle.name)
 const Togglenames=useSelector((state)=>state.user.ReportToggle.togglenames)
 const TempTogglenames=useSelector((state)=>state.user.ReportToggle.temptogglenames)
+const Darkmode=useSelector((state)=>state.system.darkMode);
 
 console.log('Togglenames',Togglenames);
   const [name,setname]=useState(Name)
@@ -111,8 +112,8 @@ useEffect(() => {
 
 
   return (
-    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bglgWhite]}>
-    <StatusBar backgroundColor={Colors.lgWhite} barStyle="dark-content" />
+    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20),Darkmode?styles.bgdarkmodeBlack: styles.bglgWhite]}>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
     {/* header */}
     <View style={[{height:heightValue(14)}]}>
       <Header
@@ -121,7 +122,7 @@ useEffect(() => {
         IconNameRight={'dots-three-vertical'}
         onPress={() => console.log('dfg')}
         bgcolor={styles.white}
-        color={styles.TextBlack}
+        color={Darkmode?styles.white:styles.TextBlack}
         goBack={() => navigation.goBack()}
         showLeftIocn={false}
         IconNameLeft={'arrowleft'}
@@ -135,25 +136,25 @@ useEffect(() => {
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[{height:heightValue(4.2)}]}>
           <View style={[styles.rowWrap,styles.spaceBetween,styles.centerHorizontal]}>
-            <MiniCards number={showpomodoro?focusTimeToday:getTasksTodayData.length} name={showpomodoro?'Focus Time Today':'Task Completed today'}/>
-            <MiniCards number={showpomodoro?focustimethisweek:completedTasksThisWeek.length} name={showpomodoro?'Focus Time This Week':'Task Completed this week'}/>
-            <MiniCards number={showpomodoro?focustimethisTwoWeek:CompletedtasksTwoWeeks.length} name={showpomodoro?'Focus Time This Two Week':'Task completed this two weeks'}/>
-            <MiniCards number={showpomodoro?focustimethisMonth:CompletedtasksThisMonth.length} name={showpomodoro?'Focus Time This Month':'Task completed this month'}/>
+            <MiniCards darkMode={Darkmode} number={showpomodoro?focusTimeToday:getTasksTodayData.length} name={showpomodoro?'Focus Time Today':'Task Completed today'}/>
+            <MiniCards darkMode={Darkmode} number={showpomodoro?focustimethisweek:completedTasksThisWeek.length} name={showpomodoro?'Focus Time This Week':'Task Completed this week'}/>
+            <MiniCards darkMode={Darkmode} number={showpomodoro?focustimethisTwoWeek:CompletedtasksTwoWeeks.length} name={showpomodoro?'Focus Time This Two Week':'Task completed this two weeks'}/>
+            <MiniCards darkMode={Darkmode} number={showpomodoro?focustimethisMonth:CompletedtasksThisMonth.length} name={showpomodoro?'Focus Time This Month':'Task completed this month'}/>
           </View>
           
      </View>
       <View>   
-          <View style={[styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
+          <View style={[Darkmode?styles.bgtaskCardDblack:styles.bgWhite,radius(5),marginPosition(10,0,10),padding(10)]}>
              <View style={[zIndex(0)]}>
                {/* <DropDown showPomodoro={showpomodoro}  ChangeDropdownName={(name)=>setname(name)} handleDropdown={(val)=>setClickedDropdown(val)} name={name} clickedDropdown={clickedDropdown}/> */}
               
-               <View style={[{ position: 'absolute', top: 10, right: 0, zIndex: 99},paddingPosition(2,12,2,12),radius(25),styles.column,borderColor(Colors.borderGray),borderWidth(1),styles.bgWhite]}>
+               <View style={[{ position: 'absolute', top: 10, right: 0, zIndex: 99},paddingPosition(2,12,2,12),radius(25),styles.column,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(1),Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
     {clickedDropdown ? 
         <TouchableOpacity onPress={()=>setClickedDropdown(!clickedDropdown)}>
             <View style={[styles.row,paddingPosition(5,0,5,0)]}>
-                <Text style={[styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{Name}</Text>
+                <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{Name}</Text>
                 <View style={[{width:widthValue(16)},styles.allCenter]}>
-                    <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.black,fontSize(20),styles.textAlignVertical]}/>
+                    <Icon name={'chevron-down'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(20),styles.textAlignVertical]}/>
                 </View>
             </View>
         </TouchableOpacity> :
@@ -173,12 +174,12 @@ useEffect(() => {
       }}
       key={index}
     >
-      <View style={[styles.row, index===2 ? borderColor('white'):borderColor('#f2f0f0'), index===2 ? borderWidth(0,1): borderWidth(0, 1), paddingPosition(5, 0, 5, 0), styles.selfStart]}>
-        <View style={[styles.bgWhite]}>
-          <Text style={[styles.black, fontSize(18), fontWeight('bold'), marginPosition(0, 0, 0, 5)]}>{headerItem.name}</Text>
+      <View style={[styles.row, index===2 ? borderColor('white'):borderColor(Darkmode?Colors.darkmodeBorderColor:'#f2f0f0'), index===2 ? borderWidth(0,1): borderWidth(0, 1), paddingPosition(5, 0, 5, 0), styles.selfStart]}>
+        <View style={[Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
+          <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(18), fontWeight('bold'), marginPosition(0, 0, 0, 5)]}>{headerItem.name}</Text>
         </View>
         <View>
-          <Icon name={'chevron-down'} type={Icons.Feather} style={[styles.black, fontSize(20), styles.textAlignVertical]} />
+          <Icon name={'chevron-down'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.black, fontSize(20), styles.textAlignVertical,marginPosition(2,0,0,2)]} />
         </View>
       </View>
     </TouchableOpacity>
@@ -188,11 +189,11 @@ useEffect(() => {
 </View>
 
       {/* header */}
-               <View style={[{height:heightValue(12)},styles.centerVertical,borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
-                   <Text style={[styles.black,fontSize(22),fontWeight('bold')]}>{headerName}</Text>
+               <View style={[{height:heightValue(12)},styles.centerVertical,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1)]}>
+                   <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold'),marginPosition(-5)]}>{headerName}</Text>
                </View>
     {/* //pomodoro records */}
-              <View style={[zIndex(0)]}>
+              <View style={[zIndex(0),Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
                      <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
                      {showpomodoro ? 
                          (Name === 'Weekly' && <PomodoroRecords />) ||
@@ -200,7 +201,7 @@ useEffect(() => {
                          (Name === 'Biweekly' && <PomodoroRecords />)
                            : 
                          (Name === 'Task' && <FocusTime />) ||
-                         (Name === 'Weekly' && <ProjectTimeDistribution />) ||
+                         (Name === 'Weekly' && <ProjectTimeDistribution Darkmode={Darkmode}/>) ||
                          (Name === 'Biweekly' && <FocusTime />)
                       }
 

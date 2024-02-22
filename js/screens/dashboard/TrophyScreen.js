@@ -5,7 +5,7 @@ import { heightValue, widthValue ,styles, fontSize,marginPosition,flex,padding} 
 import { HeadingComponent } from '../../components/view/HeadingComponent'
 import { TimerButton } from './Components/TimerButton'
 import { useNavigation } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import Modal from 'react-native-modal'
 

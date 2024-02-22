@@ -40,7 +40,7 @@ export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeho
        :null}
        <TouchableWithoutFeedback onPress={handleX}>
        {ShowXbbutton ? 
-           <Feather name={'x'} type={Icons.Feather} style={[fontSize(25),styles.black]}/>
+           <Feather name={'x'} type={Icons.Feather} style={[fontSize(25),Darkmode?styles.white:styles.black]}/>
        :null}
          </TouchableWithoutFeedback>
    </View>

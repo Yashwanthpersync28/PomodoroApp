@@ -1,7 +1,7 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { flex, heightValue, paddingPosition, styles } from '../../../../../styles/Styles'
-import {View,Text,ScrollView} from 'react-native'
+import {View,Text,ScrollView,StatusBar} from 'react-native'
 import { Icons } from '../../../../../components/Icons'
 import { Header } from '../../Header'
 import { ManageItemslist } from './ManageItemslist'
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addBackUserProject } from '../../../../../redux/userReducer/UserProjectListReducer'
 import { addBackUserTag } from '../../../../../redux/userReducer/userTaglistReducer'
 import { deleteArchieveProjectForever, deleteArchieveTagsForever } from '../../../../../redux/userReducer/ArchieveReducer'
+import { Colors } from '../../../../../styles/Colors'
 
 export const Archived = ({navigation,route}) => {
     const { name ,ArchieveProject} = route.params;
@@ -16,6 +17,7 @@ export const Archived = ({navigation,route}) => {
  //selectors
  const ArchievedDataTags=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveTags)
  const ArchievedDataProject=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveProjects)
+ const Darkmode=useSelector((state)=>state.system.darkMode);
 
  const dispatch=useDispatch()
 
@@ -45,13 +47,15 @@ export const Archived = ({navigation,route}) => {
  }
 
   return (
-    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bgWhite]}>
+    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+      <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
+        
         <View style={[{height:heightValue(14)}]}>
         <Header
           headername={name}
           onPress={() => navigation.goBack()}
           bgcolor={styles.white}
-          color={styles.black}
+          color={Darkmode?styles.white:styles.black}
           goBack={() => navigation.goBack()}
           showLeftIocn={true}
           IconNameLeft={'arrowleft'}
@@ -69,6 +73,7 @@ export const Archived = ({navigation,route}) => {
                      handleArchieveProjects={(name)=>DeleteProjectForever(name)}
                      handleArchieveTags={(name)=>DeleteTagsForever(name)}
                      showArchievedlists={true}
+                     Darkmode={Darkmode}
                      />
                       <View style={[{height:heightValue(12)}]}></View>     
             </ScrollView>

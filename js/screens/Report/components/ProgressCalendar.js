@@ -9,6 +9,8 @@ import { Colors } from '../../../styles/Colors';
 
 export const ProgressCalendar = () => {
   const userTasks = useSelector((state) => state.user.userTasks.userTask);
+const Darkmode=useSelector((state)=>state.system.darkMode);
+
   console.log(userTasks, 'userTasks');
 
   
@@ -20,15 +22,15 @@ export const ProgressCalendar = () => {
     const progressPercentage = (completedTasks.length / tasksForDate.length) * 100 || 0;
   
     return (
-      <View style={{ alignItems: 'center' }}>
+      <View style={[{ alignItems: 'center' },]}>
         <Circle
           progress={progressPercentage / 100}
           size={40}
           thickness={5}
           borderWidth={0}
           color={Colors.Orange}
-          unfilledColor={Colors.borderGray}
-          textStyle={{ fontSize: 18 , color:'black'}}
+          unfilledColor={Darkmode?'#35383f':Colors.borderGray}
+          textStyle={{ fontSize: 18 , color:Darkmode?'white':'black'}}
           showsText
           formatText={() => date.day.toString()} // Display the date in the middle
         />
@@ -40,14 +42,14 @@ export const ProgressCalendar = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={[styles.centerHorizontal, flex(0.2)]}>
+      <View style={[styles.centerHorizontal, flex(0.2),Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
         <Calendar
-          style={[{ width: widthValue(1.2), minHeight: heightValue(2)}]}
+          style={[{ width: widthValue(1.2), minHeight: heightValue(2)},Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}
           theme={{
-            calendarBackground: 'white',
+            calendarBackground: Darkmode?'#20222a':'white',
             todayTextColor: 'white',
             todayBackgroundColor: 'blue',
-            monthTextColor: 'black',
+            monthTextColor: Darkmode?'white':'black',
             textMonthFontSize: 18,
             textMonthFontWeight: '700',
             indicatorColor: 'blue',
@@ -55,6 +57,9 @@ export const ProgressCalendar = () => {
             arrowHeight: 10,
             textDayHeaderFontWeight:'bold',
             textDayHeaderFontSize:15,
+            arrowStyle: {
+              color: Darkmode?'White':'black', // Set your desired arrow color here
+            },
 
           }}
           dayComponent={({ date, state, marking }) => {

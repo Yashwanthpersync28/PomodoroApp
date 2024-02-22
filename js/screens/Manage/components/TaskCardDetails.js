@@ -3,13 +3,15 @@ import {View,Text,TouchableOpacity,Image} from 'react-native'
 import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, marginPosition, padding, paddingPosition, position, radius, styles, widthValue ,zIndex} from '../../../styles/Styles'
 import Icon, { Icons } from '../../../components/Icons'
 import { addBackUserTask} from '../../../redux/userReducer/UserTaskDetails'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteForeverUserTaskFromTrash } from '../../../redux/userReducer/TrashReducer'
 import { NotaskFound } from '../../../components/view/NotaskFound'
 import { Colors } from '../../../styles/Colors'
 
 
 const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLinethrough}) => {
+const Darkmode=useSelector((state)=>state.system.darkMode);
+
     console.log('dataaa',data.length);
     const [showOptionsIndex, setShowOptionsIndex] = useState(null);
     const dispatch=useDispatch()
@@ -34,7 +36,7 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
     {data.map((dataitem,index)=>{
         return(
             
-     <View  key={index} style={[styles.bgMilkyWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(15),styles.row,,marginPosition(10,0,10)]}>  
+     <View  key={index} style={[Darkmode?styles.bgtaskCardDblack:styles.bgMilkyWhite,radius(5),borderColor(dataitem.Project.Color),borderWidth(0,0,2),padding(15),styles.row,,marginPosition(10,0,10)]}>  
         <View style={[flex(0.2),styles.selfStart]}>
             <Icon name={name==='Completed'?'checkcircle':'circle'} type={name==='Completed'?Icons.AntDesign:Icons.Entypo} style={[styles.Orange,fontSize(22)]}/>
         </View>
@@ -42,7 +44,7 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
         
         <TouchableOpacity key={index} onPress={()=>{handleTask(dataitem.id),setShowOptionsIndex(null)}} style={[styles.column,flex(1)]}>
         <View style={[styles.column,flex(1)]}>
-            <Text style={[name==='Completed'?styles.textGray:styles.black,fontWeight('bold'),{textDecorationLine:showLinethrough?'line-through':'none'}]}>{dataitem.Taskname}</Text>
+            <Text style={[name==='Completed'?styles.textGray:Darkmode?styles.inputColor:styles.black,fontWeight('bold'),{textDecorationLine:showLinethrough?'line-through':'none'}]}>{dataitem.Taskname}</Text>
             <View style={[styles.rowWrap,marginPosition(10)]}>
               
                 {dataitem.Tags.map((tags,index)=>{
@@ -54,10 +56,10 @@ const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLin
             </View>
             <View style={[styles.rowWrap,marginPosition(10),styles.centerHorizontal]}>
             <Icon name={'timer'} type={Icons.MaterialCommunityIcons} style={[styles.Orange,fontSize(20),marginPosition(0,5)]}/>
-            <Text style={[styles.black,marginPosition(0,10)]}>{dataitem.Sessions}</Text>   
+            <Text style={[Darkmode?styles.smokeGray:styles.black,marginPosition(0,10)]}>{dataitem.Sessions}</Text>   
             <Icon name={'flag'} type={Icons.Feather} style={[{color:dataitem.Priority.color},fontSize(20),marginPosition(0,10)]}/>
             <Icon name={'briefcase'} type={Icons.Octicons} style={[{color:dataitem.Project.Color},fontSize(20),marginPosition(0,10)]}/>
-            <Text style={[styles.gray]}>{dataitem.Project.Projectname}</Text>   
+            <Text style={[Darkmode?styles.smokeGray:styles.gray]}>{dataitem.Project.Projectname}</Text>   
                 
             </View>
             {/* //options */}

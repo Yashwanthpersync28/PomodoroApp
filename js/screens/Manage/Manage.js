@@ -84,7 +84,7 @@ const handleFocusTime=()=>{
 }
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
-    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
       <View style={[flex(0.2)]}>
            <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={Darkmode?styles.white:styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
       </View>
@@ -150,13 +150,13 @@ const handleFocusTime=()=>{
         </View>:null}
         {ShowManagebutton ? 
         
-        <View style={[{bottom: 0,right: 0,top:-20, zIndex: 1, height:heightValue(15), width:widthValue(2),},styles.positionAbsolute,styles.allCenter,styles.bgWhite,radius(10)]}>
+        <View style={[{bottom: 0,right: 0,top:-20, zIndex: 1, height:heightValue(15), width:widthValue(2),},styles.positionAbsolute,styles.allCenter,Darkmode?styles.bgoptionsColor:styles.bgWhite,radius(10)]}>
         <TouchableOpacity onPress={() => {
             navigation.navigate('manageProjectandTags');
               setShowManagebutton(false);
           }} style={[styles.row,styles.allCenter]}>
-         <Icon name={'briefcase'} type={Icons.Feather} style={[styles.black,fontSize(25),marginPosition(0,10)]}/>
-         <Text style={[styles.black,fontSize(16)]}>Manage Project & Tags</Text>
+         <Icon name={'briefcase'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(25),marginPosition(0,10)]}/>
+         <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(16)]}>Manage Project & Tags</Text>
          </TouchableOpacity>
         </View>
        

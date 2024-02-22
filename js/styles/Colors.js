@@ -52,4 +52,6 @@ export const Colors =  {
     inputColor:'#d3d3d4',
     modalColor:'#262a35',
     darkmodeBorderColor:'#262830',
+    smokeGray:'#6f7276',
+    optionsColor:'#262a35',
 }
