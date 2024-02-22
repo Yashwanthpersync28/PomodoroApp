@@ -14,6 +14,7 @@ import { deleteUserTag } from '../../../../redux/userReducer/userTaglistReducer'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { AddTask } from '../AddTask/AddTask';
 import { AddProject } from '../AddProject/AddProject';
+import { Colors } from '../../../../styles/Colors';
 
 
 export const ManageProjectandTags = ({ navigation }) => {
@@ -26,6 +27,7 @@ export const ManageProjectandTags = ({ navigation }) => {
   const Tags=useSelector((state)=>state.user.userTaglist.UserTags);
   const ArchievedDataTags=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveTags)
   const ArchievedDataProject=useSelector((state)=>state.user.ProjectAndTagsArchieveReducer.ArchieveProjects)
+  const Darkmode=useSelector((state)=>state.system.darkMode);
 
   console.log('Projects',Projects);
   console.log('Tags',Tags);
@@ -49,8 +51,8 @@ export const ManageProjectandTags = ({ navigation }) => {
     
     
     
-    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), styles.bgWhite]}>
-      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
+    <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+      <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
       {/* header */}
       <View style={[flex(0.2)]}>
         <Header
@@ -59,7 +61,7 @@ export const ManageProjectandTags = ({ navigation }) => {
           IconNameRight={'dots-three-vertical'}
           onPress={() => navigation.navigate('task')}
           bgcolor={styles.white}
-          color={styles.black}
+          color={Darkmode?styles.white:styles.black}
           goBack={() => navigation.goBack()}
           showLeftIocn={true}
           IconNameLeft={'arrowleft'}
@@ -73,7 +75,7 @@ export const ManageProjectandTags = ({ navigation }) => {
       </View>
       <View style={[flex(0.2),styles.centerVertical]}>
         <TouchableOpacity onPress={()=>{showProjects?navigation.navigate('addproject',{ProjectName:'',NavigationFrom:'manage'}):navigation.navigate('addtags',{TagName:'',NavigationFrom:'manageTags'})}} style={[styles.row, styles.centerHorizontal]}>
-        <Icon name={'plus'} type={Icons.Feather} style={[styles.black, fontSize(25), marginPosition(0, 10)]} />
+        <Icon name={'plus'} type={Icons.Feather} style={[Darkmode?styles.Orange:styles.black, fontSize(25), marginPosition(0, 10)]} />
         <Text style={[styles.Orange, fontSize(20)]}>{showProjects?'Add Project':'Add Tags'}</Text>
         </TouchableOpacity>
       </View>
@@ -82,26 +84,24 @@ export const ManageProjectandTags = ({ navigation }) => {
       
       <View style={[flex(2)]}>
        <ScrollView>
-       <ManageItemslist data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false} handleoptionOneProject={(name)=>{navigation.navigate('addproject',{ProjectName:name})}} handleoptionOneTags={(name)=>{navigation.navigate('addtags',{TagName:name,NavigationFrom:'editTags'})}}/>
-      {/* <TouchableWithoutFeedback onPress={()=>console.log('gvhbjn')}>
-      <View style={[flex(1)]}>
-      </View>
-      </TouchableWithoutFeedback> */}
+       <ManageItemslist Darkmode={Darkmode} data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false} handleoptionOneProject={(name)=>{navigation.navigate('addproject',{ProjectName:name})}} handleoptionOneTags={(name)=>{navigation.navigate('addtags',{TagName:name,NavigationFrom:'editTags'})}}/>
+      
       </ScrollView>
+      
     </View>
    
       {/* footer */}
-      <View style={[flex(0.2),borderColor('#f2f0f0'),borderWidth(0,1)]}>
+      <View style={[flex(0.2),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,1)]}>
         <TouchableOpacity onPress={()=>navigation.navigate('archived',{name:showProjects?'Archived Projects':'Archived Tags',ArchieveProject:showProjects})} style={[flex(1)]}>
         <View style={[styles.row, flex(1)]}>
           <View style={[flex(0.2), styles.centerVertical]}>
-              <Icon name={'archive-outline'} type={Icons.Ionicons} style={[styles.black, fontSize(25)]} />
+              <Icon name={'archive-outline'} type={Icons.Ionicons} style={[Darkmode?styles.inputColor:styles.black, fontSize(25)]} />
           </View>
           <View style={[flex(1), styles.allCenter]}>
-            <Text style={[fontSize(20), styles.black]}>{showProjects?'Archived Projects':'Archived Tags'}</Text>
+            <Text style={[fontSize(20), Darkmode?styles.inputColor:styles.black]}>{showProjects?'Archived Projects':'Archived Tags'}</Text>
           </View>
           <View style={[flex(0.2), { justifyContent: 'center', alignItems: 'flex-end' }]}>
-              <Icon name={'right'} type={Icons.AntDesign} style={[styles.black, fontSize(25)]} />
+              <Icon name={'right'} type={Icons.AntDesign} style={[Darkmode?styles.inputColor:styles.black, fontSize(25)]} />
           </View>
         </View>
         </TouchableOpacity>

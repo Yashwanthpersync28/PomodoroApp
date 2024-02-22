@@ -53,7 +53,7 @@ console.log('dtfygvhub',userDatas);
 const handleEmailChange = (text) => {
   setEmail(text);
   // Validations
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
+  const emailRegex = /^[a-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{3,}$/;
 
   
   const existingUser = userDatas.find(user => user.email === text);
@@ -90,7 +90,7 @@ else{
   return (
    
     <SafeAreaView style={[flex(1)]}>
-       <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+       <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"

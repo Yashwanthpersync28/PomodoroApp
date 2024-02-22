@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View , Text } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import Pie from 'react-native-pie';
-import { flex, fontSize, fontWeight, heightValue, marginPosition, position, styles, widthValue } from '../../styles/Styles';
+import { flex, fontSize, fontWeight, heightValue, marginPosition, paddingPosition, position, styles, widthValue } from '../../styles/Styles';
 import { Colors } from '../../styles/Colors';
 import Icon, { Icons } from '../../components/Icons';
 import { calculateFocusTime, getCompletedTasks, getTodayCompletedfocusTime } from '../../constants/getCompletedTasksFunctions';
 import { useSelector } from 'react-redux';
 import { NotaskFound } from '../../components/view/NotaskFound';
 
-export const ProjectTimeDistribution = () => {
+export const ProjectTimeDistribution = ({Darkmode}) => {
  
   const ListofProjects=useSelector((state)=>state.user.userProjectList.UserProjects);
   const UserTasks=useSelector((state)=>state.user.userTasks.userTask);
@@ -17,6 +17,8 @@ export const ProjectTimeDistribution = () => {
   const [Projectdata,setProjectdata]=useState([])
 useEffect(()=>{
   const getCompletedtasks=getCompletedTasks(UserTasks)
+  const totalFocusTimeInMinutes = calculateFocusTime(getCompletedtasks);
+  console.log('totalFocusTimeInMinutesghjvhbkjn',totalFocusTimeInMinutes);
   const totalfocusTime=getTodayCompletedfocusTime(getCompletedtasks)
   setFocustime(totalfocusTime)
   const datatwo = ListofProjects.map((project) => {
@@ -31,17 +33,16 @@ useEffect(()=>{
     // Calculate total focus time for this project
     const ress=getTodayCompletedfocusTime(getcompletedtasks)
     console.log('ress',ress);
-    return { projectName: project.name, focusTime: ress , color: color,percentage:'50%'};
+   
+    const projectFocusTimeInMinutes = calculateFocusTime(getcompletedtasks);
+
+    const percentage = ((projectFocusTimeInMinutes / totalFocusTimeInMinutes) * 100).toFixed(2);
+    return { projectName: project.name, focusTime: ress , color: color,percentage: percentage};
   });
   setProjectdata(datatwo)
-},[])
+},[UserTasks])
 
-const data=[{projectName:'Pomodoroo',color:Colors.Orange,focusTime:'15h 20m',percentage:'50%'},
-{projectName:'twf',color:Colors.green,focusTime:'12h 20m',percentage:'40%'},
-{projectName:'zam-zam',color:Colors.purple,focusTime:'3h 20m',percentage:'10%'},
-{projectName:'samrtBijule',color:Colors.WaterBlue,focusTime:'2h 20m',percentage:'5%'},
-{projectName:'ShareApi',color:Colors.blue,focusTime:'10h 20m',percentage:'35%'}
-]
+
   return (
     <>
     {Projectdata.length>0 ?
@@ -50,53 +51,29 @@ const data=[{projectName:'Pomodoroo',color:Colors.Orange,focusTime:'15h 20m',per
       <Pie
               radius={50}
               innerRadius={42}
-              sections={[
-                {
-                  percentage: 10,
-                  color: Colors.purple,
-                },
-                {
-                  percentage: 20,
-                  color: Colors.green,
-                },
-                {
-                  percentage: 10,
-                  color: Colors.LightGold,
-                },
-                {
-                  percentage: 10,
-                  color: Colors.WaterBlue,
-                },
-                {
-                  percentage: 10,
-                  color: Colors.Orange,
-                },
-                {
-                  percentage: 20,
-                  color: Colors.SmokePink,
-                },
-                {
-                  percentage: 20,
-                  color: Colors.blue,
-                }
-              ]}
+              sections={
+                Projectdata.map((data) => ({
+                  percentage: parseFloat(data.percentage), // Parse percentage as a float
+                  color: data.color
+                }))
+              }
               strokeCap={'butt'}
             />
             <View style={[styles.positionAbsolute,styles.allCenter]}>
-                     <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>{totalFocustime}</Text>
+                     <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold')]}>{totalFocustime}</Text>
                </View>
             </View>
-            <View style={[{width:widthValue(1.2)},marginPosition(10,0,10),styles.spaceBetween,styles.rowWrap]}>
+            <View style={[{width:widthValue(1.2)},marginPosition(10,0,10),styles.spaceBetween,styles.rowWrap,paddingPosition(0,10,0,10)]}>
                {Projectdata.map((project,index)=>{
                 return(
                  
-                  <View style={[styles.row,styles.centerHorizontal,{width:widthValue(3)},marginPosition(10)]}>
+                  <View style={[styles.row,styles.centerHorizontal,{width:widthValue(3.2)},marginPosition(10)]}>
                        <View style={[styles.centerHorizontal,{width:widthValue(16)}]}>
                             <Icon name={'briefcase'} type={Icons.Entypo} style={[fontSize(24),styles.textAlignVertical,{color:project.color}]}/>
                        </View>
                        <View style={[styles.column,marginPosition(0,0,0,10)]}>
-                           <Text style={[styles.black,fontSize(18),fontWeight('bold')]}>{project.projectName}</Text>
-                           <Text style={[styles.gray,fontSize(13)]}>{`${project.focusTime} - ${project.percentage}`}</Text>
+                           <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('bold')]}>{project.projectName}</Text>
+                           <Text style={[Darkmode?styles.smokeGray:styles.gray,fontSize(13),marginPosition(2)]}>{`${project.focusTime} - ${project.percentage}%`}</Text>
                       </View>
                   </View>        
            

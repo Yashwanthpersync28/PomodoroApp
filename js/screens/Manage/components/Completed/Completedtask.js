@@ -23,6 +23,8 @@ const Completedtask = ({navigation,route}) => {
    const [SearchedTask,setSearchedTask]=useState(true)
    const [updatedSearchTasks,SetupdatedSearchCompletedtasks]=useState('')
     console.log('Trashdatas',Trashdatas);
+//selectors
+const Darkmode=useSelector((state)=>state.system.darkMode);
 
     ///to filter data based on completed and which is completed today
     const completedTasksToday = getCompletedTasksToday(data);
@@ -56,17 +58,17 @@ useEffect(()=>{
 },[data,InputText])
 
   return (
-    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
-    <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
+    <SafeAreaView style={[flex(1),padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bglgWhite]}>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
      <View style={[{height:heightValue(15)}]}>
-        {showSearchHeader?<HeaderSearch handleBacktoHeader={()=>{setSearchHeader(false),setInputText('')}} onChangeText={(val)=>{setInputText(val)}} handleX={()=>setInputText('')} value={InputText}/>:
+        {showSearchHeader?<HeaderSearch darkMode={Darkmode} handleBacktoHeader={()=>{setSearchHeader(false),setInputText('')}} onChangeText={(val)=>{setInputText(val)}} handleX={()=>setInputText('')} value={InputText}/>:
         <Header
          headername={name}
          IconfamilyRight={Icons.Entypo}
          IconNameRight={'dots-three-vertical'}
          onPress={() => console.log('hbn')}
          bgcolor={styles.white}
-         color={styles.black}
+         color={Darkmode?styles.white:styles.black}
          goBack={() => navigation.goBack()}
          showLeftIocn={true}
          IconNameLeft={'arrowleft'}
@@ -83,8 +85,8 @@ useEffect(()=>{
         {name==='Trash'? <TaskCardDetails data={tempTrashdatas} handleTask={(index)=>console.log(index)}/>:
        
         <View>
-         <Dayheadings navigation={navigation} headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday}/>
-         <Dayheadings headingname={'Yesterday'} focusTime={focustimeYesterday} completed={completedTasksYesterday.length} name={name} data={completedTasksYesterday}/>
+         <Dayheadings darkMode={Darkmode} navigation={navigation} headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday}/>
+         <Dayheadings darkMode={Darkmode}  headingname={'Yesterday'} focusTime={focustimeYesterday} completed={completedTasksYesterday.length} name={name} data={completedTasksYesterday}/>
          </View>
         }
         </>

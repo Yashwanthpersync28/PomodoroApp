@@ -4,7 +4,7 @@ import {borderColor, borderWidth, flex, fontSize, fontWeight, marginPosition, pa
 import Icon, { Icons } from '../Icons';
 
 
-export const TaskDeletedModal = ({ visible, onClose }) => {
+export const TaskDeletedModal = ({ visible, onClose , Darkmode}) => {
   return (
     <Modal
       animationType="slide"
@@ -16,11 +16,11 @@ export const TaskDeletedModal = ({ visible, onClose }) => {
       <TouchableOpacity onPress={onClose} style={[flex(1)]}>
       </TouchableOpacity>
       </View>
-        <View style={[flex(0.2), { width: widthValue(1) }, styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20),styles.centerHorizontal]}>
-        <View style={[{width:widthValue(10)},borderColor('#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5),]}></View>
+        <View style={[flex(0.2), { width: widthValue(1) }, Darkmode?styles.bgtaskCardDblack:styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20),styles.centerHorizontal]}>
+        <View style={[{width:widthValue(10)},borderColor(Darkmode?Colors.darkmodeBorderColor:'#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5),]}></View>
          <View style={[styles.allCenter,flex(1)]}>
            <Icon name={'checkcircle'} type={Icons.AntDesign} style={[styles.Orange,fontSize(50)]}/>
-           <Text style={[styles.black,fontSize(20),marginPosition(10),fontWeight('bold')]}>Task has been deleted!</Text>
+           <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),marginPosition(10),fontWeight('bold')]}>Task has been deleted!</Text>
            </View>
         </View>
       </View>

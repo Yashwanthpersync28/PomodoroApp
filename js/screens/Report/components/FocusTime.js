@@ -3,13 +3,15 @@ import { View, Text } from 'react-native';
 import ProgressBar from 'react-native-progress/Bar';
 import { flex, fontSize, marginPosition, styles } from '../components/../../../styles/Styles';
 import { useSelector } from 'react-redux';
-import { calculateFocusTime, getCompletedTasks } from '../../../constants/getCompletedTasksFunctions';
+import { calculateFocusTime, getCompletedTasks, getTodayCompletedfocusTime } from '../../../constants/getCompletedTasksFunctions';
 import { NotaskFound } from '../../../components/view/NotaskFound';
 
 export const FocusTime = () => {
   const ListofProjects=useSelector((state)=>state.user.userProjectList.UserProjects);
   const UserTasks=useSelector((state)=>state.user.userTasks.userTask);
   const [projectlength,setProjectLength]=useState(false)
+const Darkmode=useSelector((state)=>state.system.darkMode);
+
   // Example data
   const data = [
     { name: 'Pomodoro', value: 10 },
@@ -29,36 +31,32 @@ export const FocusTime = () => {
     console.log('projectTasks',projectTasks);
     // Calculate total focus time for this project
     const ress=calculateFocusTime(getcompletedtasks)
+    const time=getTodayCompletedfocusTime(getcompletedtasks)
     console.log('ress',ress);
-    return { name: project.name, value: ress , color: color};
+    return { name: project.name, value: ress , color: color , time:time};
   });
   console.log('datatwo',datatwo);
-  // useEffect(()=>{
-  //      if()
-  // },[])
-  // Calculate progress value for each item
-  const progressValues = datatwo.map(item => item.value / 20);
 
-  // Array of colors for progress bars
-  const colors = ['#4CAF50', '#FFC107', '#FF5722', '#2196F3', '#9C27B0'];
-
+  const maxFocusTime = Math.max(...datatwo.map((item) => item.value));
+  
+  datatwo.sort((a, b) => b.value - a.value);//sorting for highest to lowest
   return (
     <>
-    {progressValues.length>0 ?
+    {datatwo.length>0 ?
     <View style={[{ flexDirection: 'column', justifyContent: 'space-around' }]}>
       
-      {progressValues.map((progress, index) => (
+      {datatwo.map((progress, index) => (
         <View key={index} style={[marginPosition(10, 10, 10, 10)]}>
-          <Text style={[styles.black, fontSize(14)]}>{datatwo[index].name}</Text>
+          <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(14)]}>{datatwo[index].name}</Text>
           <View style={[styles.row, { alignItems: 'center' }]}>
             <ProgressBar
-              progress={progress}
-              width={progress * 250}
+              progress={progress.value / maxFocusTime}
+              width={maxFocusTime ? 250 : 0}
               color={datatwo[index].color} // Set color based on index
-              borderColor={'white'}
+              borderColor={'blue'}
               borderWidth={0}
             />
-            <Text style={[styles.black, fontSize(14), { marginLeft: 0 }]}>7h20m</Text>
+            <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(14), marginPosition(0,0,0,10)]}>{progress.time}</Text>
           </View>
         </View>
       ))}
@@ -66,7 +64,7 @@ export const FocusTime = () => {
       
     </View>:<View>
       <NotaskFound name={'No projects completed'}/>
-      \</View>}
+      </View>}
     </>
 
   );

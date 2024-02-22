@@ -9,7 +9,7 @@ export const ToggleButtons = ({onPressProject,showProjects,onPressTags,title1,ti
        
 
   return (
-   <View style={[styles.bgsmokeOrange,{height:heightValue(20)},marginPosition(10),radius(10)]}>
+   <View style={[{height:heightValue(20)},marginPosition(10),radius(10)]}>
     <View style={[styles.row,radius(10),flex(1),{backgroundColor:darkMode?'#20222a':'#f5f5f5'}]}>
         <TouchableOpacity style={[flex(1),radius(10)]} onPress={onPressProject}>
         <View style={[flex(1),styles.allCenter,radius(5),showProjects?styles.bgOrange:darkMode?styles.bgtaskCardDblack:styles.bgtoggleWhite]}>

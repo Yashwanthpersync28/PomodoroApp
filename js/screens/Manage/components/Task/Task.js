@@ -18,6 +18,8 @@ import { addTrashtasks } from '../../../../redux/userReducer/TrashReducer'
 
 
 export const Task = ({navigation,route}) => {
+const Darkmode=useSelector((state)=>state.system.darkMode);
+
   const {id,completedTask}=route.params
   console.log('id',id);
   //states
@@ -47,7 +49,7 @@ const taskdata = [
   { startIcon: 'flag', name: 'Priority', details: CurrentTask?.Priority?.name || 'low', endIcon: 'flag', endIconcolor: CurrentTask?.Priority?.color || 'grey' },
   { startIcon: 'briefcase', name: 'Project', details: CurrentTask?.Project?.Projectname || 'pomo', endIcon: 'briefcase', endIconcolor: CurrentTask?.Project?.Color || 'grey' },
   { startIcon: 'bell', name: 'Remainder', details: 'Today', endIcon: 'bell', endIconcolor: 'green' },
-  { startIcon: 'repeat', name: 'Repeat', details: 'None', endIcon: 'repeat', endIconcolor: 'green' ,endIcon: 'chevron-right', endIconcolor:  'black'}
+  { startIcon: 'repeat', name: 'Repeat', details: 'None', endIcon: 'repeat', endIconcolor: 'green' ,endIcon: 'chevron-right', endIconcolor:  Darkmode?Colors.inputColor:'black'}
 ];
 
 
@@ -177,8 +179,8 @@ const handleDeletedtasks=()=>{
 }
 
   return (
-   <SafeAreaView style={[styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
-    <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
+   <SafeAreaView style={[Darkmode?styles.bgdarkmodeBlack:styles.bglgWhite,flex(1), paddingPosition(0, 20, 0, 20)]}>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
      
     <View style={[{height:heightValue(14)}]}>
     <Header
@@ -187,28 +189,29 @@ const handleDeletedtasks=()=>{
           IconNameRight={'dots-three-vertical'}
           onPress={() => setShowoptions(!showOptions)}
           bgcolor={styles.white}
-          color={styles.black}
+          color={Darkmode?styles.white:styles.black}
           goBack={() => {navigation.goBack(),handleAddnotes()}}
           showLeftIocn={true}
           IconNameLeft={'arrowleft'}
           IconfamilyLeft={Icons.AntDesign}
+
         />
     </View>
     {/* render deletemodal */}
     {isDeleteModalVisible && <DeleteTaskModal onClose={() => setDeleteModalVisible(false)} handletoTaskDeleted={()=>handleDeletedtasks()}  Taskname={CurrentTask.Taskname} headername={'Delete Task'} name={'Task'}/>}
-    {isTaskdeletedModalVisible && <TaskDeletedModal onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}} />}
+    {isTaskdeletedModalVisible && <TaskDeletedModal Darkmode={Darkmode} onClose={() =>{navigation.navigate('manage'); setTaskdeletedModalVisible(false)}} />}
     {/* option's */}
     {showOptions ? 
-    <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},paddingPosition(5,15,5,15),radius(10),styles.column,styles.bgWhite]}>
+    <View style={[{ position: 'absolute', top: 40, right: 20, zIndex: 1,width:widthValue(3)},paddingPosition(5,15,5,15),radius(10),styles.column,Darkmode?styles.bgoptionsColor:styles.bgWhite]}>
      {/* <View style={[{width:widthValue(3)},padding(10),radius(10),styles.column,styles.bgWhite]}> */}
        {TempOptions.map((options,index)=>{
         return(
           <TouchableOpacity onPress={()=>{handleOptions(options.name),console.log('bfdj',options)}}>
-            <View key={index} style={[styles.row,options.name==='Delete' || options.name==='Share'?borderColor('white'):borderColor('#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(10,0,10)]}>
+            <View key={index} style={[styles.row,options.name==='Delete' || options.name==='Share'?borderColor(Darkmode?'#2c3039':'white'):borderColor(Darkmode?'#2c3039':'#f2f0f0'),options.name==='Delete'?null:borderWidth(0,0,0,1),paddingPosition(10,0,10)]}>
             <View style={[{width:widthValue(16)},styles.allCenter]}>
-            <Icon name={options.iconname} type={options.iconfamily} style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(20),styles.textAlignVertical]}/>
+            <Icon name={options.iconname} type={options.iconfamily} style={[options.name==='Delete'?styles.Orange:Darkmode?styles.inputColor:styles.black,fontSize(20),styles.textAlignVertical]}/>
             </View>
-            <Text style={[options.name==='Delete'?styles.Orange:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{options.name}</Text>
+            <Text style={[options.name==='Delete'?styles.Orange:Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{options.name}</Text>
            </View>
            </TouchableOpacity>
            )
@@ -219,26 +222,26 @@ const handleDeletedtasks=()=>{
     {/*  */}
     <ScrollView showsVerticalScrollIndicator={false} >
     <TouchableWithoutFeedback onPress={()=>setShowoptions(false)}>
-    <View style={[styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor(CurrentTask?.Project.Color||'orange'),borderWidth(0,0,2),styles.centerHorizontal]}>
+    <View style={[Darkmode?styles.bgtaskCardDblack:styles.bgWhite,{height:heightValue(14)},marginPosition(0,0,15),radius(5),styles.row,borderColor(CurrentTask?.Project.Color||'orange'),borderWidth(0,0,2),styles.centerHorizontal]}>
       <View style={[flex(0.2),marginPosition(0,0,0,10)]}>
           <Icon name={'circle'} type={Icons.Entypo} style={[styles.Orange,fontSize(20),fontWeight('bold')]}/>
       </View>
       <View style={[flex(2)]}>
-          <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>{CurrentTask?.Taskname||'wait'}</Text>
+          <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold')]}>{CurrentTask?.Taskname||'wait'}</Text>
      </View>
      <View style={[flex(0.2)]}>
           <Icon name={'play'} type={Icons.AntDesign} style={[styles.Orange,fontSize(20)]}/>
      </View>
    </View>
 {/* task detail cards */}
-    <View style={[{height:heightValue(2.4),backgroundColor:'#fbfbfb'},styles.column,padding(10),radius(10),styles.allCenter]}>
+    <View style={[{height:heightValue(2.4),backgroundColor:Darkmode?'#20222a':'#fbfbfb'},styles.column,padding(10),radius(10),styles.allCenter]}>
         {taskdata.map((item,index)=>{
             return(
-        <View style={[styles.row,{height:heightValue(16)},styles.centerHorizontal,borderColor('#f2f0f0'),borderWidth(0,0,0,1)]}>
-        <Icon name={item.startIcon} type={item.startIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10)]}/>
-        <Text style={[styles.black,fontSize(20),fontWeight('bold')]}>{item.name}</Text>
+        <View style={[styles.row,{height:heightValue(16)},styles.centerHorizontal,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1)]}>
+        <Icon name={item.startIcon} type={item.startIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(20),marginPosition(0,10)]}/>
+        <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold')]}>{item.name}</Text>
         <View style={[flex(1),styles.flexEnd,marginPosition(0,10)]}>
-        <Text style={[styles.black,fontWeight('bold')]}>{item.details}</Text>
+        <Text style={[Darkmode?styles.inputColor:styles.black,fontWeight('bold')]}>{item.details}</Text>
         </View>
         <Icon name={item.endIcon} type={item.endIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[{color:item.endIconcolor},fontSize(20)]}/>
 
@@ -254,28 +257,29 @@ const handleDeletedtasks=()=>{
       onChangeText={(val)=>setSubtask(val)}
       IconFamily ={Icons.Feather}
       Iconname={'plus'}
-      bgColor={styles.bgWhite}
+      bgColor={Darkmode?styles.bgtaskCardDblack:styles.bgWhite}
+      showGray={true}
     />
     </View>
     {/* //Tags */}
     {/* //Tags */}
 {/* //Tags */}
 <View style={[marginPosition(10)]}>
-    <Text style={[styles.black,fontWeight('800')]}>Tags</Text>
+    <Text style={[Darkmode?styles.inputColor:styles.black,fontWeight('800')]}>Tags</Text>
     <View style={[flex(1),styles.rowWrap,marginPosition(10)]}>
         {CurrentTask?.Tags.map((task,index)=>{
             return(
               <TouchableOpacity onPress={()=>handleRemoveTag(task.name)}>
                 <View style={[padding(6),styles.row,styles.allCenter,borderColor(task.color),borderWidth(1),radius(20),marginPosition(0,10,10)]}>
                     <Text style={[{color:task.color},styles.textAlignVertical]}>{`#${task.name}`}</Text>
-                    <Icon name={'x'} type={Icons.Feather} style={[styles.black,fontSize(20),marginPosition(0,10,0,5),styles.textAlignVertical]}/>
+                    <Icon name={'x'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(20),marginPosition(0,10,0,5),styles.textAlignVertical]}/>
                 </View> 
                 </TouchableOpacity>
             )
         }) || null}
         <TouchableOpacity onPress={()=>navigation.navigate('addtags',{TagName:'',NavigationFrom:'task',idValue:id})}>
-        <View style={[styles.allCenter,borderColor(Colors.borderGray),borderWidth(1),{height:35,width:45},radius(15)]}>
-            <Icon name={'plus'} type={Icons.Feather} style={[styles.gray,fontSize(18)]}/>
+        <View style={[styles.allCenter,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(1),{height:35,width:45},radius(15)]}>
+            <Icon name={'plus'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.gray,fontSize(18)]}/>
         </View>
         </TouchableOpacity>
     </View>
@@ -284,24 +288,24 @@ const handleDeletedtasks=()=>{
 
     {/* add note */}
     <View style={[marginPosition(15)]}>
-         <Text style={[styles.black,fontWeight('800')]}>Add a Note</Text>
-         <View style={[styles.bgWhite,{height:heightValue(10)},paddingPosition(0,10,0,10),radius(6),marginPosition(10)]}>
-             <TextInput value={notes} placeholder={'Add a note..'} style={[styles.black,fontSize(20),{ textAlignVertical: 'top' }]} placeholderTextColor={'black'} multiline={true} numberOfLines={3} onChangeText={(val)=>setAddNote(val)}/>
+         <Text style={[Darkmode?styles.inputColor:styles.black,fontWeight('800')]}>Add a Note</Text>
+         <View style={[Darkmode?styles.bgtaskCardDblack:styles.bgWhite,{height:heightValue(10)},paddingPosition(0,10,0,10),radius(6),marginPosition(10)]}>
+             <TextInput value={notes} placeholder={'Add a note..'} style={[Darkmode?styles.inputColor:styles.black,fontSize(20),{ textAlignVertical: 'top' }]} placeholderTextColor={Darkmode?Colors.smokeGray:'black'} multiline={true} numberOfLines={3} onChangeText={(val)=>setAddNote(val)}/>
          </View>
     </View>
     {/* for uploading Attachment */}
     {isDeleteFolder && <DeleteTaskModal onClose={() => setisDeleteFolder(false)} handletoTaskDeleted={()=>handleDelete()}  Taskname={attachedFileUri} headername={'Delete file'} name={'file'}/>}
 
     <View style={[marginPosition(15,0,15)]}>
-         <Text style={[styles.black,fontWeight('800')]}>Add attachement</Text>
+         <Text style={[Darkmode?styles.inputColor:styles.black,fontWeight('800')]}>Add attachement</Text>
          {attachedFileUri!='' ? (
-          <View style={[styles.row,marginPosition(10),styles.bgWhite,radius(5),padding(15),styles.allCenter]}>
+          <View style={[styles.row,marginPosition(10),Darkmode?styles.bgtaskCardDblack:styles.bgWhite,radius(5),padding(15),styles.allCenter]}>
             <View>
               <Icon name={'file-text'} type={Icons.FontAwesome} style={[styles.Orange,fontSize(25)]}/>
             </View>
             <TouchableOpacity onPress={()=>console.log('pppp')}>
             <View style={[{width:widthValue(1.5)},paddingPosition(0,10,0,10)]}>
-             <Text style={[styles.black,fontSize(18)]}>Desig-{attachedFileUri}</Text>
+             <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18)]}>Desig-{attachedFileUri}</Text>
              </View>
              </TouchableOpacity>
              <TouchableOpacity onPress={()=>{setisDeleteFolder(true)}} style={[{width:widthValue(10)}]}>
@@ -313,9 +317,9 @@ const handleDeletedtasks=()=>{
           // <Text style={styles.black}>Attached File: {attachedFileUri}</Text>   
          ):
          <TouchableOpacity onPress={handlePickFile}>
-         <View style={[styles.bgWhite,{height:heightValue(10)},padding(10),radius(6),styles.allCenter,styles.column,marginPosition(10)]}>
-            <Icon name={'addfile'} type={Icons.AntDesign} style={[styles.gray,fontSize(20)]}/>
-            <Text style={[styles.gray,fontSize(18)]}>Upload</Text>
+         <View style={[Darkmode?styles.bgtaskCardDblack:styles.bgWhite,{height:heightValue(10)},padding(10),radius(6),styles.allCenter,styles.column,marginPosition(10)]}>
+            <Icon name={'addfile'} type={Icons.AntDesign} style={[Darkmode?styles.inputColor:styles.gray,fontSize(20)]}/>
+            <Text style={[Darkmode?styles.smokeGray:styles.gray,fontSize(16),marginPosition(5)]}>Upload</Text>
          </View>
          </TouchableOpacity>}
     </View>

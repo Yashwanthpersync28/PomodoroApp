@@ -164,7 +164,7 @@ const getProjectDetails=(name,color)=>{
     <View style={[flex(0.5),{width:widthValue(1)},Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
       {/* //addText  */}
       <View style={[flex(1),paddingPosition(0,20,0,20),styles.selfStart]}>
-           <TextInput multiline={true}  value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[styles.black,fontSize(22)]} 
+           <TextInput multiline={true}  value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[Darkmode?styles.white:styles.black,fontSize(22)]} 
                   placeholderTextColor={Darkmode?Colors.DarkmodeText:Colors.iconGray}  />
       </View>
       {/*  */}

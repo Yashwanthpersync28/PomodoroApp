@@ -26,6 +26,8 @@ export const Tasklist = ({navigation,route}) => {
     const [userInput,setUserInput]=useState('')
     const [modalVisible,setModalVisible]=useState(false)
      console.log('data',data);
+//selectors
+const Darkmode=useSelector((state)=>state.system.darkMode);
 
      useEffect(()=>{
       if(userInput.trim()===''){
@@ -38,23 +40,24 @@ export const Tasklist = ({navigation,route}) => {
     },[data,userInput])
 
   return (
-   <SafeAreaView style={[flex(1),padding(0,0,20,0,20),styles.bglgWhite]}>
-    <StatusBar backgroundColor = {Colors.lgWhite} barStyle = "dark-content"/>
+   <SafeAreaView style={[flex(1),padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bglgWhite]}>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
     <View style={[{height:heightValue(16)}]}>
-        {showSearchHeader?<HeaderSearch handleX={()=>setUserInput('')} handleBacktoHeader={()=>{setSearchHeader(false),setUserInput('')}} onChangeText={(val)=>setUserInput(val)} value={userInput}/>:
+        {showSearchHeader?<HeaderSearch darkMode={Darkmode} handleX={()=>setUserInput('')} handleBacktoHeader={()=>{setSearchHeader(false),setUserInput('')}} onChangeText={(val)=>setUserInput(val)} value={userInput}/>:
         <Header
          headername={name}
          IconfamilyRight={Icons.Entypo}
          IconNameRight={'dots-three-vertical'}
          onPress={() => console.log('hbn')}
          bgcolor={styles.white}
-         color={styles.black}
+         color={Darkmode?styles.white:styles.black}
          goBack={() => navigation.goBack()}
          showLeftIocn={true}
          IconNameLeft={'arrowleft'}
          IconfamilyLeft={Icons.AntDesign}
         showSearch={true}
         handleSearch={()=>setSearchHeader(true)}
+        
         />}
         
      </View>
@@ -62,19 +65,19 @@ export const Tasklist = ({navigation,route}) => {
      <ScrollView showsVerticalScrollIndicator={false}>
      <View style={[{height:heightValue(4.3)},marginPosition(0,0,10)]}>
           <View style={[styles.rowWrap,styles.spaceBetween,styles.centerHorizontal]}>
-            <MiniCards number={getFocusTime} name={'Total Pomodoro Hours'}/>
-            <MiniCards number={'02:05'} name={'Elapsed time'}/>
-            <MiniCards number={data.length} name={'Task Waiting'}/>
-            <MiniCards number={completedData.length} name={'Task completed'}/>
+            <MiniCards number={getFocusTime} name={'Total Pomodoro Hours'} darkMode={Darkmode}/>
+            <MiniCards number={'02:05'} name={'Elapsed time'} darkMode={Darkmode}/>
+            <MiniCards number={data.length} name={'Task Waiting'} darkMode={Darkmode}/>
+            <MiniCards number={completedData.length} name={'Task completed'} darkMode={Darkmode}/>
           </View>
      </View>
      {/* addtask */}
      <View style={[{height:heightValue(14)}]}>
        <TouchableWithoutFeedback onPress={()=>setModalVisible(true)}>
-      <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),borderColor(Colors.borderGray),borderWidth(1),styles.bgWhite,{height:heightValue(14)}]}>
-            <Icon name={'plus'} type={Icons.Feather} style={[fontSize(20),styles.black]}/>
+      <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),borderColor(Darkmode?Colors.taskCardDblack:Colors.borderGray),borderWidth(1),Darkmode?styles.bgtaskCardDblack:styles.bgWhite,{height:heightValue(14)}]}>
+            <Icon name={'plus'} type={Icons.Feather} style={[fontSize(20),Darkmode?styles.DarkmodeText:styles.black]}/>
             <View style={[styles.row, flex(1.5), styles.centerHorizontal ]}>
-              <Text style={[styles.black,marginPosition(0,0,0,8)]}>Add Task</Text>
+              <Text style={[Darkmode?styles.DarkmodeText:styles.black,marginPosition(0,0,0,8)]}>Add Task</Text>
             </View>     
      </View>
      </TouchableWithoutFeedback>
