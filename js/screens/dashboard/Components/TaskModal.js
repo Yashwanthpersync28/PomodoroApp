@@ -113,21 +113,21 @@ console.log('id', taskDetails.map(data=>data.id))
                             <Icon name={"plus"} type={Icons.Feather} style={[styles.tomotoRed]} />
                         </TouchableOpacity>
                     </View>
-                    <View style={[borderWidth(0, 1, 0, 1, 0),darkMode?styles.borderLightblack: styles.borderLightWhite,]}>
+                    <View style={[borderWidth(0, 1, 0, 1, 0),darkMode?styles.borderDarkmode: styles.borderLightWhite,]}>
 
                         <View style={[styles.row, styles.centerHorizontal, padding(0, 2, 15), radius(8), { backgroundColor:darkMode?'#20222a': '#fafafa' }, marginPosition(20)]}>
                             <Icon name={"search"} type={Icons.EvilIcons} style={[styles.lightGray, fontSize(35), marginPosition(0, 10)]} />  
                             <TextInput
                              placeholder='Search task' 
-                             placeholderTextColor={'#cecece'} 
-                             style={[fontSize(20)]} 
+                             placeholderTextColor={darkMode?styles.lightishGray:styles.lightWhite} 
+                             style={[fontSize(20),darkMode?styles.lightWhite:styles.black]} 
                              value={searchText}
                              onChangeText={handleSearch}
                              />
                         </View>
                         <View style={[styles.row, styles.centerHorizontal, margin(0, 20)]}>
                             <Text style={[marginPosition(0, 10), styles.gray, { fontWeight: '500' }]}>Today Tasks</Text>
-                            <View style={[borderWidth(0, 1),darkMode?styles.borderLightblack: styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
+                            <View style={[borderWidth(0, 1),darkMode?styles.borderDarkmode: styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
                         </View>
                         
                         <View>
@@ -143,7 +143,7 @@ console.log('id', taskDetails.map(data=>data.id))
                     <View>
                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
                        projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details} setTaskColor={setTaskColor}
-                        Sessions={details.Sessions}  projectColor={details.Project.Color}  id={details.id} isTimerActive={isTimerActive} currentModal={currentModal}/> 
+                        Sessions={details.Sessions}  projectColor={details.Project.Color} prioritycolor={details.Priority.color}  id={details.id} isTimerActive={isTimerActive} currentModal={currentModal}/> 
                         </View>
                         ))} 
                         </View> }

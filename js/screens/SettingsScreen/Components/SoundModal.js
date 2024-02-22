@@ -21,8 +21,10 @@ import {
 import { TimerButton } from '../../dashboard/Components/TimerButton';
 import Icon,{ Icons } from '../../../components/Icons';
 import { Title } from 'react-native-paper';
+import { useSelector } from 'react-redux';
   
   export const SoundModal = ({closeModal,currentModal,handleCompletionSound,updateNoise,selectedSong,stopSound,CompletionSounds,title,data,isVisible,onPress,onPress2,onPress3}) => {
+    const darkMode = useSelector(state=>state.system.darkMode)
 
      const renderTunes=({item})=>{
       const isSelected = selectedSong === item.MusicName
@@ -36,7 +38,7 @@ import { Title } from 'react-native-paper';
                     styles.spaceBetweenVertical,
                     paddingPosition(15, 0, 20, 0),
                   ]}>
-                  <Text style={[styles.black, fontSize(18), { fontWeight: '500' }]}>
+                  <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(18), { fontWeight: '500' }]}>
                     {item.MusicName}
                   </Text>
                 </View>
@@ -64,7 +66,7 @@ import { Title } from 'react-native-paper';
           style={[{ margin: 0, width: widthValue(1),height: heightValue(2), }]}>
           <View
             style={[
-              styles.bgWhite,
+              darkMode?styles.bgdarkmodeBlack:styles.bgWhite,
               {
                 position: 'absolute',
                 bottom: 0,  
@@ -80,7 +82,7 @@ import { Title } from 'react-native-paper';
         </View>
             <Text
               style={[
-                styles.black,
+                darkMode?styles.lightWhite:styles.black,
                 styles.textCenter,
                 { fontWeight: '500' },
                 fontSize(22),
@@ -89,7 +91,7 @@ import { Title } from 'react-native-paper';
               {title}
             </Text>
             
-<View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,]}>
+<View style={[borderWidth(0, 1, 0, 1, 0),darkMode?styles.borderDarkmode:styles.borderLightWhite,]}>
 <FlatList data={data} renderItem={({item})=>renderTunes({item})} keyExtractor={item=>item.id} onPress={(item) => onPress(item)}/>
 </View>
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>

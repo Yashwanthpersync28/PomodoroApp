@@ -15,6 +15,7 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
 
  export const LongBreakSession = ({currentModal}) => {
 
+  const darkMode = useSelector(state=>state.system.darkMode)
     
     const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
               <TouchableOpacity onPress={()=>{handleLongBreak(item)}}> 
           <View style={[padding(0, 15, 5),styles.spaceBetweenVertical,styles.row]}>
             <View>
-            <Text style={[styles.black, fontSize(18), { fontWeight: '400' }, marginPosition(5)]}>{item.longBreak}</Text>
+            <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(18), { fontWeight: '400' }, marginPosition(5)]}>{item.longBreak}</Text>
             </View>
             <View>
               {isSelected && 
@@ -62,13 +63,13 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
       onBackdropPress={closeModal}
       style={[{width:widthValue(1),margin:0,height:heightValue(3)}]}
       >
-        <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),radius(0,15,0,0,15)]}>
+        <View style={[{width:widthValue(1),position:'absolute',bottom:0},darkMode?styles.bgdarkmodeBlack:styles.bgWhite,padding(20),radius(0,15,0,0,15)]}>
         <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
-        <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
+        <View style={[{ width: 35,height:4  },darkMode?styles.bgtaskCardDblack:styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
         <Text
             style={[
-              styles.black,
+              darkMode?styles.lightWhite:styles.black,
               styles.textCenter,
               { fontWeight: '500' },
               fontSize(22),
@@ -76,7 +77,7 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
             ]}>
             Long Break After
           </Text>
-          <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
+          <View style={[borderWidth(0,1,0,1,0),darkMode?styles.borderDarkmode:styles.borderLightWhite]}>
 
             <FlatList
   data={modalData.longBreakAfter}

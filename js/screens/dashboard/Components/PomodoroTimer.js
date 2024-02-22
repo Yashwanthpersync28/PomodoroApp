@@ -8,8 +8,9 @@ import { setFocusTime } from '../../../redux/userReducer/focustimeReducer';
 import { setLocalSession } from '../../../redux/userReducer/localSessionReducer';
 import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
 import { modalData } from '../../../constants/ModalsData';
+import { replaceStatus } from '../../../redux/userReducer/UserTaskDetails';
 
-export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,}) => {
+export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,setTimeSpend,handleTimeSpendChange}) => {
 
   const dispatch = useDispatch();
   const darkMode = useSelector(state=>state.system.darkMode)
@@ -56,17 +57,21 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
 
   useEffect(() => {
     let intervalId;
-  
     const updateTimer = () => {
       if (isTimerActive) {
         setDisplayTime((prevTime) => {
           const newTime = prevTime - 1;
           console.log('completedTime', FocusTime - newTime)
-          setTotalFocusTime(FocusTime - newTime);
-          console.log('totalfocusTime',totalfocusTime)
+
+          // const   timefocused = FocusTime - newTime;
+          // console.log('completedTimeabcd',timefocused = FocusTime - newTime)
+          // console.log(timefocused,'ahdhdfhfihbfebreirbbgfrgfrfeghgjhdgsjshsjhjk')
+          // setTimeSpend()
+          // handleTimeSpendChange('prevTime')
+        
+          // console.log('totalfocusTime',totalfocusTime)
     
          let  newTotalSessionTime =  (currentTimer === 0 && !disableBreak) ? currentBreakTime:FocusTime
-         
     
           if (newTime <= 0) {
             setIsTimerActive(false);
@@ -202,7 +207,7 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
     }
   
     return () => clearInterval(intervalId);
-  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession,longBreakSession,longBreakTime,currentBreakTime,setTotalSessionTime,setCurrentBreakTime]);
+  }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession,longBreakSession,longBreakTime,currentBreakTime,setTotalSessionTime,setCurrentBreakTime,setTimeSpend]);
 
 const addsession= ()=>{
   setLocalSession(localSession +1)
@@ -239,16 +244,16 @@ const addsession= ()=>{
         {currentButton === 0 &&
           <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2) }}  paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
-          <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]}/>}
+          <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]}/>}
         {currentButton === 2 &&
           <View style={[styles.row, styles.spaceEvenly, { width: widthValue(1) }]}>
-          <TimerButton onPress={handleStop} buttonText={'Stop'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]} />
+          <TimerButton onPress={handleStop} buttonText={'Stop'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?styles.bgbuttondarkcolor:styles.bglightPink]} textColor={[darkMode?styles.lightWhite:styles.Orange]} />
           <TimerButton onPress={handleContinue} buttonText={'Continue'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]} />
                         </View>}
         {currentButton === 3 &&
           <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 4 &&
-          <TimerButton onPress={()=>{handleSkipBreak()}} buttonText={'Skip Break'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
+          <TimerButton onPress={()=>{handleSkipBreak()}} buttonText={'Skip Break'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
       </View>
     </View>
   );

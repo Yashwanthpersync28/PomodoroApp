@@ -212,6 +212,7 @@ export const styles = StyleSheet.create({
     bgtaskCardDblack:{backgroundColor:Colors.taskCardDblack},
     bgDarkmodebutton:{backgroundColor:Colors.Darkmodebutton},
     bgmodalColor:{backgroundColor:Colors.modalColor},
+    bgbuttondarkcolor:{backgroundColor:Colors.buttondarkcolor},
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderOrange: { borderColor: Colors.Orange },
@@ -224,6 +225,7 @@ export const styles = StyleSheet.create({
     borderLightblack:{borderColor:Colors.taskCardDblack},
     borderDarkmode:{borderColor:Colors.darkmodeBorderColor},
     borderWhitemode:{borderColor:Colors.borderGray},
+    borderbuttondarkcolor:{borderColor:Colors.buttondarkcolor},
 // - - - - - FLEX PROPERTIES - - - - - // 
     // - - -  Flex Align - - -  // 
     allCenter: { justifyContent: 'center', alignItems: 'center' },

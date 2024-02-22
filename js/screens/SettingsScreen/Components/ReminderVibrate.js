@@ -14,15 +14,17 @@ import {styles,
 import { TimerButton } from '../../dashboard/Components/TimerButton'
 import Icon, { Icons } from '../../../components/Icons'
 import { modalData } from '../../../constants/ModalsData'
+import { useSelector } from 'react-redux'
 
 const ReminderVibrate = ({closeModal,currentModal,VibrationChange,handleVibration,selectedVibrationMode}) => {
+  const darkMode = useSelector(state=>state.system.darkMode)
 
 
     const renderOptions = ({item})=>{
         const isSelected = selectedVibrationMode === item.name
       return(
         <TouchableOpacity onPress={()=>handleVibration(item)}>
-        <View style={[borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
+        <View style={[borderWidth(0, 1, 0, 1, 0),darkMode?styles.borderDarkmode:styles.borderLightWhite,styles.row,styles.spaceBetweenVertical,styles.centerHorizontal]}>
               <View>
                 <View
                   style={[
@@ -30,7 +32,7 @@ const ReminderVibrate = ({closeModal,currentModal,VibrationChange,handleVibratio
                     styles.spaceBetweenVertical,
                     paddingPosition(15, 0, 20, 0),
                   ]}>
-                  <Text style={[styles.black, fontSize(20), { fontWeight: '500' }]}>
+                  <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(20), { fontWeight: '500' }]}>
                     {item.name}
                   </Text>
                 </View>
@@ -60,7 +62,7 @@ const ReminderVibrate = ({closeModal,currentModal,VibrationChange,handleVibratio
       >
         <View
             style={[
-              styles.bgWhite,
+              darkMode?styles.bgdarkmodeBlack:styles.bgWhite,
               {
                 position: 'absolute',
                 bottom: 0,
@@ -76,7 +78,7 @@ const ReminderVibrate = ({closeModal,currentModal,VibrationChange,handleVibratio
         </View>
             <Text
               style={[
-                styles.black,
+                darkMode?styles.lightWhite:styles.black,
                 styles.textCenter,
                 { fontWeight: '500' },
                 fontSize(24),

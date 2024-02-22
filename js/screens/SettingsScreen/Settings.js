@@ -1,4 +1,4 @@
-import { View, Text, ScrollView,TouchableOpacity, Button } from 'react-native'
+import { View, Text, ScrollView,TouchableOpacity, Button, SafeAreaView, StatusBar } from 'react-native'
 import React from 'react'
 import { flex ,fontSize,marginPosition,padding,paddingPosition,styles,widthValue,margin, heightValue} from '../../styles/Styles'
 import {PomodoroPreference} from './PomodoroPreference'
@@ -31,6 +31,20 @@ export const Settings = () => {
   }
 const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 
+  // const uncompleteTime = () => {
+  //   if (data.id) {
+  //     const updatedTask = {
+  //       id: data.id,
+  //       ...data,
+  //       focusTime:focusedTimeSpend,
+  //     };
+  //     dispatch(replaceStatus(updatedTask));
+  //     setdata((prevData) => ({
+  //       ...prevData,
+  //       completed: false,
+  //     }));
+  //   }
+  // };
   return(
   <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,20,10)]} onPress={onPress} >
     <View style={[styles.row]}>
@@ -45,7 +59,8 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 }
 
   return (
-    <View style={[flex(1),darkMode?styles.bgdarkmodeBlack:styles.bgWhite,paddingPosition(10,20,0,10),{width:widthValue(1)}]}>
+    <SafeAreaView style={[flex(1),darkMode?styles.bgdarkmodeBlack:styles.bgWhite,paddingPosition(10,20,0,10),{width:widthValue(1)}]}>
+      <StatusBar color={darkMode?styles.bgdarkmodeBlack:styles.bgWhite} />
     <View style={[{height:heightValue(15)}]}> 
       <Header color={darkMode?styles.white:styles.black} headername={'Settings'} />
       </View> 
@@ -57,14 +72,10 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
       <SettingComponent  PreferanceName={'Account & Security'} leftIconType={Icons.MaterialIcons} IconLeft={'security'} onPress={()=>navigation.navigate('AccountSecurity')}/>
       <SettingComponent  PreferanceName={'App Apearance'} leftIconType={Icons.FontAwesome} IconLeft={'eye'} onPress={()=>navigation.navigate('AppApearance')}/>
       <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.FontAwesome5} IconLeft={'hand-holding-heart'} onPress={()=>navigation.navigate('HelpandSupport')}/>
-      {/* <SettingComponent  PreferanceName={'FAQ'} leftIconType={Icons.AntDesign} IconLeft={'filetext1'}/> */}
-      {/* <SettingComponent  PreferanceName={'Contact Support'} leftIconType={Icons.Feather} IconLeft={'at-sign'}/>
-      <SettingComponent  PreferanceName={'Privacy Policy'} leftIconType={Icons.MaterialIcons} IconLeft={'lock-person'}/>
-      <SettingComponent  PreferanceName={'Terms of Services'} leftIconType={Icons.FontAwesome5} IconLeft={'file-signature'}/> */}
       <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'} onPress={()=>dispatch(setCurrentModal(13))}/>
       {currentModal === 13 && <Logout  VisibleAt={currentModal === 13} OnPress1={closeModal} OnPress2={logOut} HeaderName={'LogOut'} option1={'Cancel'} option2={'Yes, Logout'} question={'Are you sure you want to log out?'}/>} 
             </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

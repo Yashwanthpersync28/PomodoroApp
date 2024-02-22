@@ -2,7 +2,7 @@ import { View, Text ,SafeAreaView,StatusBar, Image, TouchableWithoutFeedback,Ale
 import React,{useState} from 'react'
 import { styles,flex, padding, heightValue, widthValue,fontSize, borderWidth,radius, margin, marginPosition, fontWeight, shadow, paddingPosition } from '../../../styles/Styles'
 import Modal from 'react-native-modal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TimerButton } from '../../dashboard/Components/TimerButton'
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 
@@ -10,6 +10,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 
  export const Logout = ({OnPress1,OnPress2,HeaderName,question,option1,option2,VisibleAt}) => {
 
+  const darkMode = useSelector(state=>state.system.darkMode)
 
     const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
     onBackdropPress={closeModal}
     style={[{width:widthValue(1),height:heightValue(3),margin:0},styles.centerHorizontal,radius(10)]}>
         
-        <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),styles.positionAbsolute,{bottom:0},radius(0,15,0,0,15)]}>
+        <View style={[{width:widthValue(1),position:'absolute',bottom:0},darkMode?styles.bgdarkmodeBlack:styles.bgWhite,padding(20),styles.positionAbsolute,{bottom:0},radius(0,15,0,0,15)]}>
         <Text
             style={[
               styles.Orange,
@@ -39,8 +40,8 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
             ]}>
             {HeaderName}
           </Text>
-          <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
-<Text style={[styles.black,fontSize(20),styles.textCenter,padding(0,20,0),{fontWeight:'400'}]}>{question}</Text>
+          <View style={[borderWidth(0,1,0,1,0),darkMode?styles.borderDarkmode:styles.borderLightWhite]}>
+<Text style={[darkMode?styles.lightWhite:styles.black,fontSize(20),styles.textCenter,padding(0,20,0),{fontWeight:'400'}]}>{question}</Text>
 </View>
 
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>

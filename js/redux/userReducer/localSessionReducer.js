@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const localSession = createSlice({
     name:'localSession',
     initialState:{
-        localSession: 1,
+        localSession: 0,
 
     },
     reducers:{

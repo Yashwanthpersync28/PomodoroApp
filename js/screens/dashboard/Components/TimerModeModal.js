@@ -65,7 +65,6 @@ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTim
         <View style={[styles.centerHorizontal,marginPosition(-5,0,12,0)]}>
         <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
-
         <Text
             style={[
               darkMode?styles.lightWhite:styles.black,
@@ -76,7 +75,7 @@ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTim
             ]}>
             Timer Mode
           </Text>
-          <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
+          <View style={[borderWidth(0,1,0,1,0),darkMode?styles.borderDarkmode:styles.borderLightWhite]}>
 
             <FlatList
   data={timerModeArray}

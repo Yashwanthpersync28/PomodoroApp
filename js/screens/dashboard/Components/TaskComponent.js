@@ -27,8 +27,8 @@ import { useSelector } from 'react-redux';
   console.log('darkModetaskcomponenhh',darkMode)
 
   return (
-    <View style={[darkMode?styles.bgLeafGreen:styles.bgWhite, radius(8),shadow(1), marginPosition(30,20,0,20),styles.row,styles.centerHorizontal]}>
-    <View style={[{ width: 5,height:52.5,backgroundColor: taskColor },radius(0,0,0,8,8)]}></View>
+    <View style={[darkMode?styles.bgtaskCardDblack:styles.bgWhite, radius(8),shadow(1), marginPosition(30,20,0,20),styles.row,styles.centerHorizontal]}>
+    <View style={[{ width: 5,height:52.5,backgroundColor:taskColor },radius(0,0,0,8,8)]}></View>
           <TouchableWithoutFeedback
             onPress={handleTasks}>
             <View

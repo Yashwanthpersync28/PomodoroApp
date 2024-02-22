@@ -15,7 +15,7 @@ const BottomTabNavigation = () => {
     const darkmode = useSelector(state=>state.system.darkMode)
   return (
     <Tab.Navigator 
-    initialRouteName='Settings'
+    initialRouteName='PomodoroScreen'
     screenOptions=
        {
         {

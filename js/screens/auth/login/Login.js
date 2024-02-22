@@ -15,6 +15,7 @@ import { setRememberMe } from "../../../redux/rememberReducer/RemembermeReducer"
 import { handlePasswordvalidation } from "../../../constants/PasswordValidaton";
 import { addUserData } from "../../../redux/userReducer/UserInformationReducer";
 import { Colors } from "../../../styles/Colors";
+import { profile } from "../../../constants/imageConstant";
 
 
 export const LoginScreen = ({navigation}) => {
@@ -64,16 +65,17 @@ export const LoginScreen = ({navigation}) => {
      if(user){
       dispatch(setDashboard(true))
       navigation.navigate('BottomTabNavigation')
-        const userInfo = {
-          ...userInfo,
+        const userData = {
+          ...userData,
         email:Email,
         password:Password,
+        profilePic:profile,
         fullname:Email,
         username:Email,
         gender:'',
         phoneNumber:'',
         }
-        dispatch(addUserData(userInfo))
+        dispatch(addUserData(userData))
       
       if (remember) {
         // Dispatch the setRememberMe action with email, password, and rememberMe values

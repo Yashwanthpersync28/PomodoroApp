@@ -9,7 +9,7 @@ import { focustime } from './TimerReducer/Index';
 import { focusTimeReducer } from './userReducer/focustimeReducer';
 
 
-export const reducer = combineReducers({
+export const appReducer = combineReducers({
     auth: authReducer,
     system: systemReducer,
     user: userReducer,
@@ -18,9 +18,10 @@ export const reducer = combineReducers({
     RememberMe:Rememberme,
 })
 
-export const resetReducer = (state,action)=>{
+export const reducer = (state,action)=>{
     if (action.type === 'RESET_STATE') {
-        return reducer(undefined, action)
+      console.log('redux state is cleared')
+        return appReducer(undefined, action)
       }
-      return reducer(state, action)
+      return appReducer(state, action)
     }

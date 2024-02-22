@@ -79,7 +79,7 @@ import { useSelector } from 'react-redux';
               styles.spaceBetweenVertical,
             ]}>
               <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
-        <View style={[{ width: 35,height:4  },darkMode?styles.borderLightblack:styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
+        <View style={[{ width: 35,height:4  },darkMode?styles.borderDarkmode:styles.borderLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
             <Text
               style={[
@@ -91,7 +91,7 @@ import { useSelector } from 'react-redux';
               ]}>
               White Noise 
             </Text>
-            <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
+            <View style={[borderWidth(0,1,0,1,0),darkMode?styles.borderDarkmode:styles.borderLightWhite]}>
 <FlatList data={modalData.whiteNoiseMode} renderItem={renderTunes} keyExtractor={item=>item.id}/></View>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>

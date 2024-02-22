@@ -15,7 +15,8 @@ import { modalData } from '../../../constants/ModalsData'
 
  export const DarkModeMOdal = ({currentModal,selectedThing,handleDarkMode,closeModal,visibleAt,handleFuntion,data,onPress}) => {
 
-    
+  const darkMode = useSelector(state=>state.system.darkMode)
+
     const renderItems =({item})=>{
         const isSelected = selectedThing === item.mode
         console.log('isSelected',isSelected)
@@ -25,7 +26,7 @@ import { modalData } from '../../../constants/ModalsData'
           <View style={[padding(0, 15, 5),styles.spaceBetweenVertical,styles.row]}>
             <View style={[styles.row,styles.centerHorizontal]}>
                <Icon name={isSelected ? "radio-btn-active" :"radio-btn-passive"} type={Icons.Fontisto} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 10)]} />
-            <Text style={[styles.black, fontSize(20), { fontWeight: '400' },]}>{item.mode}</Text>
+            <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(20), { fontWeight: '400' },]}>{item.mode}</Text>
             </View>
             <View>
               </View>
@@ -46,13 +47,13 @@ import { modalData } from '../../../constants/ModalsData'
     onBackdropPress={closeModal}
     style={[{width:widthValue(1),height:heightValue(3),margin:0},styles.centerHorizontal,radius(10)]}>
         
-        <View style={[{width:widthValue(1),position:'absolute',bottom:0},styles.bgWhite,padding(20),styles.positionAbsolute,{bottom:0},radius(0,15,0,0,15)]}>
+        <View style={[{width:widthValue(1),position:'absolute',bottom:0},darkMode?styles.bgdarkmodeBlack:styles.bgWhite,padding(20),styles.positionAbsolute,{bottom:0},radius(0,15,0,0,15)]}>
         <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
         <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
         </View>
         <Text
             style={[
-              styles.black,
+              darkMode?styles.lightWhite:styles.black,
               styles.textCenter,
               { fontWeight: '500' },
               fontSize(24),
@@ -60,7 +61,7 @@ import { modalData } from '../../../constants/ModalsData'
             ]}>
             Select Your Gender
           </Text>
-          <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
+          <View style={[borderWidth(0,1,0,1,0),darkMode?styles.borderDarkmode:styles.borderLightWhite]}>
 
             <FlatList
   data={data}

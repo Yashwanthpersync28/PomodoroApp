@@ -13,6 +13,7 @@ import { searchFilter } from '../../../helpers/searchHelper'
 
 export const FAQ = () => {
 
+  const darkMode = useSelector(state=>state.system.darkMode)
   // const darkmode = useSelector(state=>state.system.darkMode)
   // console.log('darkmode',darkmode)
   const [currentBtn,setCurrentBtn] = useState(0)
@@ -74,7 +75,7 @@ const handleSearch = (text) => {
     <TouchableOpacity
       activeOpacity={0.8}
       style={[
-         styles.bgWhite,
+        darkMode?styles.bgtaskCardDblack: styles.bgWhite,
         paddingPosition(15,20, 0, 20),
         { width: widthValue(1.1) },
         marginPosition(15, 0, 0, 0),
@@ -83,23 +84,23 @@ const handleSearch = (text) => {
       onPress={()=>handleToggle(item.id)}>
       <View style={[styles.row, styles.spaceBetweenVertical, styles.centerHorizontal, borderWidth(0,0,0,1,0),
          paddingPosition(10,0,20,0),
-        styles.borderLightWhite,]}>
-        <Text style={[ styles.black, fontSize(18), {fontWeight:'500', width: widthValue(1.3) }]}>
+        darkMode?styles.borderDarkmode:styles.borderLightWhite,]}>
+        <Text style={[darkMode?styles.lightWhite: styles.black, fontSize(18), {fontWeight:'500', width: widthValue(1.3) }]}>
           {item.title}
         </Text>
-        <Icon name={'chevron-down'} type={Icons.Feather} style={[fontSize(18), styles.black]} />
+        <Icon name={'chevron-down'} type={Icons.Feather} style={[fontSize(18),darkMode?styles.lightWhite: styles.black]} />
       </View>
     </TouchableOpacity>
     {showAnswer  === item.id &&
       <View
         style={[
-           styles.bgWhite,
+           darkMode?styles.bgtaskCardDblack:styles.bgWhite,
           padding(0, 20, 20),
           { width: widthValue(1.1) },
           marginPosition(0, 0, 10, 0),
           radius(0, 0, 8, 8, 0),
         ]}>
-        <Text style={[ styles.gray,fontSize(17),lineHeight(22),]}>{item.detail}</Text>
+        <Text style={[ darkMode?styles.lightWhite:styles.gray,fontSize(17),lineHeight(22),]}>{item.detail}</Text>
       </View>
   }
   </View>
@@ -107,9 +108,9 @@ const handleSearch = (text) => {
   }
   // end render Item component for flatlist
   return (
-    <View style={[flex(1)]}>
+    <View style={[flex(1),darkMode?styles.bgdarkmodeBlack:'']}>
         <View style={[{height:heightValue(15)},padding(0,10,20)]}>
-      <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'FAQ'} goBack={PreviousScreen}/>
+      <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'FAQ'} goBack={PreviousScreen}/>
       </View>
 
       <ScrollView horizontal={true}  showsHorizontalScrollIndicator={false} contentContainerStyle={[{height:heightValue(12)},styles.row,paddingPosition(0,0,0,5),margin(0,15,0)]}>
@@ -118,9 +119,9 @@ const handleSearch = (text) => {
   <FaqCategoryButton  buttonText={'Services'} onPress={()=>{setCurrentBtn(2),setCuurrentList(2)}} isActive={currentBtn === 2}/>
   <FaqCategoryButton  buttonText={'Contact and Support'} onPress={()=>{setCurrentBtn(3),setCuurrentList(3)}} isActive={currentBtn === 3}/>
       </ScrollView>
-                        <View style={[padding(0,0,20),styles.row,styles.centerHorizontal,{height:heightValue(15),width: widthValue(1.1),},styles.bgWhite ,margin(0, 15,20),radius(8) ]}>
-                          <Icon name={'search'} type={Icons.Feather} style={[fontSize(25), styles.lightGray]} />  
-                         <TextInput  placeholder='Search' style={[padding(0,0,20),fontSize(18)]}  onChangeText={(text)=>handleSearch(text)}/>
+                        <View style={[padding(0,0,20),styles.row,styles.centerHorizontal,{height:heightValue(15),width: widthValue(1.1),},darkMode?styles.bgtaskCardDblack:styles.bgWhite ,margin(0, 15,20),radius(8) ]}>
+                          <Icon name={'search'} type={Icons.Feather} style={[fontSize(25),styles.gray]} />  
+                         <TextInput  placeholder='Search' style={[padding(0,0,20),fontSize(18),darkMode?styles.lightWhite:styles.black]}  placeholderTextColor={'gray'} onChangeText={(text)=>handleSearch(text)}/>
                         </View>
       <ScrollView contentContainerStyle={[{minHeight:heightValue(1.3)},marginPosition(10,20,10,20)]}>
     <View>

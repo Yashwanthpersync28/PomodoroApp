@@ -7,6 +7,8 @@ import { widthValue,styles, heightValue,flex, marginPosition, padding, radius, m
 
 
 export const MonthScreen = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
   const userTasks = useSelector((state) => state.user.userTasks.userTask);
   console.log(userTasks, 'userTasks');
 
@@ -23,8 +25,8 @@ export const MonthScreen = () => {
 
     console.log('tasksForDate',tasksForDate)
     return (
-      <View style={[styles.bgWhite, marginPosition(0, 5, 0), { overflow: 'hidden' }, styles.centerHorizontal]}>
-        <Text style={[{ fontWeight: '500' }, styles.gray]}>{date.day}</Text>
+      <View style={[darkMode?styles.bgtaskCardDblack:styles.bgWhite, marginPosition(0, 5, 0), { overflow: 'hidden' }, styles.centerHorizontal]}>
+        <Text style={[{ fontWeight: '500' },darkMode?styles.lightishGray: styles.gray]}>{date.day}</Text>
 
         <View style={marginPosition(10)}>
           {tasksForDate.map((task, index) => (
@@ -43,14 +45,14 @@ export const MonthScreen = () => {
         <Calendar
           style={[{ width: widthValue(1.1), minHeight: heightValue(2.2), marginBottom: 10 }]}
           theme={{
-            calendarBackground: 'white',
+            calendarBackground:darkMode?'#20222a':'white',
             todayTextColor: 'white',
             todayBackgroundColor: 'red',
-            monthTextColor: 'black',
+            monthTextColor:darkMode?'white': 'black',
             textMonthFontSize: 18,
             textMonthFontWeight: '700',
-            indicatorColor: 'black',
-            arrowColor: 'black',
+            indicatorColor:darkMode?'white' :'black',
+            arrowColor:darkMode?'white': 'black',
             arrowHeight: 10,
           }}
           dayComponent={({ date, state, marking }) => {

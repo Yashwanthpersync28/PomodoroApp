@@ -5,9 +5,6 @@ import { modalData } from "../../constants/ModalsData";
 const UserInformation = createSlice({
   name: "UserInformation",
   initialState: {
-    email:'',
-    password:'',
-    profilePic:profile,
   },
   reducers: {
     addUserData(state, action) {

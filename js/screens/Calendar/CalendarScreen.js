@@ -18,6 +18,8 @@ import { AddTask } from '../Manage/components/AddTask/AddTask'
 
 
 export const CalendarScreen = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
   const userTask = useSelector((state) => state.user.userTasks.userTask);
   const [showLists, setShowList] = useState(true);
   const [taskVisible,setTaskVisible] = useState(false)
@@ -80,30 +82,27 @@ export const CalendarScreen = () => {
 
 // console.log('Tasks filtered with selected date:', filteredTasks);
 console.log('renderTaskArray',tasks)
-
-
   return (
-    <SafeAreaView style={[styles.bgWhiteSmoke, flex(1), styles.center]}>
+    <SafeAreaView style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhiteSmoke, flex(1), styles.center]}>
       <StatusBar backgroundColor="#f5f5f5" barStyle="dark-content" />
       <View style={[{height:heightValue(12)}, padding(0, 0, 20, 0, 20),]}>
-      <Header headername={'Calendar'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} color={styles.black}/>
+      <Header headername={'Calendar'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} color={darkMode?styles.lightWhite:styles.black}/>
       </View>
       <View style={[{height:heightValue(10)}, padding(0, 0, 20, 0, 20),]}>
       <ToggleButtons title1={'List'} title2={'Month'} showProjects={showLists} onPressTags={()=>setShowList(false)} onPressProject={()=>setShowList(true)}/>
       </View>
       {showLists ? (
-        <View style={[{height:heightValue(9)}, { width: widthValue(1) },]}>
+        <View style={[{height:heightValue(9),width:widthValue(1.05)},margin(0,0,10),styles.centerHorizontal]}>
           <DateSwiper  value={value} setValue={setValue}/>
         </View>
       ) : null}
-
       {showLists ? (
         <View style={[{minHeight:heightValue(1)}]}>
           {tasks.length === 0 && completedTasks.length === 0 ? (
             <View style={[{height:heightValue(1.2), width: widthValue(1) }, styles.selfStart, styles.centerHorizontal,paddingPosition(40,0,0,0)]}>
               <Image source={notepad} style={[{ width: widthValue(1.8), height: widthValue(1.8) },shadow(10)]} />
-              <Text style={[styles.black, fontSize(25), { fontWeight: '600' }]}>Empty</Text>
-              <Text style={[styles.gray, fontSize(18), { fontWeight: '400' }, margin(0, 10)]}>You have not added any task on this date</Text>
+              <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(25), { fontWeight: '600' }]}>Empty</Text>
+              <Text style={[darkMode?styles.lightishGray:styles.gray, fontSize(18), { fontWeight: '400' }, margin(0, 10)]}>You have not added any task on this date</Text>
             </View>
           ) : (
             <TaskComponent  tasks={tasks} completedTasks={completedTasks}/>

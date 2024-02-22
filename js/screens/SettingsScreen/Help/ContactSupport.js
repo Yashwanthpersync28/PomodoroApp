@@ -4,7 +4,10 @@ import { Header } from '../../Manage/components/Header'
 import { useNavigation } from '@react-navigation/native'
 import { styles,flex, heightValue, padding, widthValue ,fontSize, margin, marginPosition,radius} from '../../../styles/Styles'
 import Icon, { Icons } from '../../../components/Icons'
+import { useSelector } from 'react-redux'
 export const ContactSupport = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
+
 
     const navigation = useNavigation();
   const PreviousScreen = ()=>{
@@ -14,21 +17,21 @@ export const ContactSupport = () => {
   const ContactCard = ({iconName,IconType,text})=>{
     return(
 
-    <TouchableOpacity style={[styles.bgWhite,{width:widthValue(1.1)},padding(0,18,15),styles.row,styles.spaceBetweenVertical,styles.centerHorizontal,margin(0,12,0),radius(5)]}>
-      <View style={[styles.row,styles.bgWhite,styles.centerHorizontal]}>
+    <TouchableOpacity style={[darkMode?styles.bgtaskCardDblack:styles.bgWhite,{width:widthValue(1.1)},padding(0,18,15),styles.row,styles.spaceBetweenVertical,styles.centerHorizontal,margin(0,12,0),radius(5)]}>
+      <View style={[styles.row,darkMode?styles.bgtaskCardDblack:styles.bgWhite,styles.centerHorizontal]}>
           <Icon name={iconName} type={IconType} style={[styles.Orange, fontSize(26),marginPosition(0,20,0,5)]} />
-          <Text style={[styles.black,{fontWeight:'600'},fontSize(18)]}>{text}</Text>
+          <Text style={[darkMode?styles.lightWhite:styles.black,{fontWeight:'600'},fontSize(18)]}>{text}</Text>
           </View>
           {/* <Icon name={'chevron-right'} type={Icons.FontAwesome5} style={[styles.white, fontSize(30)]} /> */}
-        <Icon name={'chevron-right'} type={Icons.Feather} style={[fontSize(23), styles.black]} />
+        <Icon name={'chevron-right'} type={Icons.Feather} style={[fontSize(23),darkMode?styles.lightWhite: styles.black]} />
     </TouchableOpacity>
     )
   }
 
   return (
-    <View style={[flex(1),padding(0,10,20)]}>
+    <View style={[flex(1),padding(0,10,20),darkMode?styles.bgdarkmodeBlack:'']}>
         <View style={[{height:heightValue(15)},]}>
-      <Header  color={styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Contact Support'} goBack={PreviousScreen}/>
+      <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Contact Support'} goBack={PreviousScreen}/>
       </View>
       <View style={[margin(0,15,0)]}>
       <ContactCard  iconName={'customerservice'} IconType={Icons.AntDesign} text={'Customer Support'}/>
