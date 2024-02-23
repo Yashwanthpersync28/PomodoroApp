@@ -14,14 +14,11 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
  export const FocusModal = ({currentModal,closeModal}) => {
   const darkMode = useSelector(state=>state.system.darkMode)
-
+const focusTime = useSelector(state=>state.user.focusTime.focusTime)
 
     const dispatch = useDispatch();
-     const InitialSelectedTime = modalData.focusTime[3].id
-    const [selectedItemId,setSelectedItemId] = useState(InitialSelectedTime)
     
     const handleSelectTimerFormat=(item)=>{
-        setSelectedItemId(item.id)
         console.log('selectedTime',item.focusTime)
         dispatch(setFocusTime(item.focusTime))
       }
@@ -36,7 +33,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 
       
     const renderItems =({item})=>{
-        const isSelected = selectedItemId === item.id
+        const isSelected = focusTime === item.focusTime
         const formattedFocusTime = formatTime(item.focusTime)
       
           return (
@@ -91,7 +88,7 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
 />
 </View>
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[darkMode?styles.bgDarkmodebutton:styles.bglightPink]} textColor={[darkMode?styles.lightWhite:styles.Orange]}/>
       <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>

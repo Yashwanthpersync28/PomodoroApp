@@ -92,7 +92,7 @@ console.log('renderTaskArray',tasks)
       <ToggleButtons title1={'List'} title2={'Month'} showProjects={showLists} onPressTags={()=>setShowList(false)} onPressProject={()=>setShowList(true)}/>
       </View>
       {showLists ? (
-        <View style={[{height:heightValue(9),width:widthValue(1.05)},margin(0,0,10),styles.centerHorizontal]}>
+        <View style={[{height:heightValue(9),},margin(0,0,10),styles.centerHorizontal]}>
           <DateSwiper  value={value} setValue={setValue}/>
         </View>
       ) : null}

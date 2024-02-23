@@ -10,16 +10,19 @@ import { setCurrentModal } from '../../../redux/userReducer/modalReducer'
 import { DarkModeMOdal } from '../Components/DarkModeModal'
 import { modalData } from '../../../constants/ModalsData'
 import { setDarkMode } from '../../../redux/systemReducer/darkModeReduder'
+import { setAppApearance } from '../../../redux/userReducer/AppApearanceReducer'
 
  export const AppApearance = () => {
   const currentModal = useSelector((state)=>state.user.currentModal.currentModal) 
   const darkMode = useSelector(state=>state.system.darkMode)
+  const startMOde = useSelector(state=>state.user.AppApearance.mode)
+  const startLang = useSelector(state=>state.user.AppApearance.language)
 
-  const initialSelectedMode = modalData.darkMode[0].mode
+  const initialSelectedMode = startMOde;
   const [selectedMode,setSelectedMode] =  useState(initialSelectedMode)
 
   console.log(selectedMode,'electedmode')
-  const initialAppLang = modalData.language[0].mode;
+  const initialAppLang = startLang;
   const [selectedLang,setSelectedLang] = useState(initialAppLang)
 
   const navigation = useNavigation();
@@ -32,9 +35,19 @@ import { setDarkMode } from '../../../redux/systemReducer/darkModeReduder'
     }
   }
   const handleDarkMode = (item)=>{
+    const darkmode = {
+      ...darkmode,
+      mode:item.mode,
+    }
+    dispatch(setAppApearance(darkmode))
     setSelectedMode(item.mode)
 }
 const handleLanguage = (item)=>{
+  const language= {
+    ...language,
+    language:item.mode,
+  }
+  dispatch(setAppApearance(language))
   setSelectedLang(item.mode)
 }
 const closeModal=()=>{
@@ -53,7 +66,7 @@ const closeModal=()=>{
         <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={selectedLang}  PreferanceName={'App Language'} onPress={()=>dispatch(setCurrentModal(17))}/>
         </View> 
         {currentModal === 16 && <DarkModeMOdal selectedThing={selectedMode} onPress={()=>{changeTheme(),closeModal()}} closeModal={closeModal} visibleAt={currentModal===16} handleFuntion={handleDarkMode}  data={modalData.darkMode}/>} 
-        {currentModal === 17 && <DarkModeMOdal selectedThing={selectedLang}  closeModal={closeModal} visibleAt={currentModal===17} handleFuntion={handleLanguage}  data={modalData.language}/>} 
+        {currentModal === 17 && <DarkModeMOdal selectedThing={selectedLang} onPress={()=>closeModal()}  closeModal={closeModal} visibleAt={currentModal===17} handleFuntion={handleLanguage}  data={modalData.language}/>} 
     </View>
   )
 }

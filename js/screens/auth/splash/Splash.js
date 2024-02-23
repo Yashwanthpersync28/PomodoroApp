@@ -83,7 +83,18 @@ export const Splash = ({navigation}) => {
                   ]
               );
             });
-         }
+         } else {
+          if(showonboarding){
+            if(showDashboard &&isBiometricEnabled === true){
+            console.log('showcomp',showonboarding);
+            }
+            else{ navigation.navigate('signup')}
+          }
+          else{
+            navigation.navigate('onboarding')
+            console.log('showcompppp',showonboarding);
+          }
+        }
     }).catch((error)=>{
         console.error('Biometrics check error:',error)
     })

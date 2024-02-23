@@ -4,7 +4,7 @@ import { modalData } from "../../constants/ModalsData";
 const LongBreakSlice = createSlice({
     name:'LongBreakSession',
     initialState:{
-        longBreakSession:modalData.longBreakAfter[1].id
+        longBreakSession:modalData.longBreakAfter[0].longBreak
     },
     reducers:{
         setLongBreakSession(state,action){

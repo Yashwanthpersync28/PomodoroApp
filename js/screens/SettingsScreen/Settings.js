@@ -31,20 +31,6 @@ export const Settings = () => {
   }
 const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
 
-  // const uncompleteTime = () => {
-  //   if (data.id) {
-  //     const updatedTask = {
-  //       id: data.id,
-  //       ...data,
-  //       focusTime:focusedTimeSpend,
-  //     };
-  //     dispatch(replaceStatus(updatedTask));
-  //     setdata((prevData) => ({
-  //       ...prevData,
-  //       completed: false,
-  //     }));
-  //   }
-  // };
   return(
   <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,marginPosition(20,5,20,10)]} onPress={onPress} >
     <View style={[styles.row]}>
@@ -73,7 +59,7 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
       <SettingComponent  PreferanceName={'App Apearance'} leftIconType={Icons.FontAwesome} IconLeft={'eye'} onPress={()=>navigation.navigate('AppApearance')}/>
       <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.FontAwesome5} IconLeft={'hand-holding-heart'} onPress={()=>navigation.navigate('HelpandSupport')}/>
       <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'} onPress={()=>dispatch(setCurrentModal(13))}/>
-      {currentModal === 13 && <Logout  VisibleAt={currentModal === 13} OnPress1={closeModal} OnPress2={logOut} HeaderName={'LogOut'} option1={'Cancel'} option2={'Yes, Logout'} question={'Are you sure you want to log out?'}/>} 
+      {currentModal === 13 && <Logout  VisibleAt={currentModal === 13} OnPress1={closeModal} OnPress2={logOut} HeaderName={'Logout'} option1={'Cancel'} option2={'Yes, Logout'} question={'Are you sure you want to log out?'}/>} 
             </View>
     </SafeAreaView>
   )

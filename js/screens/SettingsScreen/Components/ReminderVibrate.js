@@ -90,7 +90,7 @@ const ReminderVibrate = ({closeModal,currentModal,VibrationChange,handleVibratio
 <FlatList data={modalData.vibrationOptions} renderItem={renderOptions} keyExtractor={item=>item.name}/>
         
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-        <TimerButton buttonText={'Cancel'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+        <TimerButton buttonText={'Cancel'} onPress={()=>closeModal()}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[darkMode?styles.bgDarkmodebutton:styles.bglightPink]} textColor={[darkMode?styles.lightWhite:styles.Orange]}/>
         <TimerButton buttonText={'Ok'} onPress={VibrationChange}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,10,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
         </View>
           </View>

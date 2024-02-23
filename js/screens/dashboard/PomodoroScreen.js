@@ -28,7 +28,19 @@ import { AddTask } from '../Manage/components/AddTask/AddTask';
 import { CancelModal } from './Components/CancelModal';
 import { Logout } from '../SettingsScreen/Logout/Logout';
 import { CardStyleInterpolators } from '@react-navigation/stack';
+import AndroidOpenSettings from 'react-native-android-open-settings'
+
 export const PomodoroScreen = () => {
+
+  useEffect(()=>{
+    setTaskColor(darkMode?'#20222a':'white')
+    updateTimerArray(FocusTime);
+    handleTimeSpendChange()
+    console.log('LocalSession',localSession)
+    if(selectedTask !== taskSelected){ 
+    showSessions(localSession)} 
+  },[FocusTime,sessionNumber,localSession,darkMode])
+
 
   const dispatch = useDispatch();
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
@@ -52,6 +64,13 @@ export const PomodoroScreen = () => {
   console.log('disableBreak',disableBreak)
   const selectedTune = useSelector((state)=>state.user.whiteNoise.selectedWhiteNoise)
   console.log('whiteNOiose songs',selectedTune)
+// const [taskColor,setTaskColor] = useState(darkMode?'#20222a':'white') 
+const [taskColor, setTaskColor] = useState(darkMode ? '#20222a' : 'white');
+console.log('Initial taskColor:', taskColor);
+useEffect(() => {
+  setTaskColor(darkMode ? '#20222a' : 'white');
+}, [darkMode]);
+
   const [currentTimer,setCurrentTimer] = useState(0)
   const [isTimerActive,setIsTimerActive] = useState(false);
   const [time, setTime] = useState(FocusTime);
@@ -78,15 +97,6 @@ export const PomodoroScreen = () => {
     { id: '2', start: 0, end: '∞', desc: 'Start Counting from 0 until stopped manually' },
   ]);
 
-  useEffect(()=>{
-    updateTimerArray(FocusTime);
-    if(currentTimer===0 ){
-      setFocusTimeSpend(FocusTime-displayTime)
-    }
-    console.log('LocalSession',localSession)
-    if(selectedTask !== taskSelected){ 
-    showSessions(localSession);}
-  },[FocusTime,sessionNumber,localSession])
 
   const updateTimerArray = (newFocusTime)=>{
     const updatedTimerArray = timerModeArray.map((item)=>{
@@ -131,7 +141,6 @@ export const PomodoroScreen = () => {
   const [displaySession,setDisplaySession] = useState('No Sessions')
   const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
-const [taskColor,setTaskColor] = useState(darkMode?'#20222a':'white') 
 console.log(totalfocusTime,'totaltime completed')
 const [timeSpend,setTimeSpend] = useState(0)
 console.log('timeSpend',timeSpend)
@@ -141,14 +150,9 @@ console.log(';completedSound',TrophySong)
 // const currentdate = new Date();
 //   const completedDate = currentdate.toISOString().split('T')[0]
 const [focusedTimeSpend,setFocusTimeSpend] = useState(0)
-
-
-
-
-
-
 const music = modalData.CompletionSounds;
 console.log(music, 'totalmusic');
+console.log(focusedTimeSpend, 'focusedTimeSpend');
 
 const handleNoise = item => {
    dispatch(setSelectedWhiteNoise(item.MusicName))
@@ -180,10 +184,43 @@ const userTask = useSelector((state)=>state.user.userTasks.userTask)
       }));
     }
   };
+  const stopedTime = () => {
+    if (data.id) {
+      const updatedTask = {
+        id: data.id,
+        ...data,
+        completed: true,
+        focusTime:focusedTimeSpend,
+        completedDate:completedDate,
+        completedAt:completedtime,
+      };
+      dispatch(replaceStatus(updatedTask));
+      setdata((prevData) => ({
+        ...prevData,
+        completed: true,
+      }));
+    }
+  }
+  const uncompleteTime = () => {
+    if (data.id) {
+      const updatedTask = {
+        id: data.id,
+        ...data,
+
+        focusTime:focusedTimeSpend,
+      };
+      dispatch(replaceStatus(updatedTask));
+      setdata((prevData) => ({
+        ...prevData,
+      }));
+    }
+  };
 
  
 
-  console.log('timespend:',FocusTime*localSession + totalfocusTime)
+  // console.log('timespend:',FocusTime*localSession + totalfocusTime)
+
+
   const secondTimerComplete = () => {
     if (data.id) {
       const updatedTask = {
@@ -296,6 +333,7 @@ const completedPomodoro = () => {
     setCurrentTimer(timerType); // Set the current timer type
     setCurrentButton(timerType === 0 ? 1 : 4)
       playWhiteNoise()
+      handleTimeSpendChange();
     }
   };
 
@@ -336,13 +374,14 @@ const completedPomodoro = () => {
   const  completedtask = ()=>{
     {timerMode === 0 ? 
     
-    (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),clearTask(),updateTaskAndValue(),dispatch(setCurrentModal(14))) 
+    
+    (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),dispatch(setCurrentModal(14)),stopedTime(),setTaskColor(darkMode?'#20222a':'white')) 
        :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0),secondTimerComplete())
       }
   }
   const stopTheTask = ()=>{
     {timerMode === 0 ? 
-      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),clearTask()) 
+      (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),clearTask(),uncompleteTime()) 
        :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
       }
   }
@@ -415,6 +454,15 @@ const completedPomodoro = () => {
     setTaskColor(darkMode?'#20222a':'white')
   }
 
+  const handleTimeSpendChange = () => {
+    if(currentTimer===0 ){
+      setFocusTimeSpend(FocusTime-displayTime)
+    // console.log(focusedTimeSpend,'focudstime')
+    }if(currentTimer===1 ) {
+    console.log(breakTime-displayTime,'focus-break')
+    }
+    };
+    
 
 
   const clearTask = ()=>{
@@ -441,7 +489,7 @@ const completedPomodoro = () => {
     setSecondTime(0*60)
     setIsTimerActive(false)
     setCurrentButton(0)
-    setTaskColor(darkMode?'20222a':'white')
+    setTaskColor(darkMode?'#20222a':'white')
     }
     // setSession('No');
     
@@ -528,9 +576,13 @@ const WhiteNoiseCancelFunc = ()=>{
     stopSound()
   }
  }
+
+ const opensettings=()=>{
+  AndroidOpenSettings.generalSettings()
+}
 return (
   <SafeAreaView style={[styles.centerHorizontal,darkMode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1), styles.positionRelative]}>
-    <StatusBar backgroundColor="#ff6347" barStyle= "dark-content"/>
+    <StatusBar backgroundColor={darkMode?"#ff6347":"#ff6347"} barStyle= "dark-content"/>
     <View style={[styles.bgOrange, { height: heightValue(2), width: widthValue(1) }, styles.centerHorizontal]}>
       <View>
         <View style={[marginPosition(0,0,0,20)]}>
@@ -594,7 +646,7 @@ return (
   stopSound={stopSound}
   sound={sound}
   setTimeSpend={()=>setTimeSpend()}
-  // handleTimeSpendChange={handleTimeSpendChange}
+  handleTimeSpendChange={()=>handleTimeSpendChange()}
   />
         }
       </View>
@@ -603,11 +655,12 @@ return (
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal} displayTimerMode={displayTimerMode}/>
     </View>
     {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask} isTimerActive={isTimerActive}/>}
-    {currentModal === 2 && <StrictModeModal closeModal={closeModal} currentModal={currentModal} updateStrictMode={updateStrictMode}/>}
+    {currentModal === 2 && <Logout HeaderName={'Stop Task'} VisibleAt={currentModal === 2} question={'Please enable "DO NOT DISTURB" mode to activate StrictMode'} option1={'No'} option2={'Yes'} OnPress1={()=>closeModal()} OnPress2={()=>{closeModal(),opensettings()}}/>}
+
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray} />}
    
     {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} WhiteNoiseCancelFunc={WhiteNoiseCancelFunc} isTimerActive={isTimerActive}/>}
-    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} stopSound={stopSound}/>}
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} stopSound={stopSound} setTaskColor={setTaskColor}/>}
     {currentModal === 18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
     {currentModal === 19 && <Logout HeaderName={'Cancel Task'} VisibleAt={currentModal === 19} question={'Are you sure youy want to cancel task?'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
     {currentModal === 20 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 20} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}

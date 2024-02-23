@@ -26,6 +26,7 @@ import { FaqDataReducer } from './FaqData';
 import { ShowName } from './ShowPomdoroReducer';
 import { ReminderVibrateReducer } from './ReminderVibrateReducer';
 import { BiometricReducer } from './BiometricsReducer';
+import { AppApearanceReducer } from './AppApearanceReducer';
 
 export const userReducer = combineReducers({
     focusTime:focusTimeReducer,
@@ -54,4 +55,5 @@ export const userReducer = combineReducers({
     faqData:FaqDataReducer,
     ReportToggle:ShowName,
     reminderVibrate:ReminderVibrateReducer,
+    AppApearance:AppApearanceReducer,
 })

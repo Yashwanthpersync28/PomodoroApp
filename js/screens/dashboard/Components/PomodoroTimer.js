@@ -67,7 +67,7 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
           // console.log('completedTimeabcd',timefocused = FocusTime - newTime)
           // console.log(timefocused,'ahdhdfhfihbfebreirbbgfrgfrfeghgjhdgsjshsjhjk')
           // setTimeSpend()
-          // handleTimeSpendChange('prevTime')
+          handleTimeSpendChange(FocusTime - newTime)
         
           // console.log('totalfocusTime',totalfocusTime)
     

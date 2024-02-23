@@ -37,29 +37,25 @@ CompletionSounds : [
         {id:'6',MusicName:'Shadow',song:'shadow.mp3'},
     ],
     focusTime:[
-        {id:'1', focusTime: 10},
-        {id:'2', focusTime: 1500},
-        {id:'3', focusTime: 1800},
-        {id:'4', focusTime: 2700},
-        {id:'5', focusTime: 3600}
+        {id:'1', focusTime: 1500},
+        {id:'2', focusTime: 1800},
+        {id:'3', focusTime: 2700},
+        {id:'4', focusTime: 3600}
     ],
     breakTime:[
-        {id:'1', breakTime: 5},
-        {id:'2', breakTime: 120},
-        {id:'3', breakTime: 180},
-        {id:'4', breakTime: 240},
-        {id:'5', breakTime: 300},
-        {id:'6', breakTime: 600},
+        {id:'1', breakTime: 240},
+        {id:'2', breakTime: 300},
+        {id:'3', breakTime: 600},
     ],
     longBreakTime:[
-        {id:'1', longBreak: 40},
+        {id:'1', longBreak: 900},
         {id:'2', longBreak: 1200},
         {id:'3', longBreak: 1500},
     ],
     longBreakAfter:[
-        {id:'1', longBreak: 2},
-        {id:'2', longBreak: 4},
-        {id:'3', longBreak: 5},
+        {id:'1', longBreak: 4},
+        {id:'2', longBreak: 5},
+        {id:'3', longBreak: 6},
     ],
     countryCode: [
         {
@@ -92,9 +88,9 @@ CompletionSounds : [
         },
     ],
     darkMode:[
-        {id:'1', mode: 'System Default'},
-        {id:'2', mode: 'Light' },
-        {id:'3', mode: 'Dark' },
+        // {id:'1', mode: 'System Default'},
+        {id:'1', mode: 'Light' },
+        {id:'2', mode: 'Dark' },
     ],
     language:[
         {id:'1', mode: 'English'},
@@ -140,5 +136,4 @@ CompletionSounds : [
         { id: '1', name: 'Disable' },
         { id: '2', name: 'Enable' },
       ],
-      
- }
+}

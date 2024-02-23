@@ -75,7 +75,7 @@ import { useSelector } from 'react-redux';
               padding(20),
               radius(0, 20, 0, 0, 20),
               styles.spaceBetweenVertical,
-              borderWidth(0, 1, 0, 1, 0),styles.borderLightWhite,
+              borderWidth(0, 1, 0, 1, 0),
             ]}>
               <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0),]}>
         <View style={[{ width: 35,height:4  },styles.bgLightWhite,styles.centerHorizontal, radius(6)]}></View>
@@ -95,7 +95,7 @@ import { useSelector } from 'react-redux';
 <FlatList data={data} renderItem={({item})=>renderTunes({item})} keyExtractor={item=>item.id} onPress={(item) => onPress(item)}/>
 </View>
             <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={onPress2}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Cancel'} onPress={onPress2}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?styles.bgDarkmodebutton:styles.bglightPink]} textColor={[darkMode?styles.lightWhite:styles.Orange]}/>
       <TimerButton buttonText={'Ok'}  onPress={onPress3} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
 
         </View>

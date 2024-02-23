@@ -36,13 +36,13 @@ export const DateSwiper = ({value,setValue}) => {
 
   return (
     <SafeAreaView style={[flex(1)]}>
-      <View style={[styles.row, styles.centerHorizontal, flex(1), { width: widthValue(1) }]}>
+      <View style={[styles.row, styles.centerHorizontal, flex(1), { width: widthValue(1.05)}]}>
         <Swiper
           index={1}
           loop={false}
           showsPagination={false}
           ref={swiper}
-          style={[{ height: 70}]}
+          style={[{ height: 70},styles.centerVertical]}
           onIndexChanged={(ind) => {
             if (ind === 1) {
               return;
@@ -69,12 +69,12 @@ export const DateSwiper = ({value,setValue}) => {
                   <TouchableWithoutFeedback 
                 onPress={()=>{setValue(item.date)}}
                 key={dateIndex}>
-                    <View style={[{height:55}, isActive ? styles.bgtomotoRed :(darkMode?styles.bgtaskCardDblack: styles.bgWhite), radius(5),darkMode?styles.borderDarkmode:styles.borderGray,margin(0,0,4), styles.allCenter,padding(0,6,14),shadow(2)]}>
+                    <View style={[{height:55,width:47}, isActive ? styles.bgtomotoRed :(darkMode?styles.bgtaskCardDblack: styles.bgWhite), radius(5),darkMode?styles.borderDarkmode:styles.borderGray,margin(0,0,4.3), styles.allCenter,padding(0,6,10),shadow(2)]}>
                       {Today === item.date.getDate() && (
                         <Icon name={'star'} type={Icons.AntDesign} style={[styles.Orange, fontSize(10)]} />
                       )}
-                      <Text style={[isActive ? styles.white :(darkMode?styles.lightWhite: styles.black), fontSize(20), { fontWeight: '600' }]}>{item.date.getDate()}</Text>
-                      <Text style={[isActive ? styles.white :(darkMode?styles.lightishGray: styles.gray), fontSize(15), { fontWeight: '300' }]}>{item.day}</Text>
+                      <Text style={[isActive ? styles.white :(darkMode?styles.lightWhite: styles.black), fontSize(18), { fontWeight: '600' }]}>{item.date.getDate()}</Text>
+                      <Text style={[isActive ? styles.white :(darkMode?styles.lightishGray: styles.gray), fontSize(14), { fontWeight: '300' }]}>{item.day}</Text>
                     </View>
                   </TouchableWithoutFeedback>
                 );

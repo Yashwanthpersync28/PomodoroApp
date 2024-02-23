@@ -35,50 +35,50 @@ console.log(formattedDate); // Output: February 19, 2024
           persistent={true}
           style={{ flex:1, backgroundColor:'transparent'}}>
             <View style={[{width:widthValue(1.2)}]}>
-              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,0)]}>1. Infromation We Collect: </Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
+              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,10)]}>1. Infromation We Collect: </Text>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
               <View style={[marginPosition(10,10,0,20)]}>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
                 * Personal Information: to provide our service. We may collect your name,email address and other information yopu provided during registrationj or use of the app</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
               </View>
             </View>
             <View style={[{width:widthValue(1.2)}]}>
-              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,0)]}>2. How we use your Information. </Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
+              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,10)]}>2. How we use your Information. </Text>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
               <View style={[marginPosition(10,10,0,20)]}>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
                 * Personal Information: to provide our service. We may collect your name,email address and other information yopu provided during registrationj or use of the app</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
               </View>
             </View>
             <View style={[{width:widthValue(1.2)}]}>
-              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,0)]}>3. How we use your Information. </Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
+              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,10)]}>3. How we use your Information. </Text>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
               <View style={[marginPosition(10,10,0,20)]}>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
                 * Personal Information: to provide our service. We may collect your name,email address and other information yopu provided during registrationj or use of the app</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
               </View>
             </View>
             <View style={[{width:widthValue(1.2)}]}>
-              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,0)]}>4. How we use your Information. </Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
+              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,10)]}>4. How we use your Information. </Text>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(20)]}>We may collect the following information when you use focusify </Text>
               <View style={[marginPosition(10,10,0,20)]}>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
                 * Personal Information: to provide our service. We may collect your name,email address and other information yopu provided during registrationj or use of the app</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
-              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,0),lineHeight(25)]}>
+              <Text style={[darkMode?styles.lightishGray:styles.gray,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,10),lineHeight(25)]}>
               *  Usage Data:  We collect on how you interact with Focusify,including the features you use ,the time you spent on the app and your  preferences</Text>
               </View>
             </View>

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { modalData } from "../../constants/ModalsData";
 
 const longBreakSlice = createSlice({
     name:'longBreakDFetails',
     initialState:{
-        longBreak: 900,
+        longBreak: modalData.longBreakTime[0].longBreak,
     },
     reducers:{
         setLongBreak(state,action){
@@ -11,6 +12,5 @@ const longBreakSlice = createSlice({
         }
     }
 }) 
-
 export const {setLongBreak} = longBreakSlice.actions
 export const longBreakReducer = longBreakSlice.reducer

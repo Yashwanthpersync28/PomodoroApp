@@ -19,6 +19,7 @@ import {
     marginPosition,
     borderWidth,
     margin,
+    heightValue,
 } from '../../../styles/Styles';
 import Icon, { Icons } from '../../../components/Icons';
 
@@ -34,21 +35,21 @@ console.log('taskSessions',taskSessions)
             <TouchableWithoutFeedback  key={id}  style={[darkMode?styles.bgtaskCardDblack:styles.bgWhite]}>
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite),radius(0,5,5,0,0)
 ]}>
-            <View style={[{ width: 4,height:149 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 4,height:147 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
                     paddingPosition(15, 15, 5, 15),
                     borderWidth(1),
                     darkMode?styles.borderDarkmode:styles.borderLightWhite,
-                    radius(0, 0, 0, 5,5),
+                    radius(0, 5, 5, 0,0),
                     completed?{backgroundColor:darkMode?'#20222a':'#ffffff50'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite)
                 ]}>
                 <View style={[
                     styles.row,
                     styles.spaceBetweenVertical,
                     { width: widthValue(1.35) },
-                    paddingPosition(0, 0, 20,),
+                    paddingPosition(0, 0, 10,),
                     radius(0, 5, 5, 0,0),
 
                     completed?{backgroundColor:darkMode?'#20222a':'#ffffff50'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite)
@@ -74,9 +75,9 @@ console.log('taskSessions',taskSessions)
                                     <Icon name={"sun"} type={Icons.Feather} style={[fontSize(22),marginPosition(0, 15, 0, 15) ,styles.green]} />
                                     <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 15, 0, 10),{color:tagColor}]} />
                                 </View>
-                                <View style={[styles.row, styles.centerHorizontal]}>
+                                <View style={[styles.row, styles.centerHorizontal,]}>
                                     <Icon name={"bag-personal"} type={Icons.MaterialCommunityIcons} style={[{color:projectColor}, fontSize(22), marginPosition(0, 8)]} />
-                                    <Text style={[fontSize(16),{width:170},darkMode?styles.lightishGray:styles.black]}>{projectname}</Text>
+                                    <Text style={[fontSize(16),{width:widthValue(3.5)},darkMode?styles.lightishGray:styles.black]}>{projectname}</Text>
                                 </View>
                             </View>
                         </View>

@@ -119,7 +119,7 @@ console.log('id', taskDetails.map(data=>data.id))
                             <Icon name={"search"} type={Icons.EvilIcons} style={[styles.lightGray, fontSize(35), marginPosition(0, 10)]} />  
                             <TextInput
                              placeholder='Search task' 
-                             placeholderTextColor={darkMode?styles.lightishGray:styles.lightWhite} 
+                             placeholderTextColor={darkMode?'gray':'#dfdfdf'}
                              style={[fontSize(20),darkMode?styles.lightWhite:styles.black]} 
                              value={searchText}
                              onChangeText={handleSearch}

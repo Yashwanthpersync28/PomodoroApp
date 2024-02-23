@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Switch,
   FlatList,
+  Button,
+  Linking,
 } from 'react-native';
 import React, { useState } from 'react';
 import {
@@ -33,7 +35,13 @@ import { SwitchComponent } from '../../../components/touchables/SwitchComponent'
 import { useDispatch, useSelector } from 'react-redux';
 import { setStrictModePreference } from '../../../redux/userReducer/StrictModeReducers';
 import { ModeComponent } from './ModeComponent';
-
+import PushNotification from 'react-native-push-notification';
+import {
+  isDoNotDisturbModeOn,
+  openDoNotDisturbSettings,
+} from 'react-native-do-not-disturb';
+import AndroidOpenSettings from 'react-native-android-open-settings'
+import { useCallback } from 'react';
 export const StrictModeModal = ({ closeModal, currentModal, updateStrictMode }) => {
 
   const darkMode = useSelector(state=>state.system.darkMode)
@@ -46,23 +54,22 @@ export const StrictModeModal = ({ closeModal, currentModal, updateStrictMode }) 
   const ProhibitToExit = userPreference.ProhibitToExit;
   const bLockPhone = userPreference.bLockPhone;
 console.log(BlockAllNotifications,'blocjNOdjbdjbhhjhvgh');
+// const [BlockAllNotification, setBlockAllNotifications] = useState(userPreference.BlockAllNotifications);
+
+const switchNotifications = () => {
+  if (!BlockAllNotifications) {
+    opensettings();
+  } else {
+    opensettings();
+  }
+  dispatch(setStrictModePreference({...userPreference, BlockAllNotifications: !BlockAllNotifications}));
+};
+
+const opensettings=()=>{
+  AndroidOpenSettings.generalSettings()
+}
 
 
-  const switchNotifications = () => {
-    dispatch(setStrictModePreference({...userPreference,BlockAllNotifications:!BlockAllNotifications}))
-  }
-  const switchApps = () => {
-    dispatch(setStrictModePreference({...userPreference,BlockOtherApps:!BlockOtherApps}))
-  }
-  const switchCalls = () => {
-    dispatch(setStrictModePreference({...userPreference,BlockPhonecalls:!BlockPhonecalls}))
-  }
-  const switchExit = () => {
-    dispatch(setStrictModePreference({...userPreference,ProhibitToExit:!ProhibitToExit}))
-  }
-  const switchPhone = () => {
-    dispatch(setStrictModePreference({...userPreference,bLockPhone:!bLockPhone}))
-  }
 
   
   return (
@@ -105,11 +112,7 @@ console.log(BlockAllNotifications,'blocjNOdjbdjbhhjhvgh');
           </Text>
 
 <View>
-<ModeComponent title={'Block All Notifications'} isEnabled={BlockAllNotifications} switchFunction={switchNotifications}/>
-<ModeComponent title={'Block Phone calls'} isEnabled={BlockPhonecalls} switchFunction={switchCalls} />
-<ModeComponent title={'Block Other Apps'} isEnabled={BlockOtherApps} switchFunction={switchApps}/>
-<ModeComponent title={'Lock Phone'}  isEnabled={bLockPhone} switchFunction={switchPhone}/>
-<ModeComponent title={'Prohibit to Exit'}  isEnabled={ProhibitToExit} switchFunction={switchExit}/>
+
 </View>
 
 

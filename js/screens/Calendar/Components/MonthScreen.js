@@ -43,7 +43,7 @@ export const MonthScreen = () => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[styles.centerHorizontal, flex(0.2)]}>
         <Calendar
-          style={[{ width: widthValue(1.1), minHeight: heightValue(2.2), marginBottom: 10 }]}
+          style={[{ width: widthValue(1.1), minHeight: heightValue(2.8), marginBottom: 10 }]}
           theme={{
             calendarBackground:darkMode?'#20222a':'white',
             todayTextColor: 'white',

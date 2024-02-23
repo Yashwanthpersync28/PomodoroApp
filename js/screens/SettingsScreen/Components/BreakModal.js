@@ -14,15 +14,17 @@ import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
 
  export const BreakModal = ({currentModal}) => {
   const darkMode = useSelector(state=>state.system.darkMode)
+const breakTime = useSelector(state=>state.user.breakTime.breakTime)
+
 
 
     const dispatch = useDispatch();
-     const InitialBreakTime = modalData.breakTime[1].id
-    const [selectedBreakId,setelectedBreakId] = useState(InitialBreakTime)
+    //  const InitialBreakTime = modalData.breakTime[1].id
+    // const [selectedBreakId,setelectedBreakId] = useState(InitialBreakTime)
 
     
     const handleBreakTime=(item)=>{
-        setelectedBreakId(item.id)
+        // setelectedBreakId(item.id)
         console.log('selectedBreakTime',item.breakTime)
         dispatch(setBreakTime(item.breakTime))
       }
@@ -39,7 +41,7 @@ import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
         dispatch(setCurrentModal(0))
       }
     const renderItems =({item})=>{
-        const isSelected = selectedBreakId === item.id
+        const isSelected = breakTime === item.breakTime
         const formattedBreakTime = formatTime(item.breakTime)
       
           return (
@@ -86,7 +88,7 @@ import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
             ]}>
             Short Break length
           </Text>
-          <View style={[borderWidth(0,1,0,1,0),styles.borderLightWhite]}>
+          <View style={[borderWidth(0,1,0,1,0),darkMode?styles.borderDarkmode:styles.borderLightWhite]}>
 
             <FlatList
   data={modalData.breakTime}
@@ -95,7 +97,7 @@ import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
 />
 </View>
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[darkMode?styles.bgDarkmodebutton:styles.bglightPink]} textColor={[darkMode?styles.lightWhite:styles.Orange]}/>
       <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>

@@ -29,7 +29,6 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
         }
         const newProgress = Math.floor((newTime/focusTime)*100)
         setSecondFocusProgress(newProgress)
-        
         return newTime;
       })
       }

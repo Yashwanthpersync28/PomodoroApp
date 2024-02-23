@@ -16,15 +16,15 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
  export const LongBreakSession = ({currentModal}) => {
 
   const darkMode = useSelector(state=>state.system.darkMode)
-    
+     const InitialLongBreak = useSelector(state=>state.user.longBreakSession.longBreakSession)
     const dispatch = useDispatch();
 
-     const InitialLongBreak = modalData.longBreakAfter[1].id;
-    const [selectedLongBreak,setSelectedLongBreak] = useState(InitialLongBreak)
+    //  const InitialLongBreak = modalData.longBreakAfter[1].id;
+    // const [selectedLongBreak,setSelectedLongBreak] = useState(InitialLongBreak)
 
     
     const handleLongBreak=(item)=>{
-        setSelectedLongBreak(item.id)
+        // setSelectedLongBreak(item.id)
         console.log('selectedBreakTime',item.longBreak)
         dispatch(setLongBreakSession(item.longBreak))
       }
@@ -33,7 +33,7 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
         dispatch(setCurrentModal(0))
       }
     const renderItems =({item})=>{
-        const isSelected = selectedLongBreak === item.id
+        const isSelected = InitialLongBreak === item.longBreak
           return (
             <View>
               <TouchableOpacity onPress={()=>{handleLongBreak(item)}}> 
@@ -86,7 +86,7 @@ import { setLongBreakSession } from '../../../redux/userReducer/LongBreakSession
 />
 </View>
         <View style={[styles.row,styles.spaceAroundVertical,marginPosition(10,0,0,0)]}>
-      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]}/>
+      <TimerButton buttonText={'Cancel'} onPress={closeModal}  widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[darkMode?styles.bgDarkmodebutton:styles.bglightPink]} textColor={[darkMode?styles.lightWhite:styles.Orange]}/>
       <TimerButton buttonText={'Ok'}  onPress={closeModal} widthVal={{width:widthValue(2.5)}} paddingval={[padding(0,12,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]}/>
       </View>
         </View>

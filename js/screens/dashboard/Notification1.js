@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFocusTime } from '../../redux/userReducer/focustimeReducer';
 
 export const Notification1 = () => {
+  const darkMode = useSelector(state=>state.system.darkMode)
 
   const navigation= useNavigation();
 
@@ -25,7 +26,7 @@ export const Notification1 = () => {
         style={[
           {width: widthValue(1)},
           paddingPosition(20, 25, 30, 25),
-          styles.bgWhite,
+          darkMode?styles.bgdarkmodeBlack:styles.bgWhite,
           flex(1),
         ]}>
         <View
@@ -36,12 +37,14 @@ export const Notification1 = () => {
             {height:heightValue(20)}
           ]}>
             <TouchableOpacity onPress={goback}>
-          <Icon name={"arrowleft"} type={Icons.AntDesign} style={[styles.black,fontSize(25)]} /></TouchableOpacity>
+          <Icon name={"arrowleft"} type={Icons.AntDesign} style={[darkMode?styles.lightWhite:styles.black,fontSize(25)]} /></TouchableOpacity>
           
-          <Text style={[ styles.black,fontSize(23), {fontWeight: '600'}]}>
+          <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(23), {fontWeight: '600'}]}>
             Notifications
           </Text>
-          <Icon name={"settings"} type={Icons.Feather} style={[styles.black,fontSize(25)]} />
+          <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>
+          <Icon name={"settings"} type={Icons.Feather} style={[darkMode?styles.lightWhite:styles.black,fontSize(25)]} />
+          </TouchableOpacity>
         </View>
         <NotificationCard />
         <NotificationCard />

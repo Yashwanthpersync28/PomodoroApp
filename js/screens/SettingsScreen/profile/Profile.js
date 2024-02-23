@@ -18,6 +18,7 @@ import { DarkModeMOdal } from '../Components/DarkModeModal'
 import { addUserData } from '../../../redux/userReducer/UserInformationReducer'
 import { Logout } from '../Logout/Logout'
 import { useEffect } from 'react'
+import LoaderModalComponent from '../../../components/modals/LoaderModalComponent'
 
 
 export const Profile = () => {
@@ -33,7 +34,7 @@ export const Profile = () => {
     console.log(userDetails.profilePic,'imaghnknkhnk')
     const [showProfilePic, setShowProfilePic] = useState(false)
 
-
+const [modalVisible,setModalVisible] = useState(false)
     useEffect(()=>{
         // setTimeout(() => {
             // Assuming userDetails.profilePic contains the profile picture URI
@@ -116,6 +117,9 @@ export const Profile = () => {
         navigation.goBack();
     }
 
+    const loader = ()=>{
+        setModalVisible(true)
+    }
     const updateUserDetails = ()=>{
         const userdata ={
              ...userDetails,
@@ -306,10 +310,11 @@ const handleImage = () => {
             </ScrollView>
             <Text style={[styles.tomotoRed, fontSize(15), styles.textCenter]}>{error && emailError}</Text>
             <View style={[styles.flexEnd, { width: widthValue(1) }, padding(0, 20, 0),darkMode?styles.bgdarkmodeBlack: styles.bgWhite, styles.centerHorizontal]}>
-                <ButtonComponent title={'Save'} disabled={!(error==='' && emailError === '' && number.length >= 9 && fullname.trim() !== '' && username.trim() !== '')} onPress={updateUserDetails}/>
+                <ButtonComponent title={'Save'} disabled={!(error==='' && emailError === '' && number.length >= 9 && fullname.trim() !== '' && username.trim() !== '')} onPress={loader}/>
             </View>
-            {currentModal ===21 && <Logout VisibleAt={currentModal ===21} HeaderName={'Your Information'} question={'Your data updated succesfully'} option1={'Close'} option2={'Ok'} OnPress1={closeModal} OnPress2={closeModal}/>}
+            {currentModal ===21 && <Logout VisibleAt={currentModal ===21} HeaderName={'Your Information'} question={'Your data updated succesfully'} option1={'Close'} option2={'Ok'} OnPress1={closeModal} OnPress2={()=>{closeModal(),navigation.goBack()}}/>}
             {currentModal === 11 && <DarkModeMOdal selectedThing={selectedGender} closeModal={closeModal} visibleAt={currentModal === 11} handleFuntion={handleGenderModal} data={gender} />}
-        </SafeAreaView>
+    {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setModalVisible(false)} name={'Updating your Details'} handleLogin={()=>{updateUserDetails(),dispatch(setCurrentModal(21))}}/> : null}
+                  </SafeAreaView>
     )
 }
