@@ -57,6 +57,8 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
             arrowHeight: 10,
             textDayHeaderFontWeight:'bold',
             textDayHeaderFontSize:15,
+            indicatorColor:Darkmode?'white' :'black',
+            arrowColor:Darkmode?'white': 'black',
             arrowStyle: {
               color: Darkmode?'White':'black', // Set your desired arrow color here
             },

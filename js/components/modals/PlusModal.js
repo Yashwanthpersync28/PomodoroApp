@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Modal, TouchableOpacity } from 'react-native';
+import { View, Modal, TouchableOpacity , StatusBar } from 'react-native';
 import { styles, radius, fontSize, flex, paddingPosition, widthValue } from '../../styles/Styles';
 import {TriangleBottomRadius} from '../../screens/Manage/components/TriangleBottomRadius';
 // import Icon,{Icons} from '../Icons';
@@ -33,6 +33,7 @@ export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
   };
 
   return (
+    
     <Modal
       animationType="slide"
       transparent={true}
@@ -46,6 +47,7 @@ export const PlusModal = ({ visible, onClose , handleCount , handleIndex}) => {
             justifyContent: 'flex-end',alignItems:'flex-end'
           },
         ]}>
+    <StatusBar backgroundColor = 'rgba(0, 0, 0, 0.6)'/>
         <View style={[styles.column, { justifyContent: 'flex-end' ,alignItems:'flex-end'},paddingPosition(0,30,90,20)]}>
           <View
             style={[

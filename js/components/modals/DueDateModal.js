@@ -8,10 +8,12 @@ import Icon, { Icons } from '../Icons';
 import { DuedateCalendar } from '../../screens/Manage/components/Calendar/DuedateCalendar';
 import { Colors } from '../../styles/Colors';
 import { ProgressCalendar } from '../../screens/Report/components/ProgressCalendar';
+import { useSelector } from 'react-redux';
 
 
 
 export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
+  const Darkmode=useSelector((state)=>state.system.darkMode);
 
     const calendarheaderData=[{'name':'Today','Iconfamily':Icons.Feather,'IconName':'sun','color':styles.bgLeafGreen},
     {'name':'Tomorrow','Iconfamily':Icons.Feather,'IconName':'sunrise','color':styles.bgBlue},
@@ -36,11 +38,11 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
     <TouchableOpacity onPress={onClose} style={[flex(1)]}>
     </TouchableOpacity>
     </View>
-    <View style={[flex(0.8), { width: widthValue(1) }, styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
-      <View style={[styles.allCenter, {height:heightValue(12)}, borderColor(Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
-        <Header headername={'Due Date'} bgcolor={styles.white} color={styles.black} showLeftIocn={true}/>
+    <View style={[flex(0.8), { width: widthValue(1) },Darkmode?styles.bgdarkmodeBlack: styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
+      <View style={[styles.allCenter, {height:heightValue(12)}, borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
+        <Header headername={'Due Date'} bgcolor={styles.white} color={Darkmode?styles.white:styles.black} showLeftIocn={true}/>
       </View>
-      <View style={[styles.spaceBetween, {height:heightValue(8)}, styles.row,borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
+      <View style={[styles.spaceBetween, {height:heightValue(8)}, styles.row,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1)]}>
           {calendarheaderData.map((data,index)=>{
               return(
                   <View style={[styles.column,styles.allCenter]}>
@@ -48,7 +50,7 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
                           <View style={[{height:40,width:40},data.color,styles.allCenter,radius(20)]}>
                                 <Icon name={data.IconName} type={data.Iconfamily} style={[styles.white,fontSize(20)]}/>
                           </View>
-                          <Text style={[styles.black,fontSize(16),marginPosition(3),styles.textCenter]}>{data.name}</Text>
+                          <Text style={[Darkmode?styles.white:styles.black,fontSize(16),marginPosition(3),styles.textCenter]}>{data.name}</Text>
                   </TouchableOpacity>
                 </View>
               )
@@ -56,14 +58,14 @@ export const DueDateModal = ({onClose,OnpressDate,handletoAddtask}) => {
        
       </View>
       <View style={[marginPosition(15,0,15),flex(1)]}>
-          <View style={[flex(1),borderWidth(1),borderColor(Colors.borderGray),radius(15),padding(5)]}>
-           <DuedateCalendar OnpressDate={OnpressDate}/>
+          <View style={[flex(1),borderWidth(1),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),radius(15),padding(5)]}>
+           <DuedateCalendar darkMode={Darkmode} OnpressDate={OnpressDate}/>
            {/* <ProgressCalendar/> */}
           
         </View>
       </View>
 
-      <View style={[{height:heightValue(7)}, styles.row, styles.allCenter,borderColor(Colors.borderGray),borderWidth(0,1)]}>
+      <View style={[{height:heightValue(7)}, styles.row, styles.allCenter,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,1)]}>
         <View style={[styles.spaceBetweenVertical, styles.row, flex(1)]}>
           <CustomizedButtons handlecontinue={GoToAddtask} name={'Cancel'} bgcolor={styles.bgsmokeOrange} color={styles.Orange} style={[{ width: widthValue(2.5) }]} />
           <CustomizedButtons name={'OK'} bgcolor={styles.bgOrange} color={styles.white} style={[{ width: widthValue(2.5) }]} handlecontinue={GoToAddtask} />

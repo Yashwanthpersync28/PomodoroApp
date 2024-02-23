@@ -15,7 +15,7 @@ export const Header = ({headername,IconfamilyRight,IconNameRight,onPress,IconNam
       {showLeftIocn?
        <Icon name={IconNameLeft} type={IconfamilyLeft} style={[darkMode?styles.white:styles.black,fontSize(30)]} />:
      <Image
-     source={require('../../../assets/Images/timericon2.png')}
+     source={darkMode?require('../../../assets/Images/darkmodebell.png'):require('../../../assets/Images/timericon2.png')}
      style={[{width: widthValue(6), height: widthValue(6)},marginPosition(0,0,0,-10)]}
    />}
      </TouchableOpacity>

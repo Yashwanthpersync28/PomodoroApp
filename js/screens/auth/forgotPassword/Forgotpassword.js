@@ -11,6 +11,7 @@ import { addUser } from '../../../redux/userDataReducer/UserDetailsReducer';
 import { Icons } from '../../../components/Icons';
 import { handlePasswordvalidation } from '../../../constants/PasswordValidaton';
 import { Colors } from '../../../styles/Colors';
+import { setRememberMe } from '../../../redux/rememberReducer/RemembermeReducer';
 
 export const Forgotpassword = ({navigation}) => {
   //refs
@@ -41,6 +42,7 @@ export const Forgotpassword = ({navigation}) => {
 ///selectors
 const userDetails=useSelector((state)=>state.UserDetails.userList)
 const Darkmode=useSelector((state)=>state.system.darkMode);
+const rememberMeData = useSelector((state) => state.RememberMe);
 
 const dispatch=useDispatch()
   // handling screens based on count value
@@ -76,7 +78,7 @@ const handleEmailChange = (text) => {
 useEffect(() => {
   if(Email.length>1){
   const user = userDetails.find(
-    (useremail) => useremail.email.toLowerCase() === Email.toLowerCase()
+    (useremail) => useremail.email=== Email
   );
   if(user){
     setId(user.id)
@@ -126,6 +128,26 @@ const UpdatePassword=()=>{
     return user;
 });
 dispatch(addUser(UserUpdatedPassword))
+if (rememberMeData) {
+  // Dispatch the setRememberMe action with email, password, and rememberMe values
+  dispatch(
+    setRememberMe({
+      email: Email,
+      password: confirmPass,
+      rememberMe: true,
+    })
+  );
+} else {
+
+  // Dispatched the setRememberMe action with default values if Remember Me is unchecked
+  dispatch(
+    setRememberMe({
+      email: '',
+      password: '',
+      rememberMe: false,
+    })
+  );
+}
 setCount(3)
 }
 const handlepass=(val)=>{
@@ -135,7 +157,7 @@ const handlepass=(val)=>{
 }
   return (
     <SafeAreaView style={[flex(1), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, padding(20)]}>
-<StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+<StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = {Darkmode?"light-content":"dark-content"}/>
 
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
@@ -172,7 +194,8 @@ const handlepass=(val)=>{
               IconFamily ={Icons.MaterialCommunityIcons}
               Iconname={'email'}
               bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
-              showGray={true}
+              showGray={Darkmode?true:false}
+              
             />
           {EmailError===''?null:
             <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -279,8 +302,8 @@ const handlepass=(val)=>{
       </View>
       {count===3 ? <>
         <View style={[styles.column,styles.allCenter]}>
-               <Image source={require('../../../assets/Images/GotohomepageImage.png')} style={[{height:100,width:100}]}/>
-               <Text style={[styles.black,fontSize(30),fontWeight('bold'),lineHeight(35)]}>You're All Set!</Text>
+               <Image source={Darkmode?require('../../../assets/Images/GotohomepageDb.png'):require('../../../assets/Images/HomepageImg.png')} style={[{height:100,width:100}]}/>
+               <Text style={[Darkmode?styles.white:styles.black,fontSize(30),fontWeight('bold'),lineHeight(35)]}>You're All Set !</Text>
                <Text style={[styles.textCenter,fontSize(17),styles.Gray,{width:widthValue(2)},lineHeight(20),marginPosition(10)]}>Congratulation's Your password has been changed successfully</Text>
 
          </View>

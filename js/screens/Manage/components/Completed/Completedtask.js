@@ -38,6 +38,7 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
     
 ///search functionality
 useEffect(()=>{
+ 
   if(InputText.trim()===''){
     setTempTrash(data) 
     setSearchedTask(true)                       
@@ -55,8 +56,12 @@ useEffect(()=>{
     }
    
   }
-},[data,InputText])
+},[data,InputText,Trashdatas])
 
+
+useEffect(() => {
+  setTempTrash(Trashdatas);
+}, [Trashdatas]);
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bglgWhite]}>
     <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
@@ -82,11 +87,11 @@ useEffect(()=>{
      <View style={[flex(1),styles.column]}>
       {SearchedTask ? 
      <>
-        {name==='Trash'? <TaskCardDetails data={tempTrashdatas} handleTask={(index)=>console.log(index)}/>:
+        {name==='Trash'? <TaskCardDetails data={tempTrashdatas} handleTask={(index)=>console.log(index)} />:
        
         <View>
-         <Dayheadings darkMode={Darkmode} navigation={navigation} headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday}/>
-         <Dayheadings darkMode={Darkmode}  headingname={'Yesterday'} focusTime={focustimeYesterday} completed={completedTasksYesterday.length} name={name} data={completedTasksYesterday}/>
+         <Dayheadings darkMode={Darkmode} navigation={navigation} headingname={'Today'} focusTime={focustimeToday} completed={completedTasksToday.length} taskdata={'vhbjn'} name={name} data={completedTasksToday} details={'You have not completed any task Today, Complete it'}/>
+         <Dayheadings darkMode={Darkmode}  headingname={'Yesterday'} focusTime={focustimeYesterday} completed={completedTasksYesterday.length} name={name} data={completedTasksYesterday} details={'You have not completed any task Yesterday'}/>
          </View>
         }
         </>

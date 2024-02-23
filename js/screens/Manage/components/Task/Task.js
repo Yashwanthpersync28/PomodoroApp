@@ -14,6 +14,7 @@ import { addUserTasks, deleteUserTask } from '../../../../redux/userReducer/User
 import DocumentPicker from 'react-native-document-picker';
 import { GetUpdatedAttachement } from '../../../../constants/documentpicker'
 import { addTrashtasks } from '../../../../redux/userReducer/TrashReducer'
+import { AddTask } from '../AddTask/AddTask'
 
 
 
@@ -23,6 +24,7 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
   const {id,completedTask}=route.params
   console.log('id',id);
   //states
+  const [modalVisible,setModalVisible]=useState(false)
   const [isDeleteFolder,setisDeleteFolder]=useState(false)
   const [showOptions,setShowoptions]=useState(false)
   const [subtask,setSubtask]=useState('')
@@ -250,17 +252,18 @@ const handleDeletedtasks=()=>{
         })}
    </View>
    {/* add sub task */}
-   <View style={[marginPosition(10),radius(10)]}>
-   <TextInputCompnent
-      placeholder={'Add subtask'}
-      value={subtask}
-      onChangeText={(val)=>setSubtask(val)}
-      IconFamily ={Icons.Feather}
-      Iconname={'plus'}
-      bgColor={Darkmode?styles.bgtaskCardDblack:styles.bgWhite}
-      showGray={true}
-    />
-    </View>
+    {/* addtask */}
+    <View style={[{height:heightValue(14)},marginPosition(15)]}>
+       <TouchableWithoutFeedback onPress={()=>setModalVisible(true)}>
+      <View style={[styles.row, padding(10), styles.centerHorizontal, radius(6),borderColor(Darkmode?Colors.taskCardDblack:Colors.borderGray),borderWidth(1),Darkmode?styles.bgtaskCardDblack:styles.bgWhite,{height:heightValue(14)}]}>
+            <Icon name={'plus'} type={Icons.Feather} style={[fontSize(20),Darkmode?styles.DarkmodeText:styles.black]}/>
+            <View style={[styles.row, flex(1.5), styles.centerHorizontal ]}>
+              <Text style={[Darkmode?styles.DarkmodeText:styles.black,marginPosition(0,0,0,8)]}>Add Task</Text>
+            </View>     
+     </View>
+     </TouchableWithoutFeedback>
+       {modalVisible && <AddTask visible={modalVisible} onClose={()=>setModalVisible(false)} count={0}/>}
+     </View>
     {/* //Tags */}
     {/* //Tags */}
 {/* //Tags */}

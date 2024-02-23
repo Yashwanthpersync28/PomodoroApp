@@ -6,7 +6,7 @@ import Icon, { Icons } from '../../../../components/Icons';
 import { Colors } from '../../../../styles/Colors';
 import { flex, fontSize, heightValue, styles, widthValue } from '../../../../styles/Styles';
 
-export const DuedateCalendar = ({OnpressDate}) => {
+export const DuedateCalendar = ({OnpressDate,darkMode}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleDateString('default', { month: 'long' }));
   const [selectedColor,setSelectedcolor]=useState('')
@@ -102,7 +102,7 @@ export const DuedateCalendar = ({OnpressDate}) => {
         ]}
       >
         <View style={[styles.allCenter]}>
-        <Text style={[styles.dayText, isToday && { color: 'white',width:20 ,textAlign:'center'}, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:'white',textAlign:'center'},isRemainingDate && { color: 'black' ,textAlign:'center'}]}>{date.day}</Text>
+        <Text style={[styles.dayText, isToday && { color: darkMode?'black':'white',width:20 ,textAlign:'center'}, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:darkMode?'black':'white',textAlign:'center'},isRemainingDate && { color: darkMode?'white':'black' ,textAlign:'center'}]}>{date.day}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -177,16 +177,17 @@ export const DuedateCalendar = ({OnpressDate}) => {
     
     <Calendar
     
-    style={[{ minHeight: heightValue(3)}]}
+    style={[{ minHeight: heightValue(3)},darkMode?styles.bgdarkmodeBlack:styles.bgWhite]}
         ref={calendarRef}
         onDayPress={handleDateChange}
         onMonthChange={handleMonthChange}
         markedDates={{ [selectedDate]: { selected: true, disableTouchEvent: true, selectedDotColor: 'blue' } }}
         theme={{
-          selectedDayBackgroundColor: 'blue',
+          // selectedDayBackgroundColor: 'blue',
+          monthTextColor:darkMode?'white': 'black',
           todayTextColor: 'black',
           todayBackgroundColor:'#4bb058',
-          calendarBackground: '#ffffff',
+          calendarBackground: darkMode?'#181a21':'#ffffff',
           dayTextColor: 'black',
           textDayFontWeight: 'bold', // Bold weight for day names
           textMonthFontWeight: 'bold', // Bold weight for month names
@@ -194,7 +195,9 @@ export const DuedateCalendar = ({OnpressDate}) => {
           textDayHeaderFontWeight: 'bold', // Bold weight for day header (Sun, Mon, Tue, ...)
           agendaDayTextColor: 'red',
           textDayStyle: {color:'black'},
-          dayTextColor: 'blue',
+          indicatorColor:darkMode?'white' :'black',
+            arrowColor:darkMode?'white': 'black',
+          // dayTextColor: 'blue',
           
         }}
         // minDate={minDate}

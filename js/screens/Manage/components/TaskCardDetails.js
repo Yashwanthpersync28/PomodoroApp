@@ -9,7 +9,7 @@ import { NotaskFound } from '../../../components/view/NotaskFound'
 import { Colors } from '../../../styles/Colors'
 
 
-const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLinethrough}) => {
+const TaskCardDetails = ({name,ShowplayIcon,data,handleTask,showPlayIcon,showLinethrough,details}) => {
 const Darkmode=useSelector((state)=>state.system.darkMode);
 
     console.log('dataaa',data.length);
@@ -65,15 +65,15 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
             {/* //options */}
             {showOptionsIndex === index && (
                 <>
-            <View style={[{ position: 'absolute', top: 20, right: -35, zIndex: 99 },styles.bgsmokewhite,radius(10),paddingPosition(0,10,0,10)]}>
+            <View style={[{ position: 'absolute', top: 20, right: -35, zIndex: 99 },Darkmode?styles.bgoptionsColor:styles.bgsmokewhite,radius(10),paddingPosition(0,10,0,10)]}>
                 <TouchableOpacity onPress={()=>handletoRestore(index)}>
-                <View style={[styles.row, radius(10), styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 ,width:widthValue(3)},borderColor(Colors.borderGray),borderWidth(0,0,0,1)]}>
-                  <Icon name={'archive-arrow-up-outline'} type={Icons.MaterialCommunityIcons} style={[styles.black, fontSize(20), marginPosition(0, 10)]} />
-                  <Text style={[styles.black, fontSize(17)]}>Restore</Text>
+                <View style={[styles.row, radius(10),Darkmode?styles.bgoptionsColor: styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 ,width:widthValue(3)},borderColor(Darkmode?'#2c3039':Colors.borderGray),borderWidth(0,0,0,1)]}>
+                  <Icon name={'archive-arrow-up-outline'} type={Icons.MaterialCommunityIcons} style={[Darkmode?styles.inputColor:styles.black, fontSize(20), marginPosition(0, 10)]} />
+                  <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(17)]}>Restore</Text>
                 </View>
                 </TouchableOpacity>
                
-                <View style={[styles.row, radius(10), styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2,}]}>
+                <View style={[styles.row, radius(10),Darkmode?styles.bgoptionsColor: styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2,}]}>
                 <TouchableOpacity onPress={()=>handleDeleteForever(index)} style={[styles.row]}>
                   <Icon name={'trash'} type={Icons.Octicons} style={[styles.Orange, fontSize(20), marginPosition(0, 10)]} />
                   <Text style={[styles.Orange, fontSize(16)]}>Delete forever</Text>
@@ -96,7 +96,7 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
               <Icon name={'play'} type={Icons.AntDesign} style={[fontSize(20),styles.Orange]}/>
              </TouchableOpacity>:
              <TouchableOpacity onPress={() => toggleOptions(index)}>
-             <Icon name={name==='Completed'?null:ShowplayIcon?'play':'dots-three-vertical'} type={Icons.Entypo} style={[styles.black,fontSize(20)]}/>
+             <Icon name={name==='Completed'?null:ShowplayIcon?'play':'dots-three-vertical'} type={Icons.Entypo} style={[Darkmode?styles.inputColor:styles.black,fontSize(20)]}/>
              </TouchableOpacity>}
         </View>
         
@@ -105,7 +105,7 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
         )
     })}
     {data.length===0?
-    <NotaskFound name={'No task found!'}/>:null} 
+    <NotaskFound name={'No task found!'} details={details}/>:null} 
     </>
   )
 }

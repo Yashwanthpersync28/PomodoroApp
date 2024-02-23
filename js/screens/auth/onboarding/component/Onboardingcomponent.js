@@ -14,10 +14,10 @@ export const Onboardingcomponent = ({header,details,index}) => {
   return (
     <View style={[padding(0),flex(1),marginPosition(0)]}>
         <View style={[styles.bgOrange,flex(0.8)]}>
-            <View style={[{justifyContent:'center',alignItems:'flex-end'}]}>
-                 {index ===0 && <Image source={Darkmode?require('../../../../assets/Images/LottiemobileoneDarkMode.png'):require('../../../../assets/Images/Lottiemobileone.png')} style={[marginPosition(10),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-                 {index === 1 &&  <Image source={Darkmode?require('../../../../assets/Images/LottiemobiletwoDarkMode.png'):require('../../../../assets/Images/Lottiemobiletwo.png')} style={[marginPosition(0),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-                {index ===2 &&   <Image source={Darkmode?require('../../../../assets/Images/lottiemobilethreeDarkMode.png'):require('../../../../assets/Images/lottiemobilethree.png')} style={[marginPosition(0),{ width: 290 ,alignSelf: 'center'}]} resizeMode="contain"/>}
+            <View style={[{justifyContent: 'center', alignSelf: 'center' }]}>
+                 {index ===0 && <Image source={Darkmode?require('../../../../assets/Images/LottiemobileoneDarkMode.png'):require('../../../../assets/Images/Lottiemobileone.png')} style={[marginPosition(10),{ width: 300,height:heightValue(1.4) ,alignSelf: 'center'}]} resizeMode="contain"/>}
+                 {index === 1 &&  <Image source={Darkmode?require('../../../../assets/Images/LottiemobiletwoDarkMode.png'):require('../../../../assets/Images/Lottiemobiletwo.png')} style={[marginPosition(0),{ width: 300 , height:heightValue(1.3),alignSelf: 'center'}]} resizeMode="contain"/>}
+                {index ===2 &&   <Image source={Darkmode?require('../../../../assets/Images/lottiemobilethreeDarkMode.png'):require('../../../../assets/Images/lottiemobilethree.png')} style={[marginPosition(0),{ width: 290 , height:heightValue(1.4),alignSelf: 'center'}]} resizeMode="contain"/>}
         </View>
         <Svg style={{position:'absolute',bottom:0}} width={widthValue(0.9)} height={100}>
            <Path 

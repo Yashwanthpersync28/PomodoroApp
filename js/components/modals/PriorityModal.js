@@ -93,6 +93,8 @@ export const PriorityModal = ({ visible, onClose , getPriorityDetails,handletoAd
       </View>
         <View style={[flex(0.6), { width: widthValue(1) }, Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, radius(0, 20, 0, 0, 20), paddingPosition(0, 20, 0, 20)]}>
           <View style={[styles.allCenter, flex(0.7), borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray), borderWidth(0, 0, 0, 1)]}>
+    <View style={[{width:widthValue(10)},borderColor(Darkmode?Colors.darkmodeBorderColor:'#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5)]}></View>
+           
             <Header headername={'Priority'} bgcolor={styles.white} color={Darkmode?styles.white:styles.black} showLeftIocn={true}/>
             {/* <Text style={[styles.black]}>{selectedItem}</Text> */}
           </View>
