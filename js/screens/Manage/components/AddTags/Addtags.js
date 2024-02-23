@@ -149,7 +149,7 @@ const handleChangeText = (val) => {
 };
   return (
     <View style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}>
-    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+    <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
 
     <Add
     Darkmode={Darkmode}

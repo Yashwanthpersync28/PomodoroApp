@@ -27,8 +27,8 @@ useEffect(()=>{
     const projectTasks = UserTasks.filter((task) => task.Project.Projectname === project.name);
     const getcompletedtasks=getCompletedTasks(projectTasks)
     
-    const color=projectTasks[0].Project.Color
-    console.log('color',color);
+    // const color=projectTasks.Project.Color
+    // console.log('color',color);
     console.log('projectTasks',projectTasks);
     // Calculate total focus time for this project
     const ress=getTodayCompletedfocusTime(getcompletedtasks)
@@ -37,7 +37,7 @@ useEffect(()=>{
     const projectFocusTimeInMinutes = calculateFocusTime(getcompletedtasks);
 
     const percentage = ((projectFocusTimeInMinutes / totalFocusTimeInMinutes) * 100).toFixed(2);
-    return { projectName: project.name, focusTime: ress , color: color,percentage: percentage};
+    return { projectName: project.name, focusTime: ress , color:'#ff6347',percentage: percentage};
   });
   setProjectdata(datatwo)
 },[UserTasks])

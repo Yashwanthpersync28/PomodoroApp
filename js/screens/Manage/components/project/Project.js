@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { flex, radius, widthValue , styles, paddingPosition, padding, borderColor, borderWidth, heightValue, fontSize, margin} from '../../../../styles/Styles'
+import { flex, radius, widthValue , styles, paddingPosition, padding, borderColor, borderWidth, heightValue, fontSize, margin, marginPosition} from '../../../../styles/Styles'
 import {View,Text,Modal,TextInput,KeyboardAvoidingView,ScrollView,TouchableOpacity} from 'react-native'
 import Icon, { Icons } from '../../../../components/Icons'
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons'
@@ -49,7 +49,9 @@ export const Project = ({ visible, onClose , getProjectDetails,handleCounter}) =
   </TouchableOpacity>
   </View>
       <View style={[flex(0.8),{width:widthValue(1)},Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
-        <View style={[flex(0.6),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1)]}>
+        <View style={[flex(0.6),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1),styles.allCenter]}>
+    <View style={[{width:widthValue(10)},borderColor(Darkmode?Colors.darkmodeBorderColor:'#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5)]}></View>
+        
          <Header headername={'Project'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} onPress={handletoAddProject} showLeftIocn={true} color={Darkmode?styles.white:styles.black}/>
         </View>
          <View style={[flex(4)]}>

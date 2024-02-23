@@ -147,7 +147,7 @@ useEffect(()=>{
 
     return(   
 <SafeAreaView style={[flex(1), padding(20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
-<StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
+<StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = {Darkmode?"light-content":"dark-content"}/>
 <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
@@ -196,12 +196,13 @@ useEffect(()=>{
   </View>
   <View style={[styles.row, marginPosition(0), flex(0.3), styles.centerVertical]}>
   <View style={[styles.row, flex(3), styles.selfStart]}>
-    <TouchableOpacity onPress={() => setRemember(!remember)}>
+    <TouchableOpacity onPress={() => setRemember(!remember)} style={[styles.row]}>
       <Icon name={remember ? 'check-square' : 'square'} type={Icons.Feather} style={[fontSize(25), styles.Orange]}/> 
-    </TouchableOpacity>
+   
     <View style={[styles.allCenter]}>
       <Text style={[Darkmode?styles.inputColor:styles.black, marginPosition(0, 0, 0, 10), fontSize(17),fontWeight('bold')]}>Remember Me</Text>
     </View>
+    </TouchableOpacity>
   </View>
   <View style={[flex(1.5), styles.centerHorizontal, { alignItems: 'flex-end' }]}>
     <TouchableOpacity onPress={handleforgotPassword}>

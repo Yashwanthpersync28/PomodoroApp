@@ -18,6 +18,7 @@ import { DropDown } from './components/DropDown'
 import { getCompletedTasks, getCompletedTasksThisMonth, getCompletedTasksThisWeek, getCompletedTasksThisWeekOrTwoWeeks, getCompletedTasksToday, getTasksThisWeek, getTasksToday, getTodayCompletedfocusTime } from '../../constants/getCompletedTasksFunctions'
 import { useDispatch, useSelector } from 'react-redux'
 import { setName, setTempToggleNames, setToggleNames } from '../../redux/userReducer/ShowPomdoroReducer'
+import { NotaskFound } from '../../components/view/NotaskFound'
 
 
 export const Report = ({navigation}) => {
@@ -198,11 +199,11 @@ useEffect(() => {
                      {showpomodoro ? 
                          (Name === 'Weekly' && <PomodoroRecords />) ||
                          (Name === 'Monthly' && <ProgressCalendar />) ||
-                         (Name === 'Biweekly' && <PomodoroRecords />)
+                         (Name === 'Biweekly' && <NotaskFound name={'No Data Found'} bgcolor={true}/>)
                            : 
                          (Name === 'Task' && <FocusTime />) ||
                          (Name === 'Weekly' && <ProjectTimeDistribution Darkmode={Darkmode}/>) ||
-                         (Name === 'Biweekly' && <FocusTime />)
+                         (Name === 'Biweekly' && <NotaskFound name={'No Data Found'} bgcolor={true}/>)
                       }
 
                      </TouchableWithoutFeedback>

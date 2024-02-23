@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import {borderColor, borderWidth, flex, fontSize, fontWeight, marginPosition, padding, paddingPosition, radius, styles, widthValue } from '../../styles/Styles';
 import Icon, { Icons } from '../Icons';
+import { Colors } from '../../styles/Colors';
 
 
 export const TaskDeletedModal = ({ visible, onClose , Darkmode}) => {

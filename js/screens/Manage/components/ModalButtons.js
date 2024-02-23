@@ -9,7 +9,7 @@ export const ModalButtons = ({name,icon,iconfamily,onPress}) => {
   const Darkmode=useSelector((state)=>state.system.darkMode);
 
   return (
-    <View style={[{ backgroundColor: Darkmode?Colors.modalColor:Colors.white, width: widthValue(3) },styles.selfStart, radius(0),paddingPosition(10,10,10,10),radius(10),borderColor(Darkmode?'gray':Colors.borderGray),borderWidth(0,1)]}>
+    <View style={[{ backgroundColor: Darkmode?Colors.modalColor:Colors.white, width: widthValue(3) },styles.selfStart, radius(0),paddingPosition(10,10,10,10),radius(10),borderColor(name==='Task'?Darkmode?Colors.taskCardDblack:Colors.white:Darkmode?'gray':Colors.borderGray),borderWidth(0,1)]}>
 
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.row]}>

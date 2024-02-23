@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { flex, radius, widthValue , styles, paddingPosition, borderColor, borderWidth} from '../../../../styles/Styles'
+import { flex, radius, widthValue , styles, paddingPosition, borderColor, borderWidth, marginPosition} from '../../../../styles/Styles'
 import {View,Modal,ScrollView,TouchableOpacity} from 'react-native'
 import Icon, { Icons } from '../../../../components/Icons'
 import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButtons'
@@ -63,7 +63,9 @@ const Tags = ({ visible, onClose ,getTagDetails,handleCounter}) => {
   </TouchableOpacity>
   </View>
       <View style={[flex(0.8),{width:widthValue(1)},Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,radius(0,20,0,0,20),paddingPosition(10,10,0,10)]}>
-        <View style={[flex(0.6)]}>
+        <View style={[flex(0.6),styles.allCenter]}>
+    <View style={[{width:widthValue(10)},borderColor(Darkmode?Colors.darkmodeBorderColor:'#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5)]}></View>
+        
          <Header headername={'Tags'} IconfamilyRight={Icons.Feather} IconNameRight={'plus'} color={Darkmode?styles.white:styles.black} onPress={handleTags}  showLeftIocn={true}/>
         </View>
          <View style={[flex(4)]}>

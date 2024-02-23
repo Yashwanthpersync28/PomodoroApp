@@ -85,10 +85,10 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
      </View>
      {/* //tasks */}
      <View>
-      <TaskCardDetails data={tempData} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:false})} showPlayIcon={true}/>
+      <TaskCardDetails data={tempData} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:false})} showPlayIcon={true} details={'You have not added any task , please add'}/>
      </View>
      <HeaderBorder name={'Completed'}/>
-     <TaskCardDetails data={completedData} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:true})} showLinethrough={true} name={'Completed'}/>
+     <TaskCardDetails data={completedData} handleTask={(id)=>navigation.navigate('task',{id:id,completedTask:true})} showLinethrough={true} name={'Completed'} details={'You have not completed any task, Complete it'}/>
 
      </ScrollView>
    </SafeAreaView>

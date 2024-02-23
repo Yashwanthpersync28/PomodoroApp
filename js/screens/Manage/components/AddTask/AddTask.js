@@ -26,6 +26,8 @@ export const AddTask = ({ visible, onClose ,count }) => {
   console.log('receivedTaskname',receivedTaskname);
   console.log('receivedProjectname',receivedProjectname);
   const [counter,setCounter]=useState(count);
+  const showcolor=Darkmode?'white':'black';
+  const [colortext,setColorText]=useState('black')
  const TextInputFocus=useRef();
 //  const { darkMode } = useSelector(state => state.system)
  const [Disablebutton,setDisablebutton]=useState(true)
@@ -49,6 +51,7 @@ export const AddTask = ({ visible, onClose ,count }) => {
  const [userDatas, setUserDatas] = useState(userDatasSelector)
  const dispatch=useDispatch()
  useEffect(() => {
+  Darkmode?setColorText('white'):setColorText('black')
   if (visible && TextInputFocus.current) {
     TextInputFocus.current.focus();
     // Keyboard.dismiss();
@@ -65,7 +68,7 @@ export const AddTask = ({ visible, onClose ,count }) => {
   // setDisablebutton(taskname.length <= 2);
 }, [visible,taskname,receiveProjectData,receiveTagsData,receiveProjectData,selectedDate]);
 
-const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || 'black' },{name:'flag',color:receivedPriorityData.color || 'black'},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : 'black' },{name:'briefcase',color:receiveProjectData.Color || 'black'}];
+const iconData=[{name:selectedDate.iconname || 'sun',color:selectedDate.Color || colortext },{name:'flag',color:receivedPriorityData.color || colortext},{name:'tag',color:receiveTagsData.length > 0 ? receiveTagsData[0].color : colortext },{name:'briefcase',color:receiveProjectData.Color || colortext}];
 
 
 
@@ -162,6 +165,8 @@ const getProjectDetails=(name,color)=>{
           <TouchableOpacity onPress={onClose} style={[flex(1)]}></TouchableOpacity>
       </View>
     <View style={[flex(0.5),{width:widthValue(1)},Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,radius(0,25,0,0,25),styles.allCenter]}>
+    {/* <View style={[{width:widthValue(10)},borderColor(Darkmode?Colors.darkmodeBorderColor:'#e3e1e1'), borderWidth(0,0,0,1),marginPosition(5)]}></View> */}
+      
       {/* //addText  */}
       <View style={[flex(1),paddingPosition(0,20,0,20),styles.selfStart]}>
            <TextInput multiline={true}  value={taskname} onChangeText={(val)=>setTaskname(val)} placeholder={"Add Task"}  autoFocus={true} ref={TextInputFocus} style={[Darkmode?styles.white:styles.black,fontSize(22)]} 
