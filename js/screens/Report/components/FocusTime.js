@@ -11,39 +11,52 @@ export const FocusTime = () => {
   const UserTasks=useSelector((state)=>state.user.userTasks.userTask);
   const [projectlength,setProjectLength]=useState(false)
 const Darkmode=useSelector((state)=>state.system.darkMode);
+const [completedproject,setCompletedProject]=useState([])
+
+const [maxFocusTime,setmaxFocusTime]=useState(0);
 const [tempdata,settemp]=useState([])
   // Example data
  useEffect(()=>{
   const datatwo = ListofProjects.map((project) => {
    
     // Filter UserTasks for this project
-    const projectTasks = UserTasks.filter((task) => task.Project.Projectname === project.name);
+    const projectTasks = UserTasks.filter((task) => task.Project.Projectname === project.name && task.completed===true);
+    console.log('projectTasks',projectTasks);
     const getcompletedtasks=getCompletedTasks(projectTasks)
-    
-    // const color=projectTasks[0]
-    // console.log('cvgbhnj',color.Project.Color);
-    // console.log('color',color);
+    console.log('getcompletedtasks',getcompletedtasks);
+   const  bgcolor=projectTasks[0].Project.Color 
+  if(projectTasks.length>0){
+  // const bgcolor='orange'
+  setCompletedProject(projectTasks)
     console.log('projectTasks',projectTasks);
     // Calculate total focus time for this project
     const ress=calculateFocusTime(getcompletedtasks)
     const time=getTodayCompletedfocusTime(getcompletedtasks)
     console.log('ress',ress);
-    return { name: project.name, value: ress , color: 'green' , time:time};
+    return { name: project.name, value: ress , color: bgcolor , time:time};
+  }
+  else{
+   return { name:'no', value: 0 , color: 'red' , time:'0'}
+  }
   });
   console.log('datatwo',datatwo);
-  settemp(datatwo)
+  const update=datatwo.filter((fil)=>{
+    return fil.name !='no'
+  })
+  settemp(update)
 
+  const max = Math.max(...tempdata.map((item) => item.value));
+setmaxFocusTime(max)
 
-
- },[ListofProjects])
+ },[UserTasks])
   
-
-  const maxFocusTime = Math.max(...tempdata.map((item) => item.value));
+console.log('dxfcgvhbjn',tempdata);
+  // const maxFocusTime = Math.max(...tempdata.map((item) => item.value));
   
   tempdata.sort((a, b) => b.value - a.value);//sorting for highest to lowest
   return (
     <>
-    {tempdata.length>0 ?
+    {completedproject.length>0 ?
     <View style={[{ flexDirection: 'column', justifyContent: 'space-around' }]}>
       
       {tempdata.map((progress, index) => (
@@ -51,9 +64,9 @@ const [tempdata,settemp]=useState([])
           <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(14)]}>{tempdata[index].name}</Text>
           <View style={[styles.row, { alignItems: 'center' }]}>
             <ProgressBar
-              progress={progress.value / maxFocusTime}
+              progress={maxFocusTime ? (progress.value / maxFocusTime) : 0}
               width={maxFocusTime ? 250 : 0}
-              color={tempdata[index].color} // Set color based on index
+              color={progress.color} // Set color based on index
               borderColor={'blue'}
               borderWidth={0}
             />
