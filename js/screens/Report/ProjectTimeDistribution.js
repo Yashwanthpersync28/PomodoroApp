@@ -15,8 +15,10 @@ export const ProjectTimeDistribution = ({Darkmode}) => {
   const UserTasks=useSelector((state)=>state.user.userTasks.userTask);
   const [totalFocustime,setFocustime]=useState('0h')
   const [Projectdata,setProjectdata]=useState([])
+  const [completedproject,setCompletedProject]=useState([])
 useEffect(()=>{
   const getCompletedtasks=getCompletedTasks(UserTasks)
+  setCompletedProject(getCompletedtasks)
   const totalFocusTimeInMinutes = calculateFocusTime(getCompletedtasks);
   console.log('totalFocusTimeInMinutesghjvhbkjn',totalFocusTimeInMinutes);
   const totalfocusTime=getTodayCompletedfocusTime(getCompletedtasks)
@@ -24,12 +26,12 @@ useEffect(()=>{
   const datatwo = ListofProjects.map((project) => {
    
     // Filter UserTasks for this project
-    const projectTasks = UserTasks.filter((task) => task.Project.Projectname === project.name);
+    const projectTasks = UserTasks.filter((task) => task.Project.Projectname === project.name && task.completed);
     const getcompletedtasks=getCompletedTasks(projectTasks)
     
-    // const color=projectTasks.Project.Color
-    // console.log('color',color);
-    console.log('projectTasks',projectTasks);
+   if(projectTasks.length>0){
+    const cc=projectTasks[0].Project.Color
+    // console.log('projectTasks',projectTasks[0].Project.Color);
     // Calculate total focus time for this project
     const ress=getTodayCompletedfocusTime(getcompletedtasks)
     console.log('ress',ress);
@@ -37,15 +39,22 @@ useEffect(()=>{
     const projectFocusTimeInMinutes = calculateFocusTime(getcompletedtasks);
 
     const percentage = ((projectFocusTimeInMinutes / totalFocusTimeInMinutes) * 100).toFixed(2);
-    return { projectName: project.name, focusTime: ress , color:'#ff6347',percentage: percentage};
+    return { projectName: project.name, focusTime: ress , color:cc,percentage: percentage};
+   }
+   else{
+    return {projectName: 'no', focusTime: 0 , color:'blue',percentage: 0}
+   }
   });
-  setProjectdata(datatwo)
-},[UserTasks])
+  const update=datatwo.filter((fil)=>{
+    return fil.projectName !='no'
+  })
+  setProjectdata(update)
+},[UserTasks,totalFocustime])
 
 
   return (
     <>
-    {Projectdata.length>0 ?
+    {completedproject.length>0 ?
     <View style={[flex(1),styles.allCenter]}>
       <View style={[marginPosition(20),styles.positionRelative,{height:heightValue(4)},styles.allCenter]}>
       <Pie
@@ -53,7 +62,7 @@ useEffect(()=>{
               innerRadius={42}
               sections={
                 Projectdata.map((data) => ({
-                  percentage: parseFloat(data.percentage), // Parse percentage as a float
+                  percentage:parseFloat(data.percentage) || 0, // Parse percentage as a float
                   color: data.color
                 }))
               }
