@@ -55,7 +55,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, marginPosition, padding, radius, styles, widthValue } from '../../../../../styles/Styles';
+import { borderColor, borderWidth, flex, fontSize, fontWeight, heightValue, marginPosition, padding, paddingPosition, radius, styles, widthValue, zIndex } from '../../../../../styles/Styles';
 
 import Icon, { Icons } from '../../../../../components/Icons';
 import { deleteUserProject } from '../../../../../redux/userReducer/UserProjectListReducer';
@@ -79,9 +79,9 @@ export const ManageItemslist = ({Darkmode , data, showProjects , optionOne , opt
   return (
     <View style={[flex(1)]}>
       {data.map((item,index) => (
-        // <TouchableOpacity key={item.id} >
-          <View key={index}> 
-            <View style={[styles.row,Darkmode?styles.bgtaskCardDblack:styles.bgMilkyWhite, { height: heightValue(14) }, borderColor(Darkmode?Colors.darkmodeBorderColor:'#f2f0f0'), borderWidth(0,1), { position: 'relative', zIndex: 1 }]}>
+       
+          <View key={index} style={[zIndex(0)]}> 
+            <View style={[styles.row,Darkmode?styles.bgdarkmodeBlack:styles.bgMilkyWhite, { height: heightValue(14) }, borderColor(Darkmode?Colors.darkmodeBorderColor:'#f2f0f0'), borderWidth(0,1), { position: 'relative' },zIndex(0)]}>
               <View style={[flex(0.2), styles.allCenter]}>
                 <Icon name={showProjects ? 'briefcase' : 'tag'} type={Icons.Feather} style={[fontSize(20),{color:item.color}]} />
               </View>
@@ -98,15 +98,15 @@ export const ManageItemslist = ({Darkmode , data, showProjects , optionOne , opt
             </View>
             {/* options */}
             {selectedItem && selectedItem.name === item.name && (
-              <View style={[{ position: 'absolute', top: 38, right: 10, zIndex: 99 },Darkmode?styles.bgoptionsColor:styles.bgsmokewhite,radius(10)]}>
+              <View style={[{ position: Platform.OS==='ios'?'relative':'absolute', top: Platform.OS==='android' ? 38:-15, right: 10,left:Platform.OS==='ios' ? 220 : undefined, zIndex: 99 },Darkmode?styles.bgoptionsColor:styles.bgsmokewhite,radius(10)]}>
                 <TouchableOpacity onPress={()=>showProjects?handleoptionOneProject(item.name):handleoptionOneTags(item.name)}>
-                <View style={[styles.row, radius(10), Darkmode?styles.bgoptionsColor:styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2 }]}>
+                <View style={[styles.row, radius(10), Darkmode?styles.bgoptionsColor:styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 1 }]}>
                   <Icon name={showArchievedlists?'arrow-up-box':'edit-3'} type={showArchievedlists?Icons.MaterialCommunityIcons:Icons.Feather} style={[Darkmode?styles.inputColor:styles.black, fontSize(20), marginPosition(0, 10)]} />
                   <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(17),fontWeight('800')]}>{optionOne}</Text>
                 </View>
                 </TouchableOpacity>
                
-                <View style={[styles.row, radius(10), Darkmode?styles.bgoptionsColor:styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 2,},borderColor(Darkmode?'#2c3039':Colors.borderGray),borderWidth(0,1)]}>
+                <View style={[styles.row, radius(10), Darkmode?styles.bgoptionsColor:styles.bgsmokewhite, padding(10), styles.selfStart, { position: 'relative', zIndex: 1,},borderColor(Darkmode?'#2c3039':Colors.borderGray),borderWidth(0,1)]}>
                 <TouchableOpacity onPress={()=>showProjects?handleArchieveProjects(item.name):handleArchieveTags(item.name)} style={[styles.row]}>
                   <Icon name={showArchievedlists?'delete-outline':'archive-outline'} type={showArchievedlists?Icons.MaterialCommunityIcons:Icons.Ionicons} style={[showArchievedlists?styles.Orange:Darkmode?styles.inputColor:styles.black, fontSize(22), marginPosition(0, 10)]} />
                   <Text style={[showArchievedlists?styles.Orange:Darkmode?styles.inputColor:styles.black, fontSize(16),fontWeight('800')]}>{optionTwo}</Text>
@@ -114,13 +114,20 @@ export const ManageItemslist = ({Darkmode , data, showProjects , optionOne , opt
                 </View>
                 
               </View>
+            
             )}
-            {/* <Inneritem visible={selectedItem && selectedItem.name === item.name} itemName={item.name} /> */}
+            
+           
           </View>
         
       ))}
+     
       <View style={[Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite,{height:heightValue(12)}]}></View>
       {data.length<1?<NotaskFound name={showProjects?'No projects found':'No Tags found'}/>:null}
     </View>
   );
 };
+
+
+
+

@@ -10,7 +10,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon, { Icons } from "../Icons";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor , showGray,ShowXbbutton,handleX}) => {
+export const TextInputCompnent = ({ autoFocus,showFontsize, IconFamily , Iconname , placeholder, value, onChangeText, editable, onKeyPress, maxLength, keyboardType, enableClear, clearPressed, style , secureTextEntry , showText , ShowPasswordIcon,bgColor , showGray,ShowXbbutton,handleX}) => {
     const Darkmode=useSelector((state)=>state.system.darkMode);
 
     const { darkMode } = useSelector(state => state.system)
@@ -22,6 +22,7 @@ export const TextInputCompnent = ({showFontsize, IconFamily , Iconname , placeho
                     placeholderTextColor={showGray ? Colors.lightGray : Colors.black}
                     placeholder={placeholder}
                     value={value}
+                    autoFocus={autoFocus}
                     onKeyPress={onKeyPress}
                     editable={editable}
                     secureTextEntry={secureTextEntry}

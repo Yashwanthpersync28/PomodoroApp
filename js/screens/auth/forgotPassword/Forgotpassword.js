@@ -195,7 +195,7 @@ const handlepass=(val)=>{
               Iconname={'email'}
               bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
               showGray={Darkmode?true:false}
-              
+              autoFocus={true}
             />
           {EmailError===''?null:
             <Text style={[styles.Orange]}>{EmailError}</Text>}
@@ -215,6 +215,7 @@ const handlepass=(val)=>{
               ShowPasswordIcon={true}
               bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
              showGray={Darkmode?true:false}
+             autoFocus={true}
             />
             {passwordError===''?null:
           <Text style={[styles.Orange]}>{passwordError}</Text>}
@@ -252,7 +253,7 @@ const handlepass=(val)=>{
                 setoneBg(true)
                 setTwoBg(false)
                }
-               setinputone(val)}} maxLength={1} keyboardType={'numeric'} value={inputone} refval={focusOne} focusBg={oneBg}/>
+               setinputone(val)}} maxLength={1} keyboardType={'numeric'} value={inputone} refval={focusOne} focusBg={oneBg} autoFocus={oneBg}/>
           <OtpTextInput onChangeText={(val) => {
             if (val.length >= 1) {
               focusThree.current.focus();
@@ -264,7 +265,7 @@ const handlepass=(val)=>{
                 setTwoBg( true)
                 setThreeBg(false)
                }
-               setinputTwo(val)}} maxLength={1} keyboardType={'numeric'} value={inputTwo} refval={focusTwo} focusBg={twoBg}/>
+               setinputTwo(val)}} maxLength={1} keyboardType={'numeric'} value={inputTwo} refval={focusTwo} focusBg={twoBg} autoFocus={twoBg}/>
           <OtpTextInput onChangeText={(val) => {
             if (val.length >= 1) {
               focusFour.current.focus();
@@ -276,7 +277,7 @@ const handlepass=(val)=>{
                 setThreeBg(true)
               setfourBg(false)
                }
-               setinputThree(val)}} maxLength={1} keyboardType={'numeric'} value={inputThree} refval={focusThree} focusBg={threeBg}/>
+               setinputThree(val)}} maxLength={1} keyboardType={'numeric'} value={inputThree} refval={focusThree} focusBg={threeBg} autoFocus={threeBg}/>
           <OtpTextInput onChangeText={(val) => {
             if (val.length >= 1) {
               focusFour.current.focus();
@@ -288,7 +289,7 @@ const handlepass=(val)=>{
               setfourBg(true)
 
                }
-               setinputfour(val)}} maxLength={1} keyboardType={'numeric'} value={inputfour} refval={focusFour} focusBg={fourBg}/>
+               setinputfour(val)}} maxLength={1} keyboardType={'numeric'} value={inputfour} refval={focusFour} focusBg={fourBg} autoFocus={fourBg}/>
               
         </View>
                <OtpTimer/>

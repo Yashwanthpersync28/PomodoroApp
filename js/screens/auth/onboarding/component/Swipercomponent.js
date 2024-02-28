@@ -105,21 +105,22 @@ export const Swipercomponent = ({handleIndex}) => {
         }
       >
         
-        <Onboardingcomponent header={Onboaringdata[0].header} details={Onboaringdata[0].details} index={0}/>
-        <Onboardingcomponent header={Onboaringdata[1].header} details={Onboaringdata[1].details} index={1}/>
-        <Onboardingcomponent header={Onboaringdata[2].header} details={Onboaringdata[2].details} index={2}/>
+        <Onboardingcomponent header={Onboaringdata[0].header} details={Onboaringdata[0].details} index={0} />
+        <Onboardingcomponent header={Onboaringdata[1].header} details={Onboaringdata[1].details} index={1} />
+        <Onboardingcomponent header={Onboaringdata[2].header} details={Onboaringdata[2].details} index={2} />
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,paddingPosition(0,20,10,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,{height:heightValue(7)},borderColor(Darkmode?'#262830':Colors.borderGray),borderWidth(0,0.8)]}>
-       
+      <View style={[paddingPosition(0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,flex(0.2)]}>
+       <View style={[Platform.OS==='android' && styles.allCenter,styles.row,styles.spaceBetweenVertical,Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,marginPosition(10),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,2),{height:heightValue(7)}]}>
        {getStarted? <> 
-                <CustomizedButtons name={'Skip'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{width:widthValue(2.4)},marginPosition(0)]} handlecontinue={handleit}/>
-                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(2.4)},marginPosition(0)]}/>
+                <CustomizedButtons name={'Skip'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{width:widthValue(2.4)},Platform.OS==='ios' && marginPosition(16)]} handlecontinue={handleit}/>
+                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(2.4)},Platform.OS==='ios' && marginPosition(16)]}/>
           
            </>:
-           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)},marginPosition(0)]}/>
+           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)},Platform.OS==='ios' && marginPosition(16)]}/>
         }
+        </View>
     </View>
      
       

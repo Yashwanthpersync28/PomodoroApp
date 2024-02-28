@@ -149,6 +149,7 @@ useEffect(()=>{
 <SafeAreaView style={[flex(1), padding(20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
 <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = {Darkmode?"light-content":"dark-content"}/>
 <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
         style={[padding(0), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}
@@ -172,6 +173,7 @@ useEffect(()=>{
       Iconname={'email'}
       bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
       showGray={Darkmode?true:false}
+      autoFocus={true}
 
     />
     {EmailError===''?null:
