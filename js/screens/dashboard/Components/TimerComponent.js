@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View,Text } from 'react-native';
+import { View,Text, Platform } from 'react-native';
 import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWidth, padding } from '../../../styles/Styles';
 import { TimerButton } from './TimerButton';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { useDispatch, useSelector } from 'react-redux';
+import { platform } from 'process';
 
 export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,setSecondFocusProgress, isTimerActive, handlepause,currentButton, handleContinue, breakTime, handleStop, handleSkipBreak, handleBreak,barColor,handleSecondStart,setSecondFocusTime
   ,secondFocusTime}) => {
@@ -42,7 +43,7 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
 
   return (
     <View style={[styles.centerHorizontal]}>
-      <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)),darkMode?styles.bgdarkmodeBlack: styles.bgWhite,  shadow(10), styles.allCenter]}>
+      <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)),darkMode?styles.bgdarkmodeBlack: styles.bgWhite,  Platform.OS === 'ios'?shadow(2):shadow(10), styles.allCenter]}>
       <View style={[styles.allCenter]}>
       <AnimatedCircularProgress
         size={widthValue(1.6)}
@@ -63,7 +64,7 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
       </View>
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
-          <TimerButton onPress={handleSecondStart} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.1) }} paddingval={[padding(0,10,25)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={handleSecondStart} buttonText={'Start to focus'} widthVal={{ width:Platform.OS ==='ios'? widthValue(2):widthValue(2.3) }} paddingval={[padding(0,15,20)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
           <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={''}paddingval={[padding(0,15,20)]}  BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]} />}
         {currentButton === 2 &&

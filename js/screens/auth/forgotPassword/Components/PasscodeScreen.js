@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions, FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import Icon from react-native-vector-icons
-import { styles,flex, widthValue, heightValue ,radius} from '../../../../styles/Styles';
+import { styles,flex, widthValue, heightValue ,radius, opacity} from '../../../../styles/Styles';
 import { authback } from '../../../../constants/imageConstant';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -28,14 +28,6 @@ const login = ()=>{
     console.log('didnt match man ')
   }
 }
-
-
-
-
-
-
-
-
 
   const DialPad = ({ onPress }) => {
     return (
@@ -78,7 +70,7 @@ const login = ()=>{
 
   return (
     <ImageBackground source={authback} style={[styles.allCenter,flex(1)]}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 60, color: 'black' }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 60, color: 'white' }}>
         Login with Passcode
       </Text>
       <View style={[{ marginBottom: 40, height: 30, },styles.row]}>

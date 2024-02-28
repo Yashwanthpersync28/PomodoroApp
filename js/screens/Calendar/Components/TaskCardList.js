@@ -22,6 +22,7 @@ import {
     heightValue,
 } from '../../../styles/Styles';
 import Icon, { Icons } from '../../../components/Icons';
+import { shadow } from 'react-native-paper';
 
 export const TaskCardList = ({title,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,completed}) => {
   const darkMode = useSelector(state=>state.system.darkMode)
@@ -31,15 +32,12 @@ export const TaskCardList = ({title,priorityname,tagname,projectname,Sessions,ta
 console.log('taskSessions',taskSessions)
     const dispatch = useDispatch();
     return (
-<View>
-            <TouchableWithoutFeedback  key={id}  style={[darkMode?styles.bgtaskCardDblack:styles.bgWhite]}>
-        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite),radius(0,5,5,0,0)
-]}>
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite),radius(0,5,5,0,0)]}>
             <View style={[{ width: 4,height:147 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
-                    paddingPosition(15, 15, 5, 15),
+                    paddingPosition(15, 0, 5, 10),
                     borderWidth(1),
                     darkMode?styles.borderDarkmode:styles.borderLightWhite,
                     radius(0, 5, 5, 0,0),
@@ -51,13 +49,12 @@ console.log('taskSessions',taskSessions)
                     { width: widthValue(1.35) },
                     paddingPosition(0, 0, 10,),
                     radius(0, 5, 5, 0,0),
-
                     completed?{backgroundColor:darkMode?'#20222a':'#ffffff50'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite)
                 ]}>
-                    <View style={[styles.row, styles.selfStart,{width:widthValue(1.2)}]}>
+                    <View style={[styles.row, styles.selfStart,{width:widthValue(1)}]}>
                         {completed === false ? 
-                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 20)]} /> :
-                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 20)]} />}
+                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 10)]} /> :
+                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 10)]} />}
                         <View>
                             <Text style={[completed?darkMode?styles.lightishGray:styles.gray:(darkMode?styles.lightWhite:styles.black), completed && {textDecorationLine:'line-through'}, fontSize(23),{ fontWeight: '500' ,width:widthValue(2)}]}>
                                 {title}
@@ -83,12 +80,11 @@ console.log('taskSessions',taskSessions)
                         </View>
                     </View>
                 </View>
-                <View style={[{ width: 25, height: 25, borderRadius: 13 ,marginTop:-3}, styles.bgtomotoRed, styles.allCenter]}>
+                <View style={[{ width: 25, height: 25, borderRadius: 13 ,marginTop:0,marginRight:10}, styles.bgtomotoRed, styles.allCenter]}>
                     <Icon name={"play"} type={Icons.FontAwesome} style={[styles.white, fontSize(14)]} />
                 </View>
             </View>
-        </View>
-        </TouchableWithoutFeedback>
+            
         </View>
     )
 }

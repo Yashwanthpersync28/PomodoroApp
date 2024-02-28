@@ -79,7 +79,7 @@ import { useSelector } from 'react-redux';
               styles.spaceBetweenVertical,
             ]}>
               <View style={[styles.centerHorizontal,marginPosition(-5,0,15,0)]}>
-        <View style={[{ width: 35,height:4  },darkMode?styles.borderDarkmode:styles.borderLightWhite,styles.centerHorizontal, radius(6)]}></View>
+        <View style={[{ width: 35,height:4  },darkMode?styles.bgLightWhite:styles.bglightGray,styles.centerHorizontal, radius(6)]}></View>
         </View>
             <Text
               style={[

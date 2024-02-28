@@ -1,4 +1,4 @@
-import { View,SafeAreaView, Text,StatusBar, Linking} from 'react-native';
+import { View,SafeAreaView, Text,StatusBar, Linking, Platform} from 'react-native';
 import React, { useState,useRef,useEffect } from 'react';
 import {flex,styles, widthValue, radius, heightValue, marginPosition, margin,} from '../../styles/Styles';
 import {HomepageHeader} from './Components/HomepageHeader';
@@ -33,17 +33,27 @@ import { useCallback } from 'react';
 export const PomodoroScreen = () => {
 
   useEffect(()=>{
-    setTaskColor(darkMode?'#20222a':'white')
     updateTimerArray(FocusTime);
     handleTimeSpendChange()
     console.log('LocalSession',localSession)
-    if(selectedTask !== taskSelected){ 
-    showSessions(localSession)} 
-  },[FocusTime,sessionNumber,localSession,darkMode])
+    console.log('sessionNumber',sessionNumber)
+    // if(selectedTask !== taskSelected){ 
+    //   setDisplaySession('No Sessions');
+    // } 
+  },[FocusTime,localSession])
 
 
   const dispatch = useDispatch();
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
+ 
+  console.log('sessionNumberffvvvv',sessionNumber)
+  const [ses,setses]=useState(sessionNumber)
+  useEffect(()=>{
+     setses(sessionNumber)
+  },[sessionNumber])
+  
+  const [displaySession,setDisplaySession] = useState('No Sessions')
+
   const localSession = useSelector((state)=>state.user.localSession.localSession);
   
   console.log('sessionNumber',sessionNumber,'localSession',localSession)
@@ -138,7 +148,9 @@ useEffect(() => {
   const [completionsound,setCompletionSound] = useState(null)
   const [secondTime,setSecondTime] = useState(0*60);
   const [taskCompleted,setTaskCompleted] = useState(false)
-  const [displaySession,setDisplaySession] = useState('No Sessions')
+  console.log(
+    displaySession,'displaySession'
+  )
   const navigation = useNavigation()
 const [totalfocusTime,setTotalFocusTime] = useState(0);
 console.log(totalfocusTime,'totaltime completed')
@@ -340,7 +352,6 @@ const completedPomodoro = () => {
   const playWhiteNoise = ()=>{
     if(selectedTune !=='None'){
       const selectedMusic = modalData.whiteNoiseMode.find(item =>item.MusicName === selectedTune);
-  
         if(selectedMusic){
           playSound(selectedMusic.song)
           // console.log(selectedMusic.song,'selectedMusic')
@@ -375,7 +386,7 @@ const completedPomodoro = () => {
     {timerMode === 0 ? 
     
     
-    (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),dispatch(setCurrentModal(14)),stopedTime(),setTaskColor(darkMode?'#20222a':'white')) 
+    (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),dispatch(setCurrentModal(14)),stopedTime(),setTaskColor(darkMode?'#20222a':'white'),setDisplaySession('No Session')) 
        :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0),secondTimerComplete())
       }
   }
@@ -540,21 +551,31 @@ const completedPomodoro = () => {
     stopSound();
   }
   }
+ const showSesssions = ()=>{
 
+}
   //  end of WhiteNoise modal functions
-
-  const showSessions = ()=>{
-    setDisplaySession(`${localSession} of ${sessionNumber} Sessions`)
-  }
-
-
+console.log('updateiijnj',sessionNumber)
 const updateTask = ()=>{
+  // if(selectedTask !== taskSelected){ 
+  //   setDisplaySession('No Sessions');
+  // } else {
+setDisplaySession(`${localSession} of ${sessionNumber} Sessions`)
+  // }
   closeModal();
-  showSessions();
-  if(autoStartFocus ===true){
+  if(autoStartFocus ===true && disableBreak===true){
     handleStart(0)
   }
 }
+// }
+useEffect(() => {
+  if(selectedTask === taskSelected){
+    setDisplaySession('No Sessions');
+  } else {
+  updateTask();
+  }
+}, [localSession, sessionNumber]);
+
 
 const displayTimerMode = ()=>{
 if(isTimerActive){
@@ -578,6 +599,7 @@ const WhiteNoiseCancelFunc = ()=>{
  }
 
 
+
  const _openAppSetting = useCallback(async () => {
   // Open the custom settings if the app has one
   await Linking.openSettings();
@@ -594,6 +616,7 @@ return (
         <View style={[marginPosition(0,0,0,20)]}>
           <Header />
         </View>
+        
         <TaskComponent handleTasks={handleTasks} selectedTask={selectedTask}  setCurrentModal={setCurrentModal} clearTask={clearTask} taskSelected={taskSelected} taskColor={taskColor}/>
       </View>
       <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,{ height: 100, width: 100, bottom: -60, transform: [{ scaleX: 4.5 }, { scaleY: 2 }] }, styles.positionAbsolute, radius(40)]}>
@@ -657,16 +680,17 @@ return (
         }
       </View>
     </View>
-    <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom: -15 }]}>
+    <View style={[styles.centerHorizontal, styles.positionAbsolute, { bottom:-15 }]}>
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal} displayTimerMode={displayTimerMode}/>
     </View>
-    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask} isTimerActive={isTimerActive}/>}
-    {currentModal === 2 && <Logout HeaderName={'Strict Mode'} VisibleAt={currentModal === 2} question={'Please enable "DO NOT DISTURB" mode to activate StrictMode'} option1={'No'} option2={'Yes'} OnPress1={()=>closeModal()} OnPress2={()=>{Platform.OS === 'ios'?openset2():_openAppSetting()}}/>}
+    {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask} isTimerActive={isTimerActive} setDisplaySession={setDisplaySession}/>}
+    {currentModal === 2 && <Logout HeaderName={'Strict Mode'} VisibleAt={currentModal === 2} question={'Please enable "DO NOT DISTURB" mode to activate StrictMode'} option1={'No'} option2={'Yes'} OnPress1={()=>closeModal()} OnPress2={()=>{_openAppSetting()}}/>}
 
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray} />}
    
-    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} WhiteNoiseCancelFunc={WhiteNoiseCancelFunc} isTimerActive={isTimerActive}/>}
-    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} stopSound={stopSound} setTaskColor={setTaskColor}/>}
+    {currentModal === 4 && <WhiteNoiseModal closeModal={closeModal} selectedTune={selectedTune} currentModal={currentModal} handleNoise={handleNoise} updateNoise={updateNoise} playSound={playSound} WhiteNoiseCancelFunc={WhiteNoiseCancelFunc} isTimerActive={isTimerActive} />}
+    
+    {currentModal === 14 && <TrophyScreen currentModal={currentModal} setCurrentButton={setCurrentButton} setDisplayTime={setDisplayTime} FocusTime={FocusTime} setTotalSessionTime={setTotalSessionTime} selectedTask={selectedTask} setSelectedTask={setSelectedTask} taskSelected={taskSelected} stopSound={stopSound} setTaskColor={setTaskColor} setDisplaySession={setDisplaySession}/>}
     {currentModal === 18 && <AddTask visible={currentModal === 18} onClose={closeModal} count={0}/>}
     {currentModal === 19 && <Logout HeaderName={'Cancel Task'} VisibleAt={currentModal === 19} question={'Are you sure youy want to cancel task?'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}
     {currentModal === 20 && <Logout HeaderName={'Switch Timer Mode'} VisibleAt={currentModal === 20} question={'Are you sure you want to cancel task and switch Timer'} option1={'No'} option2={'Yes'} OnPress1={closeModal} OnPress2={()=>{closeTask(),closeModal()}}/>}

@@ -10,7 +10,7 @@ import { setCurrentModal } from '../../redux/userReducer/modalReducer'
 import Modal from 'react-native-modal'
 import { useEffect } from 'react'
 
- export const TrophyScreen = ({currentModal,setTaskColor,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask,setSelectedTask,taskSelected,stopSound}) => {
+ export const TrophyScreen = ({currentModal,setTaskColor,setCurrentButton,setDisplayTime,FocusTime,setTotalSessionTime,selectedTask,setSelectedTask,taskSelected,stopSound,setDisplaySession}) => {
   console.log('selectedTask',selectedTask)
   const navigation = useNavigation();
   const darkMode = useSelector(state=>state.system.darkMode)
@@ -28,6 +28,7 @@ import { useEffect } from 'react'
     setSelectedTask(taskSelected)
     setTaskColor(darkMode?'#20222a':'white')
     stopSound();
+    setDisplaySession('No Sessions')
   }
   const gotoReport = ()=>{
     dispatch(setCurrentModal(0))
@@ -39,6 +40,8 @@ import { useEffect } from 'react'
     setSelectedTask(taskSelected)
     setTaskColor(darkMode?'#20222a':'white')
     stopSound();
+    setDisplaySession('No Sessions')
+
   }
   return (
     <Modal 

@@ -8,7 +8,8 @@ import {
     Switch,
     TextInput,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Platform
 } from 'react-native';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,9 +40,10 @@ import { useNavigation } from '@react-navigation/native';
 import { AddTask } from '../../Manage/components/AddTask/AddTask';
 import { Manage } from '../../Manage/Manage';
 import { setCurrentModal } from '../../../redux/userReducer/modalReducer';
+import { platform } from 'os';
 
 
-export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor,addTask,isTimerActive}) => {
+export const TaskModal = ({ closeModal,setSelectedTask,updateTask,setdata,setTaskColor,addTask,isTimerActive,setDisplaySession}) => {
     const darkMode = useSelector(state=>state.system.darkMode)
 
  const [modalVisible,setModalVisible]=useState(true)
@@ -88,7 +90,7 @@ console.log('id', taskDetails.map(data=>data.id))
                             bottom: 0,
                             width: widthValue(1),
                         },
-                        padding(20),
+                        padding(20,20,20),
                         radius(0, 20, 0, 0, 20),
                         styles.spaceBetweenVertical,
                     ]}>
@@ -120,14 +122,14 @@ console.log('id', taskDetails.map(data=>data.id))
                             <TextInput
                              placeholder='Search task' 
                              placeholderTextColor={darkMode?'gray':'#dfdfdf'}
-                             style={[fontSize(20),darkMode?styles.lightWhite:styles.black]} 
+                             style={[fontSize(20),darkMode?styles.lightWhite:styles.black,Platform.OS ==='ios'?padding(0,15,0):padding(0)]} 
                              value={searchText}
                              onChangeText={handleSearch}
                              />
                         </View>
-                        <View style={[styles.row, styles.centerHorizontal, margin(0, 20)]}>
+                        <View style={[styles.row, styles.centerHorizontal, marginPosition(20, 20,20,20)]}>
                             <Text style={[marginPosition(0, 10), styles.gray, { fontWeight: '500' }]}>Today Tasks</Text>
-                            <View style={[borderWidth(0, 1),darkMode?styles.borderDarkmode: styles.borderLightWhite, { height: .5, width: widthValue(1.45) }]}></View>
+                            <View style={[borderWidth(0, 1),darkMode?styles.borderDarkmode: styles.borderLightWhite, { height: .5, width: widthValue(1.8) }]}></View>
                         </View>
                         
                         <View>
@@ -137,13 +139,13 @@ console.log('id', taskDetails.map(data=>data.id))
                         </View>  :
                         <View> 
 
-                  {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details),
+                  {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details.Sessions),
                      
                   
-                    <View>
+                    <View style={[{width: widthValue(1.8) }]}>
                        <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
                        projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details} setTaskColor={setTaskColor}
-                        Sessions={details.Sessions}  projectColor={details.Project.Color} prioritycolor={details.Priority.color}  id={details.id} isTimerActive={isTimerActive} currentModal={currentModal}/> 
+                        Sessions={details.Sessions}  projectColor={details.Project.Color} prioritycolor={details.Priority.color}  id={details.id} isTimerActive={isTimerActive} currentModal={currentModal} setDisplaySession={setDisplaySession}/> 
                         </View>
                         ))} 
                         </View> }

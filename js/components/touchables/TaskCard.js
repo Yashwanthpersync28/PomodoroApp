@@ -29,10 +29,14 @@ import { setCurrentModal } from '../../redux/userReducer/modalReducer';
 import { current } from '@reduxjs/toolkit';
 import { Logout } from '../../screens/SettingsScreen/Logout/Logout';
 
-export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata,setTaskColor,isTimerActive,currentModal}) => {
+export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata,setTaskColor,isTimerActive,currentModal,setDisplaySession}) => {
     console.log('priorityname',priorityname)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
-console.log('taskSessions',taskSessions)
+  const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
+  const localSession = useSelector((state)=>state.user.localSession.localSession);
+
+
+console.log('taskSessionsffffg',Sessions)
     const dispatch = useDispatch();
     const darkMode = useSelector(state=>state.system.darkMode)
 
@@ -43,15 +47,15 @@ console.log('taskSessions',taskSessions)
     }
     return (
 <View>
-            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(),checkPrevTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor)}} style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite]}>
-        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:darkMode?styles.bgtaskCardDblack:styles.bgWhite
+            <TouchableWithoutFeedback  key={id} onPress={()=>{setSelectedTask(title),updateTask(sessionNumber),checkPrevTask(),dispatch(setLocalSession(1)),dispatch(setTaskSession(Sessions)),console.log('selectedId',id,completed),setdata(fulldata),setTaskColor(projectColor),setDisplaySession(`${localSession} of ${sessionNumber} Sessions`)}} style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+                    
+        <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.15)},completed?{backgroundColor:'#ffffff60'}:darkMode?styles.bgtaskCardDblack:styles.bgWhite,
 ]}>
             <View style={[{ width: 4,height:132 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
-            {/* <View style={[{ width: 3,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View> */}
             <View
                 style={[
                     styles.row,
-                    paddingPosition(15, 15, 5, 15),
+                    paddingPosition(15, 15, 5, 10),
                     borderWidth(1),
                     darkMode?styles.borderDarkmode:styles.borderLightWhite,
                     radius(0, 5, 5, 0,0),
@@ -60,14 +64,14 @@ console.log('taskSessions',taskSessions)
                 <View style={[
                     styles.row,
                     styles.spaceBetweenVertical,
-                    { width: widthValue(1.3) },
-                    paddingPosition(0, 0, 20,),
+                    { width: widthValue(1.4) },
+                    paddingPosition(0, 0, 15,0),
                     completed?{backgroundColor:'#ffffff50'}:darkMode?styles.bgtaskCardDblack:styles.bgWhite
                 ]}>
-                    <View style={[styles.row, styles.selfStart,{width:widthValue(1.2)}]}>
+                    <View style={[styles.row, styles.selfStart,{width:widthValue(1)}]}>
                         {completed === false ? 
-                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 20)]} /> :
-                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 20)]} />}
+                        <Icon name={"circle"} type={Icons.Entypo} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 10)]} /> :
+                         <Icon name={"checkcircle"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(30), marginPosition(0, 10)]} />}
                         <View>
                             <Text style={[completed?styles.gray:(darkMode?styles.lightWhite:styles.black), completed && {textDecorationLine:'line-through'}, fontSize(23),{ fontWeight: '500' ,width:widthValue(2)}]}>
                                 {title}

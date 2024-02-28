@@ -88,7 +88,7 @@ console.log(BlockAllNotifications,'blocjNOdjbdjbhhjhvgh');
             styles.spaceBetweenVertical,
           ]}>
           <View style={[styles.centerHorizontal, marginPosition(-5, 0, 12, 0)]}>
-            <View style={[{ width: 35, height: 4 }, styles.bgLightWhite, styles.centerHorizontal, radius(6)]}></View>
+            <View style={[{ width: 35, height: 4 }, darkMode?styles.bgLightWhite:styles.bgLightWhite, styles.centerHorizontal, radius(6)]}></View>
           </View>
           <Text
             style={[

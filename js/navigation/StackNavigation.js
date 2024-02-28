@@ -58,6 +58,8 @@ export const AppNavigationContainer = () => {
                     component={Splash}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -65,6 +67,9 @@ export const AppNavigationContainer = () => {
                     component={SignUp}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
+
                     }}
                 />
                 <Stack.Screen
@@ -72,6 +77,8 @@ export const AppNavigationContainer = () => {
                     component={LoginScreen}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -79,6 +86,8 @@ export const AppNavigationContainer = () => {
                     component={Onboarding}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -86,6 +95,8 @@ export const AppNavigationContainer = () => {
                     component={Forgotpassword}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
 
@@ -94,6 +105,8 @@ export const AppNavigationContainer = () => {
                     component={BottomTabNavigation}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -101,6 +114,8 @@ export const AppNavigationContainer = () => {
                     component={Notification1}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -108,6 +123,8 @@ export const AppNavigationContainer = () => {
                     component={AddProject}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -115,6 +132,8 @@ export const AppNavigationContainer = () => {
                     component={Addtags}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -122,6 +141,8 @@ export const AppNavigationContainer = () => {
                     component={Project}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -129,6 +150,8 @@ export const AppNavigationContainer = () => {
                     component={Tags}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                
@@ -137,6 +160,8 @@ export const AppNavigationContainer = () => {
                     component={AddTask}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -144,6 +169,8 @@ export const AppNavigationContainer = () => {
                     component={ManageProjectandTags}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -151,6 +178,8 @@ export const AppNavigationContainer = () => {
                     component={Archived}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -158,6 +187,8 @@ export const AppNavigationContainer = () => {
                     component={Task}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -165,6 +196,8 @@ export const AppNavigationContainer = () => {
                     component={Completedtask}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                 <Stack.Screen
@@ -172,6 +205,8 @@ export const AppNavigationContainer = () => {
                     component={TrophyScreen}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />  
                  <Stack.Screen
@@ -179,6 +214,8 @@ export const AppNavigationContainer = () => {
                     component={Tasklist}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -186,6 +223,8 @@ export const AppNavigationContainer = () => {
                     component={Manage}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -193,6 +232,9 @@ export const AppNavigationContainer = () => {
                     component={Profile}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
+
                     }}
                 />
                  <Stack.Screen
@@ -200,6 +242,8 @@ export const AppNavigationContainer = () => {
                     component={PomodoroPreference}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -207,6 +251,8 @@ export const AppNavigationContainer = () => {
                     component={DateTime}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -214,6 +260,8 @@ export const AppNavigationContainer = () => {
                     component={Notification}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -221,6 +269,8 @@ export const AppNavigationContainer = () => {
                     component={AccountSecurity}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -228,6 +278,8 @@ export const AppNavigationContainer = () => {
                     component={AppApearance}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -235,6 +287,8 @@ export const AppNavigationContainer = () => {
                     component={HelpandSupport}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -242,6 +296,8 @@ export const AppNavigationContainer = () => {
                     component={Terms}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -249,6 +305,8 @@ export const AppNavigationContainer = () => {
                     component={PrivacyPolicy}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -256,6 +314,8 @@ export const AppNavigationContainer = () => {
                     component={FAQ}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -263,6 +323,8 @@ export const AppNavigationContainer = () => {
                     component={ContactSupport}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -270,6 +332,8 @@ export const AppNavigationContainer = () => {
                     component={ChangePassword}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -277,6 +341,8 @@ export const AppNavigationContainer = () => {
                     component={CreatePassword}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                  <Stack.Screen
@@ -284,6 +350,8 @@ export const AppNavigationContainer = () => {
                     component={PasscodeScreen}
                     options={{
                         header: () => null,
+                        animationEnabled:false
+
                     }}
                 />
                

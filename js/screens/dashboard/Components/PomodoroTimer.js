@@ -11,7 +11,7 @@ import { modalData } from '../../../constants/ModalsData';
 import { replaceStatus } from '../../../redux/userReducer/UserTaskDetails';
 import { platform } from 'os';
 
-export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,setTimeSpend,handleTimeSpendChange}) => {
+export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,setTimeSpend,handleTimeSpendChange,setDisplaySession}) => {
 
   const dispatch = useDispatch();
   const darkMode = useSelector(state=>state.system.darkMode)
@@ -88,6 +88,7 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
             if(currentTimer === 1 ){
               dispatch(setLocalSession(localSession + 1))
             }     
+            
             if(localSession === maxSession){
               completedPomodoro()
               setCurrentTimer(1)   
@@ -243,7 +244,7 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
       </View>
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
-          <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,10)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width:Platform.OS ==='ios'? widthValue(2): widthValue(2.3)}}  paddingval={[padding(0,15,5)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
           <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]}/>}
         {currentButton === 2 &&
@@ -252,7 +253,7 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
           <TimerButton onPress={handleContinue} buttonText={'Continue'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]} />
                         </View>}
         {currentButton === 3 &&
-          <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,10,20)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 4 &&
           <TimerButton onPress={()=>{handleSkipBreak()}} buttonText={'Skip Break'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
       </View>

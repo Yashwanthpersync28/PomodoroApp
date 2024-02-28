@@ -79,7 +79,6 @@ export const CalendarScreen = () => {
     setCompletedTasks(completedTodayTasks);
   }, [userTask]); // Include userTask in the dependencies array
   
-
 // console.log('Tasks filtered with selected date:', filteredTasks);
 console.log('renderTaskArray',tasks)
   return (
@@ -92,22 +91,23 @@ console.log('renderTaskArray',tasks)
       <ToggleButtons title1={'List'} title2={'Month'} showProjects={showLists} onPressTags={()=>setShowList(false)} onPressProject={()=>setShowList(true)}/>
       </View>
       {showLists ? (
-        <View style={[{height:heightValue(9),},margin(0,0,10),styles.centerHorizontal]}>
+        <View style={[{height:heightValue(10),width:widthValue(1)},styles.centerHorizontal,margin(0,0,10)]}>
           <DateSwiper  value={value} setValue={setValue}/>
         </View>
       ) : null}
       {showLists ? (
-        <View style={[{minHeight:heightValue(1)}]}>
+        <ScrollView style={[]}>
           {tasks.length === 0 && completedTasks.length === 0 ? (
-            <View style={[{height:heightValue(1.2), width: widthValue(1) }, styles.selfStart, styles.centerHorizontal,paddingPosition(40,0,0,0)]}>
+            <ScrollView contentContainerStyle={[{minHeight:heightValue(1.2), width: widthValue(1) }, styles.selfStart, styles.centerHorizontal,paddingPosition(40,0,0,0)]}>
               <Image source={notepad} style={[{ width: widthValue(1.8), height: widthValue(1.8) },shadow(10)]} />
               <Text style={[darkMode?styles.lightWhite:styles.black, fontSize(25), { fontWeight: '600' }]}>Empty</Text>
               <Text style={[darkMode?styles.lightishGray:styles.gray, fontSize(18), { fontWeight: '400' }, margin(0, 10)]}>You have not added any task on this date</Text>
-            </View>
+            </ScrollView>
           ) : (
             <TaskComponent  tasks={tasks} completedTasks={completedTasks}/>
+            
           )}
-        </View>
+        </ScrollView>
       ) : (
         <MonthScreen />
       )}

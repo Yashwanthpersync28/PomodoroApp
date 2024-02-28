@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Calendar, CalendarList } from 'react-native-calendars';
 import { useSelector } from 'react-redux';
 import moment from 'moment'
@@ -8,6 +8,9 @@ import { widthValue,styles, heightValue,flex, marginPosition, padding, radius, m
 
 export const MonthScreen = () => {
   const darkMode = useSelector(state=>state.system.darkMode)
+  useEffect(()=>{
+    console.log(darkMode)
+  },[darkMode])
 
   const userTasks = useSelector((state) => state.user.userTasks.userTask);
   console.log(userTasks, 'userTasks');

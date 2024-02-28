@@ -70,7 +70,7 @@ console.log(formattedDate); // Output: February 19, 2024
               </View>
             </View>
             <View style={[{width:widthValue(1.2)}]}>
-              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,8)]}>1. Acceptance of Terms: </Text>
+              <Text style={[darkMode?styles.lightWhite:styles.black,fontSize(18),{fontWeight:'700'},marginPosition(0,0,10,8)]}>6. Acceptance of Terms: </Text>
               <View style={[marginPosition(10,10,0,0)]}>
               <Text style={[darkMode?styles.lightishGray:styles.gray,,fontSize(18),{fontWeight:'400'},marginPosition(0,0,10,8),lineHeight(25)]}>
                  Personal Information: to provide our service. We may collect your name,email address and other information yopu provided during registrationj or use of the app</Text>

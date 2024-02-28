@@ -37,18 +37,18 @@ CompletionSounds : [
         {id:'6',MusicName:'Shadow',song:'shadow.mp3'},
     ],
     focusTime:[
-        {id:'1', focusTime: 1500},
+        {id:'1', focusTime: 10},
         {id:'2', focusTime: 1800},
         {id:'3', focusTime: 2700},
         {id:'4', focusTime: 3600}
     ],
     breakTime:[
-        {id:'1', breakTime: 240},
+        {id:'1', breakTime: 8},
         {id:'2', breakTime: 300},
         {id:'3', breakTime: 600},
     ],
     longBreakTime:[
-        {id:'1', longBreak: 900},
+        {id:'1', longBreak: 30},
         {id:'2', longBreak: 1200},
         {id:'3', longBreak: 1500},
     ],
@@ -103,7 +103,7 @@ CompletionSounds : [
                 {id:'1',title:'What is Focusify?',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'2',title:'How do I Start Pomodoro Session?',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'3',title:'Can I Customize Pomodoro durations?',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
-    {id:'4',title:'How can I conatct Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
+    {id:'4',title:'How can I contact Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'5',title:'Can I export my data from Focusify',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'6',title:'What is Focusify?',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     ],     
@@ -111,7 +111,7 @@ CompletionSounds : [
         {
             category:'Account',
             questions:[
-    {id:'4',title:'How can I conatct Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
+    {id:'4',title:'How can I contact Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'5',title:'Can I export my data from Focusify',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     ],     
         },
@@ -119,14 +119,14 @@ CompletionSounds : [
             category:'Services',
             questions:[
     {id:'1',title:'What is Focusify?',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
-    {id:'4',title:'How can I conatct Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
+    {id:'4',title:'How can I contact Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'5',title:'Can I export my data from Focusify',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     ],     
         },
         {
             category:'Contact and Support',
             questions:[
-    {id:'4',title:'How can I conatct Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
+    {id:'4',title:'How can I contact Customer Support',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     {id:'5',title:'Can I export my data from Focusify',detail:'Focusify is a productivity app that combines the pomodoro technique with task management and whitenoise to help you to stay focused and boost productivity'},
     ],     
         }

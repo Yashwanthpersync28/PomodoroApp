@@ -22,12 +22,14 @@ const BottomTabNavigation = () => {
             headerShown:false,
             tabBarInactiveTintColor:darkmode?'gray':'black',
             tabBarActiveTintColor:'#ff6347',
+            
             tabBarStyle:{
                 backgroundColor:darkmode?'#181a21':'white',
-                borderTopWidth:.2,
+                borderTopWidth:.1,
                 borderTopColor:darkmode?'#262830':'#dfdfdf',
                 shadowOpacity:0,
                 elevation:0,
+                
                 paddingBottom:20,
                 paddingHorizontal:20,
                 height:heightValue(10),
