@@ -83,12 +83,15 @@ export const ManageProjectandTags = ({ navigation }) => {
       {/* items */}
       
       <View style={[flex(2)]}>
-       <ScrollView>
+       <ScrollView showsVerticalScrollIndicator={false}>
        <ManageItemslist Darkmode={Darkmode} data={showProjects?Projects:Tags} showProjects={showProjects} optionOne={'Edit'} optionTwo={'Archieve'} handleArchieveProjects={(name)=>handleArchieveProjects(name)} handleArchieveTags={(name)=>handleArchieveTags(name)} showArchievedlists={false} handleoptionOneProject={(name)=>{navigation.navigate('addproject',{ProjectName:name})}} handleoptionOneTags={(name)=>{navigation.navigate('addtags',{TagName:name,NavigationFrom:'editTags'})}}/>
-      
+           {/* <View style={[{ backgroundColor: 'orange',height:heightValue(2) }]}>
+            
+            </View> */}
       </ScrollView>
-      
+     
     </View>
+    
    
       {/* footer */}
       <View style={[flex(0.2),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,1)]}>

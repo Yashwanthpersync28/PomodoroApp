@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { borderColor, borderWidth, flex, fontSize, heightValue, marginPosition, padding, paddingPosition, radius, styles, widthValue,  } from '../../styles/Styles';
 import Icon, { Icons } from '../../components/Icons';
 import { ManageButtons } from './components/ManageButtons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { PlusModal } from '../../components/modals/PlusModal';
 import { AddTask } from './components/AddTask/AddTask';
 import { TextInputCompnent } from '../../components';
@@ -85,6 +85,7 @@ const handleFocusTime=()=>{
   return (
     <SafeAreaView style={[flex(1),padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
     <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
+     
       <View style={[flex(0.2)]}>
            <Header headername={'Focusify'} IconfamilyRight={Icons.Entypo} IconNameRight={'dots-three-vertical'} onPress={()=>setShowManagebutton(!ShowManagebutton)} bgcolor={styles.white} color={Darkmode?styles.white:styles.black} goBack={()=>console.log('kjhg')} showLeftIocn={false}/>
       </View>
@@ -92,6 +93,7 @@ const handleFocusTime=()=>{
        {modalVisible ? count===0 ? <PlusModal visible={modalVisible} onClose={onClose} handleCount={(val)=>setcount(val)} handleIndex={(val)=>setIndex(val)}/> :null:null}
        {modalVisible ? count===1 ? <AddTask visible={modalVisible} onClose={onClose} count={index} navigation={navigation}/> :null:null}
       <ScrollView style={[flex(1),{zIndex: 0 },Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]} showsVerticalScrollIndicator={false}>
+        <TouchableWithoutFeedback onPress={()=>setShowManagebutton(false)}>
         <View style={[{height:heightValue(14)},marginPosition(5,0,20)]}>
            <TextInputCompnent 
             bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
@@ -131,7 +133,7 @@ const handleFocusTime=()=>{
             </View>
           </View>
           <View>
-            <Text style={[{ fontWeight: '800' }, Darkmode?styles.white:styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>{`${getFocusTimeProject} (${CompletedTask.length})`}</Text>
+            <Text style={[{ fontWeight: '800' }, Darkmode?styles.white:styles.black, fontSize(17),marginPosition(5,0,0,-3)]}>{`${getFocusTimeProject} (${CompletedTask.length})`}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -141,6 +143,11 @@ const handleFocusTime=()=>{
 
 
         </View>
+        </TouchableWithoutFeedback>
+        {tempProject.length<3 && 
+        <TouchableWithoutFeedback onPress={()=>setShowManagebutton(false)} style={[{height:heightValue(6)}]}>
+           </TouchableWithoutFeedback>
+}
       </ScrollView>
       {ShowPlus?
          <View style={[{bottom: 15,right: 10, zIndex: 1, height:50, width:50,},styles.positionAbsolute,styles.allCenter,styles.bgOrange,radius(30)]}>
@@ -150,7 +157,7 @@ const handleFocusTime=()=>{
         </View>:null}
         {ShowManagebutton ? 
         
-        <View style={[{bottom: 0,right: 0,top:-20, zIndex: 1, height:heightValue(15), width:widthValue(2),},styles.positionAbsolute,styles.allCenter,Darkmode?styles.bgoptionsColor:styles.bgWhite,radius(10)]}>
+        <View style={[{bottom: 0,right: 0,top:-20, zIndex: 1, height:heightValue(15),},styles.positionAbsolute,styles.allCenter,Darkmode?styles.bgoptionsColor:styles.bgWhite,radius(10),paddingPosition(0,10,0,10)]}>
         <TouchableOpacity onPress={() => {
             navigation.navigate('manageProjectandTags');
               setShowManagebutton(false);

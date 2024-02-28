@@ -92,6 +92,7 @@ else{
     <SafeAreaView style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
        <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
       <ScrollView
+      showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
         style={[padding(20), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}
@@ -113,7 +114,7 @@ else{
             Iconname={'email'}
             bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
             showGray={Darkmode?true:false}
-
+           autoFocus={true}
             // fontsize={20}
           />
           {EmailError===''?null:
@@ -130,7 +131,7 @@ else{
             ShowPasswordIcon={true}
             bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
             showGray={Darkmode?true:false}
-
+           
 
           />
           {PasswordError===''?null:

@@ -1,9 +1,10 @@
 import React from 'react'
 import {View,Text,Image,Dimensions} from 'react-native'
-import { flex, fontSize , fontWeight, heightValue, lineHeight, marginPosition, padding, paddingPosition, styles, widthValue } from '../../../../styles/Styles'
+import { borderColor, borderWidth, flex, fontSize , fontWeight, heightValue, lineHeight, marginPosition, padding, paddingPosition, styles, widthValue } from '../../../../styles/Styles'
 import { Svg , Path } from 'react-native-svg';
 import { Colors } from '../../../../styles/Colors';
 import { useSelector } from 'react-redux';
+import CustomizedButtons from './CustomizedButtons';
 
 
 export const Onboardingcomponent = ({header,details,index}) => {
@@ -27,11 +28,12 @@ export const Onboardingcomponent = ({header,details,index}) => {
              fill={Darkmode?Colors.darkmodeBlack:Colors.white}/>
         </Svg>
     </View>
-    <View style={[paddingPosition(0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,marginPosition(0),flex(0.4)]}> 
+    {/* //swiper card */}
+    <View style={[paddingPosition(0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,marginPosition(-1),flex(0.4)]}> 
        <Text style={[fontSize(27),Darkmode?styles.white:styles.dark,{fontWeight: 'bold'},lineHeight(28),styles.textCenter]}>{header}</Text>
         <Text style={[fontSize(18),marginPosition(20),lineHeight(18),styles.textCenter,{color:Darkmode?'#8c8b8d':"#a0a0a0"},fontWeight('500')]}>{details}</Text> 
         </View>  
-         
+       
     </View>
   )
 }

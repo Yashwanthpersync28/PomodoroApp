@@ -84,7 +84,7 @@ export const Add = ({error,Darkmode,EditableColor , IconFamilyforInputIcon , Ico
   // marginPosition(marginTop ? -30 : -10)
   return (
     <SafeAreaView style={[flex(1), Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}>
-      <View style={[flex(0.1),Platform.OS === 'ios' ? marginPosition(15):marginPosition(marginTop ? -30 : -10),paddingPosition(0,20,0,20)]}>
+      <View style={[flex(0.1),Platform.OS === 'ios' ? marginTop ? marginPosition(15) : marginPosition(0):marginPosition(marginTop ? -30 : -10),paddingPosition(0,20,0,20)]}>
         <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}>
