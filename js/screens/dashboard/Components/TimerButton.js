@@ -41,7 +41,7 @@ import { useSelector } from 'react-redux';
           ]}>
           <View
             style={[styles.row, styles.centerHorizontal,styles.spaceEvenly]}>
-          <Icon name={ButtonIcon} type={Icons.FontAwesome5} style={[styles.white,fontSize(18),padding(0,10,10)]} />
+          <Icon name={ButtonIcon} type={Icons.Entypo} style={[styles.white,fontSize(28)]} />
            <Text style={[textColor,fontSize(20), {fontWeight:'500'}]}>
             {buttonText}
             </Text> 

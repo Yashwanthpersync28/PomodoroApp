@@ -27,20 +27,20 @@ export const TimerModeModal = ({currentModal,closeModal,selectedItemId,updateTim
     <View style={[padding(0, 20, 5),styles.spaceBetweenVertical,styles.row]}>
       <View>
       <View style={[styles.row, styles.centerHorizontal]}>
-        <Text style={[ darkMode?styles.lightWhite:styles.black,fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
+        <Text style={[ darkMode?styles.lightWhite:styles.black,Platform.OS === 'ios'?fontSize(22):fontSize(25),{ fontWeight: '500' }, marginPosition(0, 5)]}>
         {formatTime(item.start)}
         </Text>
         <Icon name={"arrow-right-l"} type={Icons.Fontisto} style={[ darkMode?styles.lightWhite:styles.black, fontSize(20), marginPosition(0, 5)]} />
-        <Text style={[ darkMode?styles.lightWhite:styles.black,fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
+        <Text style={[ darkMode?styles.lightWhite:styles.black,Platform.OS === 'ios'?fontSize(22):fontSize(27), { fontWeight: '500' }, marginPosition(0, 5)]}>
           {item.end}
         </Text>
       </View>
-      <Text style={[ darkMode?styles.lightWhite:styles.black, fontSize(16), { fontWeight: '300' }, marginPosition(5)]}>
+      <Text style={[ darkMode?styles.lightWhite:styles.black,Platform.OS === 'ios'?fontSize(13):fontSize(15), { fontWeight: '300' }, marginPosition(5)]}>
         {item.desc}</Text>
       </View>
       <View>
         {isSelected && 
-         <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, fontSize(40), marginPosition(0, 5)]} />
+         <Icon name={"check"} type={Icons.AntDesign} style={[styles.tomotoRed, Platform.OS === 'ios'?fontSize(30):fontSize(40), marginPosition(0, 5)]} />
         }
         </View>
     </View>

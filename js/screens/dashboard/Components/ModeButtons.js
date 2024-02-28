@@ -28,7 +28,7 @@ export const ModeButtons = ({displayTimerMode}) => {
   <View style={[{ width: widthValue(1) }, styles.row,darkMode?styles.bgdarkmodeBlack: styles.bgWhite, styles.spaceEvenly, styles.centerHorizontal, marginPosition(0, 0, 30, 0)]}>
     <Button icon="alert-circle" text="Strict Mode" iconType={Icons.Feather} onPress={()=>dispatch(setCurrentModal(2))} darkMode={darkMode}/>
     <Button icon="hourglass-outline" text="Timer Mode" iconType={Icons.Ionicons} onPress={displayTimerMode} darkMode={darkMode}/>
-    <Button icon="itunes-note" text="White Noise" iconType={Icons.FontAwesome5} onPress={()=>dispatch(setCurrentModal(4))} darkMode={darkMode}/>
+    <Button icon="music-note" text="White Noise" iconType={Icons.Fontisto} onPress={()=>dispatch(setCurrentModal(4))} darkMode={darkMode}/>
   </View>
   )
 };

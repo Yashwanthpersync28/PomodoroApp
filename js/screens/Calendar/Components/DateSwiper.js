@@ -11,7 +11,7 @@ import { TouchableWithoutFeedback } from 'react-native'
 export const DateSwiper = ({value,setValue}) => {
   const darkMode = useSelector(state=>state.system.darkMode)
 
-
+const platfoprmwidth={width:47}
   const swiper = useRef();
   const date = new Date();
   const Today = date.getDate();
@@ -69,7 +69,7 @@ export const DateSwiper = ({value,setValue}) => {
                   <TouchableWithoutFeedback 
                 onPress={()=>{setValue(item.date)}}
                 key={dateIndex}>
-                    <View style={[{height:55,width:47}, isActive ? styles.bgtomotoRed :(darkMode?styles.bgtaskCardDblack: styles.bgWhite), radius(5),darkMode?styles.borderDarkmode:styles.borderGray,margin(0,0,4.3), styles.allCenter,padding(0,6,10),shadow(2)]}>
+                    <View style={[{height:55},Platform.OS==='android'&&{width:47}, isActive ? styles.bgtomotoRed :(darkMode?styles.bgtaskCardDblack: styles.bgWhite), radius(5),darkMode?styles.borderDarkmode:styles.borderGray,margin(0,0,4.3), styles.allCenter,padding(0,6,10),shadow(2)]}>
                       {Today === item.date.getDate() && (
                         <Icon name={'star'} type={Icons.AntDesign} style={[styles.Orange, fontSize(10)]} />
                       )}

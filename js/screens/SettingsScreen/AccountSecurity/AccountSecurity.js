@@ -62,24 +62,6 @@ const closeModal = ()=>{
  dispatch(setCurrentModal(0))
 
 }
-// const enableBiometric = ()=>{
-//   if(!authPass){
-//     Alert.alert(
-//       'To use Biometric Feature please setPassword first',
-//       [
-//           { text: 'Cancel', onPress: () => console.log('Cancel pressed'), style: 'cancel' },
-//           { text: 'OK', onPress: () => navigation.navigate('CreatePassword') },
-
-//       ]
-//   );
-//   } else {
-//   const BiometricFeature = {
-//     ...biometric,
-//     BiometricEnabled:!isBioEnabled,
-//   }
-//   dispatch(setBiometrics(BiometricFeature))
-// }
-// }
 const enableBiometric = () => {
   if (!authPass) {
     Alert.alert(
@@ -166,15 +148,14 @@ const enableFaceId = ()=>{
 //BIometric part//
 
 return (
-    <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,flex(1),padding(0,0,20)]}>  
+    <View style={[darkMode?styles.bgdarkmodeBlack:styles.bgWhite,flex(1),padding(0,0,15)]}>  
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
       <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Account & Security'} goBack={PreviousScreen}/></View> 
       <View  showsVerticalScrollIndicator={false} style={[{height:heightValue(2)}]}>
       <PreferenceComponent  showIcon={true} showDetail={false} PreferanceName={'Set Password'} onPress={()=>navigation.navigate('CreatePassword')}/>
-      {Platform.OS ==='android' &&
-      <PreferenceComponent  showIcon={false} showDetail={false} PreferanceName={'Biometric ID'} isEnabled={isBioEnabled} switchFunction={enableBiometric}/> }
-     {Platform.OS === 'ios' &&
-      <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}  PreferanceName={'Face ID'}   isEnabled={faceIdEnabled} switchFunction={enableFaceId}/> }
+      {Platform.OS ==='ios'?
+      (<PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}  PreferanceName={'Face ID'}   isEnabled={faceIdEnabled} switchFunction={enableFaceId}/>) :
+      (<PreferenceComponent  showIcon={false} showDetail={false} PreferanceName={'Biometric ID'} isEnabled={isBioEnabled} switchFunction={enableBiometric}/>) }
       <PreferenceComponent  showIcon={true}  showDetail={true}  PreferanceName={'Change Password'} detail2={''} onPress={changePassScreen}  />
       <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={''}  PreferanceName={'Delete Account'} onPress={()=>{dispatch(setCurrentModal(26))}}/>
         </View> 

@@ -34,7 +34,7 @@ useEffect(()=>{
     // console.log('projectTasks',projectTasks[0].Project.Color);
     // Calculate total focus time for this project
     const ress=getTodayCompletedfocusTime(getcompletedtasks)
-    console.log('ress',ress);
+    // console.log('ress',ress);
    
     const projectFocusTimeInMinutes = calculateFocusTime(getcompletedtasks);
 
@@ -69,7 +69,7 @@ useEffect(()=>{
               strokeCap={'butt'}
             />
             <View style={[styles.positionAbsolute,styles.allCenter]}>
-                     <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold')]}>{totalFocustime}</Text>
+                     <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('500')]}>{totalFocustime}</Text>
                </View>
             </View>
             <View style={[{width:widthValue(1.2)},marginPosition(10,0,10),styles.spaceBetween,styles.rowWrap,paddingPosition(0,10,0,10)]}>
@@ -81,7 +81,7 @@ useEffect(()=>{
                             <Icon name={'briefcase'} type={Icons.Entypo} style={[fontSize(24),styles.textAlignVertical,{color:project.color}]}/>
                        </View>
                        <View style={[styles.column,marginPosition(0,0,0,10)]}>
-                           <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('bold')]}>{project.projectName}</Text>
+                           <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('500')]}>{project.projectName}</Text>
                            <Text style={[Darkmode?styles.smokeGray:styles.gray,fontSize(13),marginPosition(2)]}>{`${project.focusTime} - ${project.percentage}%`}</Text>
                       </View>
                   </View>        

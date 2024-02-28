@@ -89,7 +89,7 @@ else{
 
   return (
    
-    <SafeAreaView style={[flex(1)]}>
+    <SafeAreaView style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
        <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}

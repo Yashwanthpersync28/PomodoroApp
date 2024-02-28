@@ -7,6 +7,7 @@ import CustomizedButtons from '../../../auth/onboarding/component/CustomizedButt
 import { useDispatch, useSelector } from 'react-redux';
 import { addproject } from '../../../../redux/userReducer/UserProjectListReducer';
 import { Colors } from '../../../../styles/Colors';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // import { useNavigation } from '@react-navigation/native';
 
 
@@ -161,7 +162,9 @@ const handleChangeText = (val) => {
     //      </View>
     // </View>
     // </Modal>
-    <View style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}>
+    <SafeAreaView style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite]}>
+
+    {/* <View style={[flex(1),Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}> */}
     <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle = "dark-content"/>
 
         <Add 
@@ -189,7 +192,8 @@ const handleChangeText = (val) => {
                    <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(3) }]} />
               </View>
          </View>
-    </View>
+    {/* </View> */}
+    </SafeAreaView>
   )
 }
 

@@ -153,7 +153,7 @@ useEffect(() => {
     {clickedDropdown ? 
         <TouchableOpacity onPress={()=>setClickedDropdown(!clickedDropdown)}>
             <View style={[styles.row,paddingPosition(5,0,5,0)]}>
-                <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{Name}</Text>
+                <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('500'),marginPosition(0,0,0,5)]}>{Name}</Text>
                 <View style={[{width:widthValue(16)},styles.allCenter]}>
                     <Icon name={'chevron-down'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(20),styles.textAlignVertical]}/>
                 </View>
@@ -162,7 +162,7 @@ useEffect(() => {
         <>
         <TouchableOpacity onPress={()=>setClickedDropdown(!clickedDropdown)}>
         <View style={[styles.row,paddingPosition(5,0,5,0)]}>
-            <Text style={[styles.Orange,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{Name}</Text>
+            <Text style={[styles.Orange,fontSize(18),fontWeight('600'),marginPosition(0,0,0,5)]}>{Name}</Text>
         </View>
     </TouchableOpacity>
     {Togglenames
@@ -177,7 +177,7 @@ useEffect(() => {
     >
       <View style={[styles.row, index===2 ? borderColor('white'):borderColor(Darkmode?Colors.darkmodeBorderColor:'#f2f0f0'), index===2 ? borderWidth(0,1): borderWidth(0, 1), paddingPosition(5, 0, 5, 0), styles.selfStart]}>
         <View style={[Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
-          <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(18), fontWeight('bold'), marginPosition(0, 0, 0, 5)]}>{headerItem.name}</Text>
+          <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(18), fontWeight('600'), marginPosition(0, 0, 0, 5)]}>{headerItem.name}</Text>
         </View>
         <View>
           <Icon name={'chevron-down'} type={Icons.Feather} style={[Darkmode?styles.inputColor:styles.black, fontSize(20), styles.textAlignVertical,marginPosition(2,0,0,2)]} />
@@ -191,7 +191,7 @@ useEffect(() => {
 
       {/* header */}
                <View style={[{height:heightValue(12)},styles.centerVertical,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1)]}>
-                   <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold'),marginPosition(-5)]}>{headerName}</Text>
+                   <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('500'),marginPosition(-5)]}>{headerName}</Text>
                </View>
     {/* //pomodoro records */}
               <View style={[zIndex(0),Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>

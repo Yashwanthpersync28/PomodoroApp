@@ -1,4 +1,4 @@
-import { View,SafeAreaView, Text,StatusBar} from 'react-native';
+import { View,SafeAreaView, Text,StatusBar, Linking} from 'react-native';
 import React, { useState,useRef,useEffect } from 'react';
 import {flex,styles, widthValue, radius, heightValue, marginPosition, margin,} from '../../styles/Styles';
 import {HomepageHeader} from './Components/HomepageHeader';
@@ -28,7 +28,7 @@ import { AddTask } from '../Manage/components/AddTask/AddTask';
 import { CancelModal } from './Components/CancelModal';
 import { Logout } from '../SettingsScreen/Logout/Logout';
 import { CardStyleInterpolators } from '@react-navigation/stack';
-import AndroidOpenSettings from 'react-native-android-open-settings'
+import { useCallback } from 'react';
 
 export const PomodoroScreen = () => {
 
@@ -577,8 +577,14 @@ const WhiteNoiseCancelFunc = ()=>{
   }
  }
 
- const opensettings=()=>{
-  AndroidOpenSettings.generalSettings()
+
+ const _openAppSetting = useCallback(async () => {
+  // Open the custom settings if the app has one
+  await Linking.openSettings();
+});
+
+const openset2 = ()=>{
+  Linking.openSettings();
 }
 return (
   <SafeAreaView style={[styles.centerHorizontal,darkMode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1), styles.positionRelative]}>
@@ -655,7 +661,7 @@ return (
       <ModeButtons currentModal={currentModal} setCurrentModal={setCurrentModal} displayTimerMode={displayTimerMode}/>
     </View>
     {currentModal === 1 && <TaskModal currentModal={currentModal} closeModal={closeModal} setSelectedTask={setSelectedTask} taskSelected={taskSelected} updateTask={updateTask}  setdata={(val)=>setdata(val)}  setTaskColor={setTaskColor} addTask={addTask} isTimerActive={isTimerActive}/>}
-    {currentModal === 2 && <Logout HeaderName={'Stop Task'} VisibleAt={currentModal === 2} question={'Please enable "DO NOT DISTURB" mode to activate StrictMode'} option1={'No'} option2={'Yes'} OnPress1={()=>closeModal()} OnPress2={()=>{closeModal(),opensettings()}}/>}
+    {currentModal === 2 && <Logout HeaderName={'Strict Mode'} VisibleAt={currentModal === 2} question={'Please enable "DO NOT DISTURB" mode to activate StrictMode'} option1={'No'} option2={'Yes'} OnPress1={()=>closeModal()} OnPress2={()=>{Platform.OS === 'ios'?openset2():_openAppSetting()}}/>}
 
 {currentModal === 3 && <TimerModeModal closeModal={closeModal} currentModal={currentModal} selectedMode={selectedMode} updateTimerMode={updateTimerMode} handleTimerMode={handleTimerMode} FocusTime={FocusTime} timerModeArray={timerModeArray} />}
    

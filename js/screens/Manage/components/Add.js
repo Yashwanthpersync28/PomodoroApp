@@ -46,7 +46,7 @@ export const Add = ({error,Darkmode,EditableColor , IconFamilyforInputIcon , Ico
     {id:15,colors:styles.bggreenish},
     {id:16,colors:styles.bgdarkblue},
     {id:17,colors:styles.bgdarkGreen},
-    {id:18,colors:styles.bgOrange},
+    {id:18,colors:styles.bgsky},
     {id:19,colors:styles.bgpurple},
   ];
 ///states
@@ -81,10 +81,10 @@ export const Add = ({error,Darkmode,EditableColor , IconFamilyforInputIcon , Ico
       ))}
     </View>
   );
-
+  // marginPosition(marginTop ? -30 : -10)
   return (
     <SafeAreaView style={[flex(1), Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite]}>
-      <View style={[flex(0.1),marginPosition(marginTop ? -30 : -10),paddingPosition(0,20,0,20)]}>
+      <View style={[flex(0.1),Platform.OS === 'ios' ? marginPosition(15):marginPosition(marginTop ? -30 : -10),paddingPosition(0,20,0,20)]}>
         <Header showLeftIocn={true} headername={headerName} IconfamilyRight={IconFamily} IconNameRight={name} onPress={onPress} IconNameLeft={'x'} IconfamilyLeft={Icons.Feather} bgcolor={bgcolor} color={color} goBack={goBack}/>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" style={[padding(0), Darkmode?styles.bgdarkmodeBlack:styles.bgWhite, flex(1)]}>

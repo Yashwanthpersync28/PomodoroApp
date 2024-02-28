@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { widthValue, radius, styles, shadow, fontSize, marginPosition, borderWidth,padding } from '../../../styles/Styles';
 import { TimerButton } from './TimerButton';
@@ -9,6 +9,7 @@ import { setLocalSession } from '../../../redux/userReducer/localSessionReducer'
 import { setBreakTime } from '../../../redux/userReducer/breaktimeReducer';
 import { modalData } from '../../../constants/ModalsData';
 import { replaceStatus } from '../../../redux/userReducer/UserTaskDetails';
+import { platform } from 'os';
 
 export const PomodoroTimer = ({handleSkipBreak,handleStart,totalfocusTime,isTimerActive,setTime,FocusTime,currentTimer,BreakTime,barColor,setIsTimerActive,setProgress,setCurrentTimer,setBarColor,currentButton,setCurrentButton,handleContinue,handlepause,handleStop,displayTime,setDisplayTime,totalSessionTime,setTotalSessionTime,completedPomodoro,displaySession,setTotalFocusTime,stopSound,setTimeSpend,handleTimeSpendChange}) => {
 
@@ -209,14 +210,14 @@ const completedSound = modalData.CompletionSounds.find(item=>item.MusicName === 
     return () => clearInterval(intervalId);
   }, [isTimerActive, currentTimer, FocusTime, BreakTime,maxSession,longBreakSession,longBreakTime,currentBreakTime,setTotalSessionTime,setCurrentBreakTime,setTimeSpend]);
 
-const addsession= ()=>{
-  setLocalSession(localSession +1)
-}
+// const addsession= ()=>{
+//   setLocalSession(localSession +1)
+// }
 
 
   return (
     <View style={[styles.centerHorizontal]}>
-    <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)),darkMode?styles.bgdarkmodeBlack: styles.bgWhite, shadow(10), styles.allCenter]}>
+    <View style={[{ width: widthValue(1.4), height: widthValue(1.4), zIndex: 99 }, radius(widthValue(0.7)),darkMode?styles.bgdarkmodeBlack: styles.bgWhite,Platform.OS === 'ios'?shadow(2):shadow(10), styles.allCenter]}>
         <AnimatedCircularProgress
           size={widthValue(1.6)}
           width={18}
@@ -242,7 +243,7 @@ const addsession= ()=>{
       </View>
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
-          <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2) }}  paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={()=>handleStart(0)} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,10)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
           <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]}/>}
         {currentButton === 2 &&
@@ -251,7 +252,7 @@ const addsession= ()=>{
           <TimerButton onPress={handleContinue} buttonText={'Continue'} widthVal={{ width: widthValue(2.3) }}  paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[styles.bgOrange]} textColor={[styles.white]} />
                         </View>}
         {currentButton === 3 &&
-          <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={()=>handleStart(1)} buttonText={'Start Break Time'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,10,20)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 4 &&
           <TimerButton onPress={()=>{handleSkipBreak()}} buttonText={'Skip Break'}  widthVal={{ width: widthValue(2) }} paddingval={[padding(0,15,20)]} ButtonIcon={''} BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={borderWidth(1)} />}
       </View>

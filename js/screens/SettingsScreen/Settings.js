@@ -47,17 +47,17 @@ const SettingComponent = ({PreferanceName,onPress,leftIconType,IconLeft})=>{
   return (
     <SafeAreaView style={[flex(1),darkMode?styles.bgdarkmodeBlack:styles.bgWhite,paddingPosition(10,20,0,10),{width:widthValue(1)}]}>
       <StatusBar color={darkMode?styles.bgdarkmodeBlack:styles.bgWhite} />
-    <View style={[{height:heightValue(15)}]}> 
+    <View style={[{height:heightValue(15)},Platform.OS === 'ios'?paddingPosition(0,15,0,15):paddingPosition(0,0,0,0)]}> 
       <Header color={darkMode?styles.white:styles.black} headername={'Settings'} />
       </View> 
-          <View  style={[paddingPosition(10,0,0,10)]}>
+          <View  style={[Platform.OS === 'ios'?paddingPosition(10,15,0,15):paddingPosition(10,0,0,10)]}>
       <SettingComponent  PreferanceName={'My profile'} leftIconType={Icons.Ionicons} IconLeft={'person-outline'} onPress={()=>navigation.navigate('Profile')} />
       <SettingComponent  PreferanceName={'Pomodoro Preference'} leftIconType={Icons.Entypo} IconLeft={'stopwatch'} onPress={()=>navigation.navigate('PomodoroPreference')}/>
       {/* <SettingComponent  PreferanceName={'Date & Time'} leftIconType={Icons.Feather} IconLeft={'clock'} onPress={()=>navigation.navigate('DateTime')}/> */}
       <SettingComponent  PreferanceName={'Notifications'} leftIconType={Icons.Fontisto} IconLeft={'bell'} onPress={()=>navigation.navigate('Notification')}/>
       <SettingComponent  PreferanceName={'Account & Security'} leftIconType={Icons.MaterialIcons} IconLeft={'security'} onPress={()=>navigation.navigate('AccountSecurity')}/>
       <SettingComponent  PreferanceName={'App Apearance'} leftIconType={Icons.FontAwesome} IconLeft={'eye'} onPress={()=>navigation.navigate('AppApearance')}/>
-      <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.FontAwesome5} IconLeft={'hand-holding-heart'} onPress={()=>navigation.navigate('HelpandSupport')}/>
+      <SettingComponent  PreferanceName={'Help & Support'} leftIconType={Icons.MaterialIcons} IconLeft={'contact-support'} onPress={()=>navigation.navigate('HelpandSupport')}/>
       <SettingComponent  PreferanceName={'Log out'} leftIconType={Icons.AntDesign} IconLeft={'logout'} onPress={()=>dispatch(setCurrentModal(13))}/>
       {currentModal === 13 && <Logout  VisibleAt={currentModal === 13} OnPress1={closeModal} OnPress2={logOut} HeaderName={'Logout'} option1={'Cancel'} option2={'Yes, Logout'} question={'Are you sure you want to log out?'}/>} 
             </View>

@@ -35,21 +35,3 @@ export const Onboardingcomponent = ({header,details,index}) => {
     </View>
   )
 }
-
-
-// {/* <View style={[flex(1.5),styles.bgOrange]}></View>
-// {/* //screenshotlist */}
-//   <View style={[flex(1.9),styles.bgOrange]}>
-//        <View style={[styles.centerHorizontal,paddingPosition(0,10,0,10)]}>
-//           {index ===0 && <Image source={require('../../../assets/Images/Lottiemobileone.png')} style={[marginPosition(-190),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-//           {index === 1 &&  <Image source={require('../../../assets/Images/Lottiemobiletwo.png')} style={[marginPosition(-190),{ width: 300 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-//          {index ===2 &&   <Image source={require('../../../assets/Images/lottiemobilethree.png')} style={[marginPosition(-180),{ width: 290 ,alignSelf: 'center'}]} resizeMode="contain"/>}
-//        </View>
-//        <Svg style={{position:'absolute',top:150}} width={widthValue(1)} height={100}>
-//            <Path 
-//               d={`M 0 20 Q ${controlX} 130 ${width}
-//                20 L ${width} 100 L 0 100 Z
-//                   `}
-//              fill={Colors.Brown}/>
-//         </Svg>
-//     </View> */}

@@ -55,4 +55,5 @@ export const Colors =  {
     buttondarkcolor:'#35383f',
     smokeGray:'#6f7276',
     optionsColor:'#262a35',
+    sky:'#DCEDFF'
 }

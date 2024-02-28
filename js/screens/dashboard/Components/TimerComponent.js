@@ -63,7 +63,7 @@ export const TimerComponent = ({secondFocusProgress,setSecondTime,secondTime,set
       </View>
       <View style={[marginPosition(10), { width: widthValue(1) }]}>
         {currentButton === 0 &&
-          <TimerButton onPress={handleSecondStart} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.3) }} paddingval={[padding(0,10,20)]} ButtonIcon={'play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
+          <TimerButton onPress={handleSecondStart} buttonText={'Start to focus'} widthVal={{ width: widthValue(2.1) }} paddingval={[padding(0,10,25)]} ButtonIcon={'controller-play'} BgColor={[styles.bgOrange]} textColor={[styles.white]} />}
         {currentButton === 1 &&
           <TimerButton onPress={handlepause} buttonText={'Pause'} widthVal={{ width: widthValue(2.3) }} ButtonIcon={''}paddingval={[padding(0,15,20)]}  BgColor={[darkMode?'transparent':styles.bgWhite]} textColor={[styles.Orange]} borderWidth={[borderWidth(1)]} />}
         {currentButton === 2 &&

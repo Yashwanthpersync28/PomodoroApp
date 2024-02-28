@@ -99,10 +99,10 @@ const handleFocusTime=()=>{
         </View>
         {Seachvalue.length<1 && 
         <View style={[{height:heightValue(3.2)},styles.rowWrap,{ justifyContent: 'flex-start'}]}>
-           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={GetTodayFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})}/>
-           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.Feather} iconname={'sunrise'} hours={GetTomorrowFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})}/>
-           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-week'} hours={GetThisWeekFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:getTasksThisWeekdata,completedData:getCompletedtasksThisWeek})}/>
-           <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-check'} hours={GetThisMonthFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:getTasksThisMonthdata,completedData: getCompletedtasksthisMonth})}/>
+           <ManageButtons  color={'#6fbe6d'} heading={'Today'} IconFamily={Icons.Feather} iconname={'sun'} hours={GetTodayFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Today',data:TodayTasks,completedData:CompletedTodayTasks})} NoOfTasks={CompletedTodayTasks.length}/>
+           <ManageButtons color={'#3ca2f2'} heading={'Tomorrow'} IconFamily={Icons.Feather} iconname={'sunrise'} hours={GetTomorrowFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Tomorrow',data:TomorrowTasks,completedData:CompletedTasksTomorrow})} NoOfTasks={CompletedTasksTomorrow.length}/>
+           <ManageButtons  color={'#fdaf63'} heading={'This Week'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-week'} hours={GetThisWeekFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'This Week',data:getTasksThisWeekdata,completedData:getCompletedtasksThisWeek})} NoOfTasks={getCompletedtasksThisWeek.length}/>
+           <ManageButtons  color={'#af4fba'} heading={'Planned'} IconFamily={Icons.MaterialCommunityIcons} iconname={'calendar-check'} hours={GetThisMonthFocustime} showhours={true} handlebuttons={()=>navigation.navigate('tasklists',{name:'Planned',data:getTasksThisMonthdata,completedData: getCompletedtasksthisMonth})} NoOfTasks={getCompletedtasksthisMonth.length}/>
            <ManageButtons  color={'lightgreen'} heading={'Completed'} IconFamily={Icons.AntDesign} iconname={'checkcircleo'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Completed',data:Taskdatas,completedData:[]})}/>
            <ManageButtons  color={'red'} heading={'Trash'} IconFamily={Icons.Octicons} iconname={'trash'} showhours={false} handlebuttons={()=>navigation.navigate('completedtask',{name:'Trash',data:Trashdata})}/>
         </View>}
@@ -131,7 +131,7 @@ const handleFocusTime=()=>{
             </View>
           </View>
           <View>
-            <Text style={[{ fontWeight: '800' }, Darkmode?styles.white:styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>{getFocusTimeProject}</Text>
+            <Text style={[{ fontWeight: '800' }, Darkmode?styles.white:styles.black, fontSize(18),marginPosition(5,0,0,-3)]}>{`${getFocusTimeProject} (${CompletedTask.length})`}</Text>
           </View>
         </View>
       </TouchableOpacity>

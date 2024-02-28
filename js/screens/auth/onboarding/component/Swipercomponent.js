@@ -48,7 +48,7 @@ export const Swipercomponent = ({handleIndex}) => {
   
   return (
     <View style={[flex(1)]}>
-    <View style={[flex(1)]}>
+    <View style={[flex(0.9)]}>
       
            {/* <Svg style={{position:'absolute',bottom:210}} width={widthValue(1)} height={100}>
                          <Path 
@@ -111,7 +111,7 @@ export const Swipercomponent = ({handleIndex}) => {
 
       </Swiper>
       </View>
-      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,{height:heightValue(7)},borderColor(Darkmode?'#262830':Colors.borderGray),borderWidth(0,0.8)]}>
+      <View style={[styles.allCenter,styles.row,styles.spaceBetweenVertical,padding(0,0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,flex(0.2),borderColor(Darkmode?'#262830':Colors.borderGray),borderWidth(0,0.8)]}>
        
        {getStarted? <> 
                 <CustomizedButtons name={'Skip'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{width:widthValue(2.4)},marginPosition(0)]} handlecontinue={handleit}/>
@@ -127,6 +127,4 @@ export const Swipercomponent = ({handleIndex}) => {
   )
 };
 
-
-
-
+// height:heightValue(7)

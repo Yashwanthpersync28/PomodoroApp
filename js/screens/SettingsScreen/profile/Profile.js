@@ -134,51 +134,6 @@ const [modalVisible,setModalVisible] = useState(false)
         // navigation.goBack();
      }
     
-    //  console.log('selectedImage',selectedImage)
- 
-    // const handleImage = () => {
-    //     Alert.alert('Select Image', 'Choose an Option to Update Image.', [
-    //         { text: 'CANCEL' },
-    //         {
-    //             text: 'SELECT FROM GALLERY', onPress: () => {
-
-    //                 let options = {
-    //                     storageOptions: {
-    //                         path: 'image',
-    //                     },
-    //                 }
-    //                 launchImageLibrary(options, response => {
-    //                     const userdata ={
-    //                         ...userdata,
-    //                     profilePic:response.assets[0].uri,
-    //                     }
-    //                     dispatch(addUserData(userdata))
-    //                     setShowProfilePic(true)
-    //                 })
-    //             }
-    //         },
-    //         {
-    //             text: 'TAKE PHOTO', onPress: () => {
-
-    //                 let options = {
-    //                     storageOptions: {
-    //                         path: 'image',
-    //                     }
-    //                 };
-    //                 launchCamera(options, response => {
-    //                     const userdata ={
-    //                         ...userdata,
-    //                     profilePic:response.assets[0].uri,
-    //                     }
-    //                     dispatch(addUserData(userdata))
-    //                     setShowProfilePic(true)
-    //                 })
-    //             }
-    //         }
-
-    //     ])
-    // }
-// Inside the handleImage function where you update the profile picture
 const handleImage = () => {
     Alert.alert('Select Image', 'Choose an Option to Update Image.', [
         { text: 'CANCEL' },
@@ -256,7 +211,7 @@ const handleImage = () => {
                     </Text>
                     <View style={[styles.row, darkMode?styles.bgtaskCardDblack:styles.bglgWhite, radius(5), styles.centerHorizontal]}>
                         <Icon style={[fontSize(25),darkMode?styles.lightWhite: styles.black, paddingPosition(0, 0, 0, 10)]} />
-                        <TextInput style={[, fontSize(20),darkMode?styles.lightWhite:styles.black, { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} value={fullname}  onChangeText={handleFullname} onSubmitEditing={() => Keyboard.dismiss()} />
+                        <TextInput style={[, fontSize(18),darkMode?styles.lightWhite:styles.black, { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 },paddingPosition(15,0,15,0)]} value={fullname}  onChangeText={handleFullname} onSubmitEditing={() => Keyboard.dismiss()} />
                     </View>
 
                 </View>
@@ -266,7 +221,7 @@ const handleImage = () => {
                     </Text>
                     <View style={[styles.row, darkMode?styles.bgtaskCardDblack:styles.bglgWhite, radius(5), styles.centerHorizontal]}>
                         <Icon name={'person-outline'} type={Icons.Ionicons} style={[fontSize(25),darkMode?styles.lightWhite: styles.black, paddingPosition(0, 0, 0, 10)]} />
-                        <TextInput style={[, fontSize(20),darkMode?styles.lightWhite:styles.black,  { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} value={username} onChangeText={handleUsername}  onSubmitEditing={() => Keyboard.dismiss()} />
+                        <TextInput style={[, fontSize(18),darkMode?styles.lightWhite:styles.black,  { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 },paddingPosition(15,0,15,0)]} value={username} onChangeText={handleUsername}  onSubmitEditing={() => Keyboard.dismiss()} />
                     </View>
                 </View>
                 <View style={[margin(0, 10)]}>
@@ -275,7 +230,7 @@ const handleImage = () => {
                     </Text>
                     <View style={[styles.row, darkMode?styles.bgtaskCardDblack:styles.bglgWhite, radius(5), styles.centerHorizontal]}>
                         <Icon name={'mail'} type={Icons.Feather} style={[fontSize(25),darkMode?styles.lightWhite: styles.black, paddingPosition(0, 0, 0, 10)]} />
-                        <TextInput style={[, fontSize(20),darkMode?styles.lightWhite:styles.black,  { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} value={email} onChangeText={handleEmailChange} onSubmitEditing={() => Keyboard.dismiss()} />
+                        <TextInput style={[, fontSize(20),darkMode?styles.lightWhite:styles.black,  { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 },paddingPosition(15,0,15,0)]} value={email} onChangeText={handleEmailChange} onSubmitEditing={() => Keyboard.dismiss()} />
                     </View>
                 </View>
                 <View>
@@ -292,7 +247,7 @@ const handleImage = () => {
                         </TouchableOpacity>
                         <View style={[styles.row, styles.centerHorizontal, radius(5)]}>
                             <Text style={[fontSize(20), { fontWeight: '500', marginLeft: 0 },darkMode?styles.lightWhite: styles.black]}>{selectedCountry.dial_code}</Text>
-                            <TextInput style={[fontSize(20),darkMode?styles.lightWhite:styles.black,  { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} placeholder={'9876543210'} placeholderTextColor={darkMode?'gray':'black'} value={number} onChangeText={(text)=>handlePhone(text)}  maxLength={10} keyboardType='number-pad' />
+                            <TextInput style={[fontSize(20),darkMode?styles.lightWhite:styles.black,  { fontWeight: '500', width: widthValue(1.2), marginLeft: 10 }]} placeholder={'9876543210'} placeholderTextColor={'gray'} value={number} onChangeText={(text)=>handlePhone(text)}  maxLength={10} keyboardType='number-pad' />
                         </View>
                     </View>
                 </View>

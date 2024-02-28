@@ -5,9 +5,9 @@ import Icon, { Icons } from '../../../components/Icons'
 import { useSelector } from 'react-redux'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export const ManageButtons = ({height,IconFamily,heading,iconname,hours,color,showhours,handlebuttons}) => {
+export const ManageButtons = ({height,IconFamily,heading,iconname,hours,color,showhours,handlebuttons,NoOfTasks}) => {
   const Darkmode=useSelector((state)=>state.system.darkMode);
-
+  // console.log('NoOfTasks',NoOfTasks);
   return (
     <TouchableOpacity onPress={handlebuttons}>
     <View style={[{width:widthValue(2.5)},borderColor(color),borderWidth(1),radius(10),marginPosition(0,4,10,12),styles.column,paddingPosition(15,5,15,10),{justifyContent:'center'}]}>
@@ -21,7 +21,8 @@ export const ManageButtons = ({height,IconFamily,heading,iconname,hours,color,sh
        </View>
        {showhours ? 
        <View style={[marginPosition(5,0,5)]}>
-        <Text style={[{fontWeight:'800'},Darkmode?styles.white:styles.black,fontSize(17)]}>{hours}</Text>
+        <Text style={[{fontWeight:'800'},Darkmode?styles.white:styles.black,fontSize(17)]}>{`${hours} (${NoOfTasks})`}</Text>
+
        </View>:null}
     </View>
     </TouchableOpacity>

@@ -24,8 +24,9 @@ const [tempdata,settemp]=useState([])
     console.log('projectTasks',projectTasks);
     const getcompletedtasks=getCompletedTasks(projectTasks)
     console.log('getcompletedtasks',getcompletedtasks);
-   const  bgcolor=projectTasks[0].Project.Color 
+  
   if(projectTasks.length>0){
+    const  bgcolor=projectTasks[0].Project.Color 
   // const bgcolor='orange'
   setCompletedProject(projectTasks)
     console.log('projectTasks',projectTasks);

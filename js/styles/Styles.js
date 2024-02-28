@@ -166,6 +166,7 @@ export const styles = StyleSheet.create({
     taskCardDblack:{color:Colors.taskCardDblack},
     inputColor:{color:Colors.inputColor},
     smokeGray:{color:Colors.smokeGray},
+    sky:{color:Colors.sky},
 // - - - - - BACKGROUND COLORS - - - - - //
     bgWhite: { backgroundColor: Colors.white },
     bgBlack: { backgroundColor: Colors.black },
@@ -215,6 +216,7 @@ export const styles = StyleSheet.create({
     bgmodalColor:{backgroundColor:Colors.modalColor},
     bgoptionsColor:{backgroundColor:Colors.optionsColor},
     bgbuttondarkcolor:{backgroundColor:Colors.buttondarkcolor},
+    bgsky:{backgroundColor:Colors.sky},
 // - - - - - BORDER COLORS - - - - - //
     borderWhite: { borderColor: Colors.white },
     borderOrange: { borderColor: Colors.Orange },

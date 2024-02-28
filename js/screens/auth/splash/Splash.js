@@ -28,8 +28,8 @@ export const Splash = ({navigation}) => {
      
       else {
       if(showonboarding){
-        if(showDashboard &&isBiometricEnabled === true){
-        console.log('showcomp',showonboarding);
+        if(showDashboard || isBiometricEnabled === true){
+              navigation.navigate('BottomTabNavigation')
         }
         else{ navigation.navigate('signup')}
       }

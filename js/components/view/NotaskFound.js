@@ -14,7 +14,7 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
       style={[{width: widthValue(2), height: widthValue(2)}]}
      />
      <Text style={[Darkmode?styles.white:styles.black,fontWeight('bold'),fontSize(19),marginPosition(0,0,0,20)]}>{name}</Text>
-     <Text style={[Darkmode?styles.smokegray:styles.gray,fontWeight('bold'),fontSize(19),styles.textCenter,marginPosition(10,0,0,15)]}>{details}</Text>
+     <Text style={[Darkmode?styles.smokeGray:styles.gray,fontSize(19),styles.textCenter,marginPosition(10,0,0,15)]}>{details}</Text>
 
  </View>
   )

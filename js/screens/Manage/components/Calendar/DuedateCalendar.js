@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import Icon, { Icons } from '../../../../components/Icons';
 import { Colors } from '../../../../styles/Colors';
-import { flex, fontSize, heightValue, styles, widthValue } from '../../../../styles/Styles';
+import { flex, fontSize, heightValue, radius, styles, widthValue } from '../../../../styles/Styles';
 
 export const DuedateCalendar = ({OnpressDate,darkMode}) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -96,13 +96,13 @@ export const DuedateCalendar = ({OnpressDate,darkMode}) => {
         onPress={() => handleDateChange(date)}
         style={[
           styles.dayContainer,
-          { backgroundColor: isToday ? '#4bb058' : 'transparent', borderRadius: 20 ,justifyContent:'center',alignItems:'center'},styles.allCenter
+          { backgroundColor: isToday ? '#4bb058' : 'transparent', borderRadius: 20 ,justifyContent:'center',alignItems:'center' , },isSelected && Platform.OS==='ios'?radius(20):radius(20),styles.allCenter
           // isSelected && { borderColor: '#ff6347', borderWidth: 2 },
           // ,{ height: 35, justifyContent: 'center', alignItems: 'center' }
         ]}
       >
         <View style={[styles.allCenter]}>
-        <Text style={[styles.dayText, isToday && { color: darkMode?'black':'white',width:20 ,textAlign:'center'}, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:darkMode?'black':'white',textAlign:'center'},isRemainingDate && { color: darkMode?'white':'black' ,textAlign:'center'}]}>{date.day}</Text>
+        <Text style={[styles.dayText, isToday && { color: darkMode?'black':'white',width:20 ,textAlign:'center'}, isSelected && { backgroundColor: selectedColor , borderRadius:20,width:20,color:darkMode?'black':'white',textAlign:'center'},isRemainingDate && { color: darkMode?'white':'black' ,textAlign:'center'} , ]}>{date.day}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -177,7 +177,7 @@ export const DuedateCalendar = ({OnpressDate,darkMode}) => {
     
     <Calendar
     
-    style={[{ minHeight: heightValue(3)},darkMode?styles.bgdarkmodeBlack:styles.bgWhite]}
+    style={[{ minHeight: heightValue(3.2)},darkMode?styles.bgdarkmodeBlack:styles.bgWhite]}
         ref={calendarRef}
         onDayPress={handleDateChange}
         onMonthChange={handleMonthChange}

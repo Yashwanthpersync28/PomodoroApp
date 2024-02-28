@@ -40,7 +40,6 @@ import {
   isDoNotDisturbModeOn,
   openDoNotDisturbSettings,
 } from 'react-native-do-not-disturb';
-import AndroidOpenSettings from 'react-native-android-open-settings'
 import { useCallback } from 'react';
 export const StrictModeModal = ({ closeModal, currentModal, updateStrictMode }) => {
 
@@ -56,19 +55,10 @@ export const StrictModeModal = ({ closeModal, currentModal, updateStrictMode }) 
 console.log(BlockAllNotifications,'blocjNOdjbdjbhhjhvgh');
 // const [BlockAllNotification, setBlockAllNotifications] = useState(userPreference.BlockAllNotifications);
 
-const switchNotifications = () => {
-  if (!BlockAllNotifications) {
-    opensettings();
-  } else {
-    opensettings();
-  }
-  dispatch(setStrictModePreference({...userPreference, BlockAllNotifications: !BlockAllNotifications}));
-};
-
-const opensettings=()=>{
-  AndroidOpenSettings.generalSettings()
-}
-
+  const _openAppSetting = useCallback(async () => {
+    // Open the custom settings if the app has one
+    await Linking.openSettings();
+  });
 
 
   
@@ -118,7 +108,7 @@ const opensettings=()=>{
 
           <View style={[styles.row, styles.spaceAroundVertical, marginPosition(10, 0, 0, 0)]}>
             <TimerButton buttonText={'Cancel'} onPress={closeModal} widthVal={{ width: widthValue(2.5) }} paddingval={[padding(0, 15, 20)]} ButtonIcon={''} BgColor={[styles.bglightPink]} textColor={[styles.Orange]} />
-            <TimerButton buttonText={'Ok'} onPress={updateStrictMode} widthVal={{ width: widthValue(2.5) }} ButtonIcon={''} paddingval={[padding(0, 15, 20)]} BgColor={[styles.bgOrange]} textColor={[styles.white]} />
+            <TimerButton buttonText={'Ok'} onPress={_openAppSetting} widthVal={{ width: widthValue(2.5) }} ButtonIcon={''} paddingval={[padding(0, 15, 20)]} BgColor={[styles.bgOrange]} textColor={[styles.white]} />
           </View>
         </View>
       </Modal>

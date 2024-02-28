@@ -44,14 +44,14 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[styles.centerHorizontal, flex(0.2),Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
         <Calendar
-          style={[{ width: widthValue(1.2), minHeight: heightValue(2)},Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}
+          style={[{ width: widthValue(1.2), minHeight: heightValue(2.2)},Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}
           theme={{
             calendarBackground: Darkmode?'#20222a':'white',
             todayTextColor: 'white',
             todayBackgroundColor: 'blue',
             monthTextColor: Darkmode?'white':'black',
             textMonthFontSize: 18,
-            textMonthFontWeight: '700',
+            textMonthFontWeight: '500',
             indicatorColor: 'blue',
             arrowColor: 'black',
             arrowHeight: 10,

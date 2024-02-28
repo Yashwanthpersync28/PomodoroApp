@@ -213,7 +213,7 @@ const handleDeletedtasks=()=>{
             <View style={[{width:widthValue(16)},styles.allCenter]}>
             <Icon name={options.iconname} type={options.iconfamily} style={[options.name==='Delete'?styles.Orange:Darkmode?styles.inputColor:styles.black,fontSize(20),styles.textAlignVertical]}/>
             </View>
-            <Text style={[options.name==='Delete'?styles.Orange:Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('bold'),marginPosition(0,0,0,5)]}>{options.name}</Text>
+            <Text style={[options.name==='Delete'?styles.Orange:Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('500'),marginPosition(0,0,0,5)]}>{options.name}</Text>
            </View>
            </TouchableOpacity>
            )
@@ -229,7 +229,7 @@ const handleDeletedtasks=()=>{
           <Icon name={'circle'} type={Icons.Entypo} style={[styles.Orange,fontSize(20),fontWeight('bold')]}/>
       </View>
       <View style={[flex(2)]}>
-          <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold')]}>{CurrentTask?.Taskname||'wait'}</Text>
+          <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('500')]}>{CurrentTask?.Taskname||'wait'}</Text>
      </View>
      <View style={[flex(0.2)]}>
           <Icon name={'play'} type={Icons.AntDesign} style={[styles.Orange,fontSize(20)]}/>
@@ -240,12 +240,12 @@ const handleDeletedtasks=()=>{
         {taskdata.map((item,index)=>{
             return(
         <View style={[styles.row,{height:heightValue(16)},styles.centerHorizontal,borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0,0,1)]}>
-        <Icon name={item.startIcon} type={item.startIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(20),marginPosition(0,10)]}/>
-        <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(20),fontWeight('bold')]}>{item.name}</Text>
+        <Icon name={item.startIcon} type={item.startIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[Darkmode?styles.inputColor:styles.black,fontSize(18),marginPosition(0,10)]}/>
+        <Text style={[Darkmode?styles.inputColor:styles.black,fontSize(18),fontWeight('500')]}>{item.name}</Text>
         <View style={[flex(1),styles.flexEnd,marginPosition(0,10)]}>
         <Text style={[Darkmode?styles.inputColor:styles.black,fontWeight('bold')]}>{item.details}</Text>
         </View>
-        <Icon name={item.endIcon} type={item.endIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[{color:item.endIconcolor},fontSize(20)]}/>
+        <Icon name={item.endIcon} type={item.endIcon==='timer'?Icons.MaterialCommunityIcons:Icons.Feather} style={[{color:item.endIconcolor},fontSize(18)]}/>
 
         </View> 
             )

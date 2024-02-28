@@ -12,7 +12,6 @@ import com.facebook.soloader.SoLoader;
 import com.pomodoro.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import com.levelasquez.androidopensettings.AndroidOpenSettingsPackage; 
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -33,8 +32,6 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-                  new AndroidOpenSettingsPackage();
-
           return packages;
         }
 
