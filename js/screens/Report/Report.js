@@ -107,11 +107,6 @@ useEffect(() => {
   
 }, [showpomodoro]);
 
-
- 
-
-
-
   return (
     <SafeAreaView style={[flex(1), paddingPosition(0, 20, 0, 20),Darkmode?styles.bgdarkmodeBlack: styles.bglgWhite]}>
     <StatusBar backgroundColor = {Darkmode?Colors.darkmodeBlack:Colors.white} barStyle={Darkmode ? "light-content" : "dark-content"}/>
@@ -185,7 +180,6 @@ useEffect(() => {
       </View>
     </TouchableOpacity>
   ))}
-
       </>}
 </View>
 
@@ -197,7 +191,7 @@ useEffect(() => {
               <View style={[zIndex(0),Darkmode?styles.bgtaskCardDblack:styles.bgWhite]}>
                      <TouchableWithoutFeedback onPress={()=>setClickedDropdown(true)}>
                      {showpomodoro ? 
-                         (Name === 'Weekly' && <PomodoroRecords />) ||
+                         (Name === 'Weekly' && <PomodoroRecords/>) ||
                          (Name === 'Monthly' && <ProgressCalendar />) ||
                          (Name === 'Biweekly' && <NotaskFound name={'No Data Found'} bgcolor={true}/>)
                            : 
@@ -220,3 +214,4 @@ useEffect(() => {
     </SafeAreaView>
   )
 }
+

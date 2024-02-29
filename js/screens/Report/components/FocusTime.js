@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import ProgressBar from 'react-native-progress/Bar';
+import { Bar } from 'react-native-progress';
 import { flex, fontSize, marginPosition, styles } from '../components/../../../styles/Styles';
 import { useSelector } from 'react-redux';
 import { calculateFocusTime, getCompletedTasks, getTodayCompletedfocusTime } from '../../../constants/getCompletedTasksFunctions';
@@ -58,14 +58,14 @@ console.log('dxfcgvhbjn',tempdata);
   tempdata.sort((a, b) => b.value - a.value);//sorting for highest to lowest
   return (
     <>
-    {completedproject.length>0 ?
+    {completedproject.length>0 ?   
     <View style={[{ flexDirection: 'column', justifyContent: 'space-around' }]}>
       
       {tempdata.map((progress, index) => (
         <View key={index} style={[marginPosition(10, 10, 10, 10)]}>
           <Text style={[Darkmode?styles.inputColor:styles.black, fontSize(14)]}>{tempdata[index].name}</Text>
           <View style={[styles.row, { alignItems: 'center' }]}>
-            <ProgressBar
+            <Bar
               progress={maxFocusTime ? (progress.value / maxFocusTime) : 0}
               width={maxFocusTime ? 250 : 0}
               color={progress.color} // Set color based on index
