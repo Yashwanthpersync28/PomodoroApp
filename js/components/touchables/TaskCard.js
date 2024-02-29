@@ -78,7 +78,7 @@ console.log('taskSessionsffffg',Sessions)
                             </Text>
                             <View style={[styles.row, marginPosition(8)]}>
                                 <Text style={[{color:prioritycolor}, marginPosition(0, 10),{fontWeight:'400'}]}>{priorityname}</Text>
-                                <Text style={[{color:projectColor}, marginPosition(0, 10),{fontWeight:'400'}]}>{tagname}</Text>
+                                <Text style={[{color:projectColor}, marginPosition(0, 10),{fontWeight:'400',width:170}]}>{tagname}</Text>
                             </View>
                             <View style={[styles.row, marginPosition(15), styles.centerHorizontal]}>
                                 <View style={[styles.row, styles.centerHorizontal]}>

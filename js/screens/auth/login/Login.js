@@ -173,7 +173,7 @@ useEffect(()=>{
       Iconname={'email'}
       bgColor={Darkmode?styles.bgtaskCardDblack:styles.bglgWhite}
       showGray={Darkmode?true:false}
-      autoFocus={true}
+      autoFocus={Email===''}
 
     />
     {EmailError===''?null:

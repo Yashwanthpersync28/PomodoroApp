@@ -112,13 +112,13 @@ export const Swipercomponent = ({handleIndex}) => {
       </Swiper>
       </View>
       <View style={[paddingPosition(0,20,0,20),Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,flex(0.2)]}>
-       <View style={[Platform.OS==='android' && styles.allCenter,styles.row,styles.spaceBetweenVertical,Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,marginPosition(10),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,2),{height:heightValue(7)}]}>
+       <View style={[Platform.OS==='android' && styles.allCenter,styles.row,styles.spaceBetweenVertical,Darkmode?styles.bgdarkmodeBlack:styles.bgWhite,marginPosition(10),borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray),borderWidth(0,0.8),{height:heightValue(7)}]}>
        {getStarted? <> 
-                <CustomizedButtons name={'Skip'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{width:widthValue(2.4)},Platform.OS==='ios' && marginPosition(16)]} handlecontinue={handleit}/>
-                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(2.4)},Platform.OS==='ios' && marginPosition(16)]}/>
+                <CustomizedButtons name={'Skip'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{width:widthValue(2.4)},Platform.OS==='ios' && marginPosition(14)]} handlecontinue={handleit}/>
+                 <CustomizedButtons name={'Continue'} handlecontinue={handlenext} bgcolor={styles.bgOrange} color={styles.white}style={[{width:widthValue(2.4)},Platform.OS==='ios' && marginPosition(14)]}/>
           
            </>:
-           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)},Platform.OS==='ios' && marginPosition(16)]}/>
+           <CustomizedButtons name={'Get Started'} handlecontinue={handleit} bgcolor={styles.bgOrange} color={styles.white} style={[{width:widthValue(1.1)},Platform.OS==='ios' && marginPosition(14)]}/>
         }
         </View>
     </View>

@@ -188,8 +188,8 @@ const handleChangeText = (val) => {
         />
         <View style={[styles.allCenter]}>
               <View style={[{ height: heightValue(10) ,width:widthValue(1.1)},  styles.allCenter, styles.row, styles.spaceBetweenVertical, Darkmode?styles.bgdarkmodeBlack:styles.bgsmokewhite, borderColor(Darkmode?Colors.darkmodeBorderColor:Colors.borderGray), borderWidth(0, 1)]}>
-                   <CustomizedButtons handlecontinue={()=>{HandleToProject?handletoAddtask(5):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{ width: widthValue(3) }]} />
-                   <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(3) }]} />
+                   <CustomizedButtons handlecontinue={()=>{HandleToProject?handletoAddtask(5):navigation.navigate('manageProjectandTags')}} name={'Cancel'} bgcolor={Darkmode?styles.bgDarkmodebutton:styles.bgsmokeOrange} color={Darkmode?styles.white:styles.Orange} style={[{ width: widthValue(2.5) }]} />
+                   <CustomizedButtons disable={buttoncolor === styles.bgdarkOrange} handlecontinue={handleAdd} name={'ADD'} bgcolor={buttoncolor} color={styles.white} style={[{ width: widthValue(2.5) }]} />
               </View>
          </View>
     {/* </View> */}
