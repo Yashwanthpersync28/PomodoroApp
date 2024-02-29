@@ -37,18 +37,18 @@ CompletionSounds : [
         {id:'6',MusicName:'Shadow',song:'shadow.mp3'},
     ],
     focusTime:[
-        {id:'1', focusTime: 10},
+        {id:'1', focusTime: 1500},
         {id:'2', focusTime: 1800},
         {id:'3', focusTime: 2700},
         {id:'4', focusTime: 3600}
     ],
     breakTime:[
-        {id:'1', breakTime: 8},
+        {id:'1', breakTime: 240},
         {id:'2', breakTime: 300},
         {id:'3', breakTime: 600},
     ],
     longBreakTime:[
-        {id:'1', longBreak: 30},
+        {id:'1', longBreak: 900},
         {id:'2', longBreak: 1200},
         {id:'3', longBreak: 1500},
     ],

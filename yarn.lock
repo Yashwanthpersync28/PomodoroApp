@@ -7126,11 +7126,6 @@ react-native-colored-scrollbar@^1.0.0:
   dependencies:
     prop-types "^15.8.0"
 
-react-native-do-not-disturb@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/react-native-do-not-disturb/-/react-native-do-not-disturb-0.2.1.tgz"
-  integrity sha512-pE1OP6dmhhze/7z/2UPUHuMosGdg7xCLnB9M6RhAHLQuB8BEbc+V8mDr6LPvmGXXlh/TKpGEi50+HeO9RD1rcA==
-
 react-native-document-picker@^8.2.2:
   version "8.2.2"
   resolved "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-8.2.2.tgz"

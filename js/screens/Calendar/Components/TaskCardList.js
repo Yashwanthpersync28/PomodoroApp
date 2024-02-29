@@ -27,13 +27,13 @@ import { shadow } from 'react-native-paper';
 export const TaskCardList = ({title,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,completed}) => {
   const darkMode = useSelector(state=>state.system.darkMode)
 
-    console.log('priorityname',priorityname)
+    console.log('tagColor',tagColor)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
 console.log('taskSessions',taskSessions)
     const dispatch = useDispatch();
     return (
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.2)},completed?{backgroundColor:'#ffffff60'}:(darkMode?styles.bgtaskCardDblack:styles.bgWhite),radius(0,5,5,0,0)]}>
-            <View style={[{ width: 4,height:147 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 4,minHeight:147 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
@@ -61,7 +61,7 @@ console.log('taskSessions',taskSessions)
                             </Text>
                             <View style={[styles.row, marginPosition(8)]}>
                                 <Text style={[styles.brown, marginPosition(0, 10),{fontWeight:'400'}]}>{priorityname}</Text>
-                                <Text style={[styles.timerBlue, marginPosition(0, 10),{fontWeight:'400'}]}>{tagname}</Text>
+                                <Text style={[{color:tagColor[0]}, marginPosition(0, 10,5),{fontWeight:'400',width:170}]}>{tagname}</Text>
                             </View>
                             <View style={[styles.row, marginPosition(15), styles.centerHorizontal]}>
                                 <View style={[styles.row, styles.centerHorizontal]}>
@@ -70,7 +70,7 @@ console.log('taskSessions',taskSessions)
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal]}>
                                     <Icon name={"sun"} type={Icons.Feather} style={[fontSize(22),marginPosition(0, 15, 0, 15) ,styles.green]} />
-                                    <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 15, 0, 10),{color:tagColor}]} />
+                                    <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 15, 0, 10),{color:tagColor[0]}]} />
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal,]}>
                                     <Icon name={"bag-personal"} type={Icons.MaterialCommunityIcons} style={[{color:projectColor}, fontSize(22), marginPosition(0, 8)]} />
@@ -83,8 +83,7 @@ console.log('taskSessions',taskSessions)
                 <View style={[{ width: 25, height: 25, borderRadius: 13 ,marginTop:0,marginRight:10}, styles.bgtomotoRed, styles.allCenter]}>
                     <Icon name={"play"} type={Icons.FontAwesome} style={[styles.white, fontSize(14)]} />
                 </View>
-            </View>
-            
+            </View>        
         </View>
     )
 }

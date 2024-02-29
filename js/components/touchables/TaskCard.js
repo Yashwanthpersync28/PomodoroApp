@@ -30,11 +30,14 @@ import { current } from '@reduxjs/toolkit';
 import { Logout } from '../../screens/SettingsScreen/Logout/Logout';
 
 export const TaskCard = ({setSelectedTask,title,updateTask,priorityname,tagname,projectname,Sessions,tagColor,projectColor,id,prioritycolor,completed,setdata,fulldata,setTaskColor,isTimerActive,currentModal,setDisplaySession}) => {
-    console.log('priorityname',priorityname)
+    console.log('tagColor',tagColor)
     const taskSessions = useSelector((state)=>state.user.taskSessions.session)
   const sessionNumber = useSelector((state)=>state.user.taskSessions.session);
   const localSession = useSelector((state)=>state.user.localSession.localSession);
 
+const colors = tagColor.map((color)=>{
+    console.log(color)
+})
 
 console.log('taskSessionsffffg',Sessions)
     const dispatch = useDispatch();
@@ -51,7 +54,7 @@ console.log('taskSessionsffffg',Sessions)
                     
         <View style={[styles.row,marginPosition(10,0,10,0),{width:widthValue(1.15)},completed?{backgroundColor:'#ffffff60'}:darkMode?styles.bgtaskCardDblack:styles.bgWhite,
 ]}>
-            <View style={[{ width: 4,height:132 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
+            <View style={[{ width: 4,minHeight:132 ,backgroundColor: projectColor }, radius(0, 0, 0, 5, 5),]}></View>
             <View
                 style={[
                     styles.row,
@@ -64,7 +67,7 @@ console.log('taskSessionsffffg',Sessions)
                 <View style={[
                     styles.row,
                     styles.spaceBetweenVertical,
-                    { width: widthValue(1.4) },
+                    { width: widthValue(1.3) },
                     paddingPosition(0, 0, 15,0),
                     completed?{backgroundColor:'#ffffff50'}:darkMode?styles.bgtaskCardDblack:styles.bgWhite
                 ]}>
@@ -78,7 +81,7 @@ console.log('taskSessionsffffg',Sessions)
                             </Text>
                             <View style={[styles.row, marginPosition(8)]}>
                                 <Text style={[{color:prioritycolor}, marginPosition(0, 10),{fontWeight:'400'}]}>{priorityname}</Text>
-                                <Text style={[{color:projectColor}, marginPosition(0, 10),{fontWeight:'400'}]}>{tagname}</Text>
+                                <Text style={[{color:tagColor[0]}, marginPosition(0, 10),{fontWeight:'400',width:170}]}>{`#${tagname}`}</Text>
                             </View>
                             <View style={[styles.row, marginPosition(15), styles.centerHorizontal]}>
                                 <View style={[styles.row, styles.centerHorizontal]}>
@@ -87,7 +90,7 @@ console.log('taskSessionsffffg',Sessions)
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal]}>
                                     <Icon name={"sun"} type={Icons.Feather} style={[fontSize(22),marginPosition(0, 15, 0, 15) ,styles.green]} />
-                                    <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 15, 0, 10),{color:tagColor}]} />
+                                    <Icon name={"flag"} type={Icons.Feather} style={[fontSize(22), marginPosition(0, 15, 0, 10),{color:tagColor[0]}]} />
                                 </View>
                                 <View style={[styles.row, styles.centerHorizontal]}>
                                     <Icon name={"bag-personal"} type={Icons.MaterialCommunityIcons} style={[{color:projectColor}, fontSize(22), marginPosition(0, 8)]} />

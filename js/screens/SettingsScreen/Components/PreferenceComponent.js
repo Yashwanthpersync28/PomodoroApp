@@ -10,16 +10,16 @@ import { useSelector } from 'react-redux'
   const darkMode = useSelector(state=>state.system.darkMode)
   
   return (
-    <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,14,10)]} onPress={onPress} >
+    <TouchableOpacity style={[styles.spaceBetweenVertical,styles.centerHorizontal,styles.row,padding(0,16,10)]} onPress={onPress} >
         <Text style={[fontSize(18),darkMode?styles.white:styles.black,{fontWeight:"500"}]}>{PreferanceName}</Text>
         <View style={[styles.row,styles.centerHorizontal]}>
 
-        <View style={[styles.row,marginPosition(0,10,0),]}>
+        <View style={[styles.row,marginPosition(0,10,0)]}>
           {showDetail &&
           <View style={[styles.row,styles.centerVertical]}>
           <Text style={[margin(0,0,10),darkMode?styles.white:styles.black,{fontWeight:'500'},fontSize(18)]}>{detail1}</Text>
           <Icon name={name} type={Icontype}  style={[,darkMode?styles.white:styles.black,fontSize(20),]} />
-          <Text style={[margin(0,0,10),,darkMode?styles.white:styles.black,{fontWeight:'500'},fontSize(18)]}>{detail2}</Text>
+          <Text style={[margin(0,0,10),darkMode?styles.white:styles.black,{fontWeight:'500'},fontSize(18)]}>{detail2}</Text>
           </View> }
         </View>
         {showIcon === true ?

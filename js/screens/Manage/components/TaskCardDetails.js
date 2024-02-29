@@ -60,7 +60,6 @@ const Darkmode=useSelector((state)=>state.system.darkMode);
             <Icon name={'flag'} type={Icons.Feather} style={[{color:dataitem.Priority.color},fontSize(20),marginPosition(0,10)]}/>
             <Icon name={'briefcase'} type={Icons.Octicons} style={[{color:dataitem.Project.Color},fontSize(20),marginPosition(0,10)]}/>
             <Text style={[Darkmode?styles.smokeGray:styles.gray]}>{dataitem.Project.Projectname}</Text>   
-                
             </View>
             {/* //options */}
             {showOptionsIndex === index && (

@@ -387,13 +387,13 @@ const completedPomodoro = () => {
     
     
     (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),dispatch(setCurrentModal(14)),stopedTime(),setTaskColor(darkMode?'#20222a':'white'),setDisplaySession('No Session')) 
-       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0),secondTimerComplete())
+       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0),secondTimerComplete(),setTaskColor(darkMode?'#20222a':'white'),clearTask())
       }
   }
   const stopTheTask = ()=>{
     {timerMode === 0 ? 
       (setIsTimerActive(false), setCurrentButton(0),  setDisplayTime(FocusTime), setBarColor('#ff6347'),clearTask(),uncompleteTime()) 
-       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0))
+       :  ( setCurrentButton(0), setSecondTime(0*60),setSecondFocusProgress(0),clearTask())
       }
   }
   const handleStop = () => {

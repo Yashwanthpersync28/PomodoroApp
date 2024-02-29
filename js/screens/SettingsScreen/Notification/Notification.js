@@ -63,7 +63,7 @@ export const Notification = () => {
     <View style={[{width:widthValue(1),height:heightValue(10)}]}>
       <Header  color={darkMode?styles.lightWhite:styles.black} IconNameLeft={'arrowleft'} IconfamilyLeft={Icons.AntDesign} showLeftIocn={true} headername={'Notification'} goBack={PreviousScreen}/>
       </View> 
-      <View  showsVerticalScrollIndicator={false} style={[{height:heightValue(1)}]}>
+      <View  showsVerticalScrollIndicator={false} style={[{height:heightValue(1.2)}]}>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}    PreferanceName={'Pomodoro Alerts'} isEnabled={PomodoroAlerts}  switchFunction={switchPomoAlerts}/>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={'white'}     PreferanceName={'Security Alerts'} isEnabled={SecurityAlerts} switchFunction={switchSecurity}/>
         <PreferenceComponent  showIcon={false} showDetail={false} thumbColor={'white'}    PreferanceName={'Task Reminders'} isEnabled={TaskReminders} switchFunction={switchTaskReminder}/>

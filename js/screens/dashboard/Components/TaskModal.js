@@ -139,11 +139,18 @@ console.log('id', taskDetails.map(data=>data.id))
                         </View>  :
                         <View> 
 
-                  {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details.Sessions),
+                  {filteredTasks.map((details)=>  (console.log("kvdblkdnvlddsva", details),
                      
                   
                     <View style={[{width: widthValue(1.8) }]}>
-                       <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
+                       <TaskCard closeModal={closeModal} setSelectedTask={setSelectedTask}  updateTask={updateTask} title={details.Taskname} priorityname={details.Priority.name} 
+                       
+                    //    {dataitem.Tags.map((tags,index)=>{
+                    //     return(
+                    //            <Text key={index} style={[{color:tags.color},marginPosition(0,5)]}>{`#${tags.name}`}</Text> 
+                    //     )
+                    // })}
+                       tagname={details.Tags.map(tag=>tag.name).join()} tagColor={details.Tags.map(tag=>tag.color)}
                        projectname={details.Project.Projectname} completed={details.completed} setdata={setdata} fulldata={details} setTaskColor={setTaskColor}
                         Sessions={details.Sessions}  projectColor={details.Project.Color} prioritycolor={details.Priority.color}  id={details.id} isTimerActive={isTimerActive} currentModal={currentModal} setDisplaySession={setDisplaySession}/> 
                         </View>

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { flex, fontSize, fontWeight, heightValue, marginPosition, padding, styles, widthValue } from '../../../styles/Styles';
 import { BackButtonComponent } from '../../../components/touchables/BackButton';
 import { HeadingComponent } from '../../../components/view/HeadingComponent';
-import { TextInputCompnent } from '../../../components/inputs/TextInputComponent';
+import { TextInputCompnent } from '../../../components/inputs/TextInputCompnent';
 import { ButtonComponent } from '../../../components/touchables/Button';
 import LoaderModalComponent from '../../../components/modals/LoaderModalComponent';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,6 +1,6 @@
 import { View, Text, Button,Alert, Platform } from 'react-native'
 import React,{useEffect} from 'react'
-import { styles, widthValue,flex, padding, heightValue } from '../../../styles/Styles'
+import { styles, widthValue,flex, padding, heightValue, margin, marginPosition, fontSize } from '../../../styles/Styles'
 import { useNavigation } from '@react-navigation/native'
 import { PreferenceComponent } from '../Components/PreferenceComponent'
 import { Header } from '../../Manage/components/Header'
@@ -156,8 +156,14 @@ return (
       {Platform.OS ==='ios'?
       (<PreferenceComponent  showIcon={false} showDetail={false} thumbColor={ 'white'}  PreferanceName={'Face ID'}   isEnabled={faceIdEnabled} switchFunction={enableFaceId}/>) :
       (<PreferenceComponent  showIcon={false} showDetail={false} PreferanceName={'Biometric ID'} isEnabled={isBioEnabled} switchFunction={enableBiometric}/>) }
+      
       <PreferenceComponent  showIcon={true}  showDetail={true}  PreferanceName={'Change Password'} detail2={''} onPress={changePassScreen}  />
+      <View>
       <PreferenceComponent  showIcon={true}  showDetail={true} detail1={''} detail2={''}  PreferanceName={'Delete Account'} onPress={()=>{dispatch(setCurrentModal(26))}}/>
+      <Text style={[marginPosition(-5,0,0,10),fontSize(15)]}>Permanently remove your account account and data.</Text>
+      <Text style={[marginPosition(5,0,0,10),fontSize(15)]}>Proceed with Caution.</Text>
+      </View>
+      
         </View> 
     {modalVisible ? <LoaderModalComponent visible={modalVisible} onClose={() => setModalVisible(false)} name={'Deleting your Account'} handleLogin={deleteAcc}/> : null}
     {currentModal === 26 && <Logout HeaderName={'Delete Account'} VisibleAt={currentModal === 26} question={'Are you sure, you want to delete your Account Permanently ?'} option1={'No'} option2={'Yes'} OnPress1={()=>dispatch(setCurrentModal(0))} OnPress2={()=>{setModalVisible(true)}}/>}

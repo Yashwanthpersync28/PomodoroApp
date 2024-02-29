@@ -334,8 +334,6 @@ PODS:
     - glog
   - react-native-biometrics (3.0.1):
     - React-Core
-  - react-native-do-not-disturb (0.2.1):
-    - React-Core
   - react-native-document-picker (8.2.2):
     - React-Core
   - react-native-image-picker (5.3.1):
@@ -514,7 +512,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-biometrics (from `../node_modules/react-native-biometrics`)
-  - react-native-do-not-disturb (from `../node_modules/react-native-do-not-disturb`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -620,8 +617,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-biometrics:
     :path: "../node_modules/react-native-biometrics"
-  react-native-do-not-disturb:
-    :path: "../node_modules/react-native-do-not-disturb"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
   react-native-image-picker:
@@ -719,7 +714,6 @@ SPEC CHECKSUMS:
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-biometrics: 352e5a794bfffc46a0c86725ea7dc62deb085bdc
-  react-native-do-not-disturb: d3a205828ef3a73934c01f2af80960c90cad2c6c
   react-native-document-picker: cd4d6b36a5207ad7a9e599ebb9eb0c2e84fa0b87
   react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-safe-area-context: 0ee144a6170530ccc37a0fd9388e28d06f516a89
@@ -751,4 +745,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 470bcab843747f4a80d222a5aab8f7f9ebca3c47
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.14.3

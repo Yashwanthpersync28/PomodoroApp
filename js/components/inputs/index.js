@@ -1,2 +1,2 @@
 export { CheckBoxComponent } from "./CheckBoxComponent";
-export { TextInputCompnent } from "./TextInputComponent";
+export { TextInputCompnent } from "./TextInputCompnent";

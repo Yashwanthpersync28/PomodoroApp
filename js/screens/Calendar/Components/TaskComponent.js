@@ -16,7 +16,7 @@ import { TaskCardList } from './TaskCardList'
         <View style={[{marginLeft:5}]}>
         {tasks.map((details)=>(  
           // <Text style={[{color:details.Priority.color}]}>{details.Priority.color}</Text>
-      <TaskCardList  title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color).join('')}
+      <TaskCardList  title={details.Taskname} priorityname={details.Priority.name} tagname={details.Tags.map(tag=>tag.name).join('')} tagColor={details.Tags.map(tag=>tag.color)}
                        projectname={details.Project.Projectname}
                         Sessions={details.Sessions}  projectColor={details.Project.Color} key={details.id} id={details.id} setSelectedTask={setSelectedTask} prioritycolor={details.Priority.color} completed={false}
                         />  
